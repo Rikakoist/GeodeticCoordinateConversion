@@ -3,3 +3,5 @@
 ################################################################################
 
 /.vs
+/GeodeticCoordinateConversion/bin
+/GeodeticCoordinateConversion/obj
