@@ -70,14 +70,16 @@ namespace GeodeticCoordinateConversion
                 double l=0;
                 if (ZoneType == 6)// 按6度分带计算l
                 {
-                    CDEC.Zone = Convert.ToInt32(Math.Round((CDEC.L + 3) / 6));
-                    CDEC.Center = 6 * CDEC.Zone - 3;   //求6度带中央经线                  
+                    CDEC.ZoneType = GEOZoneType.Zone6;
+                    //CDEC.Zone = Convert.ToInt32(Math.Round((CDEC.L + 3) / 6));
+                    //CDEC.Center = 6 * CDEC.Zone - 3;   //求6度带中央经线                  
                     l = CDEC.L - CDEC.Center;
                 }
                 else if (ZoneType == 3)
                 {
-                    CDEC.Zone = Convert.ToInt32(Math.Round(CDEC.L / 3));
-                    CDEC.Center = 3 * CDEC.Zone;
+                    CDEC.ZoneType = GEOZoneType.Zone3;
+                    //CDEC.Zone = Convert.ToInt32(Math.Round(CDEC.L / 3));
+                    //CDEC.Center = 3 * CDEC.Zone;
                     l = CDEC.L - CDEC.Center;
                 }
                 l *= 3600;
