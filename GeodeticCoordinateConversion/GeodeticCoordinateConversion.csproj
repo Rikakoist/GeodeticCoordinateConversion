@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="DBIO.cs" />
     <Compile Include="Ellipse.cs" />
+    <Compile Include="ErrMessages.cs" />
     <Compile Include="FileIO.cs" />
     <Compile Include="GeoCalc.cs" />
     <Compile Include="CoordConversion.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="Obj.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Restraints.cs" />
     <EmbeddedResource Include="CoordConvert.resx">
       <DependentUpon>CoordConvert.cs</DependentUpon>
     </EmbeddedResource>

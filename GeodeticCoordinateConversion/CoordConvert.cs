@@ -173,7 +173,7 @@ namespace GeodeticCoordinateConversion
         //选择椭球
         private void ChangeEllipse(object sender, EventArgs e)
         {
-            E = new Ellipse((EllipseType)(EllipseMethod.SelectedIndex+1));
+            E = new Ellipse((GEOEllipseType)(EllipseMethod.SelectedIndex+1));
             SetHint("椭球已更改为" + EllipseMethod.SelectedItem.ToString());
         }
 
@@ -836,7 +836,7 @@ namespace GeodeticCoordinateConversion
             try
             {
                 EllipseMethod.SelectedIndex = 0;
-                E = new Ellipse((EllipseType)(EllipseMethod.SelectedIndex+1));    //初始默认椭球
+                E = new Ellipse((GEOEllipseType)(EllipseMethod.SelectedIndex+1));    //初始默认椭球
                 WorkFolder.Text = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
                 SettingsOperation(-1);
                 DBPathTextBox.Text = WorkFolder.Text + "\\GeoConvertDB.mdb";
