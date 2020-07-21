@@ -79,13 +79,22 @@ namespace GeodeticCoordinateConversion
         }
         #endregion
 
-        //字符串截取(DDD.MMSS)
+        /// <summary>
+        /// 字符串转换到度分秒(DDD.MMSS)。
+        /// </summary>
+        /// <param name="InputStr">要转换到度分秒的字符串。</param>
+        /// <returns>转换的结果。</returns>
         internal static DMS Str2DMS(string InputStr)
         {
             DMS ResultDMS = new DMS();
+            if((InputStr.IndexOf('.') == 0)|| (InputStr.IndexOf('.') == InputStr.Length-1)||((InputStr.Split('.')).Length>2))
+            {
+                throw new FormatException(ErrMessage.WrongDigitPosition);
+            }
             if (InputStr.IndexOf('.') > 0)
             {
                 string[] SplitStr = InputStr.Split('.');
+                //小数点后补0至四位
                 while (SplitStr[1].Length < 4)
                 {
                     SplitStr[1] += "0";

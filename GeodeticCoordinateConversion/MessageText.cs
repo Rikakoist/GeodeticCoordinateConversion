@@ -7,14 +7,34 @@ using System.Threading.Tasks;
 namespace GeodeticCoordinateConversion
 {
     /// <summary>
-    /// 错误讯息。
+    /// 错误信息。
     /// </summary>
-    public static class ErrMessages
+    public static class ErrMessage
     {
         /// <summary>
         /// 传入了未知的参数。
         /// </summary>
         public static string ArgumentUnknown = "传入了未知的参数。";
+        /// <summary>
+        /// 操作被用户取消。
+        /// </summary>
+        public static string OpertionCanceledByUser = "操作被用户取消。";
+        /// <summary>
+        /// 转换操作失败。
+        /// </summary>
+        public static string ConvertOperationFailed = "上一次坐标转换操作出现问题，请检查后重试。";
+        /// <summary>
+        /// 当前选定的选项卡不包含计算用数据框。
+        /// </summary>
+        public static string DataGridViewNotExist = "当前选定的选项卡不包含计算用数据框。";
+        /// <summary>
+        /// 数据框为空。
+        /// </summary>
+        public static string EmptyDataGridView = "数据框为空。";
+        /// <summary>
+        /// 字符串小数点位置错误。
+        /// </summary>
+        public static string WrongDigitPosition = "字符串小数点位置错误。";
         /// <summary>
         /// 度超限。
         /// </summary>
@@ -48,4 +68,13 @@ namespace GeodeticCoordinateConversion
         /// </summary>
         public static string Zone6OutOfRange = "6度分带带号应介于" + Restraints.Zone6Min.ToString() + " - " + Restraints.Zone6Max.ToString() + " 间。";
     }
+
+    /// <summary>
+    /// 提示信息。
+    /// </summary>
+    public static class Hints
+    {
+        
+    }
+    
 }

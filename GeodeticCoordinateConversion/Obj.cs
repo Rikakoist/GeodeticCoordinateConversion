@@ -32,9 +32,9 @@ namespace GeodeticCoordinateConversion
             }
             set
             {
-                if ((value < Restraints.DegreeMin)||(value>Restraints.DegreeMax))
+                if ((value < Restraints.DegreeMin) || (value > Restraints.DegreeMax))
                 {
-                    throw new ArgumentOutOfRangeException(ErrMessages.DegreeOutOfRange);
+                    throw new ArgumentOutOfRangeException(ErrMessage.DegreeOutOfRange);
                 }
                 else
                 {
@@ -50,9 +50,9 @@ namespace GeodeticCoordinateConversion
             }
             set
             {
-                if ((value < Restraints.MinuteMin)||(value>Restraints.MinuteMax))
+                if ((value < Restraints.MinuteMin) || (value > Restraints.MinuteMax))
                 {
-                    throw new ArgumentOutOfRangeException(ErrMessages.MinuteOutOfRange);
+                    throw new ArgumentOutOfRangeException(ErrMessage.MinuteOutOfRange);
                 }
                 else
                 {
@@ -68,9 +68,9 @@ namespace GeodeticCoordinateConversion
             }
             set
             {
-                if ((value < Restraints.SecondMin)||(value>Restraints.SecondMax))
+                if ((value < Restraints.SecondMin) || (value > Restraints.SecondMax))
                 {
-                    throw new ArgumentOutOfRangeException(ErrMessages.SecondOutOfRange);
+                    throw new ArgumentOutOfRangeException(ErrMessage.SecondOutOfRange);
                 }
                 else
                 {
@@ -93,6 +93,19 @@ namespace GeodeticCoordinateConversion
     {
         public DMS B;
         public DMS L;
+        public BL()
+        {
+            this.B = new DMS(); this.L = new DMS();
+        }
+        public BL(string B, string L)
+        {
+            this.B = GeoCalc.Str2DMS(B);
+            this.L = GeoCalc.Str2DMS(L);
+        }
+        public BL(DMS B, DMS L)
+        {
+            this.B = B; this.L = L;
+        }
     }
 
     /// <summary>
@@ -116,7 +129,7 @@ namespace GeodeticCoordinateConversion
             {
                 if ((value < Restraints.BiotitudeMin) || (value > Restraints.BiotitudeMax))
                 {
-                    throw new ArgumentOutOfRangeException(ErrMessages.BiotitudeOutOfRange);
+                    throw new ArgumentOutOfRangeException(ErrMessage.BiotitudeOutOfRange);
                 }
                 else
                 {
@@ -134,7 +147,7 @@ namespace GeodeticCoordinateConversion
             {
                 if ((value < Restraints.LongitudeMin) || (value > Restraints.LongitudeMax))
                 {
-                    throw new ArgumentOutOfRangeException(ErrMessages.LongitudeOutOfRange);
+                    throw new ArgumentOutOfRangeException(ErrMessage.LongitudeOutOfRange);
                 }
                 else
                 {
@@ -152,7 +165,7 @@ namespace GeodeticCoordinateConversion
             {
                 if ((value < Restraints.LongitudeMin) || (value > Restraints.LongitudeMax))
                 {
-                    throw new ArgumentOutOfRangeException(ErrMessages.LongitudeOutOfRange);
+                    throw new ArgumentOutOfRangeException(ErrMessage.LongitudeOutOfRange);
                 }
                 else
                 {
@@ -172,13 +185,13 @@ namespace GeodeticCoordinateConversion
                 {
                     case GEOZoneType.None:
                         {
-                            throw new ArgumentException(ErrMessages.ZoneTypeNotSet);
+                            throw new ArgumentException(ErrMessage.ZoneTypeNotSet);
                         }
                     case GEOZoneType.Zone3:
                         {
                             if ((value < Restraints.Zone3Min) || (value > Restraints.Zone3Max))
                             {
-                                throw new ArgumentOutOfRangeException(ErrMessages.Zone3OutOfRange);
+                                throw new ArgumentOutOfRangeException(ErrMessage.Zone3OutOfRange);
                             }
                             this.zone = value;
                             break;
@@ -187,14 +200,14 @@ namespace GeodeticCoordinateConversion
                         {
                             if ((value < Restraints.Zone6Min) || (value > Restraints.Zone6Max))
                             {
-                                throw new ArgumentOutOfRangeException(ErrMessages.Zone6OutOfRange);
+                                throw new ArgumentOutOfRangeException(ErrMessage.Zone6OutOfRange);
                             }
                             this.zone = value;
                             break;
                         }
                     default:
                         {
-                            throw new ArgumentException(ErrMessages.ArgumentUnknown);
+                            throw new ArgumentException(ErrMessage.ArgumentUnknown);
                         }
                 }
             }
@@ -220,7 +233,7 @@ namespace GeodeticCoordinateConversion
         }
         public DEC()
         {
-
+            this.B = 0.0; this.L = 0.0; this.zoneType = GEOZoneType.None;
         }
 
         public DEC(double B, double L, GEOZoneType ZoneType)
@@ -234,23 +247,23 @@ namespace GeodeticCoordinateConversion
             {
                 case GEOZoneType.None:
                     {
-                        throw new ArgumentException(ErrMessages.ZoneTypeNotSet);
+                        throw new ArgumentException(ErrMessage.ZoneTypeNotSet);
                     }
                 case GEOZoneType.Zone3:
                     {
                         this.Zone = Convert.ToInt32(Math.Round(this.L / 3));
-                        this.Center = 3 * this.Zone;
+                        this.Center = 3.0 * this.Zone;
                         break;
                     }
                 case GEOZoneType.Zone6:
                     {
                         this.Zone = Convert.ToInt32(Math.Round((this.L + 3) / 6));
-                        this.Center = 6 * this.Zone - 3;
+                        this.Center = 6.0 * this.Zone - 3;
                         break;
                     }
                 default:
                     {
-                        throw new ArgumentException(ErrMessages.ArgumentUnknown);
+                        throw new ArgumentException(ErrMessage.ArgumentUnknown);
                     }
             }
             return true;

@@ -141,7 +141,7 @@ namespace GeodeticCoordinateConversion
                 }
                 else
                 {
-                    throw new Exception("数据框为空！");
+                    throw new Exception(ErrMessage.EmptyDataGridView);
                 }
             }
             catch (Exception err)
@@ -201,11 +201,7 @@ namespace GeodeticCoordinateConversion
                     {
                         for (int i = 0; i < Tab1InputDataGridView.Rows.Count - 1; i++)
                         {
-                            Tab1DMS.Add(new BL
-                            {
-                                B = GeoCalc.Str2DMS(Tab1InputDataGridView[0, i].Value.ToString()),
-                                L = GeoCalc.Str2DMS(Tab1InputDataGridView[1, i].Value.ToString()),
-                            });
+                            Tab1DMS.Add(new BL(Tab1InputDataGridView[0, i].Value.ToString(),Tab1InputDataGridView[1, i].Value.ToString()));
                         }
                         if (ThreeRadioButton.Checked)    //根据用户选择来决定转换方式（3、6）
                         {
@@ -254,13 +250,13 @@ namespace GeodeticCoordinateConversion
                 }
                 else
                 {
-                    throw new Exception("数据框为空！");
+                    throw new Exception(ErrMessage.EmptyDataGridView);
                 }
             }
             catch (Exception err)
             {
                 MessageBoxes.Error(err.Message);
-                SetHint("上一次坐标转换操作出现问题，请检查后重试！");
+                SetHint(ErrMessage.ConvertOperationFailed);
             }
         }
 
@@ -323,13 +319,13 @@ namespace GeodeticCoordinateConversion
                 }
                 else
                 {
-                    throw new Exception("数据框为空！");
+                    throw new Exception(ErrMessage.EmptyDataGridView);
                 }
             }
             catch (Exception err)
             {
                 MessageBoxes.Error(err.Message);
-                SetHint("上一次换带操作出现问题，请检查后重试！");
+                SetHint(ErrMessage.ConvertOperationFailed);
             }
         }
         #endregion
@@ -375,11 +371,7 @@ namespace GeodeticCoordinateConversion
                                     {
                                         T1F.Add(new Tab1File()
                                         {
-                                            Tab1FileBL = new BL
-                                            {
-                                                B = GeoCalc.Str2DMS(Tab1InputDataGridView[0, i].Value.ToString()),
-                                                L = GeoCalc.Str2DMS(Tab1InputDataGridView[1, i].Value.ToString()),
-                                            },
+                                            Tab1FileBL = new BL(Tab1InputDataGridView[0, i].Value.ToString(), Tab1InputDataGridView[1, i].Value.ToString()),
                                             Tab1FileGC = new GaussCoord
                                             {
                                                 x = Convert.ToDouble(Tab1InputDataGridView[3, i].Value),
@@ -394,7 +386,7 @@ namespace GeodeticCoordinateConversion
                                 }
                                 else
                                 {
-                                    throw new Exception("数据框为空！");
+                                    throw new Exception(ErrMessage.EmptyDataGridView);
                                 }
                             }
 
@@ -438,7 +430,7 @@ namespace GeodeticCoordinateConversion
                                 }
                                 else
                                 {
-                                    throw new Exception("数据框为空！");
+                                    throw new Exception(ErrMessage.EmptyDataGridView);
                                 }
                             }
                             break;
@@ -490,7 +482,7 @@ namespace GeodeticCoordinateConversion
                                 }
                                 else
                                 {
-                                    throw new Exception("数据框为空！");
+                                    throw new Exception(ErrMessage.EmptyDataGridView);
                                 }
                             }
 
@@ -530,14 +522,14 @@ namespace GeodeticCoordinateConversion
                                 }
                                 else
                                 {
-                                    throw new Exception("数据框为空！");
+                                    throw new Exception(ErrMessage.EmptyDataGridView);
                                 }
                             }
                             break;
                         }
                     default:
                         {
-                            SetHint("当前选定的选项卡不包含计算用数据框。");
+                            SetHint(ErrMessage.DataGridViewNotExist);
                             break;
                         }
                 }
@@ -738,11 +730,7 @@ namespace GeodeticCoordinateConversion
                                 {
                                     T1F.Add(new Tab1File()
                                     {
-                                        Tab1FileBL = new BL
-                                        {
-                                            B = GeoCalc.Str2DMS(TmpDataGridView[2, i].Value.ToString()),
-                                            L = GeoCalc.Str2DMS(TmpDataGridView[3, i].Value.ToString()),
-                                        },
+                                        Tab1FileBL = new BL(TmpDataGridView[2, i].Value.ToString(), TmpDataGridView[3, i].Value.ToString()),
                                         Tab1FileGC = new GaussCoord
                                         {
                                             x = Convert.ToDouble(TmpDataGridView[4, i].Value),
@@ -860,7 +848,7 @@ namespace GeodeticCoordinateConversion
                 }
                 else
                 {
-                    SetHint("操作被用户取消");
+                    SetHint(ErrMessage.OpertionCanceledByUser);
                 }
             }
             catch (Exception err)
