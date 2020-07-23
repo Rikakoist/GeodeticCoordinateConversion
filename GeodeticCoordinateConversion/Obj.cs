@@ -9,11 +9,57 @@ namespace GeodeticCoordinateConversion
     //高斯坐标类
     class GaussCoord
     {
+        private GEOZoneType zoneType;
         public int Type;    //带类型
         public int Zone;    //带号
         public double Center; //中央经线
         public double x;
         public double y;
+
+        public GEOZoneType ZoneType
+        {
+            get
+            {
+                return zoneType;
+            }
+            set
+            {
+                if (value == zoneType)
+                {
+                    return;
+                }
+                else
+                {
+                    this.zoneType = value;
+                }
+            }       
+    }
+
+        public bool GetCenter()
+        {
+            switch (this.ZoneType)
+            {
+                case GEOZoneType.None:
+                    {
+                        throw new ArgumentException(ErrMessage.ZoneTypeNotSet);
+                    }
+                case GEOZoneType.Zone3:
+                    {              
+                        this.Center = 3.0 * this.Zone;
+                        break;
+                    }
+                case GEOZoneType.Zone6:
+                    {
+                        this.Center = 6.0 * this.Zone - 3;
+                        break;
+                    }
+                default:
+                    {
+                        throw new ArgumentException(ErrMessage.ArgumentUnknown);
+                    }
+            }
+            return true;
+        }
     }
 
     /// <summary>
@@ -282,11 +328,11 @@ namespace GeodeticCoordinateConversion
         /// <summary>
         /// 3度带。
         /// </summary>
-        Zone3 = 1,
+        Zone3 = 3,
         /// <summary>
         /// 6度带。
         /// </summary>
-        Zone6 = 2
+        Zone6 = 6
     }
 
     class Tab1File

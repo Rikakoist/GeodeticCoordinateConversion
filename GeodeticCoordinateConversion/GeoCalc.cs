@@ -82,8 +82,8 @@ namespace GeodeticCoordinateConversion
         /// <summary>
         /// 字符串转换到度分秒(DDD.MMSS)。
         /// </summary>
-        /// <param name="InputStr">要转换到度分秒的字符串。</param>
-        /// <returns>转换的结果。</returns>
+        /// <param name="InputStr">要转换到度分秒(DDD.MMSS)的字符串。</param>
+        /// <returns>转换到的度分秒。</returns>
         internal static DMS Str2DMS(string InputStr)
         {
             DMS ResultDMS = new DMS();
@@ -120,19 +120,21 @@ namespace GeodeticCoordinateConversion
             return ResultDMS;
         }
 
-        //转换到字符串(To DDD.MMSS)
+        /// <summary>
+        /// 度分秒(DDD.MMSS)转换到字符串。
+        /// </summary>
+        /// <param name="InputDMS">要转换到字符串的度分秒(DDD.MMSS)。</param>
+        /// <returns>转换到的字符串。</returns>
         internal static string DMS2Str(DMS InputDMS)
         {
-            string D = InputDMS.D.ToString();
-            string M = InputDMS.M.ToString("00");
             string S = InputDMS.S.ToString();
 
-            //去除小数
+            //去除小数(是否造成问题？？？)
             while (S.Contains("."))
             {
-                S = (Convert.ToDouble(S) * 10).ToString();
+                S = (Convert.ToDouble(S) * 10.0).ToString();
             }
-            return D + "." + M + S;
+            return InputDMS.D.ToString() + "." + InputDMS.M.ToString("00") + S;
         }
 
         //求中央经线

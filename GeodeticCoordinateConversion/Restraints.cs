@@ -34,7 +34,7 @@ namespace GeodeticCoordinateConversion
         /// <summary>
         /// 秒最大值。
         /// </summary>
-        public static double SecondMax = 3600000.0;
+        public static double SecondMax = 1000000000000000;
         /// <summary>
         /// 纬度最小值。
         /// </summary>
