@@ -21,6 +21,7 @@ namespace GeodeticCoordinateConversion
         List<Tab1File> T1F = new List<Tab1File>();
         List<Tab2File> T2F = new List<Tab2File>();
         Ellipse E = new Ellipse(0);
+        ConfigIO configIO = new ConfigIO(Application.StartupPath + "\\GeoConversion.xml");
 
         public CoordConvert()
         {
@@ -115,8 +116,9 @@ namespace GeodeticCoordinateConversion
                     {
                         Tab1GC.Add(new GaussCoord
                         {
-                            x = Convert.ToDouble(Tab1InputDataGridView[3, i].Value),
-                            y = Convert.ToDouble(Tab1InputDataGridView[4, i].Value) - 500000, //-500km读取
+                            X = Convert.ToDouble(Tab1InputDataGridView[3, i].Value),
+                            Y = Convert.ToDouble(Tab1InputDataGridView[4, i].Value) - 500000, //-500km读取
+
                             ZoneType = (GEOZoneType)Convert.ToInt32(Tab1InputDataGridView[5, i].Value),
                             Zone = Convert.ToInt32(Tab1InputDataGridView[6, i].Value),
                         });
@@ -129,14 +131,14 @@ namespace GeodeticCoordinateConversion
                         {
                             case GEOZoneType.Zone3:
                                 {
-                                    Tab2InputDataGridView[3, i].Value = Tab1GC[i].x.ToString();
-                                    Tab2InputDataGridView[4, i].Value = Tab1GC[i].Zone.ToString() + (Tab1GC[i].y + 500000).ToString();
+                                    Tab2InputDataGridView[3, i].Value = Tab1GC[i].X.ToString();
+                                    Tab2InputDataGridView[4, i].Value = Tab1GC[i].Zone.ToString() + (Tab1GC[i].Y + 500000).ToString();
                                     break;
                                 }
                             case GEOZoneType.Zone6:
                                 {
-                                    Tab2InputDataGridView[0, i].Value = Tab1GC[i].x.ToString();
-                                    Tab2InputDataGridView[1, i].Value = Tab1GC[i].Zone.ToString() + (Tab1GC[i].y + 500000).ToString();
+                                    Tab2InputDataGridView[0, i].Value = Tab1GC[i].X.ToString();
+                                    Tab2InputDataGridView[1, i].Value = Tab1GC[i].Zone.ToString() + (Tab1GC[i].Y + 500000).ToString();
                                     break;
                                 }
                             default:
@@ -241,8 +243,8 @@ namespace GeodeticCoordinateConversion
 
                         for (int i = 0; i < Tab1GC.Count; i++)
                         {
-                            Tab1InputDataGridView[3, i].Value = Tab1GC[i].x.ToString();
-                            Tab1InputDataGridView[4, i].Value = (Tab1GC[i].y + 500000).ToString();  //+500km显示
+                            Tab1InputDataGridView[3, i].Value = Tab1GC[i].X.ToString();
+                            Tab1InputDataGridView[4, i].Value = (Tab1GC[i].Y + 500000).ToString();  //+500km显示
                             Tab1InputDataGridView[5, i].Value = ((int)Tab1GC[i].ZoneType).ToString();
                             Tab1InputDataGridView[6, i].Value = Tab1GC[i].Zone.ToString();
                         }
@@ -257,8 +259,8 @@ namespace GeodeticCoordinateConversion
                             Tab1GC.Add(new GaussCoord
                             {
                                 GEOEllipse = E,
-                                x = Convert.ToDouble(Tab1InputDataGridView[3, i].Value),
-                                y = Convert.ToDouble(Tab1InputDataGridView[4, i].Value) - 500000, //-500km读取
+                                X = Convert.ToDouble(Tab1InputDataGridView[3, i].Value),
+                                Y = Convert.ToDouble(Tab1InputDataGridView[4, i].Value) - 500000, //-500km读取
                                 ZoneType = (GEOZoneType)Convert.ToInt32(Tab1InputDataGridView[5, i].Value),
                                 Zone = Convert.ToInt32(Tab1InputDataGridView[6, i].Value),
                             });
@@ -303,8 +305,8 @@ namespace GeodeticCoordinateConversion
                             Tab26GC.Add(new GaussCoord
                             {
                                 GEOEllipse=E,
-                                x = Convert.ToDouble(Tab2InputDataGridView[0, i].Value),
-                                y = GeoCalc.GetY(Tab2InputDataGridView[1, i].Value.ToString()),
+                                X = Convert.ToDouble(Tab2InputDataGridView[0, i].Value),
+                                Y = GeoCalc.GetY(Tab2InputDataGridView[1, i].Value.ToString()),
                                 ZoneType=GEOZoneType.Zone6,
                                 Zone = GeoCalc.GetZoneNum(Tab2InputDataGridView[1, i].Value.ToString()),
                             });
@@ -316,8 +318,8 @@ namespace GeodeticCoordinateConversion
                         for (int i = 0; i < Tab23GC.Count; i++)
                         {
                             //Tab2InputDataGridView[3, i].Value = Tab23GC[i].x.ToString();
-                            Tab2InputDataGridView[3, i].Value = Tab26GC[i].x.ToString();    //转换前后X不变
-                            Tab2InputDataGridView[4, i].Value = Tab23GC[i].Zone.ToString() + (Tab23GC[i].y + 500000).ToString();
+                            Tab2InputDataGridView[3, i].Value = Tab26GC[i].X.ToString();    //转换前后X不变
+                            Tab2InputDataGridView[4, i].Value = Tab23GC[i].Zone.ToString() + (Tab23GC[i].Y + 500000).ToString();
                         }
                         SetHint(Hints.Zone6To3Success);
                     }
@@ -329,8 +331,8 @@ namespace GeodeticCoordinateConversion
                             Tab23GC.Add(new GaussCoord
                             {
                                 GEOEllipse=E,
-                                x = Convert.ToDouble(Tab2InputDataGridView[3, i].Value),
-                                y = GeoCalc.GetY(Tab2InputDataGridView[4, i].Value.ToString()),
+                                X = Convert.ToDouble(Tab2InputDataGridView[3, i].Value),
+                                Y = GeoCalc.GetY(Tab2InputDataGridView[4, i].Value.ToString()),
                                 ZoneType=GEOZoneType.Zone3,
                                 Zone = GeoCalc.GetZoneNum(Tab2InputDataGridView[4, i].Value.ToString()),
                             });
@@ -342,8 +344,8 @@ namespace GeodeticCoordinateConversion
                         for (int i = 0; i < Tab26GC.Count; i++)
                         {
                             //Tab2InputDataGridView[0, i].Value = Tab26GC[i].x.ToString();
-                            Tab2InputDataGridView[0, i].Value = Tab23GC[i].x.ToString();    //转换前后X不变
-                            Tab2InputDataGridView[1, i].Value = Tab26GC[i].Zone.ToString() + (Tab26GC[i].y + 500000).ToString();
+                            Tab2InputDataGridView[0, i].Value = Tab23GC[i].X.ToString();    //转换前后X不变
+                            Tab2InputDataGridView[1, i].Value = Tab26GC[i].Zone.ToString() + (Tab26GC[i].Y + 500000).ToString();
                         }
                         SetHint(Hints.Zone3To6Success);
                     }
@@ -376,15 +378,17 @@ namespace GeodeticCoordinateConversion
                             {
                                 T1F.Clear();
                                 Tab1InputDataGridView.Rows.Clear();
-                                T1F = IO.Tab1LoadFromFile(WorkFolder.Text + "\\GeoConversion.xml");
+                                
+                                T1F=configIO.Tab1LoadFromFile();
+                                //T1F = IO.Tab1LoadFromFile(WorkFolder.Text + "\\GeoConversion.xml");
 
                                 for (int i = 0; i < T1F.Count; i++)
                                 {
                                     Tab1InputDataGridView.Rows.Add();
                                     Tab1InputDataGridView[0, i].Value = GeoCalc.DMS2Str(T1F[i].Tab1FileBL.B);
                                     Tab1InputDataGridView[1, i].Value = GeoCalc.DMS2Str(T1F[i].Tab1FileBL.L);
-                                    Tab1InputDataGridView[3, i].Value = T1F[i].Tab1FileGC.x.ToString();
-                                    Tab1InputDataGridView[4, i].Value = T1F[i].Tab1FileGC.y.ToString();
+                                    Tab1InputDataGridView[3, i].Value = T1F[i].Tab1FileGC.X.ToString();
+                                    Tab1InputDataGridView[4, i].Value = T1F[i].Tab1FileGC.Y.ToString();
                                     Tab1InputDataGridView[5, i].Value = ((int)T1F[i].Tab1FileGC.ZoneType).ToString();
                                     Tab1InputDataGridView[6, i].Value = T1F[i].Tab1FileGC.Zone.ToString();
                                 }
@@ -402,17 +406,24 @@ namespace GeodeticCoordinateConversion
                                     {
                                         T1F.Add(new Tab1File()
                                         {
-                                            Tab1FileBL = new BL(Tab1InputDataGridView[0, i].Value.ToString(), Tab1InputDataGridView[1, i].Value.ToString()),
+                                            Tab1FileBL = new BL(Tab1InputDataGridView[0, i].Value.ToString(), Tab1InputDataGridView[1, i].Value.ToString())
+                                            {
+                                                GEOEllipse = E,
+                                                ZoneType = (GEOZoneType)Convert.ToInt32(Tab1InputDataGridView[5, i].Value),
+                                            },
                                             Tab1FileGC = new GaussCoord
                                             {
-                                                x = Convert.ToDouble(Tab1InputDataGridView[3, i].Value),
-                                                y = Convert.ToDouble(Tab1InputDataGridView[4, i].Value),
+                                                X = Convert.ToDouble(Tab1InputDataGridView[3, i].Value),
+                                                Y = Convert.ToDouble(Tab1InputDataGridView[4, i].Value),
                                                 ZoneType = (GEOZoneType)Convert.ToInt32(Tab1InputDataGridView[5, i].Value),
                                                 Zone = Convert.ToInt32(Tab1InputDataGridView[6, i].Value),
+                                                GEOEllipse = E,
                                             },
                                         });
                                     }
-                                    IO.Tab1SaveToFile(WorkFolder.Text + "\\GeoConversion.xml", T1F);
+                                   
+                                    configIO.Tab1SaveToFile(T1F);
+                                    //IO.Tab1SaveToFile(WorkFolder.Text + "\\GeoConversion.xml", T1F);
                                     SetHint("成功地将" + (Tab1InputDataGridView.Rows.Count - 1).ToString() + "条坐标转换数据存储至文件。");
                                 }
                                 else
@@ -473,15 +484,16 @@ namespace GeodeticCoordinateConversion
                             {
                                 T2F.Clear();
                                 Tab2InputDataGridView.Rows.Clear();
-                                T2F = IO.Tab2LoadFromFile(WorkFolder.Text + "\\ZoneConversion.xml");
+                                T2F = configIO.Tab2LoadFromFile();
+                                //T2F = IO.Tab2LoadFromFile(WorkFolder.Text + "\\ZoneConversion.xml");
 
                                 for (int i = 0; i < T2F.Count; i++)
                                 {
                                     Tab2InputDataGridView.Rows.Add();
-                                    Tab2InputDataGridView[0, i].Value = T2F[i].Six.x.ToString();
-                                    Tab2InputDataGridView[1, i].Value = T2F[i].Six.y.ToString();
-                                    Tab2InputDataGridView[3, i].Value = T2F[i].Three.x.ToString();
-                                    Tab2InputDataGridView[4, i].Value = T2F[i].Three.y.ToString();
+                                    Tab2InputDataGridView[0, i].Value = T2F[i].Six.X.ToString();
+                                    Tab2InputDataGridView[1, i].Value = T2F[i].Six.Y.ToString();
+                                    Tab2InputDataGridView[3, i].Value = T2F[i].Three.X.ToString();
+                                    Tab2InputDataGridView[4, i].Value = T2F[i].Three.Y.ToString();
                                 }
                                 SetHint("成功地从文件加载" + (Tab2InputDataGridView.Rows.Count - 1).ToString() + "条换带数据。");
                             }
@@ -498,17 +510,22 @@ namespace GeodeticCoordinateConversion
                                         {
                                             Six = new GaussCoord
                                             {
-                                                x = Convert.ToDouble(Tab2InputDataGridView[0, i].Value),
-                                                y = Convert.ToDouble(Tab2InputDataGridView[1, i].Value),
+                                                GEOEllipse = E,
+                                                X = Convert.ToDouble(Tab2InputDataGridView[0, i].Value),
+                                                Y = Convert.ToDouble(Tab2InputDataGridView[1, i].Value),
+                                                ZoneType = GEOZoneType.Zone6,
                                             },
                                             Three = new GaussCoord
                                             {
-                                                x = Convert.ToDouble(Tab2InputDataGridView[3, i].Value),
-                                                y = Convert.ToDouble(Tab2InputDataGridView[4, i].Value),
+                                                GEOEllipse = E,
+                                                X = Convert.ToDouble(Tab2InputDataGridView[3, i].Value),
+                                                Y = Convert.ToDouble(Tab2InputDataGridView[4, i].Value),
+                                                ZoneType = GEOZoneType.Zone3,
                                             },
                                         });
                                     }
-                                    IO.Tab2SaveToFile(WorkFolder.Text + "\\ZoneConversion.xml", T2F);
+                                    configIO.Tab2SaveToFile(T2F);
+                                    //IO.Tab2SaveToFile(WorkFolder.Text + "\\ZoneConversion.xml", T2F);
                                     SetHint("成功地将" + (Tab2InputDataGridView.Rows.Count - 1).ToString() + "条换带数据存储至文件。");
                                 }
                                 else
@@ -764,8 +781,8 @@ namespace GeodeticCoordinateConversion
                                         Tab1FileBL = new BL(TmpDataGridView[2, i].Value.ToString(), TmpDataGridView[3, i].Value.ToString()),
                                         Tab1FileGC = new GaussCoord
                                         {
-                                            x = Convert.ToDouble(TmpDataGridView[4, i].Value),
-                                            y = Convert.ToDouble(TmpDataGridView[5, i].Value),
+                                            X = Convert.ToDouble(TmpDataGridView[4, i].Value),
+                                            Y = Convert.ToDouble(TmpDataGridView[5, i].Value),
                                             ZoneType = (GEOZoneType)Convert.ToInt32(TmpDataGridView[6, i].Value),
                                             Zone = Convert.ToInt32(TmpDataGridView[7, i].Value),
                                         },
@@ -796,13 +813,13 @@ namespace GeodeticCoordinateConversion
                                         {
                                             Six = new GaussCoord
                                             {
-                                                x = Convert.ToDouble(TmpDataGridView[0, i].Value),
-                                                y = Convert.ToDouble(TmpDataGridView[1, i].Value),
+                                                X = Convert.ToDouble(TmpDataGridView[0, i].Value),
+                                                Y = Convert.ToDouble(TmpDataGridView[1, i].Value),
                                             },
                                             Three = new GaussCoord
                                             {
-                                                x = Convert.ToDouble(TmpDataGridView[3, i].Value),
-                                                y = Convert.ToDouble(TmpDataGridView[4, i].Value),
+                                                X = Convert.ToDouble(TmpDataGridView[3, i].Value),
+                                                Y = Convert.ToDouble(TmpDataGridView[4, i].Value),
                                             },
                                         });
                                     }
@@ -928,6 +945,11 @@ namespace GeodeticCoordinateConversion
         private void ShowAuthor(object sender, EventArgs e)
         {
             MessageBoxes.Author();
+        }
+
+        private GEOZoneType TmpGetZoneType()
+        {
+            return SixRadioButton.Checked ? GEOZoneType.Zone6 : GEOZoneType.Zone3;
         }
     }
 }

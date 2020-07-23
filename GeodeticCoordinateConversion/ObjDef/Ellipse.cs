@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace GeodeticCoordinateConversion
 {
@@ -11,6 +12,15 @@ namespace GeodeticCoordinateConversion
     /// </summary>
     public class Ellipse
     {
+        /// <summary>
+        /// 全局唯一ID。
+        /// </summary>
+        public readonly Guid guid;
+        /// <summary>
+        /// 椭球类型(私有)。
+        /// </summary>
+        private GEOEllipseType ellipseType;
+
         /// <summary>
         /// 长半轴。
         /// </summary>
@@ -31,10 +41,6 @@ namespace GeodeticCoordinateConversion
         /// 极点处子午线曲率半径。
         /// </summary>
         public double c { get; private set; }
-        /// <summary>
-        /// 椭球类型(私有)。
-        /// </summary>
-        private GEOEllipseType ellipseType;
         /// <summary>
         /// 椭球类型。
         /// </summary>
@@ -93,12 +99,13 @@ namespace GeodeticCoordinateConversion
                     this.c = Math.Pow(this.a, 2) / this.b;
                     this.e = Math.Sqrt(Math.Pow(this.a, 2) - Math.Pow(this.b, 2)) / this.a;
                     this.e2 = Math.Sqrt(Math.Pow(this.a, 2) - Math.Pow(this.b, 2)) / this.b;
+                    EllipseChanged?.Invoke(this, null);
                 }
             }
         }
 
         /// <summary>
-        /// 构造函数
+        /// 构造函数。
         /// </summary>
         /// <param name="newEllipse">要设置的椭球类型</param>
         public Ellipse(GEOEllipseType newEllipse)
@@ -107,32 +114,32 @@ namespace GeodeticCoordinateConversion
                 throw new ArgumentOutOfRangeException(ErrMessage.ArgumentUnknown);
             this.EllipseType = newEllipse;
         }
-    }
 
-    /// <summary>
-    /// 椭球枚举常量
-    /// </summary>
-    public enum GEOEllipseType
-    {
         /// <summary>
-        /// 未设置椭球
+        /// 通过XML节点初始化。
         /// </summary>
-        noEllipse = 0,
+        /// <param name="xmlNode">包含对象结构的XML节点。</param>
+        public Ellipse(XmlNode xmlNode)
+        {
+            XmlElement ele = (XmlElement)xmlNode;
+            this.EllipseType = (GEOEllipseType)int.Parse(ele.GetAttribute(nameof(EllipseType)));
+        }
+
+        public delegate void EllipseChangedEventHander(object sender, EventArgs e);
+        public event EllipseChangedEventHander EllipseChanged;
+
         /// <summary>
-        /// 克拉索夫斯基椭球体
+        /// 转换到XML元素。
         /// </summary>
-        Krassovsky_ellipsoid = 1,
-        /// <summary>
-        /// 1975年国际椭球体
-        /// </summary>
-        Int_1975 = 2,
-        /// <summary>
-        /// WGS-84椭球体
-        /// </summary>
-        WGS_84 = 3,
-        /// <summary>
-        /// CGCS-2000
-        /// </summary>
-        CGCS_2000 = 4
+        /// <param name="xmlDocument">指定的XML文档。</param>
+        /// <param name="NodeName">新建的元素命名，默认为Ellipse。</param>
+        /// <returns>转换到的XML元素。</returns>
+        internal XmlElement ToXmlElement(XmlDocument xmlDocument, string NodeName = NodeNames.EllipseNode)
+        {
+            XmlElement ele = xmlDocument.CreateElement(NodeName);
+            //ele.SetAttribute(nameof(guid), this.guid.ToString());
+            ele.SetAttribute(nameof(EllipseType), ((int)this.EllipseType).ToString());
+            return ele;
+        }
     }
 }

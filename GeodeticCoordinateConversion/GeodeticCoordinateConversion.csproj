@@ -64,6 +64,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConfigIO.cs" />
+    <Compile Include="NodeNames.cs" />
+    <Compile Include="ObjDef\GEOEnum.cs" />
+    <Compile Include="ObjDef\BL.cs" />
     <Compile Include="ObjDef\GaussCoord.cs" />
     <Compile Include="DBIO.cs" />
     <Compile Include="ObjDef\Ellipse.cs" />
@@ -78,10 +82,11 @@
       <DependentUpon>CoordConvert.cs</DependentUpon>
     </Compile>
     <Compile Include="MessageBoxes.cs" />
-    <Compile Include="Obj.cs" />
+    <Compile Include="ObjDef\MidVar.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Restraints.cs" />
+    <Compile Include="ZoneConvert.cs" />
     <EmbeddedResource Include="CoordConvert.resx">
       <DependentUpon>CoordConvert.cs</DependentUpon>
     </EmbeddedResource>

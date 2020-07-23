@@ -89,8 +89,8 @@ namespace GeodeticCoordinateConversion
                             },
                             Tab1FileGC = new GaussCoord
                             {
-                                x = Convert.ToDouble(XNL[i].ChildNodes[1].ChildNodes[0].ChildNodes[0].Value),
-                                y = Convert.ToDouble(XNL[i].ChildNodes[1].ChildNodes[1].ChildNodes[0].Value),
+                                X = Convert.ToDouble(XNL[i].ChildNodes[1].ChildNodes[0].ChildNodes[0].Value),
+                                Y = Convert.ToDouble(XNL[i].ChildNodes[1].ChildNodes[1].ChildNodes[0].Value),
                                 ZoneType = (GEOZoneType)Convert.ToInt32(XNL[i].ChildNodes[1].ChildNodes[2].ChildNodes[0].Value),
                                 Zone = Convert.ToInt32(XNL[i].ChildNodes[1].ChildNodes[3].ChildNodes[0].Value),
                             },
@@ -134,8 +134,8 @@ namespace GeodeticCoordinateConversion
                             xw.WriteEndElement();
                         xw.WriteEndElement();
                         xw.WriteStartElement("Gauss");
-                            xw.WriteElementString("X", Convert.ToString(T1F[i].Tab1FileGC.x));
-                            xw.WriteElementString("Y", Convert.ToString(T1F[i].Tab1FileGC.y));
+                            xw.WriteElementString("X", Convert.ToString(T1F[i].Tab1FileGC.X));
+                            xw.WriteElementString("Y", Convert.ToString(T1F[i].Tab1FileGC.Y));
                             xw.WriteElementString("Type", Convert.ToString((int)(T1F[i].Tab1FileGC.ZoneType)));
                             xw.WriteElementString("Zone", Convert.ToString(T1F[i].Tab1FileGC.Zone));
                         xw.WriteEndElement();
@@ -175,13 +175,13 @@ namespace GeodeticCoordinateConversion
                         {
                            Six = new GaussCoord
                             {
-                               x = Convert.ToDouble(XNL[i].ChildNodes[0].ChildNodes[0].ChildNodes[0].Value),
-                               y = Convert.ToDouble(XNL[i].ChildNodes[0].ChildNodes[1].ChildNodes[0].Value),
+                               X = Convert.ToDouble(XNL[i].ChildNodes[0].ChildNodes[0].ChildNodes[0].Value),
+                               Y = Convert.ToDouble(XNL[i].ChildNodes[0].ChildNodes[1].ChildNodes[0].Value),
                             },
                             Three = new GaussCoord
                             {
-                                x = Convert.ToDouble(XNL[i].ChildNodes[1].ChildNodes[0].ChildNodes[0].Value),
-                                y = Convert.ToDouble(XNL[i].ChildNodes[1].ChildNodes[1].ChildNodes[0].Value),
+                                X = Convert.ToDouble(XNL[i].ChildNodes[1].ChildNodes[0].ChildNodes[0].Value),
+                                Y = Convert.ToDouble(XNL[i].ChildNodes[1].ChildNodes[1].ChildNodes[0].Value),
                             },
                         });
                     }
@@ -211,12 +211,12 @@ namespace GeodeticCoordinateConversion
                     {
                         xw.WriteStartElement("Tab2");
                             xw.WriteStartElement("Six");
-                                xw.WriteElementString("X", Convert.ToString(T2F[i].Six.x));
-                                xw.WriteElementString("Y", Convert.ToString(T2F[i].Six.y));
+                                xw.WriteElementString("X", Convert.ToString(T2F[i].Six.X));
+                                xw.WriteElementString("Y", Convert.ToString(T2F[i].Six.Y));
                             xw.WriteEndElement();
                             xw.WriteStartElement("Three");
-                                xw.WriteElementString("X", Convert.ToString(T2F[i].Three.x));
-                                xw.WriteElementString("Y", Convert.ToString(T2F[i].Three.y));
+                                xw.WriteElementString("X", Convert.ToString(T2F[i].Three.X));
+                                xw.WriteElementString("Y", Convert.ToString(T2F[i].Three.Y));
                             xw.WriteEndElement();
                         xw.WriteEndElement();
                     }
