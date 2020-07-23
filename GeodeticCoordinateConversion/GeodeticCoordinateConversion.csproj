@@ -64,12 +64,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ObjDef\GaussCoord.cs" />
     <Compile Include="DBIO.cs" />
-    <Compile Include="Ellipse.cs" />
+    <Compile Include="ObjDef\Ellipse.cs" />
     <Compile Include="MessageText.cs" />
     <Compile Include="FileIO.cs" />
     <Compile Include="GeoCalc.cs" />
-    <Compile Include="CoordConversion.cs" />
+    <Compile Include="Deprecated\CoordConversion.cs" />
     <Compile Include="CoordConvert.cs">
       <SubType>Form</SubType>
     </Compile>

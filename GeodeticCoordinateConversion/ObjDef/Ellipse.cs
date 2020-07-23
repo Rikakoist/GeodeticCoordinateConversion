@@ -9,14 +9,35 @@ namespace GeodeticCoordinateConversion
     /// <summary>
     /// 椭球对象
     /// </summary>
-    class Ellipse
+    public class Ellipse
     {
-        public double a { get; private set; }  //长半轴
-        public double b { get; private set; }    //短半轴
-        public double e { get; private set; }    //第一偏心率
-        public double e2 { get; private set; }  //第二偏心率
-        public double c { get; private set; }    //极点处子午线曲率半径
-        private GEOEllipseType ellipseType; //椭球类型
+        /// <summary>
+        /// 长半轴。
+        /// </summary>
+        public double a { get; private set; }
+        /// <summary>
+        /// 短半轴。
+        /// </summary>
+        public double b { get; private set; }
+        /// <summary>
+        /// 第一偏心率。
+        /// </summary>
+        public double e { get; private set; }
+        /// <summary>
+        /// 第二偏心率。
+        /// </summary>
+        public double e2 { get; private set; }
+        /// <summary>
+        /// 极点处子午线曲率半径。
+        /// </summary>
+        public double c { get; private set; }
+        /// <summary>
+        /// 椭球类型(私有)。
+        /// </summary>
+        private GEOEllipseType ellipseType;
+        /// <summary>
+        /// 椭球类型。
+        /// </summary>
         public GEOEllipseType EllipseType
         {
             get

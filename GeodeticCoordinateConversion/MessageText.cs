@@ -74,7 +74,13 @@ namespace GeodeticCoordinateConversion
     /// </summary>
     public static class Hints
     {
-        
+        /// <summary>
+        /// 已将6°带转换到3°带。
+        /// </summary>
+        public static string Zone6To3Success = "已将6°带转换到3°带。";
+        /// <summary>
+        /// 已将3°带转换到6°带。
+        /// </summary>
+        public static string Zone3To6Success = "已将3°带转换到6°带。";
     }
-    
 }

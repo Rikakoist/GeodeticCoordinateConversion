@@ -146,7 +146,7 @@ namespace GeodeticCoordinateConversion
             }
             catch (Exception err)
             {
-                MessageBoxes.Error(err.Message);
+                MessageBoxes.Error(err.ToString());
             }
         }
 
@@ -225,7 +225,7 @@ namespace GeodeticCoordinateConversion
             }
             catch (Exception err)
             {
-                MessageBoxes.Error(err.Message);
+                MessageBoxes.Error(err.ToString());
             }
         }
         #endregion

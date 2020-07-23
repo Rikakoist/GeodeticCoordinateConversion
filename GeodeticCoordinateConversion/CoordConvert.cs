@@ -74,7 +74,7 @@ namespace GeodeticCoordinateConversion
             }
             catch (Exception err)
             {
-                MessageBoxes.Error(err.Message);
+                MessageBoxes.Error(err.ToString());
             }
         }
 
@@ -99,7 +99,7 @@ namespace GeodeticCoordinateConversion
             }
             catch (Exception err)
             {
-                MessageBoxes.Error(err.Message);
+                MessageBoxes.Error(err.ToString());
             }
         }
 
@@ -155,7 +155,7 @@ namespace GeodeticCoordinateConversion
             }
             catch (Exception err)
             {
-                MessageBoxes.Error(err.Message);
+                MessageBoxes.Error(err.ToString());
                 Hint.Text = "上一次结果转移操作出现问题，请检查后重试！";
             }
         }
@@ -211,19 +211,33 @@ namespace GeodeticCoordinateConversion
                         for (int i = 0; i < Tab1InputDataGridView.Rows.Count - 1; i++)
                         {
                             Tab1DMS.Add(new BL(Tab1InputDataGridView[0, i].Value.ToString(),Tab1InputDataGridView[1, i].Value.ToString()));
+                            Tab1DMS[i].GEOEllipse = E;
+                            if (ThreeRadioButton.Checked)    //根据用户选择来决定转换方式（3、6）
+                            {
+                                Tab1DMS[i].ZoneType = GEOZoneType.Zone3;
+                            }
+                            else if (SixRadioButton.Checked)
+                            {
+                                Tab1DMS[i].ZoneType = GEOZoneType.Zone6;
+                            }
+                            else
+                            {
+                                throw new ArgumentException(ErrMessage.ZoneTypeNotSet);
+                            }
+                            Tab1GC.Add(Tab1DMS[i].GaussDirect());
                         }
-                        if (ThreeRadioButton.Checked)    //根据用户选择来决定转换方式（3、6）
-                        {
-                            CoordConversion.GaussPrepare(E, ref Tab1GC, ref Tab1DMS, 0, 3);
-                        }
-                        else if (SixRadioButton.Checked)
-                        {
-                            CoordConversion.GaussPrepare(E, ref Tab1GC, ref Tab1DMS, 0, 6);
-                        }
-                        else
-                        {
-                            throw new Exception("转换到多少分带？你再说一遍？");
-                        }
+                        //if (ThreeRadioButton.Checked)    //根据用户选择来决定转换方式（3、6）
+                        //{
+                        //    CoordConversion.GaussPrepare(E, ref Tab1GC, ref Tab1DMS, 0, 3);
+                        //}
+                        //else if (SixRadioButton.Checked)
+                        //{
+                        //    CoordConversion.GaussPrepare(E, ref Tab1GC, ref Tab1DMS, 0, 6);
+                        //}
+                        //else
+                        //{
+                        //    throw new Exception("转换到多少分带？你再说一遍？");
+                        //}
 
                         for (int i = 0; i < Tab1GC.Count; i++)
                         {
@@ -242,13 +256,15 @@ namespace GeodeticCoordinateConversion
                         {
                             Tab1GC.Add(new GaussCoord
                             {
+                                GEOEllipse = E,
                                 x = Convert.ToDouble(Tab1InputDataGridView[3, i].Value),
                                 y = Convert.ToDouble(Tab1InputDataGridView[4, i].Value) - 500000, //-500km读取
                                 ZoneType = (GEOZoneType)Convert.ToInt32(Tab1InputDataGridView[5, i].Value),
                                 Zone = Convert.ToInt32(Tab1InputDataGridView[6, i].Value),
                             });
+                            Tab1DMS.Add(Tab1GC[i].GaussReverse());
                         }
-                        CoordConversion.GaussPrepare(E, ref Tab1GC, ref Tab1DMS, 1, 0);
+                        //CoordConversion.GaussPrepare(E, ref Tab1GC, ref Tab1DMS, 1, 0);
                         for (int i = 0; i < Tab1DMS.Count; i++)
                         {
                             Tab1InputDataGridView[0, i].Value = GeoCalc.DMS2Str(Tab1DMS[i].B);
@@ -264,7 +280,7 @@ namespace GeodeticCoordinateConversion
             }
             catch (Exception err)
             {
-                MessageBoxes.Error(err.Message);
+                MessageBoxes.Error(err.ToString());
                 SetHint(ErrMessage.ConvertOperationFailed);
             }
         }
@@ -286,21 +302,24 @@ namespace GeodeticCoordinateConversion
                         {
                             Tab26GC.Add(new GaussCoord
                             {
+                                GEOEllipse=E,
                                 x = Convert.ToDouble(Tab2InputDataGridView[0, i].Value),
                                 y = GeoCalc.GetY(Tab2InputDataGridView[1, i].Value.ToString()),
                                 ZoneType=GEOZoneType.Zone6,
                                 Zone = GeoCalc.GetZoneNum(Tab2InputDataGridView[1, i].Value.ToString()),
                             });
+                            Tab23GC.Add((Tab26GC[i].GaussReverse()) //六度带反算
+                                .GaussDirect(GEOZoneType.Zone3));   //三度带正算
                         }
-                        CoordConversion.GaussPrepare(E, ref Tab26GC, ref Tab2DMS, 1, 6);    //六度带反算
-                        CoordConversion.GaussPrepare(E, ref Tab23GC, ref Tab2DMS, 0, 3);   //三度带正算
+                        //CoordConversion.GaussPrepare(E, ref Tab26GC, ref Tab2DMS, 1, 6);    
+                        //CoordConversion.GaussPrepare(E, ref Tab23GC, ref Tab2DMS, 0, 3);   
                         for (int i = 0; i < Tab23GC.Count; i++)
                         {
                             //Tab2InputDataGridView[3, i].Value = Tab23GC[i].x.ToString();
                             Tab2InputDataGridView[3, i].Value = Tab26GC[i].x.ToString();    //转换前后X不变
                             Tab2InputDataGridView[4, i].Value = Tab23GC[i].Zone.ToString() + (Tab23GC[i].y + 500000).ToString();
                         }
-                        SetHint("已将6°带转换到3°带。");
+                        SetHint(Hints.Zone6To3Success);
                     }
                     //3->6
                     if (sender == ThreeToSixButton)
@@ -309,21 +328,24 @@ namespace GeodeticCoordinateConversion
                         {
                             Tab23GC.Add(new GaussCoord
                             {
+                                GEOEllipse=E,
                                 x = Convert.ToDouble(Tab2InputDataGridView[3, i].Value),
                                 y = GeoCalc.GetY(Tab2InputDataGridView[4, i].Value.ToString()),
                                 ZoneType=GEOZoneType.Zone3,
                                 Zone = GeoCalc.GetZoneNum(Tab2InputDataGridView[4, i].Value.ToString()),
                             });
+                            Tab26GC.Add(Tab23GC[i].GaussReverse()   //三度带反算
+                                .GaussDirect(GEOZoneType.Zone6));   //六度带正算
                         }
-                        CoordConversion.GaussPrepare(E, ref Tab23GC, ref Tab2DMS, 1, 3);   //三度带反算
-                        CoordConversion.GaussPrepare(E, ref Tab26GC, ref Tab2DMS, 0, 6);   //六度带正算
+                        //CoordConversion.GaussPrepare(E, ref Tab23GC, ref Tab2DMS, 1, 3);
+                        //CoordConversion.GaussPrepare(E, ref Tab26GC, ref Tab2DMS, 0, 6);
                         for (int i = 0; i < Tab26GC.Count; i++)
                         {
                             //Tab2InputDataGridView[0, i].Value = Tab26GC[i].x.ToString();
                             Tab2InputDataGridView[0, i].Value = Tab23GC[i].x.ToString();    //转换前后X不变
                             Tab2InputDataGridView[1, i].Value = Tab26GC[i].Zone.ToString() + (Tab26GC[i].y + 500000).ToString();
                         }
-                        SetHint("已将3°带转换到6°带。");
+                        SetHint(Hints.Zone3To6Success);
                     }
                 }
                 else
@@ -333,7 +355,7 @@ namespace GeodeticCoordinateConversion
             }
             catch (Exception err)
             {
-                MessageBoxes.Error(err.Message);
+                MessageBoxes.Error(err.ToString());
                 SetHint(ErrMessage.ConvertOperationFailed);
             }
         }
@@ -545,7 +567,7 @@ namespace GeodeticCoordinateConversion
             }
             catch (Exception err)
             {
-                MessageBoxes.Error(err.Message);
+                MessageBoxes.Error(err.ToString());
             }
         }
 
@@ -592,7 +614,7 @@ namespace GeodeticCoordinateConversion
             }
             catch (Exception err)
             {
-                MessageBoxes.Error(err.Message);
+                MessageBoxes.Error(err.ToString());
                 SetHint("选择数据库中的表时出现问题。");
             }
         }
@@ -618,7 +640,7 @@ namespace GeodeticCoordinateConversion
             }
             catch (Exception err)
             {
-                MessageBoxes.Error(err.Message);
+                MessageBoxes.Error(err.ToString());
                 SetHint("向表中插入数据时出现问题。");
             }
         }
@@ -654,7 +676,7 @@ namespace GeodeticCoordinateConversion
             }
             catch (Exception err)
             {
-                MessageBoxes.Error(err.Message);
+                MessageBoxes.Error(err.ToString());
                 SetHint("向表中插入数据时出现问题。");
             }
         }
@@ -698,7 +720,7 @@ namespace GeodeticCoordinateConversion
             }
             catch (Exception err)
             {
-                MessageBoxes.Error(err.Message);
+                MessageBoxes.Error(err.ToString());
                 SetHint("对表中数据进行删除时出现问题。");
             }
         }
@@ -713,7 +735,7 @@ namespace GeodeticCoordinateConversion
             }
             catch (Exception err)
             {
-                if (MessageBoxes.Error(err.Message) == "OK")
+                if (MessageBoxes.Error(err.ToString()) == "OK")
                 {
                     DBIO.ReadFromDB(ChooseDatabaseComboBox.Text, DBPathTextBox.Text, DBDataGridView);
                     SetHint("更新表 " + ChooseDatabaseComboBox.Text + " 中第" + (e.RowIndex + 1).ToString() + "行第" + e.ColumnIndex + "列的数据时出现问题。");
@@ -802,7 +824,7 @@ namespace GeodeticCoordinateConversion
             }
             catch (Exception err)
             {
-                MessageBoxes.Error(err.Message);
+                MessageBoxes.Error(err.ToString());
                 SetHint("将数据库转换到文件时出现问题。");
             }
         }
@@ -817,7 +839,7 @@ namespace GeodeticCoordinateConversion
             }
             catch (Exception err)
             {
-                MessageBoxes.Error(err.Message);
+                MessageBoxes.Error(err.ToString());
                 SetHint("查询时出现问题。");
             }
         }
@@ -840,7 +862,7 @@ namespace GeodeticCoordinateConversion
             }
             catch (Exception err)
             {
-                MessageBoxes.Error(err.Message);
+                MessageBoxes.Error(err.ToString());
             }
         }
 
@@ -862,7 +884,7 @@ namespace GeodeticCoordinateConversion
             }
             catch (Exception err)
             {
-                MessageBoxes.Error(err.Message);
+                MessageBoxes.Error(err.ToString());
             }
         }
 
@@ -897,7 +919,7 @@ namespace GeodeticCoordinateConversion
             }
             catch (Exception err)
             {
-                MessageBoxes.Error(err.Message);
+                MessageBoxes.Error(err.ToString());
             }
         }
         #endregion

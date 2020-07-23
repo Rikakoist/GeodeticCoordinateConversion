@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace GeodeticCoordinateConversion
 {
+    /// <summary>
+    /// 坐标转换类（已废弃）。
+    /// </summary>
     class CoordConversion
     {
         //预备转换
