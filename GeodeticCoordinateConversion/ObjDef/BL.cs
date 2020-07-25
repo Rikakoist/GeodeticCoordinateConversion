@@ -97,9 +97,9 @@ namespace GeodeticCoordinateConversion
             XmlElement ele = (XmlElement)xmlNode;
             this.guid =Guid.Parse(ele.GetAttribute(nameof(guid)));
             this.ZoneType = (GEOZoneType)int.Parse(ele.GetAttribute(nameof(ZoneType)));
-            this.B = new DMS(xmlNode.SelectSingleNode(NodeNames.BNodePath));
-            this.L = new DMS(xmlNode.SelectSingleNode(NodeNames.LNodePath));
-            this.GEOEllipse = new Ellipse(xmlNode.SelectSingleNode(NodeNames.EllipseNodePath));
+            this.B = new DMS(xmlNode.SelectSingleNode(NodeInfo.BNodePath));
+            this.L = new DMS(xmlNode.SelectSingleNode(NodeInfo.LNodePath));
+            this.GEOEllipse = new Ellipse(xmlNode.SelectSingleNode(NodeInfo.EllipseNodePath));
         }
 
         /// <summary>
@@ -163,7 +163,7 @@ namespace GeodeticCoordinateConversion
         /// <param name="xmlDocument">指定的XML文档。</param>
         /// <param name="NodeName">新建的元素命名，默认为Geo。</param>
         /// <returns>转换到的XML元素。</returns>
-        internal XmlElement ToXmlElement(XmlDocument xmlDocument, string NodeName = NodeNames.BLNode)
+        internal XmlElement ToXmlElement(XmlDocument xmlDocument, string NodeName = NodeInfo.BLNode)
         {
             XmlElement ele = xmlDocument.CreateElement(NodeName);
 
@@ -171,8 +171,8 @@ namespace GeodeticCoordinateConversion
             ele.SetAttribute(nameof(ZoneType), ((int)this.ZoneType).ToString());
 
             ele.AppendChild(this.GEOEllipse.ToXmlElement(xmlDocument));
-            ele.AppendChild(this.B.ToXmlElement(xmlDocument, NodeNames.BNode));
-            ele.AppendChild(this.L.ToXmlElement(xmlDocument, NodeNames.LNode));
+            ele.AppendChild(this.B.ToXmlElement(xmlDocument, NodeInfo.BNode));
+            ele.AppendChild(this.L.ToXmlElement(xmlDocument, NodeInfo.LNode));
 
             return ele;
         }

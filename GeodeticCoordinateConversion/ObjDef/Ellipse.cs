@@ -134,7 +134,7 @@ namespace GeodeticCoordinateConversion
         /// <param name="xmlDocument">指定的XML文档。</param>
         /// <param name="NodeName">新建的元素命名，默认为Ellipse。</param>
         /// <returns>转换到的XML元素。</returns>
-        internal XmlElement ToXmlElement(XmlDocument xmlDocument, string NodeName = NodeNames.EllipseNode)
+        internal XmlElement ToXmlElement(XmlDocument xmlDocument, string NodeName = NodeInfo.EllipseNode)
         {
             XmlElement ele = xmlDocument.CreateElement(NodeName);
             //ele.SetAttribute(nameof(guid), this.guid.ToString());

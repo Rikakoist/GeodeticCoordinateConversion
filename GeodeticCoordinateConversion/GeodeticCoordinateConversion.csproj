@@ -64,15 +64,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConfigIO.cs" />
-    <Compile Include="NodeNames.cs" />
+    <Compile Include="IO\FileIO.cs" />
+    <Compile Include="GEOSettings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>GEOSettings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="StaticObj\NodeInfo.cs" />
     <Compile Include="ObjDef\GEOEnum.cs" />
     <Compile Include="ObjDef\BL.cs" />
     <Compile Include="ObjDef\GaussCoord.cs" />
-    <Compile Include="DBIO.cs" />
+    <Compile Include="IO\DBIO.cs" />
     <Compile Include="ObjDef\Ellipse.cs" />
-    <Compile Include="MessageText.cs" />
-    <Compile Include="FileIO.cs" />
+    <Compile Include="StaticObj\MessageText.cs" />
+    <Compile Include="Deprecated\FileIO.cs" />
     <Compile Include="GeoCalc.cs" />
     <Compile Include="Deprecated\CoordConversion.cs" />
     <Compile Include="CoordConvert.cs">
@@ -85,7 +90,7 @@
     <Compile Include="ObjDef\MidVar.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Restraints.cs" />
+    <Compile Include="StaticObj\Restraints.cs" />
     <Compile Include="ZoneConvert.cs" />
     <EmbeddedResource Include="CoordConvert.resx">
       <DependentUpon>CoordConvert.cs</DependentUpon>
@@ -99,6 +104,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="GEOSettings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>GEOSettings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -9,19 +9,30 @@ using System.Xml;
 
 namespace GeodeticCoordinateConversion
 {
-    class ConfigIO
+    class FileIO
     {
-        //配置文件路径
+        /// <summary>
+        /// XML文档路径。
+        /// </summary>
         public string docPath;
 
-        private XmlDocument document;    //XML文档对象
-        private XmlNode rootNode;    //根节点
+        /// <summary>
+        /// XML文档对象。
+        /// </summary>
+        private XmlDocument document;
+        /// <summary>
+        /// 根节点。
+        /// </summary>
+        private XmlNode rootNode;
+
+        public delegate void DocumentModifiedEventHander(object sender, EventArgs e);
+        public event DocumentModifiedEventHander DocumentModified;
 
         /// <summary>
         /// 构造函数。
         /// </summary>
         /// <param name="ConfigFilePath">配置文件的路径。</param>
-        public ConfigIO(string ConfigFilePath)
+        public FileIO(string ConfigFilePath)
         {
             try
             {
@@ -33,6 +44,10 @@ namespace GeodeticCoordinateConversion
                     if (!CreateConfig())
                     {
                         throw new FileNotFoundException("指定的配置文件\"" + ConfigFilePath + "\"不存在，且无法创建。");
+                    }
+                    else
+                    {
+                        this.DocumentModified?.Invoke(this, null);
                     }
                 }
 
@@ -46,7 +61,7 @@ namespace GeodeticCoordinateConversion
             }
             catch (Exception err)
             {
-                MessageBox.Show(err.Message, "指定配置文件出错", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(err.Message, ErrMessage.ErrSpecifyingDataFile, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -59,10 +74,11 @@ namespace GeodeticCoordinateConversion
             try
             {
                 XmlDocument document = new XmlDocument();
-                XmlNode xmlNode = document.CreateXmlDeclaration("1.0", "utf-8", "");
+                XmlNode xmlNode = document.CreateXmlDeclaration(NodeInfo.XmlVersion, NodeInfo.XmlEncode, NodeInfo.XmlStandalone);
                 document.AppendChild(xmlNode);
-                XmlNode rootNode = document.CreateElement("root");
+                XmlNode rootNode = document.CreateElement(NodeInfo.RootNode);
                 document.AppendChild(rootNode);
+                CreateTimeNode();
                 document.Save(docPath);
                 return true;
             }
@@ -72,12 +88,47 @@ namespace GeodeticCoordinateConversion
             }
         }
 
+        /// <summary>
+        /// 创建最后修改时间节点。
+        /// </summary>
+        /// <returns>操作结果。</returns>
+        private bool CreateTimeNode()
+        {
+            XmlNode modi = document.CreateElement(NodeInfo.TimeNode);
+            ((XmlElement)modi).SetAttribute(NodeInfo.LastModifiedAttr, CommonText.LastModified + CommonText.Now);
+            rootNode.AppendChild(modi);
+            return true;
+        }
+
+        /// <summary>
+        /// 更改最后修改时间。
+        /// </summary>
+        /// <returns>操作结果。</returns>
+        private bool ModifyTime()
+        {
+            try
+            {
+                XmlNode modi = rootNode.SelectSingleNode(NodeInfo.TimeNodePath);
+                ((XmlElement)modi).SetAttribute(NodeInfo.LastModifiedAttr, CommonText.LastModified + CommonText.Now);
+                document.Save(docPath);
+                return true;
+            }
+            catch (Exception err)
+            {
+                CreateTimeNode();
+                return false;
+            }
+            finally
+            {
+                this.DocumentModified?.Invoke(this, null);
+            }
+        }
+
         public bool Tab1SaveToFile(List<Tab1File> T1F)
         {
-
             for (int i = 0; i < T1F.Count; i++)
             {
-                XmlElement tabNode = document.CreateElement(NodeNames.Tab1Node);
+                XmlElement tabNode = document.CreateElement(NodeInfo.Tab1Node);
 
                 tabNode.AppendChild(T1F[i].Tab1FileBL.ToXmlElement(document));
                 tabNode.AppendChild(T1F[i].Tab1FileGC.ToXmlElement(document));
@@ -85,6 +136,7 @@ namespace GeodeticCoordinateConversion
                 rootNode.AppendChild(tabNode);
             }
             document.Save(docPath);
+            ModifyTime();
             return true;
         }
 
@@ -92,14 +144,14 @@ namespace GeodeticCoordinateConversion
         {
             List<Tab1File> Result = new List<Tab1File>();
             Result.Clear();
-            XmlNodeList XNL = rootNode.SelectNodes(NodeNames.Tab1NodePath);
-            if(XNL.Count<1)
+            XmlNodeList XNL = rootNode.SelectNodes(NodeInfo.Tab1NodePath);
+            if (XNL.Count < 1)
             {
 
             }
             else
             {
-                for(int i = 0;i<XNL.Count;i++)
+                for (int i = 0; i < XNL.Count; i++)
                 {
                     Result.Add(new Tab1File(XNL[i]));
                 }
@@ -111,14 +163,15 @@ namespace GeodeticCoordinateConversion
         {
             for (int i = 0; i < T2F.Count; i++)
             {
-                XmlElement tabNode = document.CreateElement(NodeNames.Tab2Node);
-          
-                tabNode.AppendChild(T2F[i].Six.ToXmlElement(document, NodeNames.Gauss6Node));
-                tabNode.AppendChild(T2F[i].Three.ToXmlElement(document, NodeNames.Gauss3Node));
+                XmlElement tabNode = document.CreateElement(NodeInfo.Tab2Node);
+
+                tabNode.AppendChild(T2F[i].Six.ToXmlElement(document, NodeInfo.Gauss6Node));
+                tabNode.AppendChild(T2F[i].Three.ToXmlElement(document, NodeInfo.Gauss3Node));
 
                 rootNode.AppendChild(tabNode);
             }
             document.Save(docPath);
+            ModifyTime();
             return true;
         }
 
@@ -126,7 +179,7 @@ namespace GeodeticCoordinateConversion
         {
             List<Tab2File> Result = new List<Tab2File>();
             Result.Clear();
-            XmlNodeList XNL = rootNode.SelectNodes(NodeNames.Tab2NodePath);
+            XmlNodeList XNL = rootNode.SelectNodes(NodeInfo.Tab2NodePath);
             if (XNL.Count < 1)
             {
 

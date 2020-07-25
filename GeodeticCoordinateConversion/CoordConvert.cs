@@ -21,7 +21,7 @@ namespace GeodeticCoordinateConversion
         List<Tab1File> T1F = new List<Tab1File>();
         List<Tab2File> T2F = new List<Tab2File>();
         Ellipse E = new Ellipse(0);
-        ConfigIO configIO = new ConfigIO(Application.StartupPath + "\\GeoConversion.xml");
+        FileIO configIO = new FileIO(Application.StartupPath + "\\GeoConversion.xml");
 
         public CoordConvert()
         {

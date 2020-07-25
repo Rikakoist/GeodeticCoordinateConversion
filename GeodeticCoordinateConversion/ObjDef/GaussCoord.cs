@@ -194,7 +194,7 @@ namespace GeodeticCoordinateConversion
             this.ZoneType = (GEOZoneType)int.Parse(ele.GetAttribute(nameof(ZoneType)));
             this.Zone = int.Parse(ele.GetAttribute(nameof(Zone)));
             this.Center = double.Parse(ele.GetAttribute(nameof(Center)));
-            this.GEOEllipse = new Ellipse(xmlNode.SelectSingleNode(NodeNames.EllipseNodePath));
+            this.GEOEllipse = new Ellipse(xmlNode.SelectSingleNode(NodeInfo.EllipseNodePath));
             this.GEOEllipse.EllipseChanged += new Ellipse.EllipseChangedEventHander(this.EllipsChange);
         }
 
@@ -290,7 +290,7 @@ namespace GeodeticCoordinateConversion
         /// <param name="xmlDocument">指定的XML文档。</param>
         /// <param name="NodeName">新建的元素命名。</param>
         /// <returns>转换到的XML元素。</returns>
-        internal XmlElement ToXmlElement(XmlDocument xmlDocument, string NodeName = NodeNames.GaussNode)
+        internal XmlElement ToXmlElement(XmlDocument xmlDocument, string NodeName = NodeInfo.GaussNode)
         {
             XmlElement ele = xmlDocument.CreateElement(NodeName);
 

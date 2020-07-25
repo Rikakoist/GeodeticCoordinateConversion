@@ -12,6 +12,10 @@ namespace GeodeticCoordinateConversion
     public static class ErrMessage
     {
         /// <summary>
+        /// 指定数据文件出错。
+        /// </summary>
+        public static string ErrSpecifyingDataFile = "指定数据文件出错。";
+        /// <summary>
         /// 传入了未知的参数。
         /// </summary>
         public static string ArgumentUnknown = "传入了未知的参数。";
@@ -82,5 +86,20 @@ namespace GeodeticCoordinateConversion
         /// 已将3°带转换到6°带。
         /// </summary>
         public static string Zone3To6Success = "已将3°带转换到6°带。";
+    }
+
+    /// <summary>
+    /// 文本。
+    /// </summary>
+    public static class CommonText
+    {
+        /// <summary>
+        /// 当前时间。
+        /// </summary>
+        public static string Now = DateTime.Now.ToString("yyyyMMddHHmmss");
+        /// <summary>
+        /// 最后编辑于。
+        /// </summary>
+        public static string LastModified = "最后编辑于：";
     }
 }

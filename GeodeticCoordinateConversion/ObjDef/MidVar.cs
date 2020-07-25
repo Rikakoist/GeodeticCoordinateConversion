@@ -229,8 +229,8 @@ namespace GeodeticCoordinateConversion
 
         public Tab1File(XmlNode xmlNode)
         {
-            this.Tab1FileBL = new BL(xmlNode.SelectSingleNode(NodeNames.BLNodePath));
-            this.Tab1FileGC = new GaussCoord(xmlNode.SelectSingleNode(NodeNames.GaussNode));
+            this.Tab1FileBL = new BL(xmlNode.SelectSingleNode(NodeInfo.BLNodePath));
+            this.Tab1FileGC = new GaussCoord(xmlNode.SelectSingleNode(NodeInfo.GaussNode));
         }
     }
 
@@ -246,8 +246,8 @@ namespace GeodeticCoordinateConversion
 
         public Tab2File(XmlNode xmlNode)
         {
-            this.Six = new GaussCoord(xmlNode.SelectSingleNode(NodeNames.Gauss6NodePath));
-            this.Three = new GaussCoord(xmlNode.SelectSingleNode(NodeNames.Gauss3NodePath));
+            this.Six = new GaussCoord(xmlNode.SelectSingleNode(NodeInfo.Gauss6NodePath));
+            this.Three = new GaussCoord(xmlNode.SelectSingleNode(NodeInfo.Gauss3NodePath));
         }
     }
 }

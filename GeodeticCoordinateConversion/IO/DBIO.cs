@@ -12,10 +12,19 @@ namespace GeodeticCoordinateConversion
 {
     class DBIO
     {
+        public readonly string DBPath;
+        public readonly string ConnectionInfo;
+
+        public DBIO(string DBPath)
+        {
+            this.DBPath = DBPath;
+            this.ConnectionInfo = "Provider=Microsoft.Jet.OLEDB.4.0; Data Source=" + DBPath;
+        }
+
         //保存操作
         internal static void SaveToDB(string Insert, string DBPath)
         {
-            string ConnectionInfo = "Provider=Microsoft.Jet.OLEDB.4.0; Data Source=" + DBPath;
+           
             using (OleDbConnection Connection = new OleDbConnection(ConnectionInfo))
             {
                 Connection.Open();
@@ -31,7 +40,7 @@ namespace GeodeticCoordinateConversion
         //读取操作
         internal static void ReadFromDB(string TableName, string DBPath, DataGridView Datas)
         {
-            string ConnectionInfo = "Provider=Microsoft.Jet.OLEDB.4.0; Data Source=" + DBPath;
+            
             using (OleDbConnection Connection = new OleDbConnection(ConnectionInfo))
             {
                 Connection.Open();
@@ -54,7 +63,7 @@ namespace GeodeticCoordinateConversion
         //查询操作
         internal static void ReadFromDB(string TableName, string DBPath, string QueryCommand, DataGridView Datas)
         {
-            string ConnectionInfo = "Provider=Microsoft.Jet.OLEDB.4.0; Data Source=" + DBPath;
+           
             using (OleDbConnection Connection = new OleDbConnection(ConnectionInfo))
             {
                 Connection.Open();
@@ -77,7 +86,7 @@ namespace GeodeticCoordinateConversion
         //读取到操作数据框的重载
         internal static DataSet ReadToDG(string TableName, string DBPath)
         {
-            string ConnectionInfo = "Provider=Microsoft.Jet.OLEDB.4.0; Data Source=" + DBPath;
+           
             DataSet ReadData = new DataSet();
             using (OleDbConnection Connection = new OleDbConnection(ConnectionInfo))
             {
@@ -100,7 +109,7 @@ namespace GeodeticCoordinateConversion
         //删除操作
         internal static void DeleteFromDB(string TableName, string DBPath, DataGridView Datas, int RowIndex)
         {
-            string ConnectionInfo = "Provider=Microsoft.Jet.OLEDB.4.0; Data Source=" + DBPath;
+           
             using (OleDbConnection Connection = new OleDbConnection(ConnectionInfo))
             {
                 Connection.Open();
@@ -121,7 +130,7 @@ namespace GeodeticCoordinateConversion
         //插入操作
         internal static void InsertIntoDB(string TableName, string DBPath, DataGridView Datas, string Cols, string[] InputStringArray, int ColumnCount)
         {
-            string ConnectionInfo = "Provider=Microsoft.Jet.OLEDB.4.0; Data Source=" + DBPath;
+           
             string Command = "INSERT INTO " + TableName + " " + Cols + " VALUES ('" + IO.DT() + "', ";
             for (int i = 0; i < ColumnCount; i++)
             {
@@ -153,7 +162,7 @@ namespace GeodeticCoordinateConversion
         //更新操作
         internal static void UpdateDB(string TableName, string DBPath, DataGridView Datas, int ColumnIndex, int RowIndex)
         {
-            string ConnectionInfo = "Provider=Microsoft.Jet.OLEDB.4.0; Data Source=" + DBPath;
+            
             using (OleDbConnection Connection = new OleDbConnection(ConnectionInfo))
             {
                 Connection.Open();
