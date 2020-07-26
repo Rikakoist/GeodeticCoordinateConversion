@@ -98,7 +98,7 @@ namespace GeodeticCoordinateConversion
         public BL(XmlNode xmlNode)
         {
             XmlElement ele = (XmlElement)xmlNode;
-            this.guid =Guid.Parse(ele.GetAttribute(nameof(guid)));
+            this.guid = Guid.Parse(ele.GetAttribute(nameof(guid)));
             this.ZoneType = (GEOZoneType)int.Parse(ele.GetAttribute(nameof(ZoneType)));
             this.B = new DMS(xmlNode.SelectSingleNode(NodeInfo.BNodePath));
             this.L = new DMS(xmlNode.SelectSingleNode(NodeInfo.LNodePath));
@@ -113,11 +113,11 @@ namespace GeodeticCoordinateConversion
         public GaussCoord GaussDirect(GEOZoneType CustomizeMode = GEOZoneType.None)
         {
             if (this.GEOEllipse == null)
-                throw new ArgumentNullException(ErrMessage.GEOEllipse.EllipseNull);
+                throw new ArgumentNullException(ErrMessage.GaussCoord.GaussDirectFailed + ErrMessage.GEOEllipse.EllipseNull);
             if (this.GEOEllipse.EllipseType == GEOEllipseType.noEllipse)
-                throw new ArgumentOutOfRangeException(ErrMessage.GEOEllipse.EllipseNotSet);
+                throw new ArgumentOutOfRangeException(ErrMessage.GaussCoord.GaussDirectFailed + ErrMessage.GEOEllipse.EllipseNotSet);
             if (this.ZoneType == GEOZoneType.None)
-                throw new ArgumentException(ErrMessage.GEOZone.ZoneTypeNotSet);
+                throw new ArgumentException(ErrMessage.GaussCoord.GaussDirectFailed + ErrMessage.GEOZone.ZoneTypeNotSet);
 
             //转换为十进制度（可使用自定义模式）
             DEC CDEC = new DEC(GeoCalc.DMS2DEC(this.B), GeoCalc.DMS2DEC(this.L), (CustomizeMode != GEOZoneType.None) ? CustomizeMode : this.ZoneType);

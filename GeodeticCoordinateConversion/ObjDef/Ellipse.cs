@@ -52,64 +52,78 @@ namespace GeodeticCoordinateConversion
             }
             set
             {
-                if (value == ellipseType)
-                    return;
-                else
+                try
                 {
-                    ellipseType = value;
-                    switch (value)
+                    if (value == ellipseType)
+                        return;
+                    else
                     {
-                        case GEOEllipseType.noEllipse:
-                            {
-                                return;
-                            }
-                        case GEOEllipseType.Krassovsky_ellipsoid:
-                            {
-                                //克拉索夫斯基椭球体
-                                this.a = 6378245;
-                                this.b = 6356863.0187730473;
-                                break;
-                            }
-                        case GEOEllipseType.Int_1975:
-                            {
-                                //1975年国际椭球体
-                                this.a = 6378140;
-                                this.b = 6356755.2881575287;
-                                break;
-                            }
-                        case GEOEllipseType.WGS_84:
-                            {
-                                //WGS-84椭球体
-                                this.a = 6378137;
-                                this.b = 6356752.3142;
-                                break;
-                            }
-                        case GEOEllipseType.CGCS_2000:
-                            {
-                                //CGCS-2000
-                                this.a = 6378137;
-                                this.b = 6356752.3141;
-                                break;
-                            }
-                        default:
-                            {
-                                throw new Exception(ErrMessage.GEOEllipse.EllipseUnknown);
-                            }
+                        ellipseType = value;
+                        switch (value)
+                        {
+                            case GEOEllipseType.noEllipse:
+                                {
+                                    return;
+                                }
+                            case GEOEllipseType.Krassovsky_ellipsoid:
+                                {
+                                    //克拉索夫斯基椭球体
+                                    this.a = 6378245;
+                                    this.b = 6356863.0187730473;
+                                    break;
+                                }
+                            case GEOEllipseType.Int_1975:
+                                {
+                                    //1975年国际椭球体
+                                    this.a = 6378140;
+                                    this.b = 6356755.2881575287;
+                                    break;
+                                }
+                            case GEOEllipseType.WGS_84:
+                                {
+                                    //WGS-84椭球体
+                                    this.a = 6378137;
+                                    this.b = 6356752.3142;
+                                    break;
+                                }
+                            case GEOEllipseType.CGCS_2000:
+                                {
+                                    //CGCS-2000
+                                    this.a = 6378137;
+                                    this.b = 6356752.3141;
+                                    break;
+                                }
+                            default:
+                                {
+                                    throw new Exception(ErrMessage.GEOEllipse.EllipseUnknown);
+                                }
+                        }
+                        this.c = Math.Pow(this.a, 2) / this.b;
+                        this.e = Math.Sqrt(Math.Pow(this.a, 2) - Math.Pow(this.b, 2)) / this.a;
+                        this.e2 = Math.Sqrt(Math.Pow(this.a, 2) - Math.Pow(this.b, 2)) / this.b;
+                        EllipseChanged?.Invoke(this, null);
                     }
-                    this.c = Math.Pow(this.a, 2) / this.b;
-                    this.e = Math.Sqrt(Math.Pow(this.a, 2) - Math.Pow(this.b, 2)) / this.a;
-                    this.e2 = Math.Sqrt(Math.Pow(this.a, 2) - Math.Pow(this.b, 2)) / this.b;
-                    EllipseChanged?.Invoke(this, null);
+                }
+                catch (Exception err)
+                {
+                    throw new SetEllipseTypeException(ErrMessage.GEOEllipse.SetEllipseTypeFailed, err);
                 }
             }
         }
 
         /// <summary>
-        /// 默认构造函数。
+        /// 椭球默认构造函数。
         /// </summary>
         public Ellipse()
         {
-            this.EllipseType = GEOEllipseType.noEllipse;
+            try
+            {
+                this.EllipseType = GEOEllipseType.noEllipse;
+            }
+            catch (Exception err)
+            {
+                throw new InitializeException(ErrMessage.GEOEllipse.InitializeError, err);
+            }
         }
 
         /// <summary>
@@ -118,19 +132,33 @@ namespace GeodeticCoordinateConversion
         /// <param name="newEllipse">要设置的椭球类型</param>
         public Ellipse(GEOEllipseType newEllipse)
         {
-            if ((int)newEllipse < 0)
-                throw new ArgumentOutOfRangeException(ErrMessage.GEOEllipse.EllipseUnknown);
-            this.EllipseType = newEllipse;
+            try
+            {
+                if ((int)newEllipse < 0)
+                    throw new ArgumentOutOfRangeException(ErrMessage.GEOEllipse.EllipseUnknown);
+                this.EllipseType = newEllipse;
+            }
+            catch (Exception err)
+            {
+                throw new InitializeException(ErrMessage.GEOEllipse.InitializeError, err);
+            }
         }
 
         /// <summary>
-        /// 通过XML节点初始化。
+        /// 通过XML节点初始化椭球。
         /// </summary>
         /// <param name="xmlNode">包含对象结构的XML节点。</param>
         public Ellipse(XmlNode xmlNode)
         {
-            XmlElement ele = (XmlElement)xmlNode;
-            this.EllipseType = (GEOEllipseType)int.Parse(ele.GetAttribute(nameof(EllipseType)));
+            try
+            {
+                XmlElement ele = (XmlElement)xmlNode;
+                this.EllipseType = (GEOEllipseType)int.Parse(ele.GetAttribute(nameof(EllipseType)));
+            }
+            catch (Exception err)
+            {
+                throw new InitializeFromXmlException(ErrMessage.GEOEllipse.InitializeError, err);
+            }
         }
 
         public delegate void EllipseChangedEventHander(object sender, EventArgs e);
@@ -144,10 +172,31 @@ namespace GeodeticCoordinateConversion
         /// <returns>转换到的XML元素。</returns>
         internal XmlElement ToXmlElement(XmlDocument xmlDocument, string NodeName = NodeInfo.EllipseNode)
         {
-            XmlElement ele = xmlDocument.CreateElement(NodeName);
-            //ele.SetAttribute(nameof(guid), this.guid.ToString());
-            ele.SetAttribute(nameof(EllipseType), ((int)this.EllipseType).ToString());
-            return ele;
+            try
+            {
+                XmlElement ele = xmlDocument.CreateElement(NodeName);
+                //ele.SetAttribute(nameof(guid), this.guid.ToString());
+                ele.SetAttribute(nameof(EllipseType), ((int)this.EllipseType).ToString());
+                return ele;
+            }
+            catch (Exception err)
+            {
+                throw new XmlException(ErrMessage.GEOEllipse.SaveToXmlFailed, err);
+            }
+        }
+
+        /// <summary>
+        /// 设置椭球类型异常。
+        /// </summary>
+        [Serializable]
+        public class SetEllipseTypeException : Exception
+        {
+            public SetEllipseTypeException() { }
+            public SetEllipseTypeException(string message) : base(message) { }
+            public SetEllipseTypeException(string message, Exception inner) : base(message, inner) { }
+            protected SetEllipseTypeException(
+              System.Runtime.Serialization.SerializationInfo info,
+              System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
         }
     }
 }

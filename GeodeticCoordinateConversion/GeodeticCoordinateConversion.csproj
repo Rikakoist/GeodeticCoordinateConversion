@@ -64,12 +64,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GEOCoord.cs" />
     <Compile Include="IO\FileIO.cs" />
     <Compile Include="GEOSettings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>GEOSettings.settings</DependentUpon>
     </Compile>
+    <Compile Include="StaticObj\CommonExceptions.cs" />
     <Compile Include="StaticObj\NodeInfo.cs" />
     <Compile Include="ObjDef\GEOEnum.cs" />
     <Compile Include="ObjDef\BL.cs" />
@@ -91,7 +93,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StaticObj\Restraints.cs" />
-    <Compile Include="ZoneConvert.cs" />
+    <Compile Include="ObjDef\ZoneConvert.cs" />
     <EmbeddedResource Include="CoordConvert.resx">
       <DependentUpon>CoordConvert.cs</DependentUpon>
     </EmbeddedResource>

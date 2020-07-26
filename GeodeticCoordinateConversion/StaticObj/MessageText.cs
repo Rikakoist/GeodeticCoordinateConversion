@@ -69,6 +69,10 @@ namespace GeodeticCoordinateConversion
         public static class GEOEllipse
         {
             /// <summary>
+            /// 椭球初始化失败。
+            /// </summary>
+            public static string InitializeError = "椭球初始化失败。";
+            /// <summary>
             /// 未初始化椭球。
             /// </summary>
             public static string EllipseNull = "未初始化椭球。";
@@ -80,6 +84,14 @@ namespace GeodeticCoordinateConversion
             /// 未知的椭球类型。
             /// </summary>
             public static string EllipseUnknown = "未知的椭球类型。";
+            /// <summary>
+            /// 设置椭球类型失败。
+            /// </summary>
+            public static string SetEllipseTypeFailed = "设置椭球类型失败。";
+            /// <summary>
+            /// 将椭球保存到XML结构失败。
+            /// </summary>
+            public static string SaveToXmlFailed = "将椭球保存到XML结构失败。";
         }
 
         /// <summary>
@@ -88,13 +100,41 @@ namespace GeodeticCoordinateConversion
         public static class GaussCoord
         {
             /// <summary>
+            /// 高斯坐标初始化失败。
+            /// </summary>
+            public static string InitializeError = "高斯坐标初始化失败。";
+            /// <summary>
             /// 未初始化高斯坐标。
             /// </summary>
             public static string GaussNull = "未初始化高斯坐标。";
             /// <summary>
+            /// 计算中央经线失败。
+            /// </summary>
+            public static string GetCenterFailed = "计算中央经线失败。";
+            /// <summary>
+            /// 设置中央经线失败。
+            /// </summary>
+            public static string SetCenterFailed = "设置中央经线失败。";
+            /// <summary>
             /// 用于初始化的两个高斯坐标拥有同样的分带类型。
             /// </summary>
             public static string SameZoneType = "用于初始化的两个高斯坐标拥有同样的分带类型。";
+            /// <summary>
+            /// 设置高斯坐标带号失败。
+            /// </summary>
+            public static string SetZoneFailed = "设置高斯坐标带号失败。";
+            /// <summary>
+            /// 高斯正算失败。
+            /// </summary>
+            public static string GaussDirectFailed = "高斯正算失败。";
+            /// <summary>
+            /// 高斯反算失败。
+            /// </summary>
+            public static string GaussReverseFailed = "高斯反算失败。";
+            /// <summary>
+            /// 将高斯坐标保存到XML结构失败。
+            /// </summary>
+            public static string SaveToXmlFailed = "将高斯坐标保存到XML结构失败。";
         }
 
         /// <summary>
@@ -114,6 +154,10 @@ namespace GeodeticCoordinateConversion
             /// 操作被用户取消。
             /// </summary>
             public static string OpertionCanceledByUser = "操作被用户取消。";
+            /// <summary>
+            /// 该功能暂未实现。
+            /// </summary>
+            public static string FunctionNotImplemented = "该功能暂未实现。";
         }
 
         /// <summary>
@@ -131,6 +175,9 @@ namespace GeodeticCoordinateConversion
             public static string ZoneTypeUnknown = "未知的分带类型。";
         }
 
+        /// <summary>
+        /// 换带错误。
+        /// </summary>
         public static class ZoneConvert
         {
             /// <summary>
@@ -141,6 +188,18 @@ namespace GeodeticCoordinateConversion
             /// 换带操作失败。
             /// </summary>
             public static string ZoneConvertFailed = "换带操作失败。";
+            /// <summary>
+            /// 从3度带转换到6度带失败。
+            /// </summary>
+            public static string Convert3To6Failed = "从3度带转换到6度带失败。";
+            /// <summary>
+            /// 从6度带转换到3度带失败。
+            /// </summary>
+            public static string Convert6To3Failed = "从6度带转换到3度带失败。";
+            /// <summary>
+            /// 将换带对象保存到XML结构失败。
+            /// </summary>
+            public static string SaveToXmlFailed = "将换带对象保存到XML结构失败。";
         }
     }
 

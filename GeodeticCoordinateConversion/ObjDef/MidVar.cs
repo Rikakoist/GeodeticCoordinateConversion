@@ -221,7 +221,7 @@ namespace GeodeticCoordinateConversion
     {
         public BL Tab1FileBL;
         public GaussCoord Tab1FileGC;
-        
+
         public Tab1File()
         {
 
