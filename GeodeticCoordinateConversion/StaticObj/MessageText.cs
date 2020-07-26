@@ -39,6 +39,7 @@ namespace GeodeticCoordinateConversion
         /// 字符串小数点位置错误。
         /// </summary>
         public static string WrongDigitPosition = "字符串小数点位置错误。";
+
         /// <summary>
         /// 度超限。
         /// </summary>
@@ -59,10 +60,27 @@ namespace GeodeticCoordinateConversion
         /// 经度超限。
         /// </summary>
         public static string LongitudeOutOfRange = "经度应介于 " + Restraints.LongitudeMin.ToString() + " - " + Restraints.LongitudeMax.ToString() + " 间。";
+
         /// <summary>
         /// 未设置分带类型。
         /// </summary>
         public static string ZoneTypeNotSet = "未设置分带类型。";
+        /// <summary>
+        /// 未初始化椭球。
+        /// </summary>
+        public static string EllipseNull = "未初始化椭球。";
+        /// <summary>
+        /// 未初始化高斯坐标。
+        /// </summary>
+        public static string GaussNull = "未初始化高斯坐标。";
+        /// <summary>
+        /// 用于初始化的两个高斯坐标拥有同样的分带类型。
+        /// </summary>
+        public static string SameZoneType = "用于初始化的两个高斯坐标拥有同样的分带类型。";
+        /// <summary>
+        /// 未设置椭球类型。
+        /// </summary>
+        public static string EllipseNotSet = "未设置椭球类型。";
         /// <summary>
         /// 3度带带号超限。
         /// </summary>

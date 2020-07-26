@@ -105,7 +105,15 @@ namespace GeodeticCoordinateConversion
         }
 
         /// <summary>
-        /// 构造函数。
+        /// 默认构造函数。
+        /// </summary>
+        public Ellipse()
+        {
+            this.EllipseType = GEOEllipseType.noEllipse;
+        }
+
+        /// <summary>
+        /// 通过椭球类型初始化椭球。
         /// </summary>
         /// <param name="newEllipse">要设置的椭球类型</param>
         public Ellipse(GEOEllipseType newEllipse)

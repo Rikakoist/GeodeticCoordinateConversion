@@ -63,6 +63,7 @@ namespace GeodeticCoordinateConversion
         {
             this.guid = System.Guid.NewGuid();
             this.B = new DMS(); this.L = new DMS();
+            this.GEOEllipse = new Ellipse();
         }
 
         /// <summary>
@@ -75,6 +76,7 @@ namespace GeodeticCoordinateConversion
             this.guid = System.Guid.NewGuid();
             this.B = GeoCalc.Str2DMS(B);
             this.L = GeoCalc.Str2DMS(L);
+            this.GEOEllipse = new Ellipse();
         }
 
         /// <summary>
@@ -86,6 +88,7 @@ namespace GeodeticCoordinateConversion
         {
             this.guid = System.Guid.NewGuid();
             this.B = B; this.L = L;
+            this.GEOEllipse = new Ellipse();
         }
 
         /// <summary>
@@ -109,6 +112,13 @@ namespace GeodeticCoordinateConversion
         /// <returns>高斯正算结果。</returns>
         public GaussCoord GaussDirect(GEOZoneType CustomizeMode = GEOZoneType.None)
         {
+            if (this.GEOEllipse == null)
+                throw new ArgumentNullException(ErrMessage.EllipseNull);
+            if (this.GEOEllipse.EllipseType == GEOEllipseType.noEllipse)
+                throw new ArgumentOutOfRangeException(ErrMessage.EllipseNotSet);
+            if (this.ZoneType == GEOZoneType.None)
+                throw new ArgumentException(ErrMessage.ZoneTypeNotSet);
+
             //转换为十进制度（可使用自定义模式）
             DEC CDEC = new DEC(GeoCalc.DMS2DEC(this.B), GeoCalc.DMS2DEC(this.L), (CustomizeMode != GEOZoneType.None) ? CustomizeMode : this.ZoneType);
 

@@ -161,6 +161,10 @@ namespace GeodeticCoordinateConversion
         /// 椭球。
         /// </summary>
         public Ellipse GEOEllipse;
+        /// <summary>
+        /// 脏数据。
+        /// </summary>
+        public bool IsDirty = true;
 
         /// <summary>
         /// 默认构造函数。
@@ -168,7 +172,21 @@ namespace GeodeticCoordinateConversion
         public GaussCoord()
         {
             this.guid = System.Guid.NewGuid();
-           
+            this.ZoneType = GEOZoneType.None;
+            this.GEOEllipse = new Ellipse();
+            this.GEOEllipse.EllipseChanged += new Ellipse.EllipseChangedEventHander(this.EllipsChange);
+        }
+
+        /// <summary>
+        /// 使用椭球类型初始化。
+        /// </summary>
+        /// <param name="EllipseType"></param>
+        public GaussCoord(GEOEllipseType EllipseType)
+        {
+            this.guid = System.Guid.NewGuid();
+            this.ZoneType = GEOZoneType.None;
+            this.GEOEllipse = new Ellipse(EllipseType);
+            this.GEOEllipse.EllipseChanged += new Ellipse.EllipseChangedEventHander(this.EllipsChange);
         }
 
         /// <summary>
@@ -177,6 +195,8 @@ namespace GeodeticCoordinateConversion
         /// <param name="E">椭球对象。</param>
         public GaussCoord(Ellipse E)
         {
+            this.guid = System.Guid.NewGuid();
+            this.ZoneType = GEOZoneType.None;
             this.GEOEllipse = E;
             this.GEOEllipse.EllipseChanged += new Ellipse.EllipseChangedEventHander(this.EllipsChange);
         }
@@ -252,6 +272,13 @@ namespace GeodeticCoordinateConversion
         /// <returns>高斯反算结果。</returns>
         public BL GaussReverse()
         {
+            if (this.GEOEllipse == null)
+                throw new ArgumentNullException(ErrMessage.EllipseNull);
+            if (this.GEOEllipse.EllipseType == GEOEllipseType.noEllipse)
+                throw new ArgumentOutOfRangeException(ErrMessage.EllipseNotSet);
+            if (this.ZoneType == GEOZoneType.None)
+                throw new ArgumentException(ErrMessage.ZoneTypeNotSet);
+
             double a = this.GEOEllipse.a; double e = this.GEOEllipse.e; double e2 = this.GEOEllipse.e2;
 
             double beta = this.X / 6367588.4969;
@@ -281,8 +308,6 @@ namespace GeodeticCoordinateConversion
             };
             return ResultBL;
         }
-
-
 
         /// <summary>
         /// 转换到XML元素。
