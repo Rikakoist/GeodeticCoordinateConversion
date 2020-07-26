@@ -113,11 +113,11 @@ namespace GeodeticCoordinateConversion
         public GaussCoord GaussDirect(GEOZoneType CustomizeMode = GEOZoneType.None)
         {
             if (this.GEOEllipse == null)
-                throw new ArgumentNullException(ErrMessage.EllipseNull);
+                throw new ArgumentNullException(ErrMessage.GEOEllipse.EllipseNull);
             if (this.GEOEllipse.EllipseType == GEOEllipseType.noEllipse)
-                throw new ArgumentOutOfRangeException(ErrMessage.EllipseNotSet);
+                throw new ArgumentOutOfRangeException(ErrMessage.GEOEllipse.EllipseNotSet);
             if (this.ZoneType == GEOZoneType.None)
-                throw new ArgumentException(ErrMessage.ZoneTypeNotSet);
+                throw new ArgumentException(ErrMessage.GEOZone.ZoneTypeNotSet);
 
             //转换为十进制度（可使用自定义模式）
             DEC CDEC = new DEC(GeoCalc.DMS2DEC(this.B), GeoCalc.DMS2DEC(this.L), (CustomizeMode != GEOZoneType.None) ? CustomizeMode : this.ZoneType);
@@ -223,7 +223,7 @@ namespace GeodeticCoordinateConversion
             {
                 if ((value < Restraints.DegreeMin) || (value > Restraints.DegreeMax))
                 {
-                    throw new ArgumentOutOfRangeException(ErrMessage.DegreeOutOfRange);
+                    throw new ArgumentOutOfRangeException(ErrMessage.Data.DegreeOutOfRange);
                 }
                 else
                 {
@@ -244,7 +244,7 @@ namespace GeodeticCoordinateConversion
             {
                 if ((value < Restraints.MinuteMin) || (value > Restraints.MinuteMax))
                 {
-                    throw new ArgumentOutOfRangeException(ErrMessage.MinuteOutOfRange);
+                    throw new ArgumentOutOfRangeException(ErrMessage.Data.MinuteOutOfRange);
                 }
                 else
                 {
@@ -265,7 +265,7 @@ namespace GeodeticCoordinateConversion
             {
                 if ((value < Restraints.SecondMin) || (value > Restraints.SecondMax))
                 {
-                    throw new ArgumentOutOfRangeException(ErrMessage.SecondOutOfRange);
+                    throw new ArgumentOutOfRangeException(ErrMessage.Data.SecondOutOfRange);
                 }
                 else
                 {

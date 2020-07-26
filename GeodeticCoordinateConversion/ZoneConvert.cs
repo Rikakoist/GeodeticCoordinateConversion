@@ -34,12 +34,12 @@ namespace GeodeticCoordinateConversion
         public ZoneConvert(GaussCoord newGauss)
         {
             if (newGauss == null)
-                throw new ArgumentNullException(ErrMessage.GaussNull);
+                throw new ArgumentNullException(ErrMessage.GaussCoord.GaussNull);
             switch (newGauss.ZoneType)
             {
                 case GEOZoneType.None:
                     {
-                        throw new ArgumentException(ErrMessage.ZoneTypeNotSet);
+                        throw new ArgumentException(ErrMessage.GEOZone.ZoneTypeNotSet);
                     }
                 case GEOZoneType.Zone3:
                     {
@@ -66,11 +66,11 @@ namespace GeodeticCoordinateConversion
         public ZoneConvert(GaussCoord gauss1, GaussCoord gauss2)
         {
             if (gauss1 == null || gauss2 == null)
-                throw new ArgumentNullException(ErrMessage.GaussNull);
+                throw new ArgumentNullException(ErrMessage.GaussCoord.GaussNull);
             if (gauss1.ZoneType == GEOZoneType.None || gauss2.ZoneType == GEOZoneType.None)
-                throw new ArgumentException(ErrMessage.ZoneTypeNotSet);
+                throw new ArgumentException(ErrMessage.GEOZone.ZoneTypeNotSet);
             if (gauss1.ZoneType == gauss2.ZoneType)
-                throw new ArgumentException(ErrMessage.SameZoneType);
+                throw new ArgumentException(ErrMessage.GaussCoord.SameZoneType);
 
             switch (gauss1.ZoneType)
             {
@@ -92,7 +92,7 @@ namespace GeodeticCoordinateConversion
                     }
                 default:
                     {
-                        throw new ArgumentException(ErrMessage.ArgumentUnknown);
+                        throw new ArgumentException(ErrMessage.GEOZone.ZoneTypeUnknown);
                     }
             }
             BindGauss3Events();
@@ -122,33 +122,41 @@ namespace GeodeticCoordinateConversion
         /// </summary>
         /// <param name="sender">触发者。</param>
         /// <param name="e">附加参数。</param>
-        private void GaussDirty(object sender,EventArgs e)
+        private void GaussDirty(object sender, EventArgs e)
         {
             if (sender == this.Gauss3)
             {
                 this.Gauss3Calculated = false;
             }
-            if(sender==this.Gauss6)
+            if (sender == this.Gauss6)
             {
                 this.Gauss6Calculated = false;
             }
         }
 
+        /// <summary>
+        /// 6度带转3度带。
+        /// </summary>
         public void Convert6To3()
         {
-            if (Gauss6 != null)
+            if ((Gauss6 != null) && (!Gauss3Calculated))
             {
                 Gauss3 = Gauss6.GaussReverse() //六度带反算
                       .GaussDirect(GEOZoneType.Zone3);   //三度带正算
+                Gauss3Calculated = true;
             }
         }
 
+        /// <summary>
+        /// 3度带转6度带。
+        /// </summary>
         public void Convert3To6()
         {
-            if (Gauss3 != null)
+            if ((Gauss3 != null) && (!Gauss6Calculated))
             {
                 Gauss6 = Gauss3.GaussReverse()   //三度带反算
                       .GaussDirect(GEOZoneType.Zone6);   //六度带正算
+                Gauss6Calculated = true;
             }
         }
 

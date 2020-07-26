@@ -93,7 +93,7 @@ namespace GeodeticCoordinateConversion
                             }
                         default:
                             {
-                                throw new Exception(ErrMessage.ArgumentUnknown);
+                                throw new Exception(ErrMessage.GEOEllipse.EllipseUnknown);
                             }
                     }
                     this.c = Math.Pow(this.a, 2) / this.b;
@@ -119,7 +119,7 @@ namespace GeodeticCoordinateConversion
         public Ellipse(GEOEllipseType newEllipse)
         {
             if ((int)newEllipse < 0)
-                throw new ArgumentOutOfRangeException(ErrMessage.ArgumentUnknown);
+                throw new ArgumentOutOfRangeException(ErrMessage.GEOEllipse.EllipseUnknown);
             this.EllipseType = newEllipse;
         }
 

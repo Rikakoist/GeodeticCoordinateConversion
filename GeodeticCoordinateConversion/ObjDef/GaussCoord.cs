@@ -64,7 +64,7 @@ namespace GeodeticCoordinateConversion
             set
             {
                 this.y = value;
-                YChanged?.Invoke(this,null);
+                YChanged?.Invoke(this, null);
             }
         }
         /// <summary>
@@ -90,7 +90,7 @@ namespace GeodeticCoordinateConversion
             }
         }
         /// <summary>
-        /// 带号。
+        /// 带号，设置后会自动计算中央经线。
         /// </summary>
         public int Zone
         {
@@ -105,13 +105,13 @@ namespace GeodeticCoordinateConversion
                     case GEOZoneType.None:
                         {
                             break;
-                            //throw new ArgumentException(ErrMessage.ZoneTypeNotSet);
+                            //throw new ArgumentException(ErrMessage.GEOZone.ZoneTypeNotSet);
                         }
                     case GEOZoneType.Zone3:
                         {
                             if ((value < Restraints.Zone3Min) || (value > Restraints.Zone3Max))
                             {
-                                throw new ArgumentOutOfRangeException(ErrMessage.Zone3OutOfRange);
+                                throw new ArgumentOutOfRangeException(ErrMessage.Data.Zone3OutOfRange);
                             }
                             this.zone = value;
                             GetCenter();
@@ -121,7 +121,7 @@ namespace GeodeticCoordinateConversion
                         {
                             if ((value < Restraints.Zone6Min) || (value > Restraints.Zone6Max))
                             {
-                                throw new ArgumentOutOfRangeException(ErrMessage.Zone6OutOfRange);
+                                throw new ArgumentOutOfRangeException(ErrMessage.Data.Zone6OutOfRange);
                             }
                             this.zone = value;
                             GetCenter();
@@ -129,7 +129,7 @@ namespace GeodeticCoordinateConversion
                         }
                     default:
                         {
-                            throw new ArgumentException(ErrMessage.ArgumentUnknown);
+                            throw new ArgumentException(ErrMessage.GEOZone.ZoneTypeUnknown);
                         }
                 }
                 ZoneChanged?.Invoke(this, null);
@@ -148,7 +148,7 @@ namespace GeodeticCoordinateConversion
             {
                 if ((value < Restraints.LongitudeMin) || (value > Restraints.LongitudeMax))
                 {
-                    throw new ArgumentOutOfRangeException(ErrMessage.LongitudeOutOfRange);
+                    throw new ArgumentOutOfRangeException(ErrMessage.Data.LongitudeOutOfRange);
                 }
                 else
                 {
@@ -174,6 +174,24 @@ namespace GeodeticCoordinateConversion
             this.guid = System.Guid.NewGuid();
             this.ZoneType = GEOZoneType.None;
             this.GEOEllipse = new Ellipse();
+            this.GEOEllipse.EllipseChanged += new Ellipse.EllipseChangedEventHander(this.EllipsChange);
+        }
+
+        /// <summary>
+        /// 使用分带类型、带号、X、Y坐标和椭球（可选）初始化。
+        /// </summary>
+        /// <param name="ZoneType">分带类型。</param>
+        /// <param name="Zone">带号。</param>
+        /// <param name="X">带内X坐标。</param>
+        /// <param name="Y">带内Y坐标。</param>
+        /// <param name="EllipseType">椭球类型（可选，默认为无椭球）。</param>
+        public GaussCoord(GEOZoneType ZoneType, int Zone, double X, double Y, GEOEllipseType EllipseType = GEOEllipseType.noEllipse)
+        {
+            this.guid = System.Guid.NewGuid();
+            this.X = X; this.Y = Y;
+            this.ZoneType = ZoneType;
+            this.Zone = Zone;
+            this.GEOEllipse = new Ellipse(EllipseType);
             this.GEOEllipse.EllipseChanged += new Ellipse.EllipseChangedEventHander(this.EllipsChange);
         }
 
@@ -246,7 +264,7 @@ namespace GeodeticCoordinateConversion
             {
                 case GEOZoneType.None:
                     {
-                        throw new ArgumentException(ErrMessage.ZoneTypeNotSet);
+                        throw new ArgumentException(ErrMessage.GEOZone.ZoneTypeNotSet);
                     }
                 case GEOZoneType.Zone3:
                     {
@@ -260,7 +278,7 @@ namespace GeodeticCoordinateConversion
                     }
                 default:
                     {
-                        throw new ArgumentException(ErrMessage.ArgumentUnknown);
+                        throw new ArgumentException(ErrMessage.GEOZone.ZoneTypeUnknown);
                     }
             }
             return true;
@@ -273,11 +291,11 @@ namespace GeodeticCoordinateConversion
         public BL GaussReverse()
         {
             if (this.GEOEllipse == null)
-                throw new ArgumentNullException(ErrMessage.EllipseNull);
+                throw new ArgumentNullException(ErrMessage.GEOEllipse.EllipseNull);
             if (this.GEOEllipse.EllipseType == GEOEllipseType.noEllipse)
-                throw new ArgumentOutOfRangeException(ErrMessage.EllipseNotSet);
+                throw new ArgumentOutOfRangeException(ErrMessage.GEOEllipse.EllipseNotSet);
             if (this.ZoneType == GEOZoneType.None)
-                throw new ArgumentException(ErrMessage.ZoneTypeNotSet);
+                throw new ArgumentException(ErrMessage.GEOZone.ZoneTypeNotSet);
 
             double a = this.GEOEllipse.a; double e = this.GEOEllipse.e; double e2 = this.GEOEllipse.e2;
 

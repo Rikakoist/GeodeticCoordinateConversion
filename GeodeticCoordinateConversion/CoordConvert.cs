@@ -143,7 +143,7 @@ namespace GeodeticCoordinateConversion
                                 }
                             default:
                                 {
-                                    throw new ArgumentException(ErrMessage.ArgumentUnknown);
+                                    throw new ArgumentException(ErrMessage.GEOZone.ZoneTypeUnknown);
                                 }
                         }                     
                     }
@@ -152,7 +152,7 @@ namespace GeodeticCoordinateConversion
                 }
                 else
                 {
-                    throw new Exception(ErrMessage.EmptyDataGridView);
+                    throw new Exception(ErrMessage.Data.EmptyDataGridView);
                 }
             }
             catch (Exception err)
@@ -224,7 +224,7 @@ namespace GeodeticCoordinateConversion
                             }
                             else
                             {
-                                throw new ArgumentException(ErrMessage.ZoneTypeNotSet);
+                                throw new ArgumentException(ErrMessage.GEOZone.ZoneTypeNotSet);
                             }
                             Tab1GC.Add(Tab1DMS[i].GaussDirect());
                         }
@@ -277,13 +277,13 @@ namespace GeodeticCoordinateConversion
                 }
                 else
                 {
-                    throw new Exception(ErrMessage.EmptyDataGridView);
+                    throw new Exception(ErrMessage.Data.EmptyDataGridView);
                 }
             }
             catch (Exception err)
             {
                 MessageBoxes.Error(err.ToString());
-                SetHint(ErrMessage.ConvertOperationFailed);
+                SetHint(ErrMessage.Generic.ConvertOperationFailed);
             }
         }
 
@@ -352,13 +352,13 @@ namespace GeodeticCoordinateConversion
                 }
                 else
                 {
-                    throw new Exception(ErrMessage.EmptyDataGridView);
+                    throw new Exception(ErrMessage.Data.EmptyDataGridView);
                 }
             }
             catch (Exception err)
             {
                 MessageBoxes.Error(err.ToString());
-                SetHint(ErrMessage.ConvertOperationFailed);
+                SetHint(ErrMessage.Generic.ConvertOperationFailed);
             }
         }
         #endregion
@@ -428,7 +428,7 @@ namespace GeodeticCoordinateConversion
                                 }
                                 else
                                 {
-                                    throw new Exception(ErrMessage.EmptyDataGridView);
+                                    throw new Exception(ErrMessage.Data.EmptyDataGridView);
                                 }
                             }
 
@@ -472,7 +472,7 @@ namespace GeodeticCoordinateConversion
                                 }
                                 else
                                 {
-                                    throw new Exception(ErrMessage.EmptyDataGridView);
+                                    throw new Exception(ErrMessage.Data.EmptyDataGridView);
                                 }
                             }
                             break;
@@ -530,7 +530,7 @@ namespace GeodeticCoordinateConversion
                                 }
                                 else
                                 {
-                                    throw new Exception(ErrMessage.EmptyDataGridView);
+                                    throw new Exception(ErrMessage.Data.EmptyDataGridView);
                                 }
                             }
 
@@ -570,14 +570,14 @@ namespace GeodeticCoordinateConversion
                                 }
                                 else
                                 {
-                                    throw new Exception(ErrMessage.EmptyDataGridView);
+                                    throw new Exception(ErrMessage.Data.EmptyDataGridView);
                                 }
                             }
                             break;
                         }
                     default:
                         {
-                            SetHint(ErrMessage.DataGridViewNotExist);
+                            SetHint(ErrMessage.Data.DataGridViewNotExist);
                             break;
                         }
                 }
@@ -896,7 +896,7 @@ namespace GeodeticCoordinateConversion
                 }
                 else
                 {
-                    SetHint(ErrMessage.OpertionCanceledByUser);
+                    SetHint(ErrMessage.Generic.OpertionCanceledByUser);
                 }
             }
             catch (Exception err)

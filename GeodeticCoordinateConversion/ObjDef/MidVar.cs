@@ -49,7 +49,7 @@ namespace GeodeticCoordinateConversion
             {
                 if ((value < Restraints.BiotitudeMin) || (value > Restraints.BiotitudeMax))
                 {
-                    throw new ArgumentOutOfRangeException(ErrMessage.BiotitudeOutOfRange);
+                    throw new ArgumentOutOfRangeException(ErrMessage.Data.BiotitudeOutOfRange);
                 }
                 else
                 {
@@ -70,7 +70,7 @@ namespace GeodeticCoordinateConversion
             {
                 if ((value < Restraints.LongitudeMin) || (value > Restraints.LongitudeMax))
                 {
-                    throw new ArgumentOutOfRangeException(ErrMessage.LongitudeOutOfRange);
+                    throw new ArgumentOutOfRangeException(ErrMessage.Data.LongitudeOutOfRange);
                 }
                 else
                 {
@@ -91,7 +91,7 @@ namespace GeodeticCoordinateConversion
             {
                 if ((value < Restraints.LongitudeMin) || (value > Restraints.LongitudeMax))
                 {
-                    throw new ArgumentOutOfRangeException(ErrMessage.LongitudeOutOfRange);
+                    throw new ArgumentOutOfRangeException(ErrMessage.Data.LongitudeOutOfRange);
                 }
                 else
                 {
@@ -137,13 +137,13 @@ namespace GeodeticCoordinateConversion
                     case GEOZoneType.None:
                         {
                             break;
-                            //throw new ArgumentException(ErrMessage.ZoneTypeNotSet);
+                            //throw new ArgumentException(ErrMessage.GEOZone.ZoneTypeNotSet);
                         }
                     case GEOZoneType.Zone3:
                         {
                             if ((value < Restraints.Zone3Min) || (value > Restraints.Zone3Max))
                             {
-                                throw new ArgumentOutOfRangeException(ErrMessage.Zone3OutOfRange);
+                                throw new ArgumentOutOfRangeException(ErrMessage.Data.Zone3OutOfRange);
                             }
                             this.zone = value;
                             break;
@@ -152,14 +152,14 @@ namespace GeodeticCoordinateConversion
                         {
                             if ((value < Restraints.Zone6Min) || (value > Restraints.Zone6Max))
                             {
-                                throw new ArgumentOutOfRangeException(ErrMessage.Zone6OutOfRange);
+                                throw new ArgumentOutOfRangeException(ErrMessage.Data.Zone6OutOfRange);
                             }
                             this.zone = value;
                             break;
                         }
                     default:
                         {
-                            throw new ArgumentException(ErrMessage.ArgumentUnknown);
+                            throw new ArgumentException(ErrMessage.GEOZone.ZoneTypeUnknown);
                         }
                 }
             }
@@ -194,7 +194,7 @@ namespace GeodeticCoordinateConversion
             {
                 case GEOZoneType.None:
                     {
-                        throw new ArgumentException(ErrMessage.ZoneTypeNotSet);
+                        throw new ArgumentException(ErrMessage.GEOZone.ZoneTypeNotSet);
                     }
                 case GEOZoneType.Zone3:
                     {
@@ -210,7 +210,7 @@ namespace GeodeticCoordinateConversion
                     }
                 default:
                     {
-                        throw new ArgumentException(ErrMessage.ArgumentUnknown);
+                        throw new ArgumentException(ErrMessage.GEOZone.ZoneTypeUnknown);
                     }
             }
             return true;

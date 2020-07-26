@@ -89,7 +89,7 @@ namespace GeodeticCoordinateConversion
             DMS ResultDMS = new DMS();
             if((InputStr.IndexOf('.') == 0)|| (InputStr.IndexOf('.') == InputStr.Length-1)||((InputStr.Split('.')).Length>2))
             {
-                throw new FormatException(ErrMessage.WrongDigitPosition);
+                throw new FormatException(ErrMessage.Data.WrongDigitPosition);
             }
             if (InputStr.IndexOf('.') > 0)
             {

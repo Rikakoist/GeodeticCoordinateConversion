@@ -61,7 +61,7 @@ namespace GeodeticCoordinateConversion
             }
             catch (Exception err)
             {
-                MessageBox.Show(err.Message, ErrMessage.ErrSpecifyingDataFile, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(err.Message, ErrMessage.Data.ErrSpecifyingDataFile, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -82,7 +82,7 @@ namespace GeodeticCoordinateConversion
                 document.Save(docPath);
                 return true;
             }
-            catch (Exception err)
+            catch (Exception)
             {
                 return false;
             }
@@ -113,7 +113,7 @@ namespace GeodeticCoordinateConversion
                 document.Save(docPath);
                 return true;
             }
-            catch (Exception err)
+            catch (Exception)
             {
                 CreateTimeNode();
                 return false;
