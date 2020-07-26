@@ -10,7 +10,7 @@ namespace GeodeticCoordinateConversion
     /// <summary>
     /// 高斯坐标类。
     /// </summary>
-    public class GaussCoord
+    public sealed class GaussCoord
     {
         /// <summary>
         /// 全局唯一ID。

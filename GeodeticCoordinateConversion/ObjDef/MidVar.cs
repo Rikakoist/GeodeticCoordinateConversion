@@ -13,7 +13,7 @@ namespace GeodeticCoordinateConversion
     /// <summary>
     /// 十进制度类（计算中间变量）。
     /// </summary>
-    public class DEC
+    public sealed class DEC
     {
         /// <summary>
         /// 纬度（私有）。

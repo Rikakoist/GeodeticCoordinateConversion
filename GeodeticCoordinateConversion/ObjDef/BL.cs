@@ -11,7 +11,7 @@ namespace GeodeticCoordinateConversion
     /// <summary>
     /// 度分秒经纬度类。
     /// </summary>
-    public class BL
+    public sealed class BL
     {
         /// <summary>
         /// 全局唯一ID。
@@ -191,7 +191,7 @@ namespace GeodeticCoordinateConversion
     /// <summary>
     /// 度分秒类。
     /// </summary>
-    public class DMS
+    public sealed class DMS
     {
         /// <summary>
         /// 全局唯一ID。

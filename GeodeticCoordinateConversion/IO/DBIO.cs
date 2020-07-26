@@ -10,15 +10,15 @@ using System.IO;
 
 namespace GeodeticCoordinateConversion
 {
-    class DBIO
+    public sealed class DBIO
     {
-        public readonly string DBPath;
-        public readonly string ConnectionInfo;
+        public static readonly string DBPath;
+        public static readonly string ConnectionInfo;
 
         public DBIO(string DBPath)
         {
             this.DBPath = DBPath;
-            this.ConnectionInfo = "Provider=Microsoft.Jet.OLEDB.4.0; Data Source=" + DBPath;
+            ConnectionInfo = "Provider=Microsoft.Jet.OLEDB.4.0; Data Source=" + DBPath;
         }
 
         //保存操作
