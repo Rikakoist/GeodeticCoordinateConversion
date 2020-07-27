@@ -25,13 +25,13 @@ namespace GeodeticCoordinateConversion {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool GEOZoneType3 {
+        [global::System.Configuration.DefaultSettingValueAttribute("6")]
+        public uint DefaultZoneType {
             get {
-                return ((bool)(this["GEOZoneType3"]));
+                return ((uint)(this["DefaultZoneType"]));
             }
             set {
-                this["GEOZoneType3"] = value;
+                this["DefaultZoneType"] = value;
             }
         }
         
@@ -68,6 +68,18 @@ namespace GeodeticCoordinateConversion {
             }
             set {
                 this["DataFileName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public uint DefaultEllipseType {
+            get {
+                return ((uint)(this["DefaultEllipseType"]));
+            }
+            set {
+                this["DefaultEllipseType"] = value;
             }
         }
     }

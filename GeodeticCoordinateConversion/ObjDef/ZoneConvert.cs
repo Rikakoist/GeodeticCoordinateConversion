@@ -17,11 +17,14 @@ namespace GeodeticCoordinateConversion
     /// </summary>
     public class ZoneConvert
     {
+        #region Fields
         public bool Gauss6Calculated = false;
         public GaussCoord Gauss6;
         public bool Gauss3Calculated = false;
         public GaussCoord Gauss3;
+        #endregion
 
+        #region Constructor
         /// <summary>
         /// 默认构造函数，会使用空的构造函数新建两个高斯坐标对象。
         /// </summary>
@@ -163,7 +166,9 @@ namespace GeodeticCoordinateConversion
                 throw new XmlException(ErrMessage.ZoneConvert.InitializeError, err);
             }
         }
+        #endregion
 
+        #region Events
         /// <summary>
         /// 绑定3度带对象事件。
         /// </summary>
@@ -171,6 +176,7 @@ namespace GeodeticCoordinateConversion
         {
             this.Gauss3.XChanged += new GaussCoord.XChangedEventHander(this.GaussDirty);
             this.Gauss3.YChanged += new GaussCoord.YChangedEventHander(this.GaussDirty);
+            this.Gauss3.EllipseChanged += new GaussCoord.EllipseChangedEventHander(this.GaussDirty);
         }
 
         /// <summary>
@@ -180,8 +186,11 @@ namespace GeodeticCoordinateConversion
         {
             this.Gauss6.XChanged += new GaussCoord.XChangedEventHander(this.GaussDirty);
             this.Gauss6.YChanged += new GaussCoord.YChangedEventHander(this.GaussDirty);
+            this.Gauss6.EllipseChanged += new GaussCoord.EllipseChangedEventHander(this.GaussDirty);
         }
+        #endregion
 
+        #region Methods
         /// <summary>
         /// 改变计算状态。
         /// </summary>
@@ -211,6 +220,7 @@ namespace GeodeticCoordinateConversion
                     Gauss3 = Gauss6.GaussReverse() //六度带反算
                           .GaussDirect(GEOZoneType.Zone3);   //三度带正算
                     Gauss3Calculated = true;
+                    BindGauss3Events();
                 }
             }
             catch (Exception err)
@@ -231,6 +241,7 @@ namespace GeodeticCoordinateConversion
                     Gauss6 = Gauss3.GaussReverse()   //三度带反算
                           .GaussDirect(GEOZoneType.Zone6);   //六度带正算
                     Gauss6Calculated = true;
+                    BindGauss6Events();
                 }
             }
             catch (Exception err)
@@ -276,7 +287,9 @@ namespace GeodeticCoordinateConversion
                 throw new XmlException(ErrMessage.ZoneConvert.SaveToXmlFailed, err);
             }
         }
+        #endregion
 
+        #region Exceptions
         /// <summary>
         /// 换带异常。
         /// </summary>
@@ -290,5 +303,6 @@ namespace GeodeticCoordinateConversion
               System.Runtime.Serialization.SerializationInfo info,
               System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
         }
+        #endregion
     }
 }

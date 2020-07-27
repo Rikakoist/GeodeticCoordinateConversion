@@ -1,6 +1,6 @@
 ﻿namespace GeodeticCoordinateConversion
 {
-    partial class CoordConvert
+    partial class MainForm
     {
         /// <summary>
         /// 必需的设计器变量。
@@ -38,7 +38,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CoordConvert));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.MainTabControl = new System.Windows.Forms.TabControl();
             this.CoordConvertTabPage = new System.Windows.Forms.TabPage();
             this.Tab1OperationGroupBox = new System.Windows.Forms.GroupBox();

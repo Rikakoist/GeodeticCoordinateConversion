@@ -19,7 +19,8 @@ namespace GeodeticCoordinateConversion
 
             //检查工作文件夹和文件名
             GEOSettings AppSettings = new GEOSettings();
-            if (!System.IO.Directory.Exists(AppSettings.WorkFolder))
+            if ((String.IsNullOrWhiteSpace(AppSettings.WorkFolder))
+                || (!System.IO.Directory.Exists(AppSettings.WorkFolder)))
             {
                 AppSettings.WorkFolder = Application.StartupPath;
             }
@@ -37,7 +38,7 @@ namespace GeodeticCoordinateConversion
             }
 
             AppSettings.Save();
-            Application.Run(new CoordConvert());
+            Application.Run(new MainForm());
         }
     }
 }

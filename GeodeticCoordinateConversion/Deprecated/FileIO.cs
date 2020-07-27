@@ -72,7 +72,7 @@ namespace GeodeticCoordinateConversion
                     {
                         Result.Add(new Tab1File()
                         {
-                            Tab1FileBL = new BL
+                            Tab1FileBL = new GEOBL
                             {
                                 B = new DMS
                                 {

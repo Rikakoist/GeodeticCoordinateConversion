@@ -219,7 +219,7 @@ namespace GeodeticCoordinateConversion
 
     class Tab1File
     {
-        public BL Tab1FileBL;
+        public GEOBL Tab1FileBL;
         public GaussCoord Tab1FileGC;
 
         public Tab1File()
@@ -229,7 +229,7 @@ namespace GeodeticCoordinateConversion
 
         public Tab1File(XmlNode xmlNode)
         {
-            this.Tab1FileBL = new BL(xmlNode.SelectSingleNode(NodeInfo.BLNodePath));
+            this.Tab1FileBL = new GEOBL(xmlNode.SelectSingleNode(NodeInfo.BLNodePath));
             this.Tab1FileGC = new GaussCoord(xmlNode.SelectSingleNode(NodeInfo.GaussNode));
         }
     }

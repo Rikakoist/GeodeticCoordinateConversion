@@ -12,7 +12,7 @@ namespace GeodeticCoordinateConversion
     class CoordConversion
     {
         //预备转换
-        internal static void GaussPrepare(Ellipse E, ref List<GaussCoord> GC, ref List<BL> BLDMS, int Mode, int ZoneType)
+        internal static void GaussPrepare(Ellipse E, ref List<GaussCoord> GC, ref List<GEOBL> BLDMS, int Mode, int ZoneType)
         {
             switch (Mode)
             {
@@ -34,10 +34,10 @@ namespace GeodeticCoordinateConversion
         }
 
         //度分秒列表整体转换十进制
-        internal static List<DEC> DMSList2DEC(List<BL> InputBLDMS)
+        internal static List<DEC> DMSList2DEC(List<GEOBL> InputBLDMS)
         {
             List<DEC> ResultDEC = new List<DEC>();
-            foreach (BL BLDMS in InputBLDMS)
+            foreach (GEOBL BLDMS in InputBLDMS)
             {
                 DEC DC = new DEC
                 {
@@ -116,9 +116,9 @@ namespace GeodeticCoordinateConversion
         }
 
         //高斯投影反算
-        internal static List<BL> GaussReverse(List<GaussCoord> InputGC, double a, double e, double e2)
+        internal static List<GEOBL> GaussReverse(List<GaussCoord> InputGC, double a, double e, double e2)
         {
-            List<BL> ResultBL = new List<BL>();
+            List<GEOBL> ResultBL = new List<GEOBL>();
             foreach (GaussCoord GC in InputGC)
             {
                 double beta = GC.X / 6367588.4969;
@@ -140,7 +140,7 @@ namespace GeodeticCoordinateConversion
 
                 // 本带内经度换算
                 L += GC.Center;
-                BL TmpBL = new BL()
+                GEOBL TmpBL = new GEOBL()
                 {
                     B = GeoCalc.DEC2DMS(B),
                     L = GeoCalc.DEC2DMS(L),

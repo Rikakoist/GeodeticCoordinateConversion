@@ -7,6 +7,20 @@ using System.Threading.Tasks;
 namespace GeodeticCoordinateConversion
 {
     /// <summary>
+    /// 绑定事件失败。
+    /// </summary>
+    [Serializable]
+    public class EventBindException : Exception
+    {
+        public EventBindException() { }
+        public EventBindException(string message) : base(message) { }
+        public EventBindException(string message, Exception inner) : base(message, inner) { }
+        protected EventBindException(
+          System.Runtime.Serialization.SerializationInfo info,
+          System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
+    }
+
+    /// <summary>
     /// 初始化失败。
     /// </summary>
     [Serializable]

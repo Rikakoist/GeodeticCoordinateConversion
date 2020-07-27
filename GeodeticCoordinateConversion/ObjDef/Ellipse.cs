@@ -12,10 +12,15 @@ namespace GeodeticCoordinateConversion
     /// </summary>
     public class Ellipse
     {
+        #region Fields
         /// <summary>
         /// 全局唯一ID。
         /// </summary>
         public readonly Guid guid;
+        /// <summary>
+        /// 配置文件。
+        /// </summary>
+        private GEOSettings AppSettings = new GEOSettings();
         /// <summary>
         /// 椭球类型(私有)。
         /// </summary>
@@ -41,6 +46,9 @@ namespace GeodeticCoordinateConversion
         /// 极点处子午线曲率半径。
         /// </summary>
         public double c { get; private set; }
+        #endregion
+
+        #region Properties
         /// <summary>
         /// 椭球类型。
         /// </summary>
@@ -98,7 +106,7 @@ namespace GeodeticCoordinateConversion
                         this.c = Math.Pow(this.a, 2) / this.b;
                         this.e = Math.Sqrt(Math.Pow(this.a, 2) - Math.Pow(this.b, 2)) / this.a;
                         this.e2 = Math.Sqrt(Math.Pow(this.a, 2) - Math.Pow(this.b, 2)) / this.b;
-                        EllipseChanged?.Invoke(this, null);
+                        EllipseChanged?.Invoke(this, new EventArgs());
                     }
                 }
                 catch (Exception err)
@@ -107,7 +115,9 @@ namespace GeodeticCoordinateConversion
                 }
             }
         }
+        #endregion
 
+        #region Constructor
         /// <summary>
         /// 椭球默认构造函数。
         /// </summary>
@@ -115,7 +125,8 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                this.EllipseType = GEOEllipseType.noEllipse;
+                //this.EllipseType = GEOEllipseType.noEllipse;
+                this.EllipseType = (GEOEllipseType)AppSettings.DefaultEllipseType;
             }
             catch (Exception err)
             {
@@ -157,10 +168,14 @@ namespace GeodeticCoordinateConversion
                 throw new InitializeFromXmlException(ErrMessage.GEOEllipse.InitializeError, err);
             }
         }
+        #endregion
 
+        #region Events
         public delegate void EllipseChangedEventHander(object sender, EventArgs e);
         public event EllipseChangedEventHander EllipseChanged;
+        #endregion
 
+        #region Methods
         /// <summary>
         /// 转换到XML元素。
         /// </summary>
@@ -181,7 +196,9 @@ namespace GeodeticCoordinateConversion
                 throw new XmlException(ErrMessage.GEOEllipse.SaveToXmlFailed, err);
             }
         }
+        #endregion
 
+        #region Exceptions
         /// <summary>
         /// 设置椭球类型异常。
         /// </summary>
@@ -195,5 +212,6 @@ namespace GeodeticCoordinateConversion
               System.Runtime.Serialization.SerializationInfo info,
               System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
         }
+        #endregion
     }
 }

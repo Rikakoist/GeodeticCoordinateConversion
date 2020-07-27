@@ -12,6 +12,17 @@ namespace GeodeticCoordinateConversion
     public static class ErrMessage
     {
         /// <summary>
+        /// 坐标转换错误。
+        /// </summary>
+        public static class CoordConvert
+        {
+            /// <summary>
+            /// 坐标转换对象初始化失败。
+            /// </summary>
+            public static string InitializeError = "坐标转换对象初始化失败。";
+        }
+
+        /// <summary>
         /// 数据错误。
         /// </summary>
         public static class Data
@@ -63,6 +74,9 @@ namespace GeodeticCoordinateConversion
             public static string Zone6OutOfRange = "6度分带带号应介于" + Restraints.Zone6Min.ToString() + " - " + Restraints.Zone6Max.ToString() + " 间。";
         }
 
+        /// <summary>
+        /// 数据管理对象错误。
+        /// </summary>
         public static class DataFile
         {
             /// <summary>
@@ -83,7 +97,7 @@ namespace GeodeticCoordinateConversion
             /// <summary>
             /// 数据库管理对象初始化失败。
             /// </summary>
-            public static string InitializeError = "数据库管理对象初始化失败。";           
+            public static string InitializeError = "数据库管理对象初始化失败。";
             /// <summary>
             /// 设置数据库存放目录失败。
             /// </summary>
@@ -91,18 +105,60 @@ namespace GeodeticCoordinateConversion
         }
 
         /// <summary>
-        /// 椭球错误。
+        /// 度分秒对象错误。
+        /// </summary>
+        public static class DMS
+        {
+            /// <summary>
+            /// 度分秒对象初始化失败。
+            /// </summary>
+            public static string InitializeError = "度分秒对象初始化失败。";
+            /// <summary>
+            /// 未初始化度分秒对象。
+            /// </summary>
+            public static string DMSNull = "未初始化度分秒对象。";
+            /// <summary>
+            /// 将度分秒对象保存到XML结构失败。
+            /// </summary>
+            public static string SaveToXmlFailed = "将度分秒对象保存到XML结构失败。";
+        }
+
+        /// <summary>
+        /// 地理经纬度对象错误。
+        /// </summary>
+        public static class GEOBL
+        {
+            /// <summary>
+            /// 地理经纬度对象初始化失败。
+            /// </summary>
+            public static string InitializeError = "地理经纬度对象初始化失败。";
+            /// <summary>
+            /// 未初始化地理经纬度对象。
+            /// </summary>
+            public static string GEOBLNull = "未初始化地理经纬度对象。";
+            /// <summary>
+            /// 高斯正算失败。
+            /// </summary>
+            public static string GaussDirectFailed = "高斯正算失败。";
+            /// <summary>
+            /// 将地理经纬度保存到XML结构失败。
+            /// </summary>
+            public static string SaveToXmlFailed = "将地理经纬度对象保存到XML结构失败。";
+        }
+
+        /// <summary>
+        /// 椭球对象错误。
         /// </summary>
         public static class GEOEllipse
         {
             /// <summary>
             /// 椭球初始化失败。
             /// </summary>
-            public static string InitializeError = "椭球初始化失败。";
+            public static string InitializeError = "椭球对象初始化失败。";
             /// <summary>
-            /// 未初始化椭球。
+            /// 未初始化椭球对象。
             /// </summary>
-            public static string EllipseNull = "未初始化椭球。";
+            public static string EllipseNull = "未初始化椭球对象。";
             /// <summary>
             /// 未设置椭球类型。
             /// </summary>
@@ -118,22 +174,22 @@ namespace GeodeticCoordinateConversion
             /// <summary>
             /// 将椭球保存到XML结构失败。
             /// </summary>
-            public static string SaveToXmlFailed = "将椭球保存到XML结构失败。";
+            public static string SaveToXmlFailed = "将椭球对象保存到XML结构失败。";
         }
 
         /// <summary>
-        /// 高斯坐标错误。
+        /// 高斯坐标对象错误。
         /// </summary>
         public static class GaussCoord
         {
             /// <summary>
             /// 高斯坐标初始化失败。
             /// </summary>
-            public static string InitializeError = "高斯坐标初始化失败。";
+            public static string InitializeError = "高斯坐标对象初始化失败。";
             /// <summary>
             /// 未初始化高斯坐标。
             /// </summary>
-            public static string GaussNull = "未初始化高斯坐标。";
+            public static string GaussNull = "未初始化高斯坐标对象。";
             /// <summary>
             /// 计算中央经线失败。
             /// </summary>
@@ -145,15 +201,11 @@ namespace GeodeticCoordinateConversion
             /// <summary>
             /// 用于初始化的两个高斯坐标拥有同样的分带类型。
             /// </summary>
-            public static string SameZoneType = "用于初始化的两个高斯坐标拥有同样的分带类型。";
+            public static string SameZoneType = "用于初始化对象的两个高斯坐标拥有同样的分带类型。";
             /// <summary>
             /// 设置高斯坐标带号失败。
             /// </summary>
-            public static string SetZoneFailed = "设置高斯坐标带号失败。";
-            /// <summary>
-            /// 高斯正算失败。
-            /// </summary>
-            public static string GaussDirectFailed = "高斯正算失败。";
+            public static string SetZoneFailed = "设置高斯坐标带号失败。";          
             /// <summary>
             /// 高斯反算失败。
             /// </summary>
@@ -161,7 +213,7 @@ namespace GeodeticCoordinateConversion
             /// <summary>
             /// 将高斯坐标保存到XML结构失败。
             /// </summary>
-            public static string SaveToXmlFailed = "将高斯坐标保存到XML结构失败。";
+            public static string SaveToXmlFailed = "将高斯坐标对象保存到XML结构失败。";
         }
 
         /// <summary>
@@ -189,6 +241,10 @@ namespace GeodeticCoordinateConversion
             /// 指定的文件夹不存在。
             /// </summary>
             public static string DirectoryNotFound = "指定的文件夹不存在。";
+            /// <summary>
+            /// 绑定事件失败。
+            /// </summary>
+            public static string BindEventFailed = "绑定事件失败。";
         }
 
         /// <summary>

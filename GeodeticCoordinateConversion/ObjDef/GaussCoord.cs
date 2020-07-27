@@ -12,6 +12,7 @@ namespace GeodeticCoordinateConversion
     /// </summary>
     public sealed class GaussCoord
     {
+        #region Fields
         /// <summary>
         /// 全局唯一ID。
         /// </summary>
@@ -36,7 +37,17 @@ namespace GeodeticCoordinateConversion
         /// 中央经线（私有）。
         /// </summary>
         private double center;
+        /// <summary>
+        /// 椭球。
+        /// </summary>
+        public Ellipse GEOEllipse;
+        /// <summary>
+        /// 脏数据。
+        /// </summary>
+        public bool IsDirty = true;
+        #endregion
 
+        #region Properties
         /// <summary>
         /// 带内x坐标。
         /// </summary>
@@ -46,7 +57,7 @@ namespace GeodeticCoordinateConversion
             set
             {
                 this.x = value;
-                XChanged?.Invoke(this, null);
+                XChanged?.Invoke(this, new EventArgs());
             }
         }
         /// <summary>
@@ -58,7 +69,7 @@ namespace GeodeticCoordinateConversion
             set
             {
                 this.y = value;
-                YChanged?.Invoke(this, null);
+                YChanged?.Invoke(this, new EventArgs());
             }
         }
         /// <summary>
@@ -76,7 +87,7 @@ namespace GeodeticCoordinateConversion
                 else
                 {
                     this.zoneType = value;
-                    ZoneTypeChanged?.Invoke(this, null);
+                    ZoneTypeChanged?.Invoke(this, new EventArgs());
                 }
             }
         }
@@ -122,7 +133,7 @@ namespace GeodeticCoordinateConversion
                                 throw new ArgumentException(ErrMessage.GEOZone.ZoneTypeUnknown);
                             }
                     }
-                    ZoneChanged?.Invoke(this, null);
+                    ZoneChanged?.Invoke(this, new EventArgs());
                 }
                 catch (Exception err)
                 {
@@ -147,7 +158,7 @@ namespace GeodeticCoordinateConversion
                     else
                     {
                         this.center = value;
-                        CenterChanged?.Invoke(this, null);
+                        CenterChanged?.Invoke(this, new EventArgs());
                     }
                 }
                 catch (Exception err)
@@ -156,15 +167,9 @@ namespace GeodeticCoordinateConversion
                 }
             }
         }
-        /// <summary>
-        /// 椭球。
-        /// </summary>
-        public Ellipse GEOEllipse;
-        /// <summary>
-        /// 脏数据。
-        /// </summary>
-        public bool IsDirty = true;
+        #endregion
 
+        #region Constructor
         /// <summary>
         /// 高斯坐标默认构造函数。
         /// </summary>
@@ -175,7 +180,7 @@ namespace GeodeticCoordinateConversion
                 this.guid = System.Guid.NewGuid();
                 this.ZoneType = GEOZoneType.None;
                 this.GEOEllipse = new Ellipse();
-                this.GEOEllipse.EllipseChanged += new Ellipse.EllipseChangedEventHander(this.EllipsChange);
+                BindEllipseEvent();
             }
             catch (Exception err)
             {
@@ -200,7 +205,7 @@ namespace GeodeticCoordinateConversion
                 this.ZoneType = ZoneType;
                 this.Zone = Zone;
                 this.GEOEllipse = new Ellipse(EllipseType);
-                this.GEOEllipse.EllipseChanged += new Ellipse.EllipseChangedEventHander(this.EllipsChange);
+                BindEllipseEvent();
             }
             catch (Exception err)
             {
@@ -219,7 +224,7 @@ namespace GeodeticCoordinateConversion
                 this.guid = System.Guid.NewGuid();
                 this.ZoneType = GEOZoneType.None;
                 this.GEOEllipse = new Ellipse(EllipseType);
-                this.GEOEllipse.EllipseChanged += new Ellipse.EllipseChangedEventHander(this.EllipsChange);
+                BindEllipseEvent();
             }
             catch (Exception err)
             {
@@ -237,8 +242,8 @@ namespace GeodeticCoordinateConversion
             {
                 this.guid = System.Guid.NewGuid();
                 this.ZoneType = GEOZoneType.None;
-                this.GEOEllipse = E;
-                this.GEOEllipse.EllipseChanged += new Ellipse.EllipseChangedEventHander(this.EllipsChange);
+                this.GEOEllipse = E ?? throw new ArgumentNullException(ErrMessage.GEOEllipse.EllipseNull);
+                BindEllipseEvent();
             }
             catch (Exception err)
             {
@@ -262,14 +267,16 @@ namespace GeodeticCoordinateConversion
                 this.Zone = int.Parse(ele.GetAttribute(nameof(Zone)));
                 this.Center = double.Parse(ele.GetAttribute(nameof(Center)));
                 this.GEOEllipse = new Ellipse(xmlNode.SelectSingleNode(NodeInfo.EllipseNodePath));
-                this.GEOEllipse.EllipseChanged += new Ellipse.EllipseChangedEventHander(this.EllipsChange);
+                BindEllipseEvent();
             }
             catch (Exception err)
             {
                 throw new InitializeFromXmlException(ErrMessage.GaussCoord.InitializeError, err);
             }
         }
+        #endregion
 
+        #region Events
         public delegate void XChangedEventHander(object sender, EventArgs e);
         public event XChangedEventHander XChanged;
         public delegate void YChangedEventHander(object sender, EventArgs e);
@@ -282,10 +289,32 @@ namespace GeodeticCoordinateConversion
         public event CenterChangedEventHander CenterChanged;
         public delegate void EllipseChangedEventHander(object sender, EventArgs e);
         public event EllipseChangedEventHander EllipseChanged;
+        #endregion
 
-        private void EllipsChange(object sender, EventArgs e)
+        #region Methods
+        /// <summary>
+        /// 绑定椭球事件。
+        /// </summary>
+        private void BindEllipseEvent()
         {
-            EllipseChanged?.Invoke(this, null);
+            try
+            {
+                this.GEOEllipse.EllipseChanged += new Ellipse.EllipseChangedEventHander(this.EllipseChange);
+            }
+            catch (Exception err)
+            {
+                throw new EventBindException(ErrMessage.Generic.BindEventFailed, err);
+            }
+        }
+
+        /// <summary>
+        /// 触发椭球改变事件。
+        /// </summary>
+        /// <param name="sender">触发者。</param>
+        /// <param name="e">附加参数。</param>
+        private void EllipseChange(object sender, EventArgs e)
+        {
+            EllipseChanged?.Invoke(this, e);
         }
 
         /// <summary>
@@ -329,7 +358,7 @@ namespace GeodeticCoordinateConversion
         /// 高斯反算（高斯投影坐标到度分秒）。
         /// </summary>
         /// <returns>高斯反算结果。</returns>
-        public BL GaussReverse()
+        public GEOBL GaussReverse()
         {
             try
             {
@@ -363,7 +392,7 @@ namespace GeodeticCoordinateConversion
                 // 本带内经度换算
                 L += this.Center;
 
-                BL ResultBL = new BL(GeoCalc.DEC2DMS(B), GeoCalc.DEC2DMS(L))
+                GEOBL ResultBL = new GEOBL(GeoCalc.DEC2DMS(B), GeoCalc.DEC2DMS(L))
                 {
                     GEOEllipse = this.GEOEllipse
                 };
@@ -403,7 +432,9 @@ namespace GeodeticCoordinateConversion
                 throw new XmlException(ErrMessage.GaussCoord.SaveToXmlFailed, err);
             }
         }
+        #endregion
 
+        #region Exceptions
         /// <summary>
         /// 设置带号异常。
         /// </summary>
@@ -445,5 +476,6 @@ namespace GeodeticCoordinateConversion
               System.Runtime.Serialization.SerializationInfo info,
               System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
         }
+        #endregion
     }
 }
