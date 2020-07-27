@@ -49,13 +49,25 @@ namespace GeodeticCoordinateConversion {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1")]
-        public uint EllipseType {
+        [global::System.Configuration.DefaultSettingValueAttribute("GeoConvertDB.mdb")]
+        public string DBName {
             get {
-                return ((uint)(this["EllipseType"]));
+                return ((string)(this["DBName"]));
             }
             set {
-                this["EllipseType"] = value;
+                this["DBName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("GeoConversion.xml")]
+        public string DataFileName {
+            get {
+                return ((string)(this["DataFileName"]));
+            }
+            set {
+                this["DataFileName"] = value;
             }
         }
     }

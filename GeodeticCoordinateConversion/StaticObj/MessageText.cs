@@ -63,6 +63,33 @@ namespace GeodeticCoordinateConversion
             public static string Zone6OutOfRange = "6度分带带号应介于" + Restraints.Zone6Min.ToString() + " - " + Restraints.Zone6Max.ToString() + " 间。";
         }
 
+        public static class DataFile
+        {
+            /// <summary>
+            /// 数据文件管理对象初始化失败。
+            /// </summary>
+            public static string InitializeError = "数据文件管理对象初始化失败。";
+            /// <summary>
+            /// 设置数据文件存放目录失败。
+            /// </summary>
+            public static string SetDocPathFailed = "设置数据文件存放目录失败。";
+        }
+
+        /// <summary>
+        /// 数据库错误。
+        /// </summary>
+        public static class DB
+        {
+            /// <summary>
+            /// 数据库管理对象初始化失败。
+            /// </summary>
+            public static string InitializeError = "数据库管理对象初始化失败。";           
+            /// <summary>
+            /// 设置数据库存放目录失败。
+            /// </summary>
+            public static string SetDBPathFailed = "设置数据库存放目录失败。";
+        }
+
         /// <summary>
         /// 椭球错误。
         /// </summary>
@@ -158,6 +185,10 @@ namespace GeodeticCoordinateConversion
             /// 该功能暂未实现。
             /// </summary>
             public static string FunctionNotImplemented = "该功能暂未实现。";
+            /// <summary>
+            /// 指定的文件夹不存在。
+            /// </summary>
+            public static string DirectoryNotFound = "指定的文件夹不存在。";
         }
 
         /// <summary>

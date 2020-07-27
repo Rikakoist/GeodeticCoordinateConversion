@@ -12,10 +12,14 @@ namespace GeodeticCoordinateConversion
     class FileIO
     {
         /// <summary>
-        /// XML文档路径。
+        /// 配置文件。
         /// </summary>
-        public string docPath;
+        private GEOSettings AppSettings = new GEOSettings();
 
+        /// <summary>
+        /// XML文档路径（私有）。
+        /// </summary>
+        private string docPath;
         /// <summary>
         /// XML文档对象。
         /// </summary>
@@ -25,8 +29,34 @@ namespace GeodeticCoordinateConversion
         /// </summary>
         private XmlNode rootNode;
 
-        public delegate void DocumentModifiedEventHander(object sender, EventArgs e);
-        public event DocumentModifiedEventHander DocumentModified;
+        /// <summary>
+        /// XML文档路径。
+        /// </summary>
+        public string DocPath
+        {
+            get => docPath;
+            set
+            {
+                try
+                {
+                    if (!Directory.Exists(value))
+                        throw new DirectoryNotFoundException(ErrMessage.Generic.DirectoryNotFound);
+                    docPath = Path.Combine(value, AppSettings.DataFileName);
+                    CheckDataFileExists();
+                    this.DocPathChanged?.Invoke(this, null);
+                    InitDoc();
+                }
+                catch (Exception err)
+                {
+                    throw new DocPathException(ErrMessage.DataFile.SetDocPathFailed, err);
+                }
+            }
+        }
+
+        public FileIO()
+        {
+            this.DocPath = AppSettings.WorkFolder;
+        }
 
         /// <summary>
         /// 构造函数。
@@ -36,28 +66,7 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                docPath = ConfigFilePath;
-                //若指定的配置文件路径不存在
-                if (!File.Exists(docPath))
-                {
-                    //若无法创建配置文件
-                    if (!CreateConfig())
-                    {
-                        throw new FileNotFoundException("指定的配置文件\"" + ConfigFilePath + "\"不存在，且无法创建。");
-                    }
-                    else
-                    {
-                        this.DocumentModified?.Invoke(this, null);
-                    }
-                }
-
-                document = new XmlDocument();
-                document.Load(ConfigFilePath);
-                rootNode = document.SelectSingleNode("/root");
-                if (rootNode == null)
-                {
-                    throw new KeyNotFoundException("加载配置文件\"" + ConfigFilePath + "\"根节点失败。");
-                }
+                DocPath = ConfigFilePath;
             }
             catch (Exception err)
             {
@@ -65,26 +74,41 @@ namespace GeodeticCoordinateConversion
             }
         }
 
+        public delegate void DocPathChangedEventHander(object sender, EventArgs e);
+        public event DocPathChangedEventHander DocPathChanged;
+        public delegate void DocModifiedEventHander(object sender, EventArgs e);
+        public event DocModifiedEventHander DocModified;
+
         /// <summary>
-        /// 创建空的配置文件。
+        /// 检查配置文件是否存在。
         /// </summary>
         /// <returns>操作结果。</returns>
-        private bool CreateConfig()
+        private void CheckDataFileExists()
         {
-            try
+            if (!File.Exists(DocPath))
             {
-                XmlDocument document = new XmlDocument();
+                document = new XmlDocument();
                 XmlNode xmlNode = document.CreateXmlDeclaration(NodeInfo.XmlVersion, NodeInfo.XmlEncode, NodeInfo.XmlStandalone);
                 document.AppendChild(xmlNode);
-                XmlNode rootNode = document.CreateElement(NodeInfo.RootNode);
+                rootNode = document.CreateElement(NodeInfo.RootNode);
                 document.AppendChild(rootNode);
                 CreateTimeNode();
-                document.Save(docPath);
-                return true;
+                document.Save(DocPath);
+                this.DocModified?.Invoke(this, null);
             }
-            catch (Exception)
+        }
+
+        /// <summary>
+        /// 初始化文档。
+        /// </summary>
+        private void InitDoc()
+        {
+            document = new XmlDocument();
+            document.Load(DocPath);
+            rootNode = document.SelectSingleNode("/root");
+            if (rootNode == null)
             {
-                return false;
+                throw new KeyNotFoundException("加载配置文件\"" + DocPath + "\"根节点失败。");
             }
         }
 
@@ -110,7 +134,7 @@ namespace GeodeticCoordinateConversion
             {
                 XmlNode modi = rootNode.SelectSingleNode(NodeInfo.TimeNodePath);
                 ((XmlElement)modi).SetAttribute(NodeInfo.LastModifiedAttr, CommonText.LastModified + CommonText.Now);
-                document.Save(docPath);
+                document.Save(DocPath);
                 return true;
             }
             catch (Exception)
@@ -120,7 +144,7 @@ namespace GeodeticCoordinateConversion
             }
             finally
             {
-                this.DocumentModified?.Invoke(this, null);
+                this.DocModified?.Invoke(this, null);
             }
         }
 
@@ -135,7 +159,7 @@ namespace GeodeticCoordinateConversion
 
                 rootNode.AppendChild(tabNode);
             }
-            document.Save(docPath);
+            document.Save(DocPath);
             ModifyTime();
             return true;
         }
@@ -170,7 +194,7 @@ namespace GeodeticCoordinateConversion
 
                 rootNode.AppendChild(tabNode);
             }
-            document.Save(docPath);
+            document.Save(DocPath);
             ModifyTime();
             return true;
         }
@@ -192,6 +216,20 @@ namespace GeodeticCoordinateConversion
                 }
             }
             return Result;
+        }
+
+        /// <summary>
+        /// 配置文件路径异常。
+        /// </summary>
+        [Serializable]
+        public class DocPathException : Exception
+        {
+            public DocPathException() { }
+            public DocPathException(string message) : base(message) { }
+            public DocPathException(string message, Exception inner) : base(message, inner) { }
+            protected DocPathException(
+              System.Runtime.Serialization.SerializationInfo info,
+              System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
         }
     }
 }

@@ -12,19 +12,117 @@ namespace GeodeticCoordinateConversion
 {
     public sealed class DBIO
     {
-        public static readonly string DBPath;
-        public static readonly string ConnectionInfo;
+        /// <summary>
+        /// 全局唯一ID。
+        /// </summary>
+        public readonly Guid guid;
 
+        /// <summary>
+        /// 配置文件。
+        /// </summary>
+        private GEOSettings AppSettings = new GEOSettings();
+
+        /// <summary>
+        /// 数据库文件存放的目录（私有）。
+        /// </summary>
+        private string dbPath;
+        /// <summary>
+        /// 数据库文件存放的目录。
+        /// </summary>
+        public string DBPath
+        {
+            get => dbPath;
+            set
+            {
+                try
+                {
+                    if (!Directory.Exists(value))
+                        throw new DirectoryNotFoundException(ErrMessage.Generic.DirectoryNotFound);
+                    dbPath = Path.Combine(value, AppSettings.DBName);
+                    CheckDBExists();
+                    UpdateConnInfo();
+                    this.DBPathChanged?.Invoke(this, null);
+                }
+                catch (Exception err)
+                {
+                    throw new DBPathException(ErrMessage.DB.SetDBPathFailed, err);
+                }
+            }
+        }
+        public string ConnectionInfo { get; private set; }
+
+        /// <summary>
+        /// 默认的数据库管理构造函数，数据库路径为配置文件中路径。
+        /// </summary>
+        public DBIO()
+        {
+            try
+            {
+                this.guid = System.Guid.NewGuid();
+                this.DBPath = AppSettings.WorkFolder;
+            }
+            catch (Exception err)
+            {
+                throw new InitializeException(ErrMessage.DB.InitializeError, err);
+            }
+        }
+
+        /// <summary>
+        /// 通过数据库所在的文件夹路径初始化数据库管理对象。
+        /// </summary>
+        /// <param name="DBPath">数据库所在的文件夹路径。</param>
         public DBIO(string DBPath)
         {
-            this.DBPath = DBPath;
-            ConnectionInfo = "Provider=Microsoft.Jet.OLEDB.4.0; Data Source=" + DBPath;
+            try
+            {
+                this.guid = System.Guid.NewGuid();
+                this.DBPath = DBPath;
+            }
+            catch (Exception err)
+            {
+                throw new InitializeException(ErrMessage.DB.InitializeError, err);
+            }
+        }
+
+        public delegate void DBPathChangedEventHander(object sender, EventArgs e);
+        public event DBPathChangedEventHander DBPathChanged;
+
+        /// <summary>
+        /// 检查数据库是否存在，不存在则创建。
+        /// </summary>
+        private void CheckDBExists()
+        {
+            if (!File.Exists(DBPath))
+            {
+                //Need confirmation
+                //if (MessageBoxes.Confirm(DBPath + " 不存在，是否创建？") == "OK")
+                //{
+                System.Reflection.Assembly DBAssembly = System.Reflection.Assembly.GetExecutingAssembly();
+                var DBStream = DBAssembly.GetManifestResourceStream("GeodeticCoordinateConversion.GeoConvertDB.mdb");
+                byte[] DBResource = new Byte[DBStream.Length];
+                DBStream.Read(DBResource, 0, (int)DBStream.Length);
+                var DBFileStream = new FileStream(DBPath, FileMode.Create);
+                DBFileStream.Write(DBResource, 0, (int)DBStream.Length);
+                DBFileStream.Close();
+                //}
+                //else
+                //{
+                //    throw new Exception("数据库创建操作被用户取消。");
+                //}
+            }
+        }
+
+        /// <summary>
+        /// 更新连接信息。
+        /// </summary>
+        private void UpdateConnInfo()
+        {
+            ConnectionInfo = "Provider = Microsoft.Jet.OLEDB.4.0; Data Source = " + DBPath;
         }
 
         //保存操作
-        internal static void SaveToDB(string Insert, string DBPath)
+        public void SaveToDB(string Insert)
         {
-           
             using (OleDbConnection Connection = new OleDbConnection(ConnectionInfo))
             {
                 Connection.Open();
@@ -38,9 +136,9 @@ namespace GeodeticCoordinateConversion
         }
 
         //读取操作
-        internal static void ReadFromDB(string TableName, string DBPath, DataGridView Datas)
+        public void ReadFromDB(string TableName, DataGridView Datas)
         {
-            
+
             using (OleDbConnection Connection = new OleDbConnection(ConnectionInfo))
             {
                 Connection.Open();
@@ -61,9 +159,9 @@ namespace GeodeticCoordinateConversion
         }
 
         //查询操作
-        internal static void ReadFromDB(string TableName, string DBPath, string QueryCommand, DataGridView Datas)
+        public void ReadFromDB(string TableName, string QueryCommand, DataGridView Datas)
         {
-           
+
             using (OleDbConnection Connection = new OleDbConnection(ConnectionInfo))
             {
                 Connection.Open();
@@ -84,9 +182,9 @@ namespace GeodeticCoordinateConversion
         }
 
         //读取到操作数据框的重载
-        internal static DataSet ReadToDG(string TableName, string DBPath)
+        public DataSet ReadToDG(string TableName)
         {
-           
+
             DataSet ReadData = new DataSet();
             using (OleDbConnection Connection = new OleDbConnection(ConnectionInfo))
             {
@@ -100,16 +198,16 @@ namespace GeodeticCoordinateConversion
                 {
                     SelectCommand = Command
                 };
-                
+
                 Adapter.Fill(ReadData, TableName);
             }
             return ReadData;
         }
 
         //删除操作
-        internal static void DeleteFromDB(string TableName, string DBPath, DataGridView Datas, int RowIndex)
+        public void DeleteFromDB(string TableName, DataGridView Datas, int RowIndex)
         {
-           
+
             using (OleDbConnection Connection = new OleDbConnection(ConnectionInfo))
             {
                 Connection.Open();
@@ -128,9 +226,9 @@ namespace GeodeticCoordinateConversion
         }
 
         //插入操作
-        internal static void InsertIntoDB(string TableName, string DBPath, DataGridView Datas, string Cols, string[] InputStringArray, int ColumnCount)
+        public void InsertIntoDB(string TableName, DataGridView Datas, string Cols, string[] InputStringArray, int ColumnCount)
         {
-           
+
             string Command = "INSERT INTO " + TableName + " " + Cols + " VALUES ('" + IO.DT() + "', ";
             for (int i = 0; i < ColumnCount; i++)
             {
@@ -160,9 +258,9 @@ namespace GeodeticCoordinateConversion
         }
 
         //更新操作
-        internal static void UpdateDB(string TableName, string DBPath, DataGridView Datas, int ColumnIndex, int RowIndex)
+        public void UpdateDB(string TableName, DataGridView Datas, int ColumnIndex, int RowIndex)
         {
-            
+
             using (OleDbConnection Connection = new OleDbConnection(ConnectionInfo))
             {
                 Connection.Open();
@@ -178,37 +276,27 @@ namespace GeodeticCoordinateConversion
             }
         }
 
-        //检查数据库是否存在
-        internal static void CheckDBExists(string DBPath)
-        {
-            //File exists?
-            if (!File.Exists(DBPath))
-            {
-                //Need confirmation
-                if (MessageBoxes.Confirm(DBPath + " 不存在，是否创建？") == "OK")
-                {
-                    System.Reflection.Assembly DBAssembly = System.Reflection.Assembly.GetExecutingAssembly();
-                    var DBStream = DBAssembly.GetManifestResourceStream("GeodeticCoordinateConversion.GeoConvertDB.mdb");
-                    byte[] DBResource = new Byte[DBStream.Length];
-                    DBStream.Read(DBResource, 0, (int)DBStream.Length);
-                    var DBFileStream = new FileStream(DBPath, FileMode.Create);
-                    DBFileStream.Write(DBResource, 0, (int)DBStream.Length);
-                    DBFileStream.Close();
-                }
-                else
-                {
-                    throw new Exception("数据库创建操作被用户取消。");
-                }
-            }
-        }
-
         //检查行列数
-        internal static void CheckElementsAndCols(int ElementNums, int Cols)
+        public void CheckElementsAndCols(int ElementNums, int Cols)
         {
             if (ElementNums != Cols)
             {
                 throw new Exception("要插入的元素数量不正确，应为" + ElementNums + "个。");
             }
+        }
+
+        /// <summary>
+        /// 数据库路径异常。
+        /// </summary>
+        [Serializable]
+        public class DBPathException : Exception
+        {
+            public DBPathException() { }
+            public DBPathException(string message) : base(message) { }
+            public DBPathException(string message, Exception inner) : base(message, inner) { }
+            protected DBPathException(
+              System.Runtime.Serialization.SerializationInfo info,
+              System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
         }
     }
 }

@@ -21,7 +21,9 @@ namespace GeodeticCoordinateConversion
         List<Tab1File> T1F = new List<Tab1File>();
         List<Tab2File> T2F = new List<Tab2File>();
         Ellipse E = new Ellipse(0);
-        FileIO configIO = new FileIO(Application.StartupPath + "\\GeoConversion.xml");
+        FileIO dataFile = new FileIO();
+        DBIO dbFile = new DBIO();
+        GEOSettings AppSettings = new GEOSettings();
 
         public CoordConvert()
         {
@@ -127,7 +129,7 @@ namespace GeodeticCoordinateConversion
                     for (int i = 0; i < Tab1GC.Count(); i++)
                     {
                         Tab2InputDataGridView.Rows.Add();
-                        switch(Tab1GC[0].ZoneType)
+                        switch (Tab1GC[0].ZoneType)
                         {
                             case GEOZoneType.Zone3:
                                 {
@@ -145,7 +147,7 @@ namespace GeodeticCoordinateConversion
                                 {
                                     throw new ArgumentException(ErrMessage.GEOZone.ZoneTypeUnknown);
                                 }
-                        }                     
+                        }
                     }
                     MainTabControl.SelectedIndex = 1;
                     Hint.Text = "已将坐标转换结果转移到换带数据框中。";
@@ -184,7 +186,7 @@ namespace GeodeticCoordinateConversion
         //选择椭球
         private void ChangeEllipse(object sender, EventArgs e)
         {
-            E = new Ellipse((GEOEllipseType)(EllipseMethod.SelectedIndex+1));
+            E = new Ellipse((GEOEllipseType)(EllipseMethod.SelectedIndex + 1));
             SetHint("椭球已更改为" + EllipseMethod.SelectedItem.ToString());
         }
 
@@ -212,7 +214,7 @@ namespace GeodeticCoordinateConversion
                     {
                         for (int i = 0; i < Tab1InputDataGridView.Rows.Count - 1; i++)
                         {
-                            Tab1DMS.Add(new BL(Tab1InputDataGridView[0, i].Value.ToString(),Tab1InputDataGridView[1, i].Value.ToString()));
+                            Tab1DMS.Add(new BL(Tab1InputDataGridView[0, i].Value.ToString(), Tab1InputDataGridView[1, i].Value.ToString()));
                             Tab1DMS[i].GEOEllipse = E;
                             if (ThreeRadioButton.Checked)    //根据用户选择来决定转换方式（3、6）
                             {
@@ -304,10 +306,10 @@ namespace GeodeticCoordinateConversion
                         {
                             Tab26GC.Add(new GaussCoord
                             {
-                                GEOEllipse=E,
+                                GEOEllipse = E,
                                 X = Convert.ToDouble(Tab2InputDataGridView[0, i].Value),
                                 Y = GeoCalc.GetY(Tab2InputDataGridView[1, i].Value.ToString()),
-                                ZoneType=GEOZoneType.Zone6,
+                                ZoneType = GEOZoneType.Zone6,
                                 Zone = GeoCalc.GetZoneNum(Tab2InputDataGridView[1, i].Value.ToString()),
                             });
                             Tab23GC.Add((Tab26GC[i].GaussReverse()) //六度带反算
@@ -330,10 +332,10 @@ namespace GeodeticCoordinateConversion
                         {
                             Tab23GC.Add(new GaussCoord
                             {
-                                GEOEllipse=E,
+                                GEOEllipse = E,
                                 X = Convert.ToDouble(Tab2InputDataGridView[3, i].Value),
                                 Y = GeoCalc.GetY(Tab2InputDataGridView[4, i].Value.ToString()),
-                                ZoneType=GEOZoneType.Zone3,
+                                ZoneType = GEOZoneType.Zone3,
                                 Zone = GeoCalc.GetZoneNum(Tab2InputDataGridView[4, i].Value.ToString()),
                             });
                             Tab26GC.Add(Tab23GC[i].GaussReverse()   //三度带反算
@@ -378,8 +380,8 @@ namespace GeodeticCoordinateConversion
                             {
                                 T1F.Clear();
                                 Tab1InputDataGridView.Rows.Clear();
-                                
-                                T1F=configIO.Tab1LoadFromFile();
+
+                                T1F = dataFile.Tab1LoadFromFile();
                                 //T1F = IO.Tab1LoadFromFile(WorkFolder.Text + "\\GeoConversion.xml");
 
                                 for (int i = 0; i < T1F.Count; i++)
@@ -421,8 +423,8 @@ namespace GeodeticCoordinateConversion
                                             },
                                         });
                                     }
-                                   
-                                    configIO.Tab1SaveToFile(T1F);
+
+                                    dataFile.Tab1SaveToFile(T1F);
                                     //IO.Tab1SaveToFile(WorkFolder.Text + "\\GeoConversion.xml", T1F);
                                     SetHint("成功地将" + (Tab1InputDataGridView.Rows.Count - 1).ToString() + "条坐标转换数据存储至文件。");
                                 }
@@ -435,7 +437,7 @@ namespace GeodeticCoordinateConversion
                             //Tab1数据库读取
                             if (sender == LoadFromDBToolStripMenuItem)
                             {
-                                DBIO.ReadFromDB("CoordConvert", DBPathTextBox.Text, TmpDataGridView);
+                                dbFile.ReadFromDB("CoordConvert", TmpDataGridView);
                                 Tab1InputDataGridView.Rows.Clear();
                                 for (int i = 0; i < TmpDataGridView.Rows.Count - 1; i++)
                                 {
@@ -455,7 +457,6 @@ namespace GeodeticCoordinateConversion
                             {
                                 if (Tab1InputDataGridView.Rows.Count > 1)
                                 {
-                                    DBIO.CheckDBExists(DBPathTextBox.Text);
                                     for (int i = 0; i < Tab1InputDataGridView.Rows.Count - 1; i++)
                                     {
                                         string InsertTxt = "Insert Into CoordConvert (DT, B, L, X, Y, ZoneType, ZoneNum) Values ('";
@@ -466,7 +467,7 @@ namespace GeodeticCoordinateConversion
                                             Tab1InputDataGridView[4, i].Value.ToString() + "' , '" +
                                             Tab1InputDataGridView[5, i].Value.ToString() + "' , '" +
                                             Tab1InputDataGridView[6, i].Value.ToString() + "' )";
-                                        DBIO.SaveToDB(InsertTxt, DBPathTextBox.Text);
+                                        dbFile.SaveToDB(InsertTxt);
                                     }
                                     SetHint("成功地将" + (Tab1InputDataGridView.Rows.Count - 1).ToString() + "条换带数据存储至数据库。");
                                 }
@@ -484,7 +485,7 @@ namespace GeodeticCoordinateConversion
                             {
                                 T2F.Clear();
                                 Tab2InputDataGridView.Rows.Clear();
-                                T2F = configIO.Tab2LoadFromFile();
+                                T2F = dataFile.Tab2LoadFromFile();
                                 //T2F = IO.Tab2LoadFromFile(WorkFolder.Text + "\\ZoneConversion.xml");
 
                                 for (int i = 0; i < T2F.Count; i++)
@@ -524,7 +525,7 @@ namespace GeodeticCoordinateConversion
                                             },
                                         });
                                     }
-                                    configIO.Tab2SaveToFile(T2F);
+                                    dataFile.Tab2SaveToFile(T2F);
                                     //IO.Tab2SaveToFile(WorkFolder.Text + "\\ZoneConversion.xml", T2F);
                                     SetHint("成功地将" + (Tab2InputDataGridView.Rows.Count - 1).ToString() + "条换带数据存储至文件。");
                                 }
@@ -537,7 +538,7 @@ namespace GeodeticCoordinateConversion
                             //Tab2数据库读取
                             if (sender == LoadFromDBToolStripMenuItem)
                             {
-                                DBIO.ReadFromDB("ZoneConvert", DBPathTextBox.Text, TmpDataGridView);
+                                dbFile.ReadFromDB("ZoneConvert", TmpDataGridView);
                                 Tab2InputDataGridView.Rows.Clear();
                                 for (int i = 0; i < TmpDataGridView.Rows.Count - 1; i++)
                                 {
@@ -555,7 +556,6 @@ namespace GeodeticCoordinateConversion
                             {
                                 if (Tab2InputDataGridView.Rows.Count > 1)
                                 {
-                                    DBIO.CheckDBExists(DBPathTextBox.Text);
                                     for (int i = 0; i < Tab2InputDataGridView.Rows.Count - 1; i++)
                                     {
                                         string InsertTxt = "Insert Into ZoneConvert (DT, XIn6, YIn6, XIn3, YIn3) Values ('";
@@ -564,7 +564,7 @@ namespace GeodeticCoordinateConversion
                                             Tab2InputDataGridView[1, i].Value.ToString() + "' , '" +
                                             Tab2InputDataGridView[3, i].Value.ToString() + "' , '" +
                                             Tab2InputDataGridView[4, i].Value.ToString() + "' )";
-                                        DBIO.SaveToDB(InsertTxt, DBPathTextBox.Text);
+                                        dbFile.SaveToDB(InsertTxt);
                                     }
                                     SetHint("成功地将" + (Tab2InputDataGridView.Rows.Count - 1).ToString() + "条换带数据存储至数据库。");
                                 }
@@ -613,8 +613,8 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-               
-                DBIO.ReadFromDB(ChooseDatabaseComboBox.Text, DBPathTextBox.Text, DBDataGridView);
+
+                dbFile.ReadFromDB(ChooseDatabaseComboBox.Text, DBDataGridView);
                 if (Clear)
                 {
                     InsertTextBox.Clear();
@@ -641,7 +641,6 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                DBIO.CheckDBExists(DBPathTextBox.Text);
                 string[] InsertText = InsertTextBox.Text.Replace(" ", ",").Replace("\r\n", ",").Split(',');
                 string UpdateDBPath = DBPathTextBox.Text;
                 if (String.IsNullOrWhiteSpace(InsertTextBox.Text))
@@ -673,16 +672,16 @@ namespace GeodeticCoordinateConversion
                         {
                             string InsertCols = "(DT, B, L, X, Y, ZoneType, ZoneNum)";
                             int ElementNums = 6;
-                            DBIO.CheckElementsAndCols(ElementNums, InsertText.Length);
-                            DBIO.InsertIntoDB("CoordConvert", DBPathTextBox.Text, DBDataGridView, InsertCols, InsertText, ElementNums);
+                            dbFile.CheckElementsAndCols(ElementNums, InsertText.Length);
+                            dbFile.InsertIntoDB("CoordConvert", DBDataGridView, InsertCols, InsertText, ElementNums);
                             break;
                         }
                     case 1:
                         {
                             string InsertCols = "(DT, XIn6, YIn6, XIn3, YIn3)";
                             int ElementNums = 4;
-                            DBIO.CheckElementsAndCols(ElementNums, InsertText.Length);
-                            DBIO.InsertIntoDB("ZoneConvert", DBPathTextBox.Text, DBDataGridView, InsertCols, InsertText, ElementNums);
+                            dbFile.CheckElementsAndCols(ElementNums, InsertText.Length);
+                            dbFile.InsertIntoDB("ZoneConvert", DBDataGridView, InsertCols, InsertText, ElementNums);
                             break;
                         }
                     default:
@@ -722,7 +721,7 @@ namespace GeodeticCoordinateConversion
                     }
                     if (MessageBoxes.Confirm("确认删除所选单元格所在的行？") == "OK")
                     {
-                        DBIO.DeleteFromDB(ChooseDatabaseComboBox.Text, DBPathTextBox.Text, DBDataGridView, DBDataGridView.CurrentCell.RowIndex);
+                        dbFile.DeleteFromDB(ChooseDatabaseComboBox.Text, DBDataGridView, DBDataGridView.CurrentCell.RowIndex);
                         if (ChooseDatabaseComboBox.SelectedIndex >= 2)
                         {
                             throw new Exception("表序号非法！");
@@ -747,14 +746,14 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                DBIO.UpdateDB(ChooseDatabaseComboBox.Text, DBPathTextBox.Text, DBDataGridView, e.ColumnIndex, e.RowIndex);
+                dbFile.UpdateDB(ChooseDatabaseComboBox.Text, DBDataGridView, e.ColumnIndex, e.RowIndex);
                 SetHint("成功更新表 " + ChooseDatabaseComboBox.Text + " 中第" + (e.RowIndex + 1).ToString() + "行第" + e.ColumnIndex + "列的数据。");
             }
             catch (Exception err)
             {
                 if (MessageBoxes.Error(err.ToString()) == "OK")
                 {
-                    DBIO.ReadFromDB(ChooseDatabaseComboBox.Text, DBPathTextBox.Text, DBDataGridView);
+                    dbFile.ReadFromDB(ChooseDatabaseComboBox.Text, DBDataGridView);
                     SetHint("更新表 " + ChooseDatabaseComboBox.Text + " 中第" + (e.RowIndex + 1).ToString() + "行第" + e.ColumnIndex + "列的数据时出现问题。");
                 }
             }
@@ -770,7 +769,7 @@ namespace GeodeticCoordinateConversion
                     //将坐标转换结果转换至文件
                     case 0:
                         {
-                            DBIO.ReadFromDB("CoordConvert", DBPathTextBox.Text, TmpDataGridView);
+                            dbFile.ReadFromDB("CoordConvert", TmpDataGridView);
                             if (TmpDataGridView.Rows.Count > 1)
                             {
                                 T1F.Clear();
@@ -800,7 +799,7 @@ namespace GeodeticCoordinateConversion
                     //将换带转换结果转换至文件
                     case 1:
                         {
-                            DBIO.ReadFromDB("CoordConvert", DBPathTextBox.Text, TmpDataGridView);
+                            dbFile.ReadFromDB("CoordConvert", TmpDataGridView);
                             if (TmpDataGridView.Rows.Count > 1)
                             {
                                 T2F.Clear();
@@ -851,7 +850,7 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                DBIO.ReadFromDB(ChooseDatabaseComboBox.SelectedItem.ToString(), DBPathTextBox.Text, InsertTextBox.Text, DBDataGridView);
+                dbFile.ReadFromDB(ChooseDatabaseComboBox.SelectedItem.ToString(), InsertTextBox.Text, DBDataGridView);
                 SetHint("查询到" + (DBDataGridView.Rows.Count - 1).ToString() + "个符合条件的结果。");
             }
             catch (Exception err)
@@ -872,7 +871,7 @@ namespace GeodeticCoordinateConversion
             try
             {
                 EllipseMethod.SelectedIndex = 0;
-                E = new Ellipse((GEOEllipseType)(EllipseMethod.SelectedIndex+1));    //初始默认椭球
+                E = new Ellipse((GEOEllipseType)(EllipseMethod.SelectedIndex + 1));    //初始默认椭球
                 WorkFolder.Text = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
                 SettingsOperation(-1);
                 DBPathTextBox.Text = WorkFolder.Text + "\\GeoConvertDB.mdb";
@@ -911,7 +910,7 @@ namespace GeodeticCoordinateConversion
             string SettingPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\GeoConvertSettings.xml";
             if (Method == 1)    //存
             {
-                IO.SaveSettings(SettingPath, WorkFolder.Text,EllipseMethod.SelectedIndex, ThreeRadioButton.Checked);
+                IO.SaveSettings(SettingPath, WorkFolder.Text, EllipseMethod.SelectedIndex, ThreeRadioButton.Checked);
             }
             if (Method == -1)    //取
             {
@@ -945,11 +944,6 @@ namespace GeodeticCoordinateConversion
         private void ShowAuthor(object sender, EventArgs e)
         {
             MessageBoxes.Author();
-        }
-
-        private GEOZoneType TmpGetZoneType()
-        {
-            return SixRadioButton.Checked ? GEOZoneType.Zone6 : GEOZoneType.Zone3;
         }
     }
 }

@@ -42,10 +42,7 @@ namespace GeodeticCoordinateConversion
         /// </summary>
         public double X
         {
-            get
-            {
-                return x;
-            }
+            get => x;
             set
             {
                 this.x = value;
@@ -57,10 +54,7 @@ namespace GeodeticCoordinateConversion
         /// </summary>
         public double Y
         {
-            get
-            {
-                return y;
-            }
+            get => y;
             set
             {
                 this.y = value;
@@ -72,10 +66,7 @@ namespace GeodeticCoordinateConversion
         /// </summary>
         public GEOZoneType ZoneType
         {
-            get
-            {
-                return zoneType;
-            }
+            get => zoneType;
             set
             {
                 if (value == zoneType)
@@ -94,10 +85,7 @@ namespace GeodeticCoordinateConversion
         /// </summary>
         public int Zone
         {
-            get
-            {
-                return zone;
-            }
+            get => zone;
             set
             {
                 try
@@ -147,10 +135,7 @@ namespace GeodeticCoordinateConversion
         /// </summary>
         public double Center
         {
-            get
-            {
-                return center;
-            }
+            get => center;
             set
             {
                 try

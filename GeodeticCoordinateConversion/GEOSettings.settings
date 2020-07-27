@@ -8,8 +8,11 @@
     <Setting Name="WorkFolder" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="EllipseType" Type="System.UInt32" Scope="User">
-      <Value Profile="(Default)">1</Value>
+    <Setting Name="DBName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">GeoConvertDB.mdb</Value>
+    </Setting>
+    <Setting Name="DataFileName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">GeoConversion.xml</Value>
     </Setting>
   </Settings>
 </SettingsFile>

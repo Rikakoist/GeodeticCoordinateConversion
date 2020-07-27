@@ -16,6 +16,27 @@ namespace GeodeticCoordinateConversion
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            //检查工作文件夹和文件名
+            GEOSettings AppSettings = new GEOSettings();
+            if (!System.IO.Directory.Exists(AppSettings.WorkFolder))
+            {
+                AppSettings.WorkFolder = Application.StartupPath;
+            }
+
+            if (String.IsNullOrWhiteSpace(AppSettings.DataFileName)
+                || (AppSettings.DataFileName.IndexOfAny(System.IO.Path.GetInvalidFileNameChars())) >= 0)
+            {
+                AppSettings.DataFileName = "GeoConversion.xml";
+            }
+
+            if (String.IsNullOrWhiteSpace(AppSettings.DBName)
+               || (AppSettings.DBName.IndexOfAny(System.IO.Path.GetInvalidFileNameChars())) >= 0)
+            {
+                AppSettings.DBName = "GeoConvertDB.mdb";
+            }
+
+            AppSettings.Save();
             Application.Run(new CoordConvert());
         }
     }

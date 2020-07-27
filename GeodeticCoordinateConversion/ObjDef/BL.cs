@@ -35,10 +35,7 @@ namespace GeodeticCoordinateConversion
         /// </summary>
         public GEOZoneType ZoneType
         {
-            get
-            {
-                return zoneType;
-            }
+            get => zoneType;
             set
             {
                 if (value == zoneType)
@@ -57,7 +54,7 @@ namespace GeodeticCoordinateConversion
         public Ellipse GEOEllipse;
 
         /// <summary>
-        /// 空的构造函数。将会新建两个默认值的DMS对象。
+        /// 空的度分秒经纬度构造函数。将会新建两个默认值的DMS对象。
         /// </summary>
         public BL()
         {
@@ -80,7 +77,7 @@ namespace GeodeticCoordinateConversion
         }
 
         /// <summary>
-        /// 通过DMS对象初始化。
+        /// 通过DMS对象初始化度分秒经纬度。
         /// </summary>
         /// <param name="B">DMS类型的纬度对象。</param>
         /// <param name="L">DMS类型的经度对象。</param>
@@ -92,7 +89,7 @@ namespace GeodeticCoordinateConversion
         }
 
         /// <summary>
-        /// 通过XML节点初始化。
+        /// 通过XML节点初始化度分秒经纬度。
         /// </summary>
         /// <param name="xmlNode">包含对象结构的XML节点。</param>
         public BL(XmlNode xmlNode)
@@ -155,15 +152,14 @@ namespace GeodeticCoordinateConversion
             double t = Math.Tan(CDEC.B);
 
             //正算转换
-            GaussCoord GaussResult = new GaussCoord
+            GaussCoord GaussResult = new GaussCoord(this.GEOEllipse)
             {
-                GEOEllipse = this.GEOEllipse,
                 X = X + N / 2 * Math.Sin(CDEC.B) * Math.Cos(CDEC.B) * Math.Pow(l, 2) / Math.Pow(p, 2) + N / (24 * Math.Pow(p, 4)) * Math.Sin(CDEC.B) * (Math.Pow((Math.Cos(CDEC.B)), 3)) * (5 - Math.Pow(t, 2) + 9 * n + 4 * Math.Pow(n, 2)) * Math.Pow(l, 4) + N / (720 * Math.Pow(p, 6)) * Math.Sin(CDEC.B) * (Math.Pow((Math.Cos(CDEC.B)), 5)) * (61 - 58 * Math.Pow(t, 2) + Math.Pow(t, 4)) * Math.Pow(l, 6),
                 Y = N * Math.Cos(CDEC.B) * l / p + N / (6 * Math.Pow(p, 3)) * (Math.Pow(Math.Cos(CDEC.B), 3)) * (1 - Math.Pow(t, 2) + n) * Math.Pow(l, 3) + N / (120 * Math.Pow(p, 5)) * (Math.Pow(Math.Cos(CDEC.B), 5)) * (5 - 18 * Math.Pow(t, 2) + Math.Pow(t, 4) + 14 * n - 58 * Math.Pow(t, 2) * n) * Math.Pow(l, 5),
                 ZoneType = CDEC.ZoneType,
                 Zone = CDEC.Zone,
             };
-            //GaussResult.GetCenter();
+
             return GaussResult;
         }
 
@@ -275,7 +271,7 @@ namespace GeodeticCoordinateConversion
         }
 
         /// <summary>
-        /// 空的构造函数。度、分、秒将设为默认值0。
+        /// 空的度分秒构造函数。度、分、秒将设为默认值0。
         /// </summary>
         public DMS()
         {
@@ -284,7 +280,7 @@ namespace GeodeticCoordinateConversion
         }
 
         /// <summary>
-        /// 使用度分秒初始化对象。
+        /// 使用度分秒初始化度分秒对象。
         /// </summary>
         /// <param name="D">度。</param>
         /// <param name="M">分。</param>
@@ -296,7 +292,7 @@ namespace GeodeticCoordinateConversion
         }
 
         /// <summary>
-        /// 通过XML节点初始化。
+        /// 通过XML节点初始化度分秒对象。
         /// </summary>
         /// <param name="xmlNode">包含对象结构的XML节点。</param>
         public DMS(XmlNode xmlNode)
@@ -309,7 +305,7 @@ namespace GeodeticCoordinateConversion
         }
 
         /// <summary>
-        /// 转换到XML元素。
+        /// 度分秒对象转换到XML元素。
         /// </summary>
         /// <param name="xmlDocument">指定的XML文档。</param>
         /// <param name="NodeName">新建的元素命名。</param>

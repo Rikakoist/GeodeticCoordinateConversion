@@ -46,10 +46,7 @@ namespace GeodeticCoordinateConversion
         /// </summary>
         public GEOEllipseType EllipseType
         {
-            get
-            {
-                return ellipseType;
-            }
+            get => ellipseType;
             set
             {
                 try
