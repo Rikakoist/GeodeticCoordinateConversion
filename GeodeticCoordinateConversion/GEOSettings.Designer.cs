@@ -26,9 +26,9 @@ namespace GeodeticCoordinateConversion {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("6")]
-        public uint DefaultZoneType {
+        public int DefaultZoneType {
             get {
-                return ((uint)(this["DefaultZoneType"]));
+                return ((int)(this["DefaultZoneType"]));
             }
             set {
                 this["DefaultZoneType"] = value;

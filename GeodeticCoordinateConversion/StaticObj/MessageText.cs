@@ -126,6 +126,14 @@ namespace GeodeticCoordinateConversion
             /// </summary>
             public static string DMSNull = "未初始化度分秒对象。";
             /// <summary>
+            /// 从字符串读取度分秒信息失败。
+            /// </summary>
+            public static string ConvertFromStringFailed = "从字符串读取度分秒信息失败。";
+            /// <summary>
+            /// 将度分秒信息转换为字符串失败。
+            /// </summary>
+            public static string ConvertToStringFailed = "将度分秒信息转换为字符串失败。";
+            /// <summary>
             /// 将度分秒对象保存到XML结构失败。
             /// </summary>
             public static string SaveToXmlFailed = "将度分秒对象保存到XML结构失败。";

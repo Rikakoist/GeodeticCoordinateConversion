@@ -70,6 +70,12 @@
     <Compile Include="CoordConvertLayout.Designer.cs">
       <DependentUpon>CoordConvertLayout.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
     <Compile Include="ObjDef\CoordConvert.cs" />
     <Compile Include="GEOSettings.cs" />
     <Compile Include="IO\FileIO.cs" />
@@ -103,6 +109,9 @@
     <Compile Include="ObjDef\ZoneConvert.cs" />
     <EmbeddedResource Include="CoordConvertLayout.resx">
       <DependentUpon>CoordConvertLayout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

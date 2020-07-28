@@ -7,11 +7,6 @@ using System.Xml;
 
 namespace GeodeticCoordinateConversion
 {
-    public interface IZoneConvert
-    {
-
-    }
-
     /// <summary>
     /// 6度带、3度带互转类。
     /// </summary>

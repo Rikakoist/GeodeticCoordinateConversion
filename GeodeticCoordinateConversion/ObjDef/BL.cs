@@ -18,6 +18,10 @@ namespace GeodeticCoordinateConversion
         /// </summary>
         public readonly Guid guid;
         /// <summary>
+        /// 配置文件。
+        /// </summary>
+        private GEOSettings AppSettings = new GEOSettings();
+        /// <summary>
         /// 分带类型（私有）。
         /// </summary>
         private GEOZoneType zoneType;
@@ -66,6 +70,7 @@ namespace GeodeticCoordinateConversion
             try
             {
                 this.guid = System.Guid.NewGuid();
+                this.ZoneType = (GEOZoneType)AppSettings.DefaultZoneType;
                 this.B = new DMS(); this.L = new DMS();
                 BindBLEvent();
 
@@ -88,9 +93,9 @@ namespace GeodeticCoordinateConversion
             try
             {
                 this.guid = System.Guid.NewGuid();
-                BindBLEvent();
-                this.B = GeoCalc.Str2DMS(B);
-                this.L = GeoCalc.Str2DMS(L);
+                this.ZoneType = (GEOZoneType)AppSettings.DefaultZoneType;
+                this.B = new DMS(B);
+                this.L = new DMS(L);
                 BindBLEvent();
 
                 this.GEOEllipse = new Ellipse();
@@ -112,6 +117,7 @@ namespace GeodeticCoordinateConversion
             try
             {
                 this.guid = System.Guid.NewGuid();
+                this.ZoneType = (GEOZoneType)AppSettings.DefaultZoneType;
                 this.B = B ?? throw new ArgumentNullException(ErrMessage.GEOBL.GEOBLNull);
                 this.L = L ?? throw new ArgumentNullException(ErrMessage.GEOBL.GEOBLNull);
                 BindBLEvent();
@@ -370,10 +376,7 @@ namespace GeodeticCoordinateConversion
         /// </summary>
         public double D
         {
-            get
-            {
-                return d;
-            }
+            get => d;
             set
             {
                 if ((value < Restraints.DegreeMin) || (value > Restraints.DegreeMax))
@@ -392,10 +395,7 @@ namespace GeodeticCoordinateConversion
         /// </summary>
         public double M
         {
-            get
-            {
-                return m;
-            }
+            get => m;
             set
             {
                 if ((value < Restraints.MinuteMin) || (value > Restraints.MinuteMax))
@@ -414,10 +414,7 @@ namespace GeodeticCoordinateConversion
         /// </summary>
         public double S
         {
-            get
-            {
-                return s;
-            }
+            get => s;
             set
             {
                 if ((value < Restraints.SecondMin) || (value > Restraints.SecondMax))
@@ -430,6 +427,15 @@ namespace GeodeticCoordinateConversion
                     this.SChanged?.Invoke(this, new EventArgs());
                 }
             }
+        }
+
+        /// <summary>
+        /// 度分秒字符串表示形式。
+        /// </summary>
+        public string Value
+        {
+            get => this.ToString();
+            set => this.FromString(value);
         }
         #endregion
 
@@ -446,7 +452,24 @@ namespace GeodeticCoordinateConversion
             }
             catch (Exception err)
             {
-                throw new InitializeException(ErrMessage.GEOBL.InitializeError, err);
+                throw new InitializeException(ErrMessage.DMS.InitializeError, err);
+            }
+        }
+
+        /// <summary>
+        /// 使用字符串初始化度分秒对象。
+        /// </summary>
+        /// <param name="Str"></param>
+        public DMS(string Str)
+        {
+            try
+            {
+                this.guid = System.Guid.NewGuid();
+                FromString(Str);
+            }
+            catch (Exception err)
+            {
+                throw new InitializeException(ErrMessage.DMS.InitializeError, err);
             }
         }
 
@@ -465,7 +488,7 @@ namespace GeodeticCoordinateConversion
             }
             catch (Exception err)
             {
-                throw new InitializeException(ErrMessage.GEOBL.InitializeError, err);
+                throw new InitializeException(ErrMessage.DMS.InitializeError, err);
             }
         }
 
@@ -485,7 +508,7 @@ namespace GeodeticCoordinateConversion
             }
             catch (Exception err)
             {
-                throw new InitializeFromXmlException(ErrMessage.GEOBL.InitializeError, err);
+                throw new InitializeFromXmlException(ErrMessage.DMS.InitializeError, err);
             }
         }
         #endregion
@@ -522,6 +545,115 @@ namespace GeodeticCoordinateConversion
             catch (Exception err)
             {
                 throw new XmlException(ErrMessage.DMS.SaveToXmlFailed, err);
+            }
+        }
+
+        /// <summary>
+        /// 使用字符串设置度分秒的值。
+        /// </summary>
+        /// <param name="Str">输入字符串。</param>
+        public void FromString(string Str)
+        {
+            try
+            {
+                if ((Str.IndexOf('.') == 0) || (Str.IndexOf('.') == Str.Length - 1) || ((Str.Split('.')).Length > 2))
+                {
+                    throw new FormatException(ErrMessage.Data.WrongDigitPosition);
+                }
+                if (Str.IndexOf('.') > 0)
+                {
+                    string[] SplitStr = Str.Split('.');
+                    //小数点后补0至四位
+                    while (SplitStr[1].Length < 4)
+                    {
+                        SplitStr[1] += "0";
+                    }
+
+                    //从字符串拆分度分秒
+                    D = Convert.ToInt32(SplitStr[0]);
+                    M = Convert.ToInt32(SplitStr[1].Substring(0, 2));
+                    double tmpS = Convert.ToDouble(SplitStr[1].Substring(2));
+                    //确认小数点位置
+                    while (tmpS > 60.0)
+                    {
+                        tmpS /= 10;
+                    }
+                    S = tmpS;
+                }
+                else
+                {
+                    D = Convert.ToInt32(Str);
+                    M = 0;
+                    S = 0;
+                }
+            }
+            catch (Exception err)
+            {
+                throw new FormatException(ErrMessage.DMS.ConvertFromStringFailed, err);
+            }
+        }
+
+        /// <summary>
+        /// 度分秒对象转换到字符串。
+        /// </summary>
+        /// <returns>转换到的字符串。</returns>
+        public override string ToString()
+        {
+            try
+            {
+                double tmpD = D; double tmpM = M; double tmpS = S;
+                //将度的小数点部分*60加到分上。
+                if (Math.Abs(tmpD - (int)tmpD) > 1e-7)
+                {
+                    tmpM += (tmpD - (int)tmpD) * 60;
+                }
+                tmpD = (int)tmpD;
+
+                //将分的小数点部分*60加到秒上。
+                if (Math.Abs(tmpM - (int)tmpM) > 1e-7)
+                {
+                    tmpS += (tmpM - (int)tmpM) * 60;
+                }
+                tmpM = (int)tmpM;
+
+                //去除秒的小数点，以便转换为字符串。
+                while (Math.Abs(tmpS - (int)tmpS) > 1e-7)
+                {
+                    tmpS *= 10;
+                }
+
+                //秒为0。
+                if (Math.Abs(tmpS) < 1e-7)
+                {
+                    //分为0。
+                    if (Math.Abs(tmpM) < 1e-7)
+                    {
+                        //度为0。
+                        if (Math.Abs(tmpD) < 1e-7)
+                        {
+                            return "0";
+                        }
+                        //度不为0。
+                        else
+                        {
+                            return (tmpD.ToString() + ".0000");
+                        }
+                    }
+                    //分不为0。
+                    else
+                    {
+                        return (tmpD.ToString() + "." + tmpM.ToString("00") + "00");
+                    }
+                }
+                //秒不为0。
+                else
+                {
+                    return (tmpD.ToString() + "." + tmpM.ToString("00") + tmpS.ToString());
+                }
+            }
+            catch (Exception err)
+            {
+                throw new FormatException(ErrMessage.DMS.ConvertToStringFailed, err);
             }
         }
         #endregion

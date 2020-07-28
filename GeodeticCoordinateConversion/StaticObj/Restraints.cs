@@ -46,7 +46,7 @@ namespace GeodeticCoordinateConversion
         /// <summary>
         /// 经度最小值。
         /// </summary>
-        public static double LongitudeMin = 0.0;
+        public static double LongitudeMin = -180;
         /// <summary>
         /// 经度最大值。
         /// </summary>
@@ -54,7 +54,7 @@ namespace GeodeticCoordinateConversion
         /// <summary>
         /// 3度带带号最小值。
         /// </summary>
-        public static int Zone3Min = 1;
+        public static int Zone3Min = 0;
         /// <summary>
         /// 3度带带号最大值。
         /// </summary>
@@ -62,7 +62,7 @@ namespace GeodeticCoordinateConversion
         /// <summary>
         /// 6度带带号最小值。
         /// </summary>
-        public static int Zone6Min = 1;
+        public static int Zone6Min = 0;
         /// <summary>
         /// 6度带带号最大值。
         /// </summary>

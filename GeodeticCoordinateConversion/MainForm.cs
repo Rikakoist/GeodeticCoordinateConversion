@@ -381,7 +381,7 @@ namespace GeodeticCoordinateConversion
                                 T1F.Clear();
                                 Tab1InputDataGridView.Rows.Clear();
 
-                                T1F = dataFile.FileToCoordConvertData();
+                                ////T1F = dataFile.FileToCoordConvertData();
                                 //T1F = IO.Tab1LoadFromFile(WorkFolder.Text + "\\GeoConversion.xml");
 
                                 for (int i = 0; i < T1F.Count; i++)
@@ -424,7 +424,7 @@ namespace GeodeticCoordinateConversion
                                         });
                                     }
 
-                                    dataFile.CoordConvertDataToFile(T1F);
+                                    ////dataFile.CoordConvertDataToFile(T1F);
                                     //IO.Tab1SaveToFile(WorkFolder.Text + "\\GeoConversion.xml", T1F);
                                     SetHint("成功地将" + (Tab1InputDataGridView.Rows.Count - 1).ToString() + "条坐标转换数据存储至文件。");
                                 }

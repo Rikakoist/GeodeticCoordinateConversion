@@ -2,7 +2,7 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="GeodeticCoordinateConversion" GeneratedClassName="GEOSettings">
   <Profiles />
   <Settings>
-    <Setting Name="DefaultZoneType" Type="System.UInt32" Scope="User">
+    <Setting Name="DefaultZoneType" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">6</Value>
     </Setting>
     <Setting Name="WorkFolder" Type="System.String" Scope="User">

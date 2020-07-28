@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,10 +15,78 @@ namespace GeodeticCoordinateConversion
     public class CoordConvert
     {
         #region Fields
+        public readonly Guid guid;
         public bool BLCalculated = false;
         public GEOBL BL;
         public bool GaussCalculated = false;
         public GaussCoord Gauss;
+        #endregion
+
+        #region Properties
+        /// <summary>
+        /// 地理纬度。
+        /// </summary>
+        public string B
+        {
+            get => BL.B.Value;
+            set => BL.B.Value = value;
+        }
+        /// <summary>
+        /// 地理经度。
+        /// </summary>
+        public string L
+        {
+            get => BL.L.Value;
+            set => BL.L.Value = value;
+        }
+        /// <summary>
+        /// 高斯X坐标。
+        /// </summary>
+        public string X
+        {
+            get => Gauss.X.ToString();
+            set => Gauss.X = double.Parse(value);
+        }
+        /// <summary>
+        /// 高斯Y坐标。
+        /// </summary>
+        public string Y
+        {
+            get => Gauss.Y.ToString();
+            set => Gauss.Y = double.Parse(value);
+        }
+        /// <summary>
+        /// 高斯带号。
+        /// </summary>
+        public string Zone
+        {
+            get => Gauss.Zone.ToString();
+            set => Gauss.Zone = int.Parse(value);
+        }
+        /// <summary>
+        /// 分带类型。
+        /// </summary>
+        public GEOZoneType ZoneType
+        {
+            get => BL.ZoneType;
+            set
+            {
+                BL.ZoneType = value;
+                Gauss.ZoneType = value;
+            }
+        }
+        /// <summary>
+        /// 椭球。
+        /// </summary>
+        public GEOEllipseType EllipseType
+        {
+            get => BL.GEOEllipse.EllipseType;
+            set
+            {
+                BL.GEOEllipse.EllipseType = value;
+                Gauss.GEOEllipse.EllipseType = value;
+            }
+        }
         #endregion
 
         #region Constructor
@@ -28,6 +97,7 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
+                this.guid = System.Guid.NewGuid();
                 this.BL = new GEOBL();
                 BindBLEvents();
                 this.Gauss = new GaussCoord();
@@ -48,6 +118,7 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
+                this.guid = System.Guid.NewGuid();
                 this.BL = BL ?? throw new ArgumentNullException(ErrMessage.GEOBL.GEOBLNull);
                 BindBLEvents();
                 this.Gauss = Gauss ?? throw new ArgumentNullException(ErrMessage.GaussCoord.GaussNull);
@@ -69,6 +140,7 @@ namespace GeodeticCoordinateConversion
             {
                 XmlElement ele = (XmlElement)xmlNode;
 
+                this.guid = Guid.Parse(ele.GetAttribute(nameof(guid)));
                 this.BLCalculated = bool.Parse(ele.GetAttribute(nameof(BLCalculated)));
                 XmlNode BLNode = ele.SelectSingleNode(NodeInfo.BLNodePath);
                 if (BLNode == null)
@@ -198,12 +270,13 @@ namespace GeodeticCoordinateConversion
         /// <param name="xmlDocument">指定的XML文档。</param>
         /// <param name="NodeName">新建的元素命名。</param>
         /// <returns>转换到的XML元素。</returns>
-        public XmlElement ToXmlElement(XmlDocument xmlDocument, string NodeName = NodeInfo.ZoneConvertNode)
+        public XmlElement ToXmlElement(XmlDocument xmlDocument, string NodeName = NodeInfo.CoordConvertNode)
         {
             try
             {
                 XmlElement ele = xmlDocument.CreateElement(NodeName);
 
+                ele.SetAttribute(nameof(guid), guid.ToString());
                 ele.SetAttribute(nameof(BLCalculated), BLCalculated.ToString());
                 if (BL != null)
                 {
@@ -220,17 +293,6 @@ namespace GeodeticCoordinateConversion
             {
                 throw new XmlException(ErrMessage.ZoneConvert.SaveToXmlFailed, err);
             }
-        }
-
-        /// <summary>
-        /// 转换到DataGridView行。
-        /// </summary>
-        /// <returns></returns>
-        public DataGridViewRow ToDataGridViewRow()
-        {
-            DataGridViewRow row = new DataGridViewRow();
-
-            throw new NotImplementedException(ErrMessage.Generic.FunctionNotImplemented);
         }
         #endregion
 

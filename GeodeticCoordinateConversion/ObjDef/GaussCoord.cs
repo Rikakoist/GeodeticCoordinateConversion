@@ -18,6 +18,10 @@ namespace GeodeticCoordinateConversion
         /// </summary>
         public readonly Guid guid;
         /// <summary>
+        /// 配置文件。
+        /// </summary>
+        private GEOSettings AppSettings = new GEOSettings();
+        /// <summary>
         /// 带内x坐标（私有）。
         /// </summary>
         private double x;
@@ -178,7 +182,7 @@ namespace GeodeticCoordinateConversion
             try
             {
                 this.guid = System.Guid.NewGuid();
-                this.ZoneType = GEOZoneType.None;
+                this.ZoneType = (GEOZoneType)AppSettings.DefaultZoneType;
                 this.GEOEllipse = new Ellipse();
                 BindEllipseEvent();
             }
