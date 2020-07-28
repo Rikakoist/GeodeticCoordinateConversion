@@ -28,8 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CoordConvertLayout));
             this.CoordConvertDataGridView = new System.Windows.Forms.DataGridView();
+            this.AddRowPictureBox = new System.Windows.Forms.PictureBox();
+            this.LoadPictureBox = new System.Windows.Forms.PictureBox();
+            this.SavePictureBox = new System.Windows.Forms.PictureBox();
+            this.gEODataTablesBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.B = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.L = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Ellipse = new System.Windows.Forms.DataGridViewComboBoxColumn();
@@ -38,17 +43,18 @@
             this.Y = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Zone = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ZoneType = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.AddRowPictureBox = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.CoordConvertDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AddRowPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LoadPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SavePictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gEODataTablesBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // CoordConvertDataGridView
             // 
             this.CoordConvertDataGridView.AllowUserToAddRows = false;
             this.CoordConvertDataGridView.AllowUserToDeleteRows = false;
+            this.CoordConvertDataGridView.AllowUserToResizeRows = false;
             this.CoordConvertDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -66,8 +72,56 @@
             this.CoordConvertDataGridView.Name = "CoordConvertDataGridView";
             this.CoordConvertDataGridView.Size = new System.Drawing.Size(570, 321);
             this.CoordConvertDataGridView.TabIndex = 0;
+            this.CoordConvertDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DeleteRow);
             this.CoordConvertDataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.CoordConvertDataGridView_CellEndEdit);
+            this.CoordConvertDataGridView.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.EditComboBox);
             this.CoordConvertDataGridView.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.CoordConvertDataGridView_RowsAdded);
+            // 
+            // AddRowPictureBox
+            // 
+            this.AddRowPictureBox.BackColor = System.Drawing.Color.DeepSkyBlue;
+            this.AddRowPictureBox.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.AddRowPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("AddRowPictureBox.Image")));
+            this.AddRowPictureBox.Location = new System.Drawing.Point(8, 7);
+            this.AddRowPictureBox.Margin = new System.Windows.Forms.Padding(0);
+            this.AddRowPictureBox.Name = "AddRowPictureBox";
+            this.AddRowPictureBox.Size = new System.Drawing.Size(32, 32);
+            this.AddRowPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.AddRowPictureBox.TabIndex = 4;
+            this.AddRowPictureBox.TabStop = false;
+            this.AddRowPictureBox.Click += new System.EventHandler(this.AddRow);
+            // 
+            // LoadPictureBox
+            // 
+            this.LoadPictureBox.BackColor = System.Drawing.Color.Transparent;
+            this.LoadPictureBox.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.LoadPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("LoadPictureBox.Image")));
+            this.LoadPictureBox.Location = new System.Drawing.Point(8, 91);
+            this.LoadPictureBox.Margin = new System.Windows.Forms.Padding(0);
+            this.LoadPictureBox.Name = "LoadPictureBox";
+            this.LoadPictureBox.Size = new System.Drawing.Size(32, 32);
+            this.LoadPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.LoadPictureBox.TabIndex = 4;
+            this.LoadPictureBox.TabStop = false;
+            this.LoadPictureBox.Click += new System.EventHandler(this.LoadData);
+            // 
+            // SavePictureBox
+            // 
+            this.SavePictureBox.BackColor = System.Drawing.Color.Transparent;
+            this.SavePictureBox.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.SavePictureBox.Image = ((System.Drawing.Image)(resources.GetObject("SavePictureBox.Image")));
+            this.SavePictureBox.Location = new System.Drawing.Point(8, 49);
+            this.SavePictureBox.Margin = new System.Windows.Forms.Padding(0);
+            this.SavePictureBox.Name = "SavePictureBox";
+            this.SavePictureBox.Size = new System.Drawing.Size(32, 32);
+            this.SavePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.SavePictureBox.TabIndex = 4;
+            this.SavePictureBox.TabStop = false;
+            this.SavePictureBox.Click += new System.EventHandler(this.SaveData);
+            // 
+            // gEODataTablesBindingSource
+            // 
+            this.gEODataTablesBindingSource.DataSource = typeof(GeodeticCoordinateConversion.GEODataTables);
             // 
             // B
             // 
@@ -90,10 +144,14 @@
             // Delete
             // 
             this.Delete.HeaderText = "Delete";
+            this.Delete.MinimumWidth = 30;
             this.Delete.Name = "Delete";
             this.Delete.ReadOnly = true;
             this.Delete.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.Delete.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Delete.Text = "Delete";
+            this.Delete.UseColumnTextForButtonValue = true;
+            this.Delete.Width = 60;
             // 
             // X
             // 
@@ -118,55 +176,22 @@
             this.ZoneType.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.ZoneType.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
-            // button2
-            // 
-            this.button2.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.button2.Location = new System.Drawing.Point(260, 343);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "load";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // button3
-            // 
-            this.button3.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.button3.Location = new System.Drawing.Point(380, 343);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 3;
-            this.button3.Text = "save";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // AddRowPictureBox
-            // 
-            this.AddRowPictureBox.BackColor = System.Drawing.Color.DeepSkyBlue;
-            this.AddRowPictureBox.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.AddRowPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("AddRowPictureBox.Image")));
-            this.AddRowPictureBox.Location = new System.Drawing.Point(8, 7);
-            this.AddRowPictureBox.Margin = new System.Windows.Forms.Padding(0);
-            this.AddRowPictureBox.Name = "AddRowPictureBox";
-            this.AddRowPictureBox.Size = new System.Drawing.Size(32, 32);
-            this.AddRowPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.AddRowPictureBox.TabIndex = 4;
-            this.AddRowPictureBox.TabStop = false;
-            this.AddRowPictureBox.Click += new System.EventHandler(this.AddRow);
-            // 
             // CoordConvertLayout
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.SavePictureBox);
+            this.Controls.Add(this.LoadPictureBox);
             this.Controls.Add(this.AddRowPictureBox);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.CoordConvertDataGridView);
             this.Name = "CoordConvertLayout";
             this.Size = new System.Drawing.Size(621, 369);
             this.Load += new System.EventHandler(this.CoordConvertLayout_Load);
             ((System.ComponentModel.ISupportInitialize)(this.CoordConvertDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.AddRowPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LoadPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SavePictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gEODataTablesBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -174,6 +199,10 @@
         #endregion
 
         private System.Windows.Forms.DataGridView CoordConvertDataGridView;
+        private System.Windows.Forms.PictureBox AddRowPictureBox;
+        private System.Windows.Forms.PictureBox LoadPictureBox;
+        private System.Windows.Forms.PictureBox SavePictureBox;
+        private System.Windows.Forms.BindingSource gEODataTablesBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn B;
         private System.Windows.Forms.DataGridViewTextBoxColumn L;
         private System.Windows.Forms.DataGridViewComboBoxColumn Ellipse;
@@ -182,8 +211,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Y;
         private System.Windows.Forms.DataGridViewTextBoxColumn Zone;
         private System.Windows.Forms.DataGridViewComboBoxColumn ZoneType;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.PictureBox AddRowPictureBox;
     }
 }

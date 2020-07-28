@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Reflection;
+using System.Diagnostics;
+using System.Threading;
 
 namespace GeodeticCoordinateConversion
 {
@@ -18,11 +20,16 @@ namespace GeodeticCoordinateConversion
         public List<CoordConvert> ConvertData = new List<CoordConvert>();
         private BindingSource bs = new BindingSource();
 
-
-
         public CoordConvertLayout()
         {
             InitializeComponent();
+           
+            DataTable table = GEODataTables.GetZoneType();
+            this.ZoneType.DataSource = table;
+            this.ZoneType.DataPropertyName = "Text";
+            //BindingSource bindingSource = new BindingSource();
+
+            //.DataBindings.Add("Text", bindingSource, nameof(GEOZoneType));
         }
 
         private void CoordConvertLayout_Load(object sender, EventArgs e)
@@ -34,37 +41,29 @@ namespace GeodeticCoordinateConversion
             //bs.DataMember ="CoordConvert";
         }
 
-        private void CoordConvertDataGridView_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        private void LoadData(object sender, EventArgs e)
         {
-            int count = e.RowCount;
-            DataGridViewRow row =CoordConvertDataGridView.Rows[e.RowIndex];
-            CoordConvert c = ConvertData[e.RowIndex];
-            row.SetValues(c.BL.B.Value, c.BL.L.Value, "", "", c.Gauss.X, c.Gauss.Y, c.Gauss.Zone, "");
-        }
-
-        public void SaveData()
-        {
-            DataFile.CoordConvertDataToFile(ConvertData);
-        }
-
-        public void LoadData()
-        {
-            this.ConvertData = DataFile.FileToCoordConvertData();
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            ConvertData = DataFile.FileToCoordConvertData();
+            LoadData();
             CoordConvertDataGridView.Rows.Clear();
-            for (int i = 0;i<ConvertData.Count;i++)
+            for (int i = 0; i < ConvertData.Count; i++)
             {
                 CoordConvertDataGridView.Rows.Add();
             }
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void SaveData(object sender, EventArgs e)
         {
-            DataFile.CoordConvertDataToFile(ConvertData);
+            SaveData();
+        }
+
+        public void LoadData()
+        {
+             DataFile.LoadCoordConvertData(ConvertData);
+        }
+
+        public void SaveData()
+        {
+            DataFile.SaveCoordConvertData(ConvertData);
         }
 
         private void CoordConvertDataGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
@@ -79,6 +78,7 @@ namespace GeodeticCoordinateConversion
             catch (Exception err)
             {
                 CoordConvertDataGridView[e.ColumnIndex, e.RowIndex].Value = ConvertData[e.RowIndex].GetType().GetProperty(CoordConvertDataGridView.Columns[e.ColumnIndex].Name).GetValue(ConvertData[e.RowIndex]);
+                Trace.TraceError(err.ToString());
             }
         }
 
@@ -88,6 +88,68 @@ namespace GeodeticCoordinateConversion
             ConvertData.Add(new CoordConvert());
 
             CoordConvertDataGridView.Rows.Add(row);
+        }
+
+        private void CoordConvertDataGridView_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            int count = e.RowCount;
+            DataGridViewRow row =CoordConvertDataGridView.Rows[e.RowIndex];
+            CoordConvert c = ConvertData[e.RowIndex];
+            row.SetValues(c.B,c.L, "", "", c.X, c.Y, c.Zone, "");
+
+        }
+
+        private void DeleteRow(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridView D = sender as DataGridView;
+            if (D.CurrentCell is DataGridViewButtonCell)
+            {
+                string s = D.Columns[e.ColumnIndex].Name;
+                if (s == "Delete")
+                {
+                    D.Rows.RemoveAt(e.RowIndex);
+                    ConvertData.RemoveAt(e.RowIndex);
+                }
+            }
+        }
+
+        private void EditComboBox(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            DataGridView D = sender as DataGridView;
+
+            if (D.CurrentCell is DataGridViewComboBoxCell)
+            {
+                ComboBox C = e.Control as ComboBox;
+                
+                C.SelectedIndexChanged+= new EventHandler(ChangeComboBoxIndex);
+            }
+        }
+
+        public void ChangeComboBoxIndex(object sender, EventArgs e)
+        {
+
+            ComboBox c = sender as ComboBox;
+
+            c.Leave += new EventHandler(EndEditComboBox);
+            try
+            {
+                //在这里就可以做值是否改变判断
+                if (c.SelectedItem != null)
+                {
+                    
+                }
+                Thread.Sleep(100);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        public void EndEditComboBox(object sender, EventArgs e)
+        {
+            ComboBox c= sender as ComboBox;
+            c.SelectedIndexChanged -= new EventHandler(ChangeComboBoxIndex);
         }
     }
 }

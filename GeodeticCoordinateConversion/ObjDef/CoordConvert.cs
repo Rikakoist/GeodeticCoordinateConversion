@@ -216,14 +216,28 @@ namespace GeodeticCoordinateConversion
         /// <param name="e">附加参数。</param>
         private void MakeDirty(object sender, EventArgs e)
         {
+            //编辑过的默认为计算过的（因为给定值用于自动计算）。
             if (sender == this.Gauss)
             {
                 this.BLCalculated = false;
+                this.GaussCalculated = true;
             }
             if (sender == this.BL)
             {
+                this.BLCalculated = true;
                 this.GaussCalculated = false;
             }
+        }
+
+        /// <summary>
+        /// 更改椭球类型。
+        /// </summary>
+        /// <param name="sender">触发者。</param>
+        /// <param name="e">附加参数。</param>
+        /// <param name="EllipseType">椭球类型。</param>
+        public void ChangeEllipse(object sender,EventArgs e,int EllipseType)
+        {
+            this.EllipseType = (GEOEllipseType)EllipseType;
         }
 
         /// <summary>

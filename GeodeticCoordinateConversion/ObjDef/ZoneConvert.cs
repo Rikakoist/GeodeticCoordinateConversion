@@ -13,6 +13,7 @@ namespace GeodeticCoordinateConversion
     public class ZoneConvert
     {
         #region Fields
+        public readonly Guid guid;
         public bool Gauss6Calculated = false;
         public GaussCoord Gauss6;
         public bool Gauss3Calculated = false;
@@ -27,6 +28,7 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
+                this.guid = System.Guid.NewGuid();
                 this.Gauss3 = new GaussCoord();
                 this.Gauss6 = new GaussCoord();
                 BindGauss3Events();
@@ -46,6 +48,7 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
+                this.guid = System.Guid.NewGuid();
                 if (newGauss == null)
                     throw new ArgumentNullException(ErrMessage.GaussCoord.GaussNull);
                 switch (newGauss.ZoneType)
@@ -85,6 +88,7 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
+                this.guid = System.Guid.NewGuid();
                 if (gauss1 == null || gauss2 == null)
                     throw new ArgumentNullException(ErrMessage.GaussCoord.GaussNull);
                 if (gauss1.ZoneType == GEOZoneType.None || gauss2.ZoneType == GEOZoneType.None)
@@ -134,6 +138,7 @@ namespace GeodeticCoordinateConversion
             {
                 XmlElement ele = (XmlElement)xmlNode;
 
+                this.guid = Guid.Parse(ele.GetAttribute(nameof(guid)));
                 this.Gauss3Calculated = bool.Parse(ele.GetAttribute(nameof(Gauss3Calculated)));
                 XmlNode Gauss3Node = ele.SelectSingleNode(NodeInfo.Gauss3NodePath);
                 if (Gauss3Node == null)
@@ -194,9 +199,11 @@ namespace GeodeticCoordinateConversion
             if (sender == this.Gauss3)
             {
                 this.Gauss6Calculated = false;
+                this.Gauss3Calculated = true;
             }
             if (sender == this.Gauss6)
             {
+                this.Gauss6Calculated = true;
                 this.Gauss3Calculated = false;
             }
         }
@@ -263,6 +270,7 @@ namespace GeodeticCoordinateConversion
             {
                 XmlElement ele = xmlDocument.CreateElement(NodeName);
 
+                ele.SetAttribute(nameof(guid), guid.ToString());
                 ele.SetAttribute(nameof(Gauss3Calculated), Gauss3Calculated.ToString());
                 if (Gauss3 != null)
                 {

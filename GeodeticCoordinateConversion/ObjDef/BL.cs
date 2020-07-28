@@ -385,8 +385,10 @@ namespace GeodeticCoordinateConversion
                 }
                 else
                 {
-                    this.d = value;
-                    this.DChanged?.Invoke(this, new EventArgs());
+                    if (d == value)
+                        return;
+                    d = value;
+                    DChanged?.Invoke(this, new EventArgs());
                 }
             }
         }
@@ -404,8 +406,10 @@ namespace GeodeticCoordinateConversion
                 }
                 else
                 {
-                    this.m = value;
-                    this.MChanged?.Invoke(this, new EventArgs());
+                    if (m == value)
+                        return;
+                    m = value;
+                    MChanged?.Invoke(this, new EventArgs());
                 }
             }
         }
@@ -423,12 +427,13 @@ namespace GeodeticCoordinateConversion
                 }
                 else
                 {
-                    this.s = value;
-                    this.SChanged?.Invoke(this, new EventArgs());
+                    if (s == value)
+                        return;
+                    s = value;
+                    SChanged?.Invoke(this, new EventArgs());
                 }
             }
         }
-
         /// <summary>
         /// 度分秒字符串表示形式。
         /// </summary>
