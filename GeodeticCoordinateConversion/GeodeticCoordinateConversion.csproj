@@ -64,7 +64,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CoordConvert.cs" />
+    <Compile Include="ObjDef\CoordConvert.cs" />
     <Compile Include="GEOSettings.cs" />
     <Compile Include="IO\FileIO.cs" />
     <Compile Include="GEOSettings.Designer.cs">

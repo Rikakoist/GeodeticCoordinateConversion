@@ -205,7 +205,7 @@ namespace GeodeticCoordinateConversion
             /// <summary>
             /// 设置高斯坐标带号失败。
             /// </summary>
-            public static string SetZoneFailed = "设置高斯坐标带号失败。";          
+            public static string SetZoneFailed = "设置高斯坐标带号失败。";
             /// <summary>
             /// 高斯反算失败。
             /// </summary>

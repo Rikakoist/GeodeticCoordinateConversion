@@ -301,7 +301,7 @@ namespace GeodeticCoordinateConversion
         /// <param name="xmlDocument">指定的XML文档。</param>
         /// <param name="NodeName">新建的元素命名，默认为Geo。</param>
         /// <returns>转换到的XML元素。</returns>
-        internal XmlElement ToXmlElement(XmlDocument xmlDocument, string NodeName = NodeInfo.BLNode)
+        public XmlElement ToXmlElement(XmlDocument xmlDocument, string NodeName = NodeInfo.BLNode)
         {
             try
             {
@@ -506,7 +506,7 @@ namespace GeodeticCoordinateConversion
         /// <param name="xmlDocument">指定的XML文档。</param>
         /// <param name="NodeName">新建的元素命名。</param>
         /// <returns>转换到的XML元素。</returns>
-        internal XmlElement ToXmlElement(XmlDocument xmlDocument, string NodeName)
+        public XmlElement ToXmlElement(XmlDocument xmlDocument, string NodeName)
         {
             try
             {

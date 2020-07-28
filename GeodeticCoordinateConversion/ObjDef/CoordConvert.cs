@@ -37,13 +37,18 @@ namespace GeodeticCoordinateConversion
             }
         }
 
-        public CoordConvert(GEOBL BL,GaussCoord Gauss)
+        /// <summary>
+        /// 使用地理经纬度对象和高斯坐标对象初始化经纬度、高斯互转对象。
+        /// </summary>
+        /// <param name="BL">地理经纬度对象。</param>
+        /// <param name="Gauss">高斯坐标对象。</param>
+        public CoordConvert(GEOBL BL, GaussCoord Gauss)
         {
             try
             {
                 this.BL = BL ?? throw new ArgumentNullException(ErrMessage.GEOBL.GEOBLNull);
                 BindBLEvents();
-                this.Gauss = Gauss??throw new ArgumentNullException(ErrMessage.GaussCoord.GaussNull);
+                this.Gauss = Gauss ?? throw new ArgumentNullException(ErrMessage.GaussCoord.GaussNull);
                 BindGaussEvents();
             }
             catch (Exception err)
@@ -106,6 +111,30 @@ namespace GeodeticCoordinateConversion
             if (sender == this.BL)
             {
                 this.BLCalculated = false;
+            }
+        }
+
+        public bool GaussToGEOBL()
+        {
+            try
+            {
+
+            }
+            catch(Exception err)
+            {
+
+            }
+        }
+
+        public bool GEOBLToGauss()
+        {
+            try
+            {
+
+            }
+            catch (Exception err)
+            {
+
             }
         }
         #endregion
