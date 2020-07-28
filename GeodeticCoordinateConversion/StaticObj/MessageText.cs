@@ -20,6 +20,14 @@ namespace GeodeticCoordinateConversion
             /// 坐标转换对象初始化失败。
             /// </summary>
             public static string InitializeError = "坐标转换对象初始化失败。";
+            /// <summary>
+            /// 高斯坐标转换到地理经纬度失败。
+            /// </summary>
+            public static string GaussToGEOBLFailed = "高斯坐标转换到地理经纬度失败。";
+            /// <summary>
+            /// 地理经纬度转换到高斯坐标失败。
+            /// </summary>
+            public static string GEOBLToGaussFailed = "地理经纬度转换到高斯坐标失败。";
         }
 
         /// <summary>

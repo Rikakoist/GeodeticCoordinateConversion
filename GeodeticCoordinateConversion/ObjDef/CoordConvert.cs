@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Xml;
 
 namespace GeodeticCoordinateConversion
 {
@@ -56,6 +58,44 @@ namespace GeodeticCoordinateConversion
                 throw new InitializeException(ErrMessage.CoordConvert.InitializeError, err);
             }
         }
+
+        /// <summary>
+        /// 通过XML节点初始化经纬度、高斯互转对象。
+        /// </summary>
+        /// <param name="xmlNode">包含对象结构的XML节点。</param>
+        public CoordConvert(XmlNode xmlNode)
+        {
+            try
+            {
+                XmlElement ele = (XmlElement)xmlNode;
+
+                this.BLCalculated = bool.Parse(ele.GetAttribute(nameof(BLCalculated)));
+                XmlNode BLNode = ele.SelectSingleNode(NodeInfo.BLNodePath);
+                if (BLNode == null)
+                {
+                    this.BL = new GEOBL();
+                }
+                else
+                {
+                    this.BL = new GEOBL(BLNode);
+                }
+
+                this.GaussCalculated = bool.Parse(ele.GetAttribute(nameof(GaussCalculated)));
+                XmlNode GaussNode = ele.SelectSingleNode(NodeInfo.GaussNodePath);
+                if (GaussNode == null)
+                {
+                    this.Gauss = new GaussCoord();
+                }
+                else
+                {
+                    this.Gauss = new GaussCoord(GaussNode);
+                }
+            }
+            catch (Exception err)
+            {
+                throw new XmlException(ErrMessage.ZoneConvert.InitializeError, err);
+            }
+        }
         #endregion
 
         #region Methods
@@ -106,36 +146,107 @@ namespace GeodeticCoordinateConversion
         {
             if (sender == this.Gauss)
             {
-                this.GaussCalculated = false;
+                this.BLCalculated = false;
             }
             if (sender == this.BL)
             {
-                this.BLCalculated = false;
+                this.GaussCalculated = false;
             }
         }
 
-        public bool GaussToGEOBL()
+        /// <summary>
+        /// 高斯坐标转换到地理经纬度。
+        /// </summary>
+        public void GaussToGEOBL()
         {
             try
             {
-
-            }
-            catch(Exception err)
-            {
-
-            }
-        }
-
-        public bool GEOBLToGauss()
-        {
-            try
-            {
-
+                if ((Gauss != null) && (!BLCalculated))
+                {
+                    BL = Gauss.GaussReverse();
+                    BindBLEvents();
+                }
             }
             catch (Exception err)
             {
-
+                throw new CoordConvertException(ErrMessage.CoordConvert.GaussToGEOBLFailed, err);
             }
+        }
+
+        /// <summary>
+        /// 地理经纬度转换到高斯坐标。
+        /// </summary>
+        public void GEOBLToGauss()
+        {
+            try
+            {
+                if ((BL != null) && (!GaussCalculated))
+                {
+                    Gauss = BL.GaussDirect();
+                    BindGaussEvents();
+                }
+            }
+            catch (Exception err)
+            {
+                throw new CoordConvertException(ErrMessage.CoordConvert.GEOBLToGaussFailed, err);
+            }
+        }
+
+        /// <summary>
+        /// 转换到XML元素。
+        /// </summary>
+        /// <param name="xmlDocument">指定的XML文档。</param>
+        /// <param name="NodeName">新建的元素命名。</param>
+        /// <returns>转换到的XML元素。</returns>
+        public XmlElement ToXmlElement(XmlDocument xmlDocument, string NodeName = NodeInfo.ZoneConvertNode)
+        {
+            try
+            {
+                XmlElement ele = xmlDocument.CreateElement(NodeName);
+
+                ele.SetAttribute(nameof(BLCalculated), BLCalculated.ToString());
+                if (BL != null)
+                {
+                    ele.AppendChild(this.BL.ToXmlElement(xmlDocument));
+                }
+                ele.SetAttribute(nameof(GaussCalculated), GaussCalculated.ToString());
+                if (Gauss != null)
+                {
+                    ele.AppendChild(this.Gauss.ToXmlElement(xmlDocument));
+                }
+                return ele;
+            }
+            catch (Exception err)
+            {
+                throw new XmlException(ErrMessage.ZoneConvert.SaveToXmlFailed, err);
+            }
+        }
+
+        /// <summary>
+        /// 转换到DataGridView行。
+        /// </summary>
+        /// <returns></returns>
+        public DataGridViewRow ToDataGridViewRow()
+        {
+            DataGridViewRow row = new DataGridViewRow();
+
+            throw new NotImplementedException(ErrMessage.Generic.FunctionNotImplemented);
+        }
+        #endregion
+
+        #region Exceptions
+        /// <summary>
+        /// 坐标转换异常。
+        /// </summary>
+        [Serializable]
+        public class CoordConvertException : Exception
+        {
+            public CoordConvertException() { }
+            public CoordConvertException(string message) : base(message) { }
+            public CoordConvertException(string message, Exception inner) : base(message, inner) { }
+            protected CoordConvertException(
+              System.Runtime.Serialization.SerializationInfo info,
+              System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
         }
         #endregion
     }

@@ -148,39 +148,57 @@ namespace GeodeticCoordinateConversion
             }
         }
 
-        public bool Tab1SaveToFile(List<Tab1File> T1F)
+        public bool CoordConvertDataToFile(List<CoordConvert> CoordConvertData)
         {
-            for (int i = 0; i < T1F.Count; i++)
+            foreach(CoordConvert c in CoordConvertData)
             {
-                XmlElement tabNode = document.CreateElement(NodeInfo.Tab1Node);
-
-                tabNode.AppendChild(T1F[i].Tab1FileBL.ToXmlElement(document));
-                tabNode.AppendChild(T1F[i].Tab1FileGC.ToXmlElement(document));
-
-                rootNode.AppendChild(tabNode);
+                rootNode.AppendChild(c.ToXmlElement(document));
             }
             document.Save(DocPath);
             ModifyTime();
             return true;
+            //for (int i = 0; i < T1F.Count; i++)
+            //{
+            //    XmlElement tabNode = document.CreateElement(NodeInfo.Tab1Node);
+
+            //    tabNode.AppendChild(T1F[i].Tab1FileBL.ToXmlElement(document));
+            //    tabNode.AppendChild(T1F[i].Tab1FileGC.ToXmlElement(document));
+
+            //    rootNode.AppendChild(tabNode);
+            //}
+            //document.Save(DocPath);
+            //ModifyTime();
+            //return true;
         }
 
-        public List<Tab1File> Tab1LoadFromFile()
+        public List<CoordConvert> FileToCoordConvertData()
         {
-            List<Tab1File> Result = new List<Tab1File>();
+            List<CoordConvert> Result = new List<CoordConvert>();
             Result.Clear();
-            XmlNodeList XNL = rootNode.SelectNodes(NodeInfo.Tab1NodePath);
-            if (XNL.Count < 1)
+            XmlNodeList XNL = rootNode.SelectNodes(NodeInfo.CoordConvertNodePath);
+            if (XNL.Count >= 1)
             {
-
-            }
-            else
-            {
-                for (int i = 0; i < XNL.Count; i++)
+                foreach(XmlNode x in XNL)
                 {
-                    Result.Add(new Tab1File(XNL[i]));
+                    Result.Add(new CoordConvert(x));
                 }
             }
             return Result;
+            //List<Tab1File> Result = new List<Tab1File>();
+            //Result.Clear();
+            //XmlNodeList XNL = rootNode.SelectNodes(NodeInfo.Tab1NodePath);
+            //if (XNL.Count < 1)
+            //{
+
+            //}
+            //else
+            //{
+            //    for (int i = 0; i < XNL.Count; i++)
+            //    {
+            //        Result.Add(new Tab1File(XNL[i]));
+            //    }
+            //}
+            //return Result;
         }
 
         public bool Tab2SaveToFile(List<Tab2File> T2F)

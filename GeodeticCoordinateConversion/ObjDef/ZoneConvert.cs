@@ -130,7 +130,7 @@ namespace GeodeticCoordinateConversion
         }
 
         /// <summary>
-        /// 通过XML节点初始化6度带、3度带互转类。
+        /// 通过XML节点初始化6度带、3度带互转对象。
         /// </summary>
         /// <param name="xmlNode">包含对象结构的XML节点。</param>
         public ZoneConvert(XmlNode xmlNode)
@@ -168,7 +168,7 @@ namespace GeodeticCoordinateConversion
         }
         #endregion
 
-        #region Events
+        #region Methods
         /// <summary>
         /// 绑定3度带对象事件。
         /// </summary>
@@ -188,9 +188,7 @@ namespace GeodeticCoordinateConversion
             this.Gauss6.YChanged += new GaussCoord.YChangedEventHander(this.GaussDirty);
             this.Gauss6.EllipseChanged += new GaussCoord.EllipseChangedEventHander(this.GaussDirty);
         }
-        #endregion
 
-        #region Methods
         /// <summary>
         /// 改变计算状态。
         /// </summary>
@@ -200,11 +198,11 @@ namespace GeodeticCoordinateConversion
         {
             if (sender == this.Gauss3)
             {
-                this.Gauss3Calculated = false;
+                this.Gauss6Calculated = false;
             }
             if (sender == this.Gauss6)
             {
-                this.Gauss6Calculated = false;
+                this.Gauss3Calculated = false;
             }
         }
 

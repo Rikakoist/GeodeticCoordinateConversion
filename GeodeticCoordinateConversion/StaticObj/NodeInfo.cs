@@ -60,6 +60,8 @@ namespace GeodeticCoordinateConversion
 
         public const string ZoneConvertNode = "ZoneConvert";
         public const string ZoneConvertNodePath = RootNodePath + ZoneConvertNode;
+        public const string CoordConvertNode = "CoordConvert";
+        public const string CoordConvertNodePath = RootNodePath + CoordConvertNode;
 
         public const string Tab1Node = "Tab1";
         public const string Tab1NodePath = RootNodePath + Tab1Node;
