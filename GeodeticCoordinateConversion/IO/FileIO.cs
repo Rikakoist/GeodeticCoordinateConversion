@@ -159,19 +159,21 @@ namespace GeodeticCoordinateConversion
             return true;
         }
 
-        public bool LoadCoordConvertData(List<CoordConvert> Data)
+        public List<CoordConvert> LoadCoordConvertData()
         {
+            List<CoordConvert> Data = new List<CoordConvert>();
+            Data.Clear();
             XmlNodeList XNL = rootNode.SelectNodes(NodeInfo.CoordConvertNodePath);
             if (XNL.Count >= 1)
             {
-                Data.Clear();
+                
                 foreach(XmlNode x in XNL)
                 {
                     Data.Add(new CoordConvert(x));
                 }
-                return true;
+                //return true;
             }
-            return false; 
+            return Data; 
         }
 
         public bool Tab2SaveToFile(List<Tab2File> T2F)

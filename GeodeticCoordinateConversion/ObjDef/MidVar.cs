@@ -24,17 +24,9 @@ namespace GeodeticCoordinateConversion
         /// </summary>
         private double l;
         /// <summary>
-        /// 中央经线（私有）。
-        /// </summary>
-        private double center;
-        /// <summary>
         /// 分带类型（私有）。
         /// </summary>
         private GEOZoneType zoneType;
-        /// <summary>
-        /// 带号（私有）。
-        /// </summary>
-        private int zone;
 
         /// <summary>
         /// 纬度。
@@ -85,17 +77,24 @@ namespace GeodeticCoordinateConversion
         {
             get
             {
-                return center;
-            }
-            set
-            {
-                if ((value < Restraints.LongitudeMin) || (value > Restraints.LongitudeMax))
+                switch (this.ZoneType)
                 {
-                    throw new ArgumentOutOfRangeException(ErrMessage.Data.LongitudeOutOfRange);
-                }
-                else
-                {
-                    this.center = value;
+                    case GEOZoneType.None:
+                        {
+                            throw new ArgumentException(ErrMessage.GEOZone.ZoneTypeNotSet);
+                        }
+                    case GEOZoneType.Zone3:
+                        {
+                            return (3.0 * this.Zone);
+                        }
+                    case GEOZoneType.Zone6:
+                        {
+                            return (6.0 * this.Zone - 3);
+                        }
+                    default:
+                        {
+                            throw new ArgumentException(ErrMessage.GEOZone.ZoneTypeUnknown);
+                        }
                 }
             }
         }
@@ -117,7 +116,6 @@ namespace GeodeticCoordinateConversion
                 else
                 {
                     this.zoneType = value;
-                    Recalc();
                 }
             }
         }
@@ -128,34 +126,19 @@ namespace GeodeticCoordinateConversion
         {
             get
             {
-                return zone;
-            }
-            set
-            {
                 switch (this.ZoneType)
                 {
                     case GEOZoneType.None:
                         {
-                            break;
-                            //throw new ArgumentException(ErrMessage.GEOZone.ZoneTypeNotSet);
+                            throw new ArgumentException(ErrMessage.GEOZone.ZoneTypeNotSet);
                         }
                     case GEOZoneType.Zone3:
                         {
-                            if ((value < Restraints.Zone3Min) || (value > Restraints.Zone3Max))
-                            {
-                                throw new ArgumentOutOfRangeException(ErrMessage.Data.Zone3OutOfRange);
-                            }
-                            this.zone = value;
-                            break;
+                            return (int)((this.L + 1.5) / 3.0);
                         }
                     case GEOZoneType.Zone6:
                         {
-                            if ((value < Restraints.Zone6Min) || (value > Restraints.Zone6Max))
-                            {
-                                throw new ArgumentOutOfRangeException(ErrMessage.Data.Zone6OutOfRange);
-                            }
-                            this.zone = value;
-                            break;
+                            return (int)((this.L + 6.0) / 6.0);
                         }
                     default:
                         {
@@ -190,6 +173,7 @@ namespace GeodeticCoordinateConversion
         /// <returns>计算是否成功。</returns>
         private bool Recalc()
         {
+            /*
             switch (this.ZoneType)
             {
                 case GEOZoneType.None:
@@ -212,8 +196,9 @@ namespace GeodeticCoordinateConversion
                     {
                         throw new ArgumentException(ErrMessage.GEOZone.ZoneTypeUnknown);
                     }
-            }
+            }*/
             return true;
+            
         }
     }
 

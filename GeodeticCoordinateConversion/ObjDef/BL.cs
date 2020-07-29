@@ -48,14 +48,22 @@ namespace GeodeticCoordinateConversion
             get => zoneType;
             set
             {
-                if (value == zoneType)
+                try
                 {
-                    return;
+                    if (value == zoneType)
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        this.zoneType = value;
+                        ZoneTypeChanged?.Invoke(this, new EventArgs());
+                    }
                 }
-                else
+                catch (Exception err)
                 {
-                    this.zoneType = value;
-                    ZoneTypeChanged?.Invoke(this, new EventArgs());
+                    this.ZoneType = GEOZoneType.None;
+                    throw new ArgumentOutOfRangeException(ErrMessage.GEOZone.ZoneTypeUnknown, err);
                 }
             }
         }
@@ -270,27 +278,27 @@ namespace GeodeticCoordinateConversion
                 double l = (CDEC.L - CDEC.Center) * 3600;    //经度差转换为秒
 
                 //十进制转弧度
-                CDEC.B = GeoCalc.DEC2ARC(CDEC.B);
-                CDEC.L = GeoCalc.DEC2ARC(CDEC.L);
+               double tmpB = GeoCalc.DEC2ARC(CDEC.B);
+                double tmpL = GeoCalc.DEC2ARC(CDEC.L);
 
                 //计算中间参数
-                double W = Math.Sqrt(1 - Math.Pow(e, 2) * Math.Pow((Math.Sin(CDEC.B)), 2));
+                double W = Math.Sqrt(1 - Math.Pow(e, 2) * Math.Pow((Math.Sin(tmpB)), 2));
                 double M = a * Math.Pow(1 - e, 2) / Math.Pow(W, 3);
                 double N = a / W;
-                double n = Math.Pow(e2, 2) * Math.Pow((Math.Cos(CDEC.B)), 2);
+                double n = Math.Pow(e2, 2) * Math.Pow((Math.Cos(tmpB)), 2);
                 double p = 206265;
 
                 //求子午线弧长
-                double X = a0 * CDEC.B - Math.Sin(CDEC.B) * Math.Cos(CDEC.B) * ((a2 - a4 + a6) + (2 * a4 - 16 / 3 * a6) * Math.Pow(Math.Sin(CDEC.B), 2) + 16 / 3 * a6 * Math.Pow(Math.Sin(CDEC.B), 4));
-                double t = Math.Tan(CDEC.B);
+                double X = a0 * tmpB - Math.Sin(tmpB) * Math.Cos(tmpB) * ((a2 - a4 + a6) + (2 * a4 - 16 / 3 * a6) * Math.Pow(Math.Sin(tmpB), 2) + 16 / 3 * a6 * Math.Pow(Math.Sin(tmpB), 4));
+                double t = Math.Tan(tmpB);
 
                 //正算转换
                 GaussCoord GaussResult = new GaussCoord(this.GEOEllipse)
                 {
-                    X = X + N / 2 * Math.Sin(CDEC.B) * Math.Cos(CDEC.B) * Math.Pow(l, 2) / Math.Pow(p, 2) + N / (24 * Math.Pow(p, 4)) * Math.Sin(CDEC.B) * (Math.Pow((Math.Cos(CDEC.B)), 3)) * (5 - Math.Pow(t, 2) + 9 * n + 4 * Math.Pow(n, 2)) * Math.Pow(l, 4) + N / (720 * Math.Pow(p, 6)) * Math.Sin(CDEC.B) * (Math.Pow((Math.Cos(CDEC.B)), 5)) * (61 - 58 * Math.Pow(t, 2) + Math.Pow(t, 4)) * Math.Pow(l, 6),
-                    Y = N * Math.Cos(CDEC.B) * l / p + N / (6 * Math.Pow(p, 3)) * (Math.Pow(Math.Cos(CDEC.B), 3)) * (1 - Math.Pow(t, 2) + n) * Math.Pow(l, 3) + N / (120 * Math.Pow(p, 5)) * (Math.Pow(Math.Cos(CDEC.B), 5)) * (5 - 18 * Math.Pow(t, 2) + Math.Pow(t, 4) + 14 * n - 58 * Math.Pow(t, 2) * n) * Math.Pow(l, 5),
+                    X = X + N / 2 * Math.Sin(tmpB) * Math.Cos(tmpB) * Math.Pow(l, 2) / Math.Pow(p, 2) + N / (24 * Math.Pow(p, 4)) * Math.Sin(tmpB) * (Math.Pow((Math.Cos(tmpB)), 3)) * (5 - Math.Pow(t, 2) + 9 * n + 4 * Math.Pow(n, 2)) * Math.Pow(l, 4) + N / (720 * Math.Pow(p, 6)) * Math.Sin(tmpB) * (Math.Pow((Math.Cos(tmpB)), 5)) * (61 - 58 * Math.Pow(t, 2) + Math.Pow(t, 4)) * Math.Pow(l, 6),
+                    Y = N * Math.Cos(tmpB) * l / p + N / (6 * Math.Pow(p, 3)) * (Math.Pow(Math.Cos(tmpB), 3)) * (1 - Math.Pow(t, 2) + n) * Math.Pow(l, 3) + N / (120 * Math.Pow(p, 5)) * (Math.Pow(Math.Cos(tmpB), 5)) * (5 - 18 * Math.Pow(t, 2) + Math.Pow(t, 4) + 14 * n - 58 * Math.Pow(t, 2) * n) * Math.Pow(l, 5),
                     ZoneType = CDEC.ZoneType,
-                    Zone = CDEC.Zone,
+                    Zone = CDEC.Zone
                 };
 
                 return GaussResult;

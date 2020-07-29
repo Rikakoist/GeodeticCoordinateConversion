@@ -111,6 +111,7 @@ namespace GeodeticCoordinateConversion
                 }
                 catch (Exception err)
                 {
+                    this.EllipseType = GEOEllipseType.noEllipse;
                     throw new SetEllipseTypeException(ErrMessage.GEOEllipse.SetEllipseTypeFailed, err);
                 }
             }

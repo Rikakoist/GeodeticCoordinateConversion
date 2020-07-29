@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using System.ComponentModel;
+using System.Diagnostics;
 
 namespace GeodeticCoordinateConversion
 {
@@ -20,12 +22,15 @@ namespace GeodeticCoordinateConversion
         public GEOBL BL;
         public bool GaussCalculated = false;
         public GaussCoord Gauss;
+        private ComboBox zoneTypeComboBox = new ComboBox();
+        private ComboBox ellipseComboBox = new ComboBox();
         #endregion
 
         #region Properties
         /// <summary>
         /// 地理纬度。
         /// </summary>
+        [DisplayName("地理B坐标")]
         public string B
         {
             get => BL.B.Value;
@@ -34,14 +39,29 @@ namespace GeodeticCoordinateConversion
         /// <summary>
         /// 地理经度。
         /// </summary>
+        [DisplayName("地理L坐标")]
         public string L
         {
             get => BL.L.Value;
             set => BL.L.Value = value;
         }
         /// <summary>
+        /// 椭球。
+        /// </summary>
+        [DisplayName("椭球")]
+        public GEOEllipseType EllipseType
+        {
+            get => BL.GEOEllipse.EllipseType;
+            set
+            {
+                BL.GEOEllipse.EllipseType = value;
+                Gauss.GEOEllipse.EllipseType = value;
+            }
+        }
+        /// <summary>
         /// 高斯X坐标。
         /// </summary>
+        [DisplayName("高斯X坐标")]
         public string X
         {
             get => Gauss.X.ToString();
@@ -50,22 +70,16 @@ namespace GeodeticCoordinateConversion
         /// <summary>
         /// 高斯Y坐标。
         /// </summary>
+        [DisplayName("高斯Y坐标")]
         public string Y
         {
             get => Gauss.Y.ToString();
             set => Gauss.Y = double.Parse(value);
         }
         /// <summary>
-        /// 高斯带号。
-        /// </summary>
-        public string Zone
-        {
-            get => Gauss.Zone.ToString();
-            set => Gauss.Zone = int.Parse(value);
-        }
-        /// <summary>
         /// 分带类型。
         /// </summary>
+        [DisplayName("分带")]
         public GEOZoneType ZoneType
         {
             get => BL.ZoneType;
@@ -76,16 +90,13 @@ namespace GeodeticCoordinateConversion
             }
         }
         /// <summary>
-        /// 椭球。
+        /// 高斯带号。
         /// </summary>
-        public GEOEllipseType EllipseType
+        [DisplayName("带号")]
+        public int Zone
         {
-            get => BL.GEOEllipse.EllipseType;
-            set
-            {
-                BL.GEOEllipse.EllipseType = value;
-                Gauss.GEOEllipse.EllipseType = value;
-            }
+            get => Gauss.Zone;
+            set => Gauss.Zone = value;
         }
         #endregion
 
@@ -235,7 +246,7 @@ namespace GeodeticCoordinateConversion
         /// <param name="sender">触发者。</param>
         /// <param name="e">附加参数。</param>
         /// <param name="EllipseType">椭球类型。</param>
-        public void ChangeEllipse(object sender,EventArgs e,int EllipseType)
+        public void ChangeEllipse(object sender, EventArgs e, int EllipseType)
         {
             this.EllipseType = (GEOEllipseType)EllipseType;
         }
@@ -243,38 +254,48 @@ namespace GeodeticCoordinateConversion
         /// <summary>
         /// 高斯坐标转换到地理经纬度。
         /// </summary>
-        public void GaussToGEOBL()
+        public bool GaussReverse()
         {
             try
             {
-                if ((Gauss != null) && (!BLCalculated))
+                if ((Gauss != null)/* && (!BLCalculated)*/)
                 {
                     BL = Gauss.GaussReverse();
                     BindBLEvents();
+                    this.BLCalculated = true;
+                    this.GaussCalculated = false;
+                    return true;
                 }
+                return false;
             }
             catch (Exception err)
             {
-                throw new CoordConvertException(ErrMessage.CoordConvert.GaussToGEOBLFailed, err);
+                Trace.TraceError(err.ToString());
+                return false;
             }
         }
 
         /// <summary>
         /// 地理经纬度转换到高斯坐标。
         /// </summary>
-        public void GEOBLToGauss()
+        public bool GaussDirect()
         {
             try
             {
-                if ((BL != null) && (!GaussCalculated))
+                if ((BL != null)/* && (!GaussCalculated)*/)
                 {
                     Gauss = BL.GaussDirect();
                     BindGaussEvents();
+                    this.BLCalculated = false;
+                    this.GaussCalculated = true;
+                    return true;
                 }
+                return false;
             }
             catch (Exception err)
             {
-                throw new CoordConvertException(ErrMessage.CoordConvert.GEOBLToGaussFailed, err);
+                Trace.TraceError(err.ToString());
+                return false;           
             }
         }
 

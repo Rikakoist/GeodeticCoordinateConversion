@@ -38,10 +38,6 @@ namespace GeodeticCoordinateConversion
         /// </summary>
         private int zone;
         /// <summary>
-        /// 中央经线（私有）。
-        /// </summary>
-        private double center;
-        /// <summary>
         /// 椭球。
         /// </summary>
         public Ellipse GEOEllipse;
@@ -84,19 +80,27 @@ namespace GeodeticCoordinateConversion
             get => zoneType;
             set
             {
-                if (value == zoneType)
+                try
                 {
-                    return;
+                    if (value == zoneType)
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        this.zoneType = value;
+                        ZoneTypeChanged?.Invoke(this, new EventArgs());
+                    }
                 }
-                else
+                catch (Exception err)
                 {
-                    this.zoneType = value;
-                    ZoneTypeChanged?.Invoke(this, new EventArgs());
+                    this.ZoneType = GEOZoneType.None;
+                    throw new ArgumentOutOfRangeException(ErrMessage.GEOZone.ZoneTypeUnknown, err);
                 }
             }
         }
         /// <summary>
-        /// 带号，设置后会自动计算中央经线。
+        /// 带号。
         /// </summary>
         public int Zone
         {
@@ -119,7 +123,6 @@ namespace GeodeticCoordinateConversion
                                     throw new ArgumentOutOfRangeException(ErrMessage.Data.Zone3OutOfRange);
                                 }
                                 this.zone = value;
-                                GetCenter();
                                 break;
                             }
                         case GEOZoneType.Zone6:
@@ -129,7 +132,6 @@ namespace GeodeticCoordinateConversion
                                     throw new ArgumentOutOfRangeException(ErrMessage.Data.Zone6OutOfRange);
                                 }
                                 this.zone = value;
-                                GetCenter();
                                 break;
                             }
                         default:
@@ -150,26 +152,29 @@ namespace GeodeticCoordinateConversion
         /// </summary>
         public double Center
         {
-            get => center;
-            set
+            get
             {
-                try
+                switch (this.ZoneType)
                 {
-                    if ((value < Restraints.LongitudeMin) || (value > Restraints.LongitudeMax))
-                    {
-                        throw new ArgumentOutOfRangeException(ErrMessage.Data.LongitudeOutOfRange);
-                    }
-                    else
-                    {
-                        this.center = value;
-                        CenterChanged?.Invoke(this, new EventArgs());
-                    }
-                }
-                catch (Exception err)
-                {
-                    throw new CenterException(ErrMessage.GaussCoord.SetCenterFailed, err);
+                    case GEOZoneType.None:
+                        {
+                            throw new ArgumentException(ErrMessage.GEOZone.ZoneTypeNotSet);
+                        }
+                    case GEOZoneType.Zone3:
+                        {
+                            return (3.0 * this.Zone);
+                        }
+                    case GEOZoneType.Zone6:
+                        {
+                            return (6.0 * this.Zone - 3.0);
+                        }
+                    default:
+                        {
+                            throw new ArgumentException(ErrMessage.GEOZone.ZoneTypeUnknown);
+                        }
                 }
             }
+          
         }
         #endregion
 
@@ -269,7 +274,7 @@ namespace GeodeticCoordinateConversion
                 this.Y = double.Parse(ele.GetAttribute(nameof(Y)));
                 this.ZoneType = (GEOZoneType)int.Parse(ele.GetAttribute(nameof(ZoneType)));
                 this.Zone = int.Parse(ele.GetAttribute(nameof(Zone)));
-                this.Center = double.Parse(ele.GetAttribute(nameof(Center)));
+                //this.Center = double.Parse(ele.GetAttribute(nameof(Center)));
                 this.GEOEllipse = new Ellipse(xmlNode.SelectSingleNode(NodeInfo.EllipseNodePath));
                 BindEllipseEvent();
             }
@@ -329,27 +334,27 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                switch (this.ZoneType)
-                {
-                    case GEOZoneType.None:
-                        {
-                            throw new ArgumentException(ErrMessage.GEOZone.ZoneTypeNotSet);
-                        }
-                    case GEOZoneType.Zone3:
-                        {
-                            this.Center = 3.0 * this.Zone;
-                            break;
-                        }
-                    case GEOZoneType.Zone6:
-                        {
-                            this.Center = 6.0 * this.Zone - 3;
-                            break;
-                        }
-                    default:
-                        {
-                            throw new ArgumentException(ErrMessage.GEOZone.ZoneTypeUnknown);
-                        }
-                }
+                //switch (this.ZoneType)
+                //{
+                //    case GEOZoneType.None:
+                //        {
+                //            throw new ArgumentException(ErrMessage.GEOZone.ZoneTypeNotSet);
+                //        }
+                //    case GEOZoneType.Zone3:
+                //        {
+                //            this.Center = 3.0 * this.Zone;
+                //            break;
+                //        }
+                //    case GEOZoneType.Zone6:
+                //        {
+                //            this.Center = 6.0 * this.Zone - 3;
+                //            break;
+                //        }
+                //    default:
+                //        {
+                //            throw new ArgumentException(ErrMessage.GEOZone.ZoneTypeUnknown);
+                //        }
+                //}
                 return true;
             }
             catch (Exception err)
