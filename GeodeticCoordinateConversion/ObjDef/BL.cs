@@ -630,10 +630,11 @@ namespace GeodeticCoordinateConversion
                 tmpM = (int)tmpM;
 
                 //去除秒的小数点，以便转换为字符串。
-                while (Math.Abs(tmpS - (int)tmpS) > 1e-7)
+                while (Math.Abs(tmpS - (int)tmpS) > 1e-7&&tmpS<=1e7)
                 {
                     tmpS *= 10;
                 }
+                tmpS = (int)tmpS;
 
                 //秒为0。
                 if (Math.Abs(tmpS) < 1e-7)
@@ -661,7 +662,14 @@ namespace GeodeticCoordinateConversion
                 //秒不为0。
                 else
                 {
-                    return (tmpD.ToString() + "." + tmpM.ToString("00") + tmpS.ToString());
+                    if (tmpS < 0)
+                    {
+                        return ("-"+tmpD.ToString() + "." + tmpM.ToString("00") + (-tmpS).ToString());
+                    }
+                    else
+                    {
+                        return (tmpD.ToString() + "." + tmpM.ToString("00") + tmpS.ToString());
+                    }
                 }
             }
             catch (Exception err)
