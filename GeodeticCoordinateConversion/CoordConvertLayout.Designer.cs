@@ -31,20 +31,19 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CoordConvertLayout));
             this.CoordConvertDGV = new System.Windows.Forms.DataGridView();
-            this.B = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.L = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Ellipse = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.Delete = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.X = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Y = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Zone = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ZoneType = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.AddRowPictureBox = new System.Windows.Forms.PictureBox();
             this.LoadPictureBox = new System.Windows.Forms.PictureBox();
             this.SavePictureBox = new System.Windows.Forms.PictureBox();
             this.DeletePictureBox = new System.Windows.Forms.PictureBox();
             this.DirectBtn = new System.Windows.Forms.Button();
             this.ReverseBtn = new System.Windows.Forms.Button();
+            this.B = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.L = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Ellipse = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.X = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Y = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ZoneType = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.Zone = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gEODataTablesBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.CoordConvertDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AddRowPictureBox)).BeginInit();
@@ -58,6 +57,7 @@
             // 
             this.CoordConvertDGV.AllowUserToAddRows = false;
             this.CoordConvertDGV.AllowUserToDeleteRows = false;
+            this.CoordConvertDGV.AllowUserToOrderColumns = true;
             this.CoordConvertDGV.AllowUserToResizeRows = false;
             this.CoordConvertDGV.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
@@ -67,73 +67,16 @@
             this.B,
             this.L,
             this.Ellipse,
-            this.Delete,
             this.X,
             this.Y,
-            this.Zone,
-            this.ZoneType});
+            this.ZoneType,
+            this.Zone});
             this.CoordConvertDGV.Location = new System.Drawing.Point(48, 3);
             this.CoordConvertDGV.Name = "CoordConvertDGV";
             this.CoordConvertDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.CoordConvertDGV.Size = new System.Drawing.Size(807, 346);
             this.CoordConvertDGV.TabIndex = 0;
-            this.CoordConvertDGV.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DeleteRow);
             this.CoordConvertDGV.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.CoordConvertDGV_CellEndEdit);
-            this.CoordConvertDGV.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.EditComboBox);
-            this.CoordConvertDGV.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.CoordConvertDGV_RowsAdded);
-            // 
-            // B
-            // 
-            this.B.HeaderText = "B";
-            this.B.Name = "B";
-            // 
-            // L
-            // 
-            this.L.HeaderText = "L";
-            this.L.Name = "L";
-            // 
-            // Ellipse
-            // 
-            this.Ellipse.HeaderText = "Ellipse";
-            this.Ellipse.Name = "Ellipse";
-            this.Ellipse.ReadOnly = true;
-            this.Ellipse.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Ellipse.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // Delete
-            // 
-            this.Delete.HeaderText = "Delete";
-            this.Delete.MinimumWidth = 30;
-            this.Delete.Name = "Delete";
-            this.Delete.ReadOnly = true;
-            this.Delete.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Delete.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Delete.Text = "Delete";
-            this.Delete.UseColumnTextForButtonValue = true;
-            this.Delete.Width = 60;
-            // 
-            // X
-            // 
-            this.X.HeaderText = "X";
-            this.X.Name = "X";
-            // 
-            // Y
-            // 
-            this.Y.HeaderText = "Y";
-            this.Y.Name = "Y";
-            // 
-            // Zone
-            // 
-            this.Zone.HeaderText = "Zone";
-            this.Zone.Name = "Zone";
-            // 
-            // ZoneType
-            // 
-            this.ZoneType.HeaderText = "ZoneType";
-            this.ZoneType.Name = "ZoneType";
-            this.ZoneType.ReadOnly = true;
-            this.ZoneType.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.ZoneType.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // AddRowPictureBox
             // 
@@ -213,6 +156,47 @@
             this.ReverseBtn.UseVisualStyleBackColor = true;
             this.ReverseBtn.Click += new System.EventHandler(this.ReverseBtn_Click);
             // 
+            // B
+            // 
+            this.B.HeaderText = "B";
+            this.B.Name = "B";
+            // 
+            // L
+            // 
+            this.L.HeaderText = "L";
+            this.L.Name = "L";
+            // 
+            // Ellipse
+            // 
+            this.Ellipse.HeaderText = "Ellipse";
+            this.Ellipse.Name = "Ellipse";
+            this.Ellipse.ReadOnly = true;
+            this.Ellipse.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Ellipse.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // X
+            // 
+            this.X.HeaderText = "X";
+            this.X.Name = "X";
+            // 
+            // Y
+            // 
+            this.Y.HeaderText = "Y";
+            this.Y.Name = "Y";
+            // 
+            // ZoneType
+            // 
+            this.ZoneType.HeaderText = "ZoneType";
+            this.ZoneType.Name = "ZoneType";
+            this.ZoneType.ReadOnly = true;
+            this.ZoneType.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ZoneType.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // Zone
+            // 
+            this.Zone.HeaderText = "Zone";
+            this.Zone.Name = "Zone";
+            // 
             // gEODataTablesBindingSource
             // 
             this.gEODataTablesBindingSource.DataSource = typeof(GeodeticCoordinateConversion.GEODataTables);
@@ -248,16 +232,15 @@
         private System.Windows.Forms.PictureBox LoadPictureBox;
         private System.Windows.Forms.PictureBox SavePictureBox;
         private System.Windows.Forms.BindingSource gEODataTablesBindingSource;
-        private System.Windows.Forms.DataGridViewTextBoxColumn B;
-        private System.Windows.Forms.DataGridViewTextBoxColumn L;
-        private System.Windows.Forms.DataGridViewComboBoxColumn Ellipse;
-        private System.Windows.Forms.DataGridViewButtonColumn Delete;
-        private System.Windows.Forms.DataGridViewTextBoxColumn X;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Y;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Zone;
-        private System.Windows.Forms.DataGridViewComboBoxColumn ZoneType;
         private System.Windows.Forms.PictureBox DeletePictureBox;
         private System.Windows.Forms.Button DirectBtn;
         private System.Windows.Forms.Button ReverseBtn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn B;
+        private System.Windows.Forms.DataGridViewTextBoxColumn L;
+        private System.Windows.Forms.DataGridViewComboBoxColumn Ellipse;
+        private System.Windows.Forms.DataGridViewTextBoxColumn X;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Y;
+        private System.Windows.Forms.DataGridViewComboBoxColumn ZoneType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Zone;
     }
 }

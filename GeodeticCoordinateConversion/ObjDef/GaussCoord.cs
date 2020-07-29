@@ -294,8 +294,6 @@ namespace GeodeticCoordinateConversion
         public event ZoneTypeChangedEventHander ZoneTypeChanged;
         public delegate void ZoneChangedEventHander(object sender, EventArgs e);
         public event ZoneChangedEventHander ZoneChanged;
-        public delegate void CenterChangedEventHander(object sender, EventArgs e);
-        public event CenterChangedEventHander CenterChanged;
         public delegate void EllipseChangedEventHander(object sender, EventArgs e);
         public event EllipseChangedEventHander EllipseChanged;
         #endregion
@@ -401,10 +399,7 @@ namespace GeodeticCoordinateConversion
                 // 本带内经度换算
                 L += this.Center;
 
-                GEOBL ResultBL = new GEOBL(GeoCalc.DEC2DMS(B), GeoCalc.DEC2DMS(L))
-                {
-                    GEOEllipse = this.GEOEllipse
-                };
+                GEOBL ResultBL = new GEOBL(GeoCalc.DEC2DMS(B), GeoCalc.DEC2DMS(L), this.GEOEllipse, this.ZoneType);
                 return ResultBL;
             }
             catch (Exception err)

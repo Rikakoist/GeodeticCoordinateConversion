@@ -17,16 +17,45 @@ namespace GeodeticCoordinateConversion
     public class CoordConvert
     {
         #region Fields
+        /// <summary>
+        /// 全局唯一ID。
+        /// </summary>
         public readonly Guid guid;
-        public bool BLCalculated = false;
+        //public bool Selected = true;
+        //public bool Error = true;
+        //public bool Dirty = false;
+        //public bool Calculated = false;
+        /// <summary>
+        /// 地理经纬度对象。
+        /// </summary>
         public GEOBL BL;
-        public bool GaussCalculated = false;
+        /// <summary>
+        /// 高斯坐标对象。
+        /// </summary>
         public GaussCoord Gauss;
-        private ComboBox zoneTypeComboBox = new ComboBox();
-        private ComboBox ellipseComboBox = new ComboBox();
         #endregion
 
         #region Properties
+        /// <summary>
+        /// 是否选中。
+        /// </summary>
+        [DisplayName("选中")]
+        public bool Selected { get; set; } = true;
+        /// <summary>
+        /// 计算错误。
+        /// </summary>
+        [DisplayName("计算错误")]
+        public bool Error { get; private set; } = false;
+        /// <summary>
+        /// 脏数据。
+        /// </summary>
+        [DisplayName("脏数据")]
+        public bool Dirty { get; private set; } = false;
+        /// <summary>
+        /// 已计算。
+        /// </summary>
+        [DisplayName("已计算")]
+        public bool Calculated { get; private set; } = false;
         /// <summary>
         /// 地理纬度。
         /// </summary>
@@ -49,13 +78,13 @@ namespace GeodeticCoordinateConversion
         /// 椭球。
         /// </summary>
         [DisplayName("椭球")]
-        public GEOEllipseType EllipseType
+        public string EllipseType
         {
-            get => BL.GEOEllipse.EllipseType;
+            get => ((int)BL.GEOEllipse.EllipseType).ToString();
             set
             {
-                BL.GEOEllipse.EllipseType = value;
-                Gauss.GEOEllipse.EllipseType = value;
+                BL.GEOEllipse.EllipseType = (GEOEllipseType)(int.Parse(value));
+                Gauss.GEOEllipse.EllipseType = (GEOEllipseType)(int.Parse(value));
             }
         }
         /// <summary>
@@ -80,6 +109,17 @@ namespace GeodeticCoordinateConversion
         /// 分带类型。
         /// </summary>
         [DisplayName("分带")]
+        public string ZoneType
+        {
+            get => ((int)BL.ZoneType).ToString();
+            set
+            {
+                BL.ZoneType = (GEOZoneType)int.Parse(value);
+                Gauss.ZoneType = (GEOZoneType)int.Parse(value);
+            }
+        }
+        /*
+        [DisplayName("分带")]
         public GEOZoneType ZoneType
         {
             get => BL.ZoneType;
@@ -89,6 +129,7 @@ namespace GeodeticCoordinateConversion
                 Gauss.ZoneType = value;
             }
         }
+        */
         /// <summary>
         /// 高斯带号。
         /// </summary>
@@ -152,7 +193,11 @@ namespace GeodeticCoordinateConversion
                 XmlElement ele = (XmlElement)xmlNode;
 
                 this.guid = Guid.Parse(ele.GetAttribute(nameof(guid)));
-                this.BLCalculated = bool.Parse(ele.GetAttribute(nameof(BLCalculated)));
+                this.Dirty = bool.Parse(ele.GetAttribute(nameof(Dirty)));
+                this.Error = bool.Parse(ele.GetAttribute(nameof(Error)));
+                this.Selected = bool.Parse(ele.GetAttribute(nameof(Selected)));
+                this.Calculated = bool.Parse(ele.GetAttribute(nameof(Calculated)));
+
                 XmlNode BLNode = ele.SelectSingleNode(NodeInfo.BLNodePath);
                 if (BLNode == null)
                 {
@@ -162,8 +207,8 @@ namespace GeodeticCoordinateConversion
                 {
                     this.BL = new GEOBL(BLNode);
                 }
+                BindBLEvents();
 
-                this.GaussCalculated = bool.Parse(ele.GetAttribute(nameof(GaussCalculated)));
                 XmlNode GaussNode = ele.SelectSingleNode(NodeInfo.GaussNodePath);
                 if (GaussNode == null)
                 {
@@ -173,6 +218,7 @@ namespace GeodeticCoordinateConversion
                 {
                     this.Gauss = new GaussCoord(GaussNode);
                 }
+                BindGaussEvents();
             }
             catch (Exception err)
             {
@@ -189,12 +235,11 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                this.Gauss.XChanged += new GaussCoord.XChangedEventHander(this.MakeDirty);
-                this.Gauss.YChanged += new GaussCoord.YChangedEventHander(this.MakeDirty);
-                this.Gauss.CenterChanged += new GaussCoord.CenterChangedEventHander(this.MakeDirty);
-                this.Gauss.EllipseChanged += new GaussCoord.EllipseChangedEventHander(this.MakeDirty);
-                this.Gauss.ZoneChanged += new GaussCoord.ZoneChangedEventHander(this.MakeDirty);
-                this.Gauss.ZoneTypeChanged += new GaussCoord.ZoneTypeChangedEventHander(this.MakeDirty);
+                this.Gauss.XChanged += new GaussCoord.XChangedEventHander(this.ChangeState);
+                this.Gauss.YChanged += new GaussCoord.YChangedEventHander(this.ChangeState);
+                this.Gauss.EllipseChanged += new GaussCoord.EllipseChangedEventHander(this.ChangeState);
+                this.Gauss.ZoneChanged += new GaussCoord.ZoneChangedEventHander(this.ChangeState);
+                this.Gauss.ZoneTypeChanged += new GaussCoord.ZoneTypeChangedEventHander(this.ChangeState);
             }
             catch (Exception err)
             {
@@ -209,10 +254,10 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                this.BL.BChanged += new GEOBL.BChangedEventHander(this.MakeDirty);
-                this.BL.LChanged += new GEOBL.LChangedEventHander(this.MakeDirty);
-                this.BL.EllipseChanged += new GEOBL.EllipseChangedEventHander(this.MakeDirty);
-                this.BL.ZoneTypeChanged += new GEOBL.ZoneTypeChangedEventHander(this.MakeDirty);
+                this.BL.BChanged += new GEOBL.BChangedEventHander(this.ChangeState);
+                this.BL.LChanged += new GEOBL.LChangedEventHander(this.ChangeState);
+                this.BL.EllipseChanged += new GEOBL.EllipseChangedEventHander(this.ChangeState);
+                this.BL.ZoneTypeChanged += new GEOBL.ZoneTypeChangedEventHander(this.ChangeState);
             }
             catch (Exception err)
             {
@@ -225,30 +270,11 @@ namespace GeodeticCoordinateConversion
         /// </summary>
         /// <param name="sender">触发者。</param>
         /// <param name="e">附加参数。</param>
-        private void MakeDirty(object sender, EventArgs e)
+        private void ChangeState(object sender, EventArgs e)
         {
-            //编辑过的默认为计算过的（因为给定值用于自动计算）。
-            if (sender == this.Gauss)
-            {
-                this.BLCalculated = false;
-                this.GaussCalculated = true;
-            }
-            if (sender == this.BL)
-            {
-                this.BLCalculated = true;
-                this.GaussCalculated = false;
-            }
-        }
-
-        /// <summary>
-        /// 更改椭球类型。
-        /// </summary>
-        /// <param name="sender">触发者。</param>
-        /// <param name="e">附加参数。</param>
-        /// <param name="EllipseType">椭球类型。</param>
-        public void ChangeEllipse(object sender, EventArgs e, int EllipseType)
-        {
-            this.EllipseType = (GEOEllipseType)EllipseType;
+            this.Dirty = true;
+            this.Error = false;
+            this.Calculated = false;
         }
 
         /// <summary>
@@ -262,8 +288,6 @@ namespace GeodeticCoordinateConversion
                 {
                     BL = Gauss.GaussReverse();
                     BindBLEvents();
-                    this.BLCalculated = true;
-                    this.GaussCalculated = false;
                     return true;
                 }
                 return false;
@@ -271,7 +295,13 @@ namespace GeodeticCoordinateConversion
             catch (Exception err)
             {
                 Trace.TraceError(err.ToString());
+                this.Error = true;
                 return false;
+            }
+            finally
+            {
+                this.Dirty = false;
+                this.Calculated = true;
             }
         }
 
@@ -286,8 +316,6 @@ namespace GeodeticCoordinateConversion
                 {
                     Gauss = BL.GaussDirect();
                     BindGaussEvents();
-                    this.BLCalculated = false;
-                    this.GaussCalculated = true;
                     return true;
                 }
                 return false;
@@ -295,7 +323,13 @@ namespace GeodeticCoordinateConversion
             catch (Exception err)
             {
                 Trace.TraceError(err.ToString());
-                return false;           
+                this.Error = true;
+                return false;
+            }
+            finally
+            {
+                this.Dirty = false;
+                this.Calculated = true;
             }
         }
 
@@ -312,12 +346,16 @@ namespace GeodeticCoordinateConversion
                 XmlElement ele = xmlDocument.CreateElement(NodeName);
 
                 ele.SetAttribute(nameof(guid), guid.ToString());
-                ele.SetAttribute(nameof(BLCalculated), BLCalculated.ToString());
+                ele.SetAttribute(nameof(Dirty), Dirty.ToString());
+                ele.SetAttribute(nameof(Error), Error.ToString());
+                ele.SetAttribute(nameof(Selected), Selected.ToString());
+                ele.SetAttribute(nameof(Calculated), Calculated.ToString());
+
                 if (BL != null)
                 {
                     ele.AppendChild(this.BL.ToXmlElement(xmlDocument));
                 }
-                ele.SetAttribute(nameof(GaussCalculated), GaussCalculated.ToString());
+
                 if (Gauss != null)
                 {
                     ele.AppendChild(this.Gauss.ToXmlElement(xmlDocument));

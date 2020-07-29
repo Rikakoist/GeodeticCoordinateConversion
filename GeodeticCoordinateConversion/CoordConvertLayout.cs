@@ -17,9 +17,8 @@ namespace GeodeticCoordinateConversion
     {
         private GEOSettings AppSettings = new GEOSettings();
         private FileIO DataFile = new FileIO();
-        public List<CoordConvert> ConvertData = new List<CoordConvert>();
-        private BindingSource bs = new BindingSource();
-        public BindingList<CoordConvert> bl= new BindingList<CoordConvert>();
+        public BindingList<CoordConvert> Data = new BindingList<CoordConvert>();
+        public string Hint { get; private set; }
 
         public CoordConvertLayout()
         {
@@ -28,25 +27,50 @@ namespace GeodeticCoordinateConversion
 
         private void CoordConvertLayout_Load(object sender, EventArgs e)
         {
-            //cols = CoordConvertDataGridView.Columns;
-            //bs.DataSource = ConvertData;
-            //CoordConvertDataGridView.DataSource = bs;
-
-            //bs.DataMember ="CoordConvert";
+            this.Data.ListChanged += new ListChangedEventHandler(this.ResetColor);
             CoordConvertDGV.Columns.Clear();
-            CoordConvertDGV.DataSource = bl;
+            //绑定数据源
+            CoordConvertDGV.DataSource = Data;
             CoordConvertDGV.AutoGenerateColumns = true;
+
+            //替换椭球列
+            DataGridViewComboBoxColumn Ell = new DataGridViewComboBoxColumn
+            {
+                //AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells,
+                Name = nameof(CoordConvert.EllipseType),
+                HeaderText = (typeof(CoordConvert).GetProperty(nameof(CoordConvert.EllipseType))).GetCustomAttribute<DisplayNameAttribute>().DisplayName,
+                DisplayStyle = DataGridViewComboBoxDisplayStyle.ComboBox,
+                DataSource = GEODataTables.GetEllipseType(),
+                DisplayMember = nameof(GEOEllipseType),
+                DataPropertyName = "EllipseType",
+                ValueMember = "Value"
+            };
+            CoordConvertDGV.Columns.Remove(CoordConvertDGV.Columns["EllipseType"]);
+            CoordConvertDGV.Columns.Insert(CoordConvertDGV.Columns["L"].Index + 1, Ell);
+
+            //替换分带类型列
+            DataGridViewComboBoxColumn Zo = new DataGridViewComboBoxColumn
+            {
+                //AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells,
+                Name = nameof(CoordConvert.ZoneType),
+                HeaderText = (typeof(CoordConvert).GetProperty(nameof(CoordConvert.ZoneType))).GetCustomAttribute<DisplayNameAttribute>().DisplayName,
+                DisplayStyle = DataGridViewComboBoxDisplayStyle.ComboBox,
+                DataSource = GEODataTables.GetZoneType(),
+                DisplayMember = nameof(GEOZoneType),
+                DataPropertyName = "ZoneType",
+                ValueMember = "Value"
+            };
+            CoordConvertDGV.Columns.Remove(CoordConvertDGV.Columns["ZoneType"]);
+            CoordConvertDGV.Columns.Insert(CoordConvertDGV.Columns["Y"].Index + 1, Zo);
+            foreach (DataGridViewColumn c in CoordConvertDGV.Columns)
+            {
+                c.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            }
         }
 
         private void LoadData(object sender, EventArgs e)
         {
             LoadData();
-            return;
-            CoordConvertDGV.Rows.Clear();
-            for (int i = 0; i < ConvertData.Count; i++)
-            {
-                CoordConvertDGV.Rows.Add();
-            }
         }
 
         private void SaveData(object sender, EventArgs e)
@@ -56,13 +80,13 @@ namespace GeodeticCoordinateConversion
 
         public void LoadData()
         {
-             bl=new BindingList<CoordConvert>(DataFile.LoadCoordConvertData());
-            CoordConvertDGV.DataSource = bl;
+            Data = new BindingList<CoordConvert>(DataFile.LoadCoordConvertData());
+            CoordConvertDGV.DataSource = Data;
         }
 
         public void SaveData()
         {
-            DataFile.SaveCoordConvertData(bl.ToList());
+            DataFile.SaveCoordConvertData(Data.ToList());
         }
 
         private void CoordConvertDGV_CellEndEdit(object sender, DataGridViewCellEventArgs e)
@@ -70,95 +94,22 @@ namespace GeodeticCoordinateConversion
             try
             {
                 CoordConvertDGV.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.White;
-                return;
-                string s = CoordConvertDGV.Columns[e.ColumnIndex].Name;
-                Type t = ConvertData[e.RowIndex].GetType();
-                PropertyInfo f = t.GetProperty(s);
-                f.SetValue(ConvertData[e.RowIndex], CoordConvertDGV[e.ColumnIndex, e.RowIndex].Value);
             }
             catch (Exception err)
             {
-                CoordConvertDGV[e.ColumnIndex, e.RowIndex].Value = ConvertData[e.RowIndex].GetType().GetProperty(CoordConvertDGV.Columns[e.ColumnIndex].Name).GetValue(ConvertData[e.RowIndex]);
                 Trace.TraceError(err.ToString());
             }
         }
 
         private void AddRow(object sender, EventArgs e)
         {
-            //DataGridViewRow row = new DataGridViewRow();
-            //ConvertData.Add(new CoordConvert());
-
-            //CoordConvertDataGridView.Rows.Add(row);
-            bl.Add(new CoordConvert());
-        }
-
-        private void CoordConvertDGV_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
-        {
-            return;
-            int count = e.RowCount;
-            DataGridViewRow row =CoordConvertDGV.Rows[e.RowIndex];
-            CoordConvert c = ConvertData[e.RowIndex];
-            row.SetValues(c.B,c.L, "", "", c.X, c.Y, c.Zone, "");
-
-        }
-
-        private void DeleteRow(object sender, DataGridViewCellEventArgs e)
-        {
-            DataGridView D = sender as DataGridView;
-            if (D.CurrentCell is DataGridViewButtonCell)
-            {
-                string s = D.Columns[e.ColumnIndex].Name;
-                if (s == "Delete")
-                {
-                    D.Rows.RemoveAt(e.RowIndex);
-                    ConvertData.RemoveAt(e.RowIndex);
-                }
-            }
-        }
-
-        private void EditComboBox(object sender, DataGridViewEditingControlShowingEventArgs e)
-        {
-            DataGridView D = sender as DataGridView;
-
-            if (D.CurrentCell is DataGridViewComboBoxCell)
-            {
-                ComboBox C = e.Control as ComboBox;
-                
-                C.SelectedIndexChanged+= new EventHandler(ChangeComboBoxIndex);
-            }
-        }
-
-        public void ChangeComboBoxIndex(object sender, EventArgs e)
-        {
-
-            ComboBox c = sender as ComboBox;
-
-            c.Leave += new EventHandler(EndEditComboBox);
-            try
-            {
-                //在这里就可以做值是否改变判断
-                if (c.SelectedItem != null)
-                {
-                    
-                }
-                Thread.Sleep(100);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        public void EndEditComboBox(object sender, EventArgs e)
-        {
-            ComboBox c= sender as ComboBox;
-            c.SelectedIndexChanged -= new EventHandler(ChangeComboBoxIndex);
+            Data.Add(new CoordConvert());
         }
 
         private void DeleteRow(object sender, EventArgs e)
         {
             DataGridViewSelectedRowCollection dr = CoordConvertDGV.SelectedRows;
-            for(int i = 0;i<dr.Count;i++)
+            for (int i = 0; i < dr.Count; i++)
             {
                 CoordConvertDGV.Rows.RemoveAt(dr[i].Index);
             }
@@ -166,29 +117,31 @@ namespace GeodeticCoordinateConversion
 
         private void DirectBtn_Click(object sender, EventArgs e)
         {
-            for(int i = 0;i<bl.Count;i++)
+            for (int i = 0; i < Data.Count; i++)
             {
-                CoordConvertDGV.Rows[i].DefaultCellStyle.BackColor = bl[i].GaussDirect()?Color.Green:Color.Red;
+                if ((Data[i].Selected)&& (Data[i].Dirty))
+                    CoordConvertDGV.Rows[i].Cells[nameof(CoordConvert.Error)].Style.BackColor = Data[i].GaussDirect() ? Color.Green : Color.Red;
             }
+            CoordConvertDGV.ClearSelection();
             CoordConvertDGV.Invalidate();
         }
 
         private void ReverseBtn_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < bl.Count; i++)
+            for (int i = 0; i < Data.Count; i++)
             {
-                CoordConvertDGV.Rows[i].DefaultCellStyle.BackColor = bl[i].GaussReverse() ? Color.Green : Color.Red;
+                if ((Data[i].Selected) && (Data[i].Dirty))
+                    CoordConvertDGV.Rows[i].Cells[nameof(CoordConvert.Error)].Style.BackColor = Data[i].GaussReverse() ? Color.Green : Color.Red;
             }
+            CoordConvertDGV.ClearSelection();
             CoordConvertDGV.Invalidate();
         }
 
-        private void ResetColor()
+        private void ResetColor(object sender,ListChangedEventArgs e)
         {
-           
-            for (int i = 0; i < bl.Count; i++)
+           if(e.ListChangedType== ListChangedType.ItemChanged)
             {
-                DataGridViewCellStyle C = CoordConvertDGV.Rows[i].DefaultCellStyle;
-                C.BackColor = (C.BackColor == Color.Green) ? Color.White : C.BackColor;
+                MessageBox.Show(e.NewIndex.ToString() + "  " + e.OldIndex.ToString());
             }
         }
     }

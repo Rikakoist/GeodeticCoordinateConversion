@@ -67,12 +67,49 @@ namespace GeodeticCoordinateConversion
         public static DataTable GetZoneType()
         {
             DataTable DT = new DataTable();
-            DT.Columns.Add(nameof(GEOEllipseType));
+            DT.Columns.Add(nameof(GEOZoneType));
+            DT.Columns.Add("Name");
             DT.Columns.Add("Value");
+
             foreach(int i in Enum.GetValues(typeof(GEOZoneType)))
             {
                 DataRow DR = DT.NewRow();
-                DR[nameof(GEOEllipseType)] = (typeof(GEOZoneType).GetField(((GEOZoneType)i).ToString()).GetCustomAttributes(false)[0] as DescriptionAttribute).Description;
+                DR[nameof(GEOZoneType)] = (typeof(GEOZoneType).GetField(((GEOZoneType)i).ToString()).GetCustomAttributes(false)[0] as DescriptionAttribute).Description;
+                DR["Name"] = Enum.GetName(typeof(GEOZoneType), i);
+                DR["Value"] = i;
+                DT.Rows.Add(DR);
+            }
+            return DT;
+        }
+
+        public static DataTable GetEllipseType()
+        {
+            DataTable DT = new DataTable();
+            DT.Columns.Add(nameof(GEOEllipseType));
+            DT.Columns.Add("Name");
+            DT.Columns.Add("Value");
+            foreach (int i in Enum.GetValues(typeof(GEOEllipseType)))
+            {
+                DataRow DR = DT.NewRow();
+                DR[nameof(GEOEllipseType)] = (typeof(GEOEllipseType).GetField(((GEOEllipseType)i).ToString()).GetCustomAttributes(false)[0] as DescriptionAttribute).Description;
+                DR["Name"] = Enum.GetName(typeof(GEOEllipseType), i);
+                DR["Value"] = i;
+                DT.Rows.Add(DR);
+            }
+            return DT;
+        }
+
+        public static DataTable GetEnumType(Enum e)
+        {
+            DataTable DT = new DataTable();
+            DT.Columns.Add(nameof(e));
+            DT.Columns.Add("Name");
+            DT.Columns.Add("Value");
+            foreach (int i in Enum.GetValues(e.GetType()))
+            {
+                DataRow DR = DT.NewRow();
+                DR[nameof(e)] = (e.GetType().GetField(Enum.GetName(e.GetType(), i)).GetCustomAttributes(false)[0] as DescriptionAttribute).Description;
+                DR["Name"] = Enum.GetName(e.GetType(), i);
                 DR["Value"] = i;
                 DT.Rows.Add(DR);
             }
