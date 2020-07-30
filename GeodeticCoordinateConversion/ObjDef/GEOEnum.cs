@@ -62,8 +62,15 @@ namespace GeodeticCoordinateConversion
         CGCS_2000 = 4
     }
 
+    /// <summary>
+    /// 枚举常量的数据表。
+    /// </summary>
     public static class GEODataTables
     {
+        /// <summary>
+        /// 获取分带类型的数据表。
+        /// </summary>
+        /// <returns>数据表。</returns>
         public static DataTable GetZoneType()
         {
             DataTable DT = new DataTable();
@@ -82,6 +89,10 @@ namespace GeodeticCoordinateConversion
             return DT;
         }
 
+        /// <summary>
+        /// 获取椭球类型的数据表。
+        /// </summary>
+        /// <returns>数据表。</returns>
         public static DataTable GetEllipseType()
         {
             DataTable DT = new DataTable();
@@ -99,6 +110,11 @@ namespace GeodeticCoordinateConversion
             return DT;
         }
 
+        /// <summary>
+        /// 通用获取数据表方式。由于未知原因会造成后续错误。
+        /// </summary>
+        /// <param name="e">枚举类型。</param>
+        /// <returns></returns>
         public static DataTable GetEnumType(Enum e)
         {
             DataTable DT = new DataTable();

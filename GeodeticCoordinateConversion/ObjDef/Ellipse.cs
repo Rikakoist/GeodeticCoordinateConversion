@@ -37,15 +37,21 @@ namespace GeodeticCoordinateConversion
         /// <summary>
         /// 第一偏心率。
         /// </summary>
-        public double e { get; private set; }
+        public double e {
+            get => (Math.Sqrt(Math.Pow(this.a, 2) - Math.Pow(this.b, 2)) / this.a);
+        }
         /// <summary>
         /// 第二偏心率。
         /// </summary>
-        public double e2 { get; private set; }
+        public double e2 {
+            get=> (Math.Sqrt(Math.Pow(this.a, 2) - Math.Pow(this.b, 2)) / this.b);
+        }
         /// <summary>
         /// 极点处子午线曲率半径。
         /// </summary>
-        public double c { get; private set; }
+        public double c {
+            get=> (Math.Pow(this.a, 2) / this.b);
+        }
         #endregion
 
         #region Properties
@@ -103,9 +109,6 @@ namespace GeodeticCoordinateConversion
                                     throw new Exception(ErrMessage.GEOEllipse.EllipseUnknown);
                                 }
                         }
-                        this.c = Math.Pow(this.a, 2) / this.b;
-                        this.e = Math.Sqrt(Math.Pow(this.a, 2) - Math.Pow(this.b, 2)) / this.a;
-                        this.e2 = Math.Sqrt(Math.Pow(this.a, 2) - Math.Pow(this.b, 2)) / this.b;
                         EllipseChanged?.Invoke(this, new EventArgs());
                     }
                 }
@@ -196,6 +199,33 @@ namespace GeodeticCoordinateConversion
             {
                 throw new XmlException(ErrMessage.GEOEllipse.SaveToXmlFailed, err);
             }
+        }
+
+        /// <summary>
+        /// 相等。
+        /// </summary>
+        /// <param name="obj">比较对象。</param>
+        /// <returns>比较结果。</returns>
+        public override bool Equals(object obj)
+        {
+            var ellipse = obj as Ellipse;
+            return ellipse != null &&
+                   a == ellipse.a &&
+                   b == ellipse.b &&
+                   EllipseType == ellipse.EllipseType;
+        }
+
+        /// <summary>
+        /// 获取摘要。
+        /// </summary>
+        /// <returns>摘要。</returns>
+        public override int GetHashCode()
+        {
+            var hashCode = 986177874;
+            hashCode = hashCode * -1521134295 + a.GetHashCode();
+            hashCode = hashCode * -1521134295 + b.GetHashCode();
+            hashCode = hashCode * -1521134295 + EllipseType.GetHashCode();
+            return hashCode;
         }
         #endregion
 

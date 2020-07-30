@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,11 +15,94 @@ namespace GeodeticCoordinateConversion
     public class ZoneConvert
     {
         #region Fields
+        /// <summary>
+        /// 全局唯一ID。
+        /// </summary>
         public readonly Guid guid;
-        public bool Gauss6Calculated = false;
+        //public bool Selected = true;
+        //public bool Error = true;
+        //public bool Dirty = false;
+        //public bool Calculated = false;
+        /// <summary>
+        /// 高斯6°带坐标对象。
+        /// </summary>
         public GaussCoord Gauss6;
-        public bool Gauss3Calculated = false;
+        /// <summary>
+        /// 高斯3°带坐标对象。
+        /// </summary>
         public GaussCoord Gauss3;
+        #endregion
+
+        #region Properties
+        /// <summary>
+        /// 是否选中。
+        /// </summary>
+        [DisplayName("选中")]
+        public bool Selected { get; set; } = true;
+        /// <summary>
+        /// 计算错误。
+        /// </summary>
+        [DisplayName("计算错误")]
+        public bool Error { get; private set; } = false;
+        /// <summary>
+        /// 脏数据。
+        /// </summary>
+        [DisplayName("脏数据")]
+        public bool Dirty { get; private set; } = false;
+        /// <summary>
+        /// 已计算。
+        /// </summary>
+        [DisplayName("已计算")]
+        public bool Calculated { get; private set; } = false;
+        /// <summary>
+        /// 6°带X坐标。
+        /// </summary>
+        [DisplayName("6°带X坐标")]
+        public string X6
+        {
+            get => Gauss6.X.ToString();
+            set => Gauss6.X = double.Parse(value);
+        }
+        /// <summary>
+        /// 6°带Y坐标。
+        /// </summary>
+        [DisplayName("6°带Y坐标")]
+        public string Y6
+        {
+            get => Gauss6.Y.ToString();
+            set => Gauss6.Y = double.Parse(value);
+        }
+        /// <summary>
+        /// 椭球。
+        /// </summary>
+        [DisplayName("椭球")]
+        public string EllipseType
+        {
+            get => ((int)Gauss3.GEOEllipse.EllipseType).ToString();
+            set
+            {
+                Gauss3.GEOEllipse.EllipseType = (GEOEllipseType)(int.Parse(value));
+                Gauss6.GEOEllipse.EllipseType = (GEOEllipseType)(int.Parse(value));
+            }
+        }
+        /// <summary>
+        /// 3°带X坐标。
+        /// </summary>
+        [DisplayName("3°带X坐标")]
+        public string X3
+        {
+            get => Gauss3.X.ToString();
+            set => Gauss3.X = double.Parse(value);
+        }
+        /// <summary>
+        /// 3°带Y坐标。
+        /// </summary>
+        [DisplayName("3°带Y坐标")]
+        public string Y3
+        {
+            get => Gauss3.Y.ToString();
+            set => Gauss3.Y = double.Parse(value);
+        }
         #endregion
 
         #region Constructor
@@ -49,7 +134,7 @@ namespace GeodeticCoordinateConversion
             try
             {
                 this.guid = System.Guid.NewGuid();
-                if (newGauss == null)
+                if (newGauss is null)
                     throw new ArgumentNullException(ErrMessage.GaussCoord.GaussNull);
                 switch (newGauss.ZoneType)
                 {
@@ -60,14 +145,12 @@ namespace GeodeticCoordinateConversion
                     case GEOZoneType.Zone3:
                         {
                             this.Gauss3 = newGauss;
-                            this.Gauss3Calculated = true;
                             BindGauss3Events();
                             break;
                         }
                     case GEOZoneType.Zone6:
                         {
                             this.Gauss6 = newGauss;
-                            this.Gauss6Calculated = true;
                             BindGauss6Events();
                             break;
                         }
@@ -89,7 +172,7 @@ namespace GeodeticCoordinateConversion
             try
             {
                 this.guid = System.Guid.NewGuid();
-                if (gauss1 == null || gauss2 == null)
+                if (gauss1 is null || gauss2 is null)
                     throw new ArgumentNullException(ErrMessage.GaussCoord.GaussNull);
                 if (gauss1.ZoneType == GEOZoneType.None || gauss2.ZoneType == GEOZoneType.None)
                     throw new ArgumentException(ErrMessage.GEOZone.ZoneTypeNotSet);
@@ -101,17 +184,13 @@ namespace GeodeticCoordinateConversion
                     case GEOZoneType.Zone3:
                         {
                             this.Gauss3 = gauss1;
-                            this.Gauss3Calculated = true;
                             this.Gauss6 = gauss2;
-                            this.Gauss6Calculated = true;
                             break;
                         }
                     case GEOZoneType.Zone6:
                         {
                             this.Gauss6 = gauss1;
-                            this.Gauss6Calculated = true;
                             this.Gauss3 = gauss2;
-                            this.Gauss3Calculated = true;
                             break;
                         }
                     default:
@@ -139,9 +218,13 @@ namespace GeodeticCoordinateConversion
                 XmlElement ele = (XmlElement)xmlNode;
 
                 this.guid = Guid.Parse(ele.GetAttribute(nameof(guid)));
-                this.Gauss3Calculated = bool.Parse(ele.GetAttribute(nameof(Gauss3Calculated)));
+                this.Dirty = bool.Parse(ele.GetAttribute(nameof(Dirty)));
+                this.Error = bool.Parse(ele.GetAttribute(nameof(Error)));
+                this.Selected = bool.Parse(ele.GetAttribute(nameof(Selected)));
+                this.Calculated = bool.Parse(ele.GetAttribute(nameof(Calculated)));
+
                 XmlNode Gauss3Node = ele.SelectSingleNode(NodeInfo.Gauss3NodePath);
-                if (Gauss3Node == null)
+                if (Gauss3Node is null)
                 {
                     this.Gauss3 = new GaussCoord();
                 }
@@ -150,9 +233,8 @@ namespace GeodeticCoordinateConversion
                     this.Gauss3 = new GaussCoord(Gauss3Node);
                 }
 
-                this.Gauss6Calculated = bool.Parse(ele.GetAttribute(nameof(Gauss6Calculated)));
                 XmlNode Gauss6Node = ele.SelectSingleNode(NodeInfo.Gauss6NodePath);
-                if (Gauss6Node == null)
+                if (Gauss6Node is null)
                 {
                     this.Gauss6 = new GaussCoord();
                 }
@@ -174,9 +256,9 @@ namespace GeodeticCoordinateConversion
         /// </summary>
         private void BindGauss3Events()
         {
-            this.Gauss3.XChanged += new GaussCoord.XChangedEventHander(this.GaussDirty);
-            this.Gauss3.YChanged += new GaussCoord.YChangedEventHander(this.GaussDirty);
-            this.Gauss3.EllipseChanged += new GaussCoord.EllipseChangedEventHander(this.GaussDirty);
+            this.Gauss3.XChanged += new GaussCoord.XChangedEventHander(this.ChangeState);
+            this.Gauss3.YChanged += new GaussCoord.YChangedEventHander(this.ChangeState);
+            this.Gauss3.EllipseChanged += new GaussCoord.EllipseChangedEventHander(this.ChangeState);
         }
 
         /// <summary>
@@ -184,9 +266,9 @@ namespace GeodeticCoordinateConversion
         /// </summary>
         private void BindGauss6Events()
         {
-            this.Gauss6.XChanged += new GaussCoord.XChangedEventHander(this.GaussDirty);
-            this.Gauss6.YChanged += new GaussCoord.YChangedEventHander(this.GaussDirty);
-            this.Gauss6.EllipseChanged += new GaussCoord.EllipseChangedEventHander(this.GaussDirty);
+            this.Gauss6.XChanged += new GaussCoord.XChangedEventHander(this.ChangeState);
+            this.Gauss6.YChanged += new GaussCoord.YChangedEventHander(this.ChangeState);
+            this.Gauss6.EllipseChanged += new GaussCoord.EllipseChangedEventHander(this.ChangeState);
         }
 
         /// <summary>
@@ -194,59 +276,68 @@ namespace GeodeticCoordinateConversion
         /// </summary>
         /// <param name="sender">触发者。</param>
         /// <param name="e">附加参数。</param>
-        private void GaussDirty(object sender, EventArgs e)
+        private void ChangeState(object sender, EventArgs e)
         {
-            if (sender == this.Gauss3)
-            {
-                this.Gauss6Calculated = false;
-                this.Gauss3Calculated = true;
-            }
-            if (sender == this.Gauss6)
-            {
-                this.Gauss6Calculated = true;
-                this.Gauss3Calculated = false;
-            }
+            this.Dirty = true;
+            this.Error = false;
+            this.Calculated = false;
         }
 
         /// <summary>
         /// 6度带转3度带。
         /// </summary>
-        public void Convert6To3()
+        public bool Convert6To3()
         {
             try
             {
-                if ((Gauss6 != null) && (!Gauss3Calculated))
+                if ((Gauss6 != null) && (!Calculated))
                 {
                     Gauss3 = Gauss6.GaussReverse() //六度带反算
                           .GaussDirect(GEOZoneType.Zone3);   //三度带正算
-                    Gauss3Calculated = true;
                     BindGauss3Events();
+                    return true;
                 }
+                return false;
             }
             catch (Exception err)
             {
-                throw new ZoneConvertException(ErrMessage.ZoneConvert.Convert6To3Failed, err);
+                Trace.TraceError(err.ToString());
+                this.Error = true;
+                return false;
+            }
+            finally
+            {
+                this.Dirty = false;
+                this.Calculated = true;
             }
         }
 
         /// <summary>
         /// 3度带转6度带。
         /// </summary>
-        public void Convert3To6()
+        public bool Convert3To6()
         {
             try
             {
-                if ((Gauss3 != null) && (!Gauss6Calculated))
+                if ((Gauss3 != null) && (!Calculated))
                 {
                     Gauss6 = Gauss3.GaussReverse()   //三度带反算
                           .GaussDirect(GEOZoneType.Zone6);   //六度带正算
-                    Gauss6Calculated = true;
                     BindGauss6Events();
+                    return true;
                 }
+                return false;
             }
             catch (Exception err)
             {
-                throw new ZoneConvertException(ErrMessage.ZoneConvert.Convert3To6Failed, err);
+                Trace.TraceError(err.ToString());
+                this.Error = true;
+                return false;
+            }
+            finally
+            {
+                this.Dirty = false;
+                this.Calculated = true;
             }
         }
 
@@ -271,12 +362,16 @@ namespace GeodeticCoordinateConversion
                 XmlElement ele = xmlDocument.CreateElement(NodeName);
 
                 ele.SetAttribute(nameof(guid), guid.ToString());
-                ele.SetAttribute(nameof(Gauss3Calculated), Gauss3Calculated.ToString());
+                ele.SetAttribute(nameof(Dirty), Dirty.ToString());
+                ele.SetAttribute(nameof(Error), Error.ToString());
+                ele.SetAttribute(nameof(Selected), Selected.ToString());
+                ele.SetAttribute(nameof(Calculated), Calculated.ToString());
+
                 if (Gauss3 != null)
                 {
                     ele.AppendChild(this.Gauss3.ToXmlElement(xmlDocument, NodeInfo.Gauss3Node));
                 }
-                ele.SetAttribute(nameof(Gauss6Calculated), Gauss6Calculated.ToString());
+                
                 if (Gauss6 != null)
                 {
                     ele.AppendChild(this.Gauss6.ToXmlElement(xmlDocument, NodeInfo.Gauss6Node));

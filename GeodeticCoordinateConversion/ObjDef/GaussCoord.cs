@@ -198,31 +198,6 @@ namespace GeodeticCoordinateConversion
         }
 
         /// <summary>
-        /// 使用分带类型、带号、X、Y坐标和椭球（可选）初始化高斯坐标。
-        /// </summary>
-        /// <param name="ZoneType">分带类型。</param>
-        /// <param name="Zone">带号。</param>
-        /// <param name="X">带内X坐标。</param>
-        /// <param name="Y">带内Y坐标。</param>
-        /// <param name="EllipseType">椭球类型（可选，默认为无椭球）。</param>
-        public GaussCoord(GEOZoneType ZoneType, int Zone, double X, double Y, GEOEllipseType EllipseType = GEOEllipseType.noEllipse)
-        {
-            try
-            {
-                this.guid = System.Guid.NewGuid();
-                this.X = X; this.Y = Y;
-                this.ZoneType = ZoneType;
-                this.Zone = Zone;
-                this.GEOEllipse = new Ellipse(EllipseType);
-                BindEllipseEvent();
-            }
-            catch (Exception err)
-            {
-                throw new InitializeException(ErrMessage.GaussCoord.InitializeError, err);
-            }
-        }
-
-        /// <summary>
         /// 使用椭球类型初始化高斯坐标。
         /// </summary>
         /// <param name="EllipseType"></param>
@@ -251,6 +226,31 @@ namespace GeodeticCoordinateConversion
             {
                 this.guid = System.Guid.NewGuid();
                 this.ZoneType = GEOZoneType.None;
+                this.GEOEllipse = E ?? throw new ArgumentNullException(ErrMessage.GEOEllipse.EllipseNull);
+                BindEllipseEvent();
+            }
+            catch (Exception err)
+            {
+                throw new InitializeException(ErrMessage.GaussCoord.InitializeError, err);
+            }
+        }
+
+        /// <summary>
+        /// 使用分带类型、带号、X、Y坐标和椭球（可选）初始化高斯坐标。
+        /// </summary>
+        /// <param name="ZoneType">分带类型。</param>
+        /// <param name="Zone">带号。</param>
+        /// <param name="X">带内X坐标。</param>
+        /// <param name="Y">带内Y坐标。</param>
+        /// <param name="E">椭球。</param>
+        public GaussCoord(GEOZoneType ZoneType, int Zone, double X, double Y, Ellipse E)
+        {
+            try
+            {
+                this.guid = System.Guid.NewGuid();
+                this.X = X; this.Y = Y;
+                this.ZoneType = ZoneType;
+                this.Zone = Zone;
                 this.GEOEllipse = E ?? throw new ArgumentNullException(ErrMessage.GEOEllipse.EllipseNull);
                 BindEllipseEvent();
             }
@@ -325,43 +325,6 @@ namespace GeodeticCoordinateConversion
         }
 
         /// <summary>
-        /// 计算中央经线。
-        /// </summary>
-        /// <returns>计算是否成功。</returns>
-        public bool GetCenter()
-        {
-            try
-            {
-                //switch (this.ZoneType)
-                //{
-                //    case GEOZoneType.None:
-                //        {
-                //            throw new ArgumentException(ErrMessage.GEOZone.ZoneTypeNotSet);
-                //        }
-                //    case GEOZoneType.Zone3:
-                //        {
-                //            this.Center = 3.0 * this.Zone;
-                //            break;
-                //        }
-                //    case GEOZoneType.Zone6:
-                //        {
-                //            this.Center = 6.0 * this.Zone - 3;
-                //            break;
-                //        }
-                //    default:
-                //        {
-                //            throw new ArgumentException(ErrMessage.GEOZone.ZoneTypeUnknown);
-                //        }
-                //}
-                return true;
-            }
-            catch (Exception err)
-            {
-                throw new CenterException(ErrMessage.GaussCoord.GetCenterFailed, err);
-            }
-        }
-
-        /// <summary>
         /// 高斯反算（高斯投影坐标到度分秒）。
         /// </summary>
         /// <returns>高斯反算结果。</returns>
@@ -369,7 +332,7 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                if (this.GEOEllipse == null)
+                if (this.GEOEllipse is null)
                     throw new ArgumentNullException(ErrMessage.GEOEllipse.EllipseNull);
                 if (this.GEOEllipse.EllipseType == GEOEllipseType.noEllipse)
                     throw new ArgumentOutOfRangeException(ErrMessage.GEOEllipse.EllipseNotSet);
@@ -435,6 +398,39 @@ namespace GeodeticCoordinateConversion
             {
                 throw new XmlException(ErrMessage.GaussCoord.SaveToXmlFailed, err);
             }
+        }
+
+        /// <summary>
+        /// 相等。
+        /// </summary>
+        /// <param name="obj">比较对象。</param>
+        /// <returns>比较结果。</returns>
+        public override bool Equals(object obj)
+        {
+            var coord = obj as GaussCoord;
+            return coord != null &&
+                   guid.Equals(coord.guid) &&
+                   GEOEllipse.Equals(coord.GEOEllipse) &&
+                   X == coord.X &&
+                   Y == coord.Y &&
+                   ZoneType == coord.ZoneType &&
+                   Zone == coord.Zone;
+        }
+
+        /// <summary>
+        /// 获取摘要。
+        /// </summary>
+        /// <returns>摘要。</returns>
+        public override int GetHashCode()
+        {
+            var hashCode = 2001960405;
+            hashCode = hashCode * -1521134295 + EqualityComparer<Guid>.Default.GetHashCode(guid);
+            hashCode = hashCode * -1521134295 + GEOEllipse.GetHashCode();
+            hashCode = hashCode * -1521134295 + X.GetHashCode();
+            hashCode = hashCode * -1521134295 + Y.GetHashCode();
+            hashCode = hashCode * -1521134295 + ZoneType.GetHashCode();
+            hashCode = hashCode * -1521134295 + Zone.GetHashCode();
+            return hashCode;
         }
         #endregion
 

@@ -199,7 +199,7 @@ namespace GeodeticCoordinateConversion
                 this.Calculated = bool.Parse(ele.GetAttribute(nameof(Calculated)));
 
                 XmlNode BLNode = ele.SelectSingleNode(NodeInfo.BLNodePath);
-                if (BLNode == null)
+                if (BLNode is null)
                 {
                     this.BL = new GEOBL();
                 }
@@ -210,7 +210,7 @@ namespace GeodeticCoordinateConversion
                 BindBLEvents();
 
                 XmlNode GaussNode = ele.SelectSingleNode(NodeInfo.GaussNodePath);
-                if (GaussNode == null)
+                if (GaussNode is null)
                 {
                     this.Gauss = new GaussCoord();
                 }
@@ -284,7 +284,7 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                if ((Gauss != null)/* && (!BLCalculated)*/)
+                if (!(Gauss is null) && (!Calculated))
                 {
                     BL = Gauss.GaussReverse();
                     BindBLEvents();
@@ -312,7 +312,7 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                if ((BL != null)/* && (!GaussCalculated)*/)
+                if (!(BL is null)&& (!Calculated))
                 {
                     Gauss = BL.GaussDirect();
                     BindGaussEvents();

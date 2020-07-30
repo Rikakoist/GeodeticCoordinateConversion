@@ -106,7 +106,7 @@ namespace GeodeticCoordinateConversion
             document = new XmlDocument();
             document.Load(DocPath);
             rootNode = document.SelectSingleNode("/root");
-            if (rootNode == null)
+            if (rootNode is null)
             {
                 throw new KeyNotFoundException("加载配置文件\"" + DocPath + "\"根节点失败。");
             }
@@ -119,7 +119,7 @@ namespace GeodeticCoordinateConversion
         private bool CreateTimeNode()
         {
             XmlNode modi = document.CreateElement(NodeInfo.TimeNode);
-            ((XmlElement)modi).SetAttribute(NodeInfo.LastModifiedAttr, CommonText.LastModified + CommonText.Now);
+            ((XmlElement)modi).SetAttribute(NodeInfo.LastModifiedAttr, CommonText.Now);
             rootNode.AppendChild(modi);
             return true;
         }
@@ -133,7 +133,7 @@ namespace GeodeticCoordinateConversion
             try
             {
                 XmlNode modi = rootNode.SelectSingleNode(NodeInfo.TimeNodePath);
-                ((XmlElement)modi).SetAttribute(NodeInfo.LastModifiedAttr, CommonText.LastModified + CommonText.Now);
+                ((XmlElement)modi).SetAttribute(NodeInfo.LastModifiedAttr, CommonText.Now);
                 document.Save(DocPath);
                 return true;
             }
@@ -150,6 +150,11 @@ namespace GeodeticCoordinateConversion
 
         public bool SaveCoordConvertData(List<CoordConvert> Data)
         {
+            
+            foreach (XmlNode x in rootNode.SelectNodes(NodeInfo.CoordConvertNodePath))
+            {
+                rootNode.RemoveChild(x);
+            }
             foreach(CoordConvert c in Data)
             {
                 rootNode.AppendChild(c.ToXmlElement(document));

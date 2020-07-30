@@ -135,9 +135,6 @@ namespace GeodeticCoordinateConversion
                 double L = GC.Y / (Nf * Math.Cos(Bf)) - (1 + 2 * Math.Pow(tf, 2) + nf) * Math.Pow(GC.Y, 3) / (6 * Math.Pow(Nf, 3) * Math.Cos(Bf)) + (5 + 28 * Math.Pow(tf, 2) + 24 * Math.Pow(tf, 4) + 6 * nf + 8 * nf * Math.Pow(tf, 2)) * Math.Pow(GC.Y, 5) / (120 * Math.Pow(Nf, 5) * Math.Cos(Bf));
                 L = L / Math.PI * 180;
 
-                //计算中央经线
-                GC.GetCenter();
-
                 // 本带内经度换算
                 L += GC.Center;
                 GEOBL TmpBL = new GEOBL()

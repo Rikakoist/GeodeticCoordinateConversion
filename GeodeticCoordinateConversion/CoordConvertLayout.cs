@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using System.Reflection;
 using System.Diagnostics;
 using System.Threading;
+using System.Xml.Serialization;
+using System.IO;
 
 namespace GeodeticCoordinateConversion
 {
@@ -70,11 +72,22 @@ namespace GeodeticCoordinateConversion
 
         private void LoadData(object sender, EventArgs e)
         {
+            //using (var stream = System.IO.File.OpenRead(@"E:\S.xml"))
+            //{
+            //    var serializer = new XmlSerializer(Data.GetType());
+            //    this.Data = serializer.Deserialize(stream) as BindingList<CoordConvert>;
+            //}
             LoadData();
         }
 
         private void SaveData(object sender, EventArgs e)
-        {
+        {      
+            //using (var writer = new System.IO.StreamWriter(@"E:\S.xml"))
+            //{
+            //    var serializer = new XmlSerializer(Data.GetType());
+            //    serializer.Serialize(writer, Data);
+            //    writer.Flush();
+            //}
             SaveData();
         }
 
@@ -93,7 +106,7 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                CoordConvertDGV.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.White;
+                CoordConvertDGV.Rows[e.RowIndex].Cells[nameof(CoordConvert.Error)].Style.BackColor = Color.White;
             }
             catch (Exception err)
             {
@@ -143,6 +156,31 @@ namespace GeodeticCoordinateConversion
             {
                 MessageBox.Show(e.NewIndex.ToString() + "  " + e.OldIndex.ToString());
             }
+        }
+
+        private void TransferBtn_Click(object sender, EventArgs e)
+        {
+            TransferGauss();
+        }
+
+        /// <summary>
+        /// 生成高斯坐标列表。
+        /// </summary>
+        /// <returns>高斯坐标列表。</returns>
+        public List<GaussCoord> TransferGauss()
+        {
+            List<GaussCoord> G = new List<GaussCoord>();
+            foreach (CoordConvert c in Data)
+            {
+                if(c.Selected)
+                {
+                    if (c.Gauss is null)
+                    {
+                        G.Add(c.Gauss);
+                    }
+                }
+            }
+            return G;
         }
     }
 }

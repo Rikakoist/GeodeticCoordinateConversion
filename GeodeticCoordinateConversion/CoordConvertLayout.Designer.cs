@@ -37,13 +37,7 @@
             this.DeletePictureBox = new System.Windows.Forms.PictureBox();
             this.DirectBtn = new System.Windows.Forms.Button();
             this.ReverseBtn = new System.Windows.Forms.Button();
-            this.B = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.L = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Ellipse = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.X = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Y = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ZoneType = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.Zone = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TransferBtn = new System.Windows.Forms.Button();
             this.gEODataTablesBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.CoordConvertDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AddRowPictureBox)).BeginInit();
@@ -63,14 +57,6 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.CoordConvertDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.CoordConvertDGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.B,
-            this.L,
-            this.Ellipse,
-            this.X,
-            this.Y,
-            this.ZoneType,
-            this.Zone});
             this.CoordConvertDGV.Location = new System.Drawing.Point(48, 3);
             this.CoordConvertDGV.Name = "CoordConvertDGV";
             this.CoordConvertDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -156,46 +142,16 @@
             this.ReverseBtn.UseVisualStyleBackColor = true;
             this.ReverseBtn.Click += new System.EventHandler(this.ReverseBtn_Click);
             // 
-            // B
+            // TransferBtn
             // 
-            this.B.HeaderText = "B";
-            this.B.Name = "B";
-            // 
-            // L
-            // 
-            this.L.HeaderText = "L";
-            this.L.Name = "L";
-            // 
-            // Ellipse
-            // 
-            this.Ellipse.HeaderText = "Ellipse";
-            this.Ellipse.Name = "Ellipse";
-            this.Ellipse.ReadOnly = true;
-            this.Ellipse.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Ellipse.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // X
-            // 
-            this.X.HeaderText = "X";
-            this.X.Name = "X";
-            // 
-            // Y
-            // 
-            this.Y.HeaderText = "Y";
-            this.Y.Name = "Y";
-            // 
-            // ZoneType
-            // 
-            this.ZoneType.HeaderText = "ZoneType";
-            this.ZoneType.Name = "ZoneType";
-            this.ZoneType.ReadOnly = true;
-            this.ZoneType.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.ZoneType.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // Zone
-            // 
-            this.Zone.HeaderText = "Zone";
-            this.Zone.Name = "Zone";
+            this.TransferBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.TransferBtn.Location = new System.Drawing.Point(517, 368);
+            this.TransferBtn.Name = "TransferBtn";
+            this.TransferBtn.Size = new System.Drawing.Size(75, 23);
+            this.TransferBtn.TabIndex = 5;
+            this.TransferBtn.Text = ">>";
+            this.TransferBtn.UseVisualStyleBackColor = true;
+            this.TransferBtn.Click += new System.EventHandler(this.TransferBtn_Click);
             // 
             // gEODataTablesBindingSource
             // 
@@ -206,6 +162,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.ReverseBtn);
+            this.Controls.Add(this.TransferBtn);
             this.Controls.Add(this.DirectBtn);
             this.Controls.Add(this.SavePictureBox);
             this.Controls.Add(this.LoadPictureBox);
@@ -235,12 +192,6 @@
         private System.Windows.Forms.PictureBox DeletePictureBox;
         private System.Windows.Forms.Button DirectBtn;
         private System.Windows.Forms.Button ReverseBtn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn B;
-        private System.Windows.Forms.DataGridViewTextBoxColumn L;
-        private System.Windows.Forms.DataGridViewComboBoxColumn Ellipse;
-        private System.Windows.Forms.DataGridViewTextBoxColumn X;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Y;
-        private System.Windows.Forms.DataGridViewComboBoxColumn ZoneType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Zone;
+        private System.Windows.Forms.Button TransferBtn;
     }
 }

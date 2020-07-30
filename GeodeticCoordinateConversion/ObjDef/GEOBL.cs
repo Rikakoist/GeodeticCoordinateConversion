@@ -275,7 +275,7 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                if (this.GEOEllipse == null)
+                if (this.GEOEllipse is null)
                     throw new ArgumentNullException(ErrMessage.GEOEllipse.EllipseNull);
                 if (this.GEOEllipse.EllipseType == GEOEllipseType.noEllipse)
                     throw new ArgumentOutOfRangeException(ErrMessage.GEOEllipse.EllipseNotSet);
@@ -319,13 +319,10 @@ namespace GeodeticCoordinateConversion
                 double t = Math.Tan(tmpB);
 
                 //正算转换
-                GaussCoord GaussResult = new GaussCoord(this.GEOEllipse)
-                {
-                    X = X + N / 2 * Math.Sin(tmpB) * Math.Cos(tmpB) * Math.Pow(l, 2) / Math.Pow(p, 2) + N / (24 * Math.Pow(p, 4)) * Math.Sin(tmpB) * (Math.Pow((Math.Cos(tmpB)), 3)) * (5 - Math.Pow(t, 2) + 9 * n + 4 * Math.Pow(n, 2)) * Math.Pow(l, 4) + N / (720 * Math.Pow(p, 6)) * Math.Sin(tmpB) * (Math.Pow((Math.Cos(tmpB)), 5)) * (61 - 58 * Math.Pow(t, 2) + Math.Pow(t, 4)) * Math.Pow(l, 6),
-                    Y = N * Math.Cos(tmpB) * l / p + N / (6 * Math.Pow(p, 3)) * (Math.Pow(Math.Cos(tmpB), 3)) * (1 - Math.Pow(t, 2) + n) * Math.Pow(l, 3) + N / (120 * Math.Pow(p, 5)) * (Math.Pow(Math.Cos(tmpB), 5)) * (5 - 18 * Math.Pow(t, 2) + Math.Pow(t, 4) + 14 * n - 58 * Math.Pow(t, 2) * n) * Math.Pow(l, 5),
-                    ZoneType = CDEC.ZoneType,
-                    Zone = CDEC.Zone
-                };
+                double tmpX = X + N / 2 * Math.Sin(tmpB) * Math.Cos(tmpB) * Math.Pow(l, 2) / Math.Pow(p, 2) + N / (24 * Math.Pow(p, 4)) * Math.Sin(tmpB) * (Math.Pow((Math.Cos(tmpB)), 3)) * (5 - Math.Pow(t, 2) + 9 * n + 4 * Math.Pow(n, 2)) * Math.Pow(l, 4) + N / (720 * Math.Pow(p, 6)) * Math.Sin(tmpB) * (Math.Pow((Math.Cos(tmpB)), 5)) * (61 - 58 * Math.Pow(t, 2) + Math.Pow(t, 4)) * Math.Pow(l, 6);
+                double tmpY = N * Math.Cos(tmpB) * l / p + N / (6 * Math.Pow(p, 3)) * (Math.Pow(Math.Cos(tmpB), 3)) * (1 - Math.Pow(t, 2) + n) * Math.Pow(l, 3) + N / (120 * Math.Pow(p, 5)) * (Math.Pow(Math.Cos(tmpB), 5)) * (5 - 18 * Math.Pow(t, 2) + Math.Pow(t, 4) + 14 * n - 58 * Math.Pow(t, 2) * n) * Math.Pow(l, 5);
+
+                GaussCoord GaussResult = new GaussCoord(CDEC.ZoneType,CDEC.Zone,tmpX,tmpY,this.GEOEllipse);
 
                 return GaussResult;
             }
