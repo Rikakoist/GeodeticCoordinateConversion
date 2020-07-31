@@ -295,10 +295,10 @@ namespace GeodeticCoordinateConversion
         /// </summary>
         public class GaussValueChangedEventArgs : EventArgs
         {
-            private GaussValueChangedType valueChangedType;
-            private object oldValue;
-            private object newValue;
-            private EventArgs innerArg;
+            private readonly GaussValueChangedType valueChangedType;
+            private readonly object oldValue;
+            private readonly object newValue;
+            private readonly EventArgs innerArg;
 
             public GaussValueChangedType ValueChangedType { get { return this.valueChangedType; } }
             public object OldValue { get { return this.oldValue; } }
@@ -444,8 +444,7 @@ namespace GeodeticCoordinateConversion
         /// <returns>比较结果。</returns>
         public override bool Equals(object obj)
         {
-            var coord = obj as GaussCoord;
-            return coord != null &&
+            return obj is GaussCoord coord &&
                    guid.Equals(coord.guid) &&
                    GEOEllipse.Equals(coord.GEOEllipse) &&
                    X == coord.X &&

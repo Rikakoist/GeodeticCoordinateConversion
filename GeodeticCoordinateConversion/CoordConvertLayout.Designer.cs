@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CoordConvertLayout));
-            this.CoordConvertDGV = new System.Windows.Forms.DataGridView();
+            this.DGV = new System.Windows.Forms.DataGridView();
             this.DirectBtn = new System.Windows.Forms.Button();
             this.ReverseBtn = new System.Windows.Forms.Button();
             this.TransferBtn = new System.Windows.Forms.Button();
@@ -38,46 +38,39 @@
             this.SelectNoneBtn = new System.Windows.Forms.Button();
             this.ReverseSelectBtn = new System.Windows.Forms.Button();
             this.DataFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.AddRowPictureBox = new System.Windows.Forms.PictureBox();
-            this.DeletePictureBox = new System.Windows.Forms.PictureBox();
-            this.LoadPictureBox = new System.Windows.Forms.PictureBox();
-            this.SavePictureBox = new System.Windows.Forms.PictureBox();
             this.AddRowBtn = new System.Windows.Forms.Button();
             this.DeleteBtn = new System.Windows.Forms.Button();
             this.LoadBtn = new System.Windows.Forms.Button();
             this.SaveBtn = new System.Windows.Forms.Button();
             this.SelectionFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.gEODataTablesBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            ((System.ComponentModel.ISupportInitialize)(this.CoordConvertDGV)).BeginInit();
+            this.gEODataTablesBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.DGV)).BeginInit();
             this.DataFlowLayoutPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.AddRowPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DeletePictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.LoadPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SavePictureBox)).BeginInit();
             this.SelectionFlowLayoutPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gEODataTablesBindingSource)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gEODataTablesBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
-            // CoordConvertDGV
+            // DGV
             // 
-            this.CoordConvertDGV.AllowUserToAddRows = false;
-            this.CoordConvertDGV.AllowUserToDeleteRows = false;
-            this.CoordConvertDGV.AllowUserToOrderColumns = true;
-            this.CoordConvertDGV.AllowUserToResizeRows = false;
-            this.CoordConvertDGV.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.DGV.AllowUserToAddRows = false;
+            this.DGV.AllowUserToDeleteRows = false;
+            this.DGV.AllowUserToOrderColumns = true;
+            this.DGV.AllowUserToResizeRows = false;
+            this.DGV.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.CoordConvertDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.CoordConvertDGV.Location = new System.Drawing.Point(48, 34);
-            this.CoordConvertDGV.Name = "CoordConvertDGV";
-            this.CoordConvertDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.CoordConvertDGV.Size = new System.Drawing.Size(827, 420);
-            this.CoordConvertDGV.TabIndex = 0;
-            this.CoordConvertDGV.DataSourceChanged += new System.EventHandler(this.CoordConvertDGV_DataSourceChanged);
-            this.CoordConvertDGV.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.CoordConvertDGV_CellEndEdit);
-            this.CoordConvertDGV.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.CoordConvertDGV_RowsAdded);
+            this.DGV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.DGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGV.Location = new System.Drawing.Point(48, 34);
+            this.DGV.Name = "DGV";
+            this.DGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.DGV.Size = new System.Drawing.Size(827, 420);
+            this.DGV.TabIndex = 0;
+            this.DGV.DataSourceChanged += new System.EventHandler(this.DGV_DataSourceChanged);
+            this.DGV.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGV_CellEndEdit);
+            this.DGV.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.DGV_RowsAdded);
             // 
             // DirectBtn
             // 
@@ -89,7 +82,6 @@
             this.DirectBtn.TabIndex = 0;
             this.DirectBtn.Text = ">>";
             this.DirectBtn.UseVisualStyleBackColor = true;
-            this.DirectBtn.Click += new System.EventHandler(this.ConvertOperation);
             // 
             // ReverseBtn
             // 
@@ -101,7 +93,6 @@
             this.ReverseBtn.TabIndex = 1;
             this.ReverseBtn.Text = "<<";
             this.ReverseBtn.UseVisualStyleBackColor = true;
-            this.ReverseBtn.Click += new System.EventHandler(this.ConvertOperation);
             // 
             // TransferBtn
             // 
@@ -113,7 +104,6 @@
             this.TransferBtn.TabIndex = 5;
             this.TransferBtn.Text = ">>";
             this.TransferBtn.UseVisualStyleBackColor = true;
-            this.TransferBtn.Click += new System.EventHandler(this.TransferBtn_Click);
             // 
             // SelectAllBtn
             // 
@@ -126,7 +116,7 @@
             this.SelectAllBtn.Tag = "SelectAll";
             this.SelectAllBtn.Text = "全选";
             this.SelectAllBtn.UseVisualStyleBackColor = true;
-            this.SelectAllBtn.Click += new System.EventHandler(this.ConvertSelection);
+            this.SelectAllBtn.Click += new System.EventHandler(this.ChangeSelection);
             // 
             // SelectNoneBtn
             // 
@@ -139,7 +129,7 @@
             this.SelectNoneBtn.Tag = "SelectNone";
             this.SelectNoneBtn.Text = "全不选";
             this.SelectNoneBtn.UseVisualStyleBackColor = true;
-            this.SelectNoneBtn.Click += new System.EventHandler(this.ConvertSelection);
+            this.SelectNoneBtn.Click += new System.EventHandler(this.ChangeSelection);
             // 
             // ReverseSelectBtn
             // 
@@ -152,7 +142,7 @@
             this.ReverseSelectBtn.Tag = "ReverseSelect";
             this.ReverseSelectBtn.Text = "反选";
             this.ReverseSelectBtn.UseVisualStyleBackColor = true;
-            this.ReverseSelectBtn.Click += new System.EventHandler(this.ConvertSelection);
+            this.ReverseSelectBtn.Click += new System.EventHandler(this.ChangeSelection);
             // 
             // DataFlowLayoutPanel
             // 
@@ -162,71 +152,12 @@
             this.DataFlowLayoutPanel.Controls.Add(this.DeleteBtn);
             this.DataFlowLayoutPanel.Controls.Add(this.LoadBtn);
             this.DataFlowLayoutPanel.Controls.Add(this.SaveBtn);
-            this.DataFlowLayoutPanel.Controls.Add(this.AddRowPictureBox);
-            this.DataFlowLayoutPanel.Controls.Add(this.DeletePictureBox);
-            this.DataFlowLayoutPanel.Controls.Add(this.LoadPictureBox);
-            this.DataFlowLayoutPanel.Controls.Add(this.SavePictureBox);
             this.DataFlowLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.DataFlowLayoutPanel.Location = new System.Drawing.Point(8, 34);
             this.DataFlowLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
             this.DataFlowLayoutPanel.Name = "DataFlowLayoutPanel";
-            this.DataFlowLayoutPanel.Size = new System.Drawing.Size(32, 289);
+            this.DataFlowLayoutPanel.Size = new System.Drawing.Size(32, 140);
             this.DataFlowLayoutPanel.TabIndex = 9;
-            // 
-            // AddRowPictureBox
-            // 
-            this.AddRowPictureBox.BackColor = System.Drawing.Color.DeepSkyBlue;
-            this.AddRowPictureBox.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.AddRowPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("AddRowPictureBox.Image")));
-            this.AddRowPictureBox.Location = new System.Drawing.Point(0, 140);
-            this.AddRowPictureBox.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
-            this.AddRowPictureBox.Name = "AddRowPictureBox";
-            this.AddRowPictureBox.Size = new System.Drawing.Size(32, 32);
-            this.AddRowPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.AddRowPictureBox.TabIndex = 4;
-            this.AddRowPictureBox.TabStop = false;
-            // 
-            // DeletePictureBox
-            // 
-            this.DeletePictureBox.BackColor = System.Drawing.Color.Transparent;
-            this.DeletePictureBox.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.DeletePictureBox.Image = ((System.Drawing.Image)(resources.GetObject("DeletePictureBox.Image")));
-            this.DeletePictureBox.Location = new System.Drawing.Point(0, 178);
-            this.DeletePictureBox.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
-            this.DeletePictureBox.Name = "DeletePictureBox";
-            this.DeletePictureBox.Size = new System.Drawing.Size(32, 32);
-            this.DeletePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.DeletePictureBox.TabIndex = 4;
-            this.DeletePictureBox.TabStop = false;
-            this.DeletePictureBox.Click += new System.EventHandler(this.DeleteRow);
-            // 
-            // LoadPictureBox
-            // 
-            this.LoadPictureBox.BackColor = System.Drawing.Color.Transparent;
-            this.LoadPictureBox.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.LoadPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("LoadPictureBox.Image")));
-            this.LoadPictureBox.Location = new System.Drawing.Point(0, 216);
-            this.LoadPictureBox.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
-            this.LoadPictureBox.Name = "LoadPictureBox";
-            this.LoadPictureBox.Size = new System.Drawing.Size(32, 32);
-            this.LoadPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.LoadPictureBox.TabIndex = 4;
-            this.LoadPictureBox.TabStop = false;
-            this.LoadPictureBox.Click += new System.EventHandler(this.LoadData);
-            // 
-            // SavePictureBox
-            // 
-            this.SavePictureBox.BackColor = System.Drawing.Color.Transparent;
-            this.SavePictureBox.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.SavePictureBox.Image = ((System.Drawing.Image)(resources.GetObject("SavePictureBox.Image")));
-            this.SavePictureBox.Location = new System.Drawing.Point(0, 254);
-            this.SavePictureBox.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
-            this.SavePictureBox.Name = "SavePictureBox";
-            this.SavePictureBox.Size = new System.Drawing.Size(32, 32);
-            this.SavePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.SavePictureBox.TabIndex = 4;
-            this.SavePictureBox.TabStop = false;
-            this.SavePictureBox.Click += new System.EventHandler(this.SaveData);
             // 
             // AddRowBtn
             // 
@@ -239,7 +170,6 @@
             this.AddRowBtn.Size = new System.Drawing.Size(32, 32);
             this.AddRowBtn.TabIndex = 0;
             this.AddRowBtn.UseVisualStyleBackColor = true;
-            this.AddRowBtn.Click += new System.EventHandler(this.AddRow);
             // 
             // DeleteBtn
             // 
@@ -265,7 +195,6 @@
             this.LoadBtn.Size = new System.Drawing.Size(32, 32);
             this.LoadBtn.TabIndex = 2;
             this.LoadBtn.UseVisualStyleBackColor = true;
-            this.LoadBtn.Click += new System.EventHandler(this.LoadData);
             // 
             // SaveBtn
             // 
@@ -278,7 +207,6 @@
             this.SaveBtn.Size = new System.Drawing.Size(32, 32);
             this.SaveBtn.TabIndex = 3;
             this.SaveBtn.UseVisualStyleBackColor = true;
-            this.SaveBtn.Click += new System.EventHandler(this.SaveData);
             // 
             // SelectionFlowLayoutPanel
             // 
@@ -293,10 +221,6 @@
             this.SelectionFlowLayoutPanel.Size = new System.Drawing.Size(191, 23);
             this.SelectionFlowLayoutPanel.TabIndex = 10;
             // 
-            // gEODataTablesBindingSource
-            // 
-            this.gEODataTablesBindingSource.DataSource = typeof(GeodeticCoordinateConversion.GEODataTables);
-            // 
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.AutoSize = true;
@@ -309,6 +233,10 @@
             this.flowLayoutPanel1.Size = new System.Drawing.Size(170, 23);
             this.flowLayoutPanel1.TabIndex = 11;
             // 
+            // gEODataTablesBindingSource
+            // 
+            this.gEODataTablesBindingSource.DataSource = typeof(GeodeticCoordinateConversion.GEODataTables);
+            // 
             // CoordConvertLayout
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -317,33 +245,26 @@
             this.Controls.Add(this.SelectionFlowLayoutPanel);
             this.Controls.Add(this.DataFlowLayoutPanel);
             this.Controls.Add(this.TransferBtn);
-            this.Controls.Add(this.CoordConvertDGV);
+            this.Controls.Add(this.DGV);
+            this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "CoordConvertLayout";
             this.Size = new System.Drawing.Size(878, 457);
             this.Load += new System.EventHandler(this.CoordConvertLayout_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.CoordConvertDGV)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DGV)).EndInit();
             this.DataFlowLayoutPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.AddRowPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DeletePictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.LoadPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SavePictureBox)).EndInit();
             this.SelectionFlowLayoutPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.gEODataTablesBindingSource)).EndInit();
             this.flowLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gEODataTablesBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.PictureBox AddRowPictureBox;
-        private System.Windows.Forms.PictureBox LoadPictureBox;
-        private System.Windows.Forms.PictureBox SavePictureBox;
         private System.Windows.Forms.BindingSource gEODataTablesBindingSource;
-        private System.Windows.Forms.PictureBox DeletePictureBox;
         private System.Windows.Forms.FlowLayoutPanel DataFlowLayoutPanel;
         private System.Windows.Forms.FlowLayoutPanel SelectionFlowLayoutPanel;
-        internal System.Windows.Forms.DataGridView CoordConvertDGV;
+        internal System.Windows.Forms.DataGridView DGV;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         internal System.Windows.Forms.Button DirectBtn;
         internal System.Windows.Forms.Button ReverseBtn;

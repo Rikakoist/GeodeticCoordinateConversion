@@ -176,9 +176,40 @@ namespace GeodeticCoordinateConversion
                 {
                     Data.Add(new CoordConvert(x));
                 }
-                //return true;
             }
             return Data; 
+        }
+
+        public bool SaveZoneConvertData(List<ZoneConvert> Data)
+        {
+
+            foreach (XmlNode x in rootNode.SelectNodes(NodeInfo.ZoneConvertNodePath))
+            {
+                rootNode.RemoveChild(x);
+            }
+            foreach (ZoneConvert c in Data)
+            {
+                rootNode.AppendChild(c.ToXmlElement(document));
+            }
+            document.Save(DocPath);
+            ModifyTime();
+            return true;
+        }
+
+        public List<ZoneConvert> LoadZoneConvertData()
+        {
+            List<ZoneConvert> Data = new List<ZoneConvert>();
+            Data.Clear();
+            XmlNodeList XNL = rootNode.SelectNodes(NodeInfo.ZoneConvertNodePath);
+            if (XNL.Count >= 1)
+            {
+
+                foreach (XmlNode x in XNL)
+                {
+                    Data.Add(new ZoneConvert(x));
+                }
+            }
+            return Data;
         }
 
         public bool Tab2SaveToFile(List<Tab2File> T2F)

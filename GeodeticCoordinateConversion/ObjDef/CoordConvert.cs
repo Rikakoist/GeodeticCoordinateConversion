@@ -15,7 +15,7 @@ namespace GeodeticCoordinateConversion
     /// <summary>
     /// 经纬度、高斯互转对象。
     /// </summary>
-    public class CoordConvert
+    public class CoordConvert:CalcObj
     {
         #region Fields
         /// <summary>
@@ -41,22 +41,7 @@ namespace GeodeticCoordinateConversion
         /// 是否选中。
         /// </summary>
         [DisplayName("选中")]
-        public bool Selected { get; set; } = true;
-        /// <summary>
-        /// 计算错误。
-        /// </summary>
-        [DisplayName("计算错误")]
-        public bool Error { get; private set; } = false;
-        /// <summary>
-        /// 脏数据。
-        /// </summary>
-        [DisplayName("脏数据")]
-        public bool Dirty { get; private set; } = false;
-        /// <summary>
-        /// 已计算。
-        /// </summary>
-        [DisplayName("已计算")]
-        public bool Calculated { get; private set; } = false;
+        public bool Selected { get => base.Selected; set => base.Selected = value; }
         /// <summary>
         /// 地理纬度。
         /// </summary>

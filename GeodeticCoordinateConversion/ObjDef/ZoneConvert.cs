@@ -12,7 +12,7 @@ namespace GeodeticCoordinateConversion
     /// <summary>
     /// 6度带、3度带互转类。
     /// </summary>
-    public class ZoneConvert
+    public class ZoneConvert:CalcObj
     {
         #region Fields
         /// <summary>
@@ -38,22 +38,16 @@ namespace GeodeticCoordinateConversion
         /// 是否选中。
         /// </summary>
         [DisplayName("选中")]
-        public bool Selected { get; set; } = true;
+        public bool Selected { get => base.Selected; set => base.Selected = value; }
         /// <summary>
-        /// 计算错误。
+        /// 6°带带号。
         /// </summary>
-        [DisplayName("计算错误")]
-        public bool Error { get; private set; } = false;
-        /// <summary>
-        /// 脏数据。
-        /// </summary>
-        [DisplayName("脏数据")]
-        public bool Dirty { get; private set; } = false;
-        /// <summary>
-        /// 已计算。
-        /// </summary>
-        [DisplayName("已计算")]
-        public bool Calculated { get; private set; } = false;
+        [DisplayName("6°带号")]
+        public string Zone6
+        {
+            get => Gauss6.Zone.ToString();
+            set => Gauss6.Zone = int.Parse(value);
+        }
         /// <summary>
         /// 6°带X坐标。
         /// </summary>
@@ -84,6 +78,15 @@ namespace GeodeticCoordinateConversion
                 Gauss3.GEOEllipse.EllipseType = (GEOEllipseType)(int.Parse(value));
                 Gauss6.GEOEllipse.EllipseType = (GEOEllipseType)(int.Parse(value));
             }
+        }
+        /// <summary>
+        /// 3°带带号。
+        /// </summary>
+        [DisplayName("3°带号")]
+        public string Zone3
+        {
+            get => Gauss3.Zone.ToString();
+            set => Gauss3.Zone = int.Parse(value);
         }
         /// <summary>
         /// 3°带X坐标。
@@ -232,6 +235,7 @@ namespace GeodeticCoordinateConversion
                 {
                     this.Gauss3 = new GaussCoord(Gauss3Node);
                 }
+                BindGauss3Events();
 
                 XmlNode Gauss6Node = ele.SelectSingleNode(NodeInfo.Gauss6NodePath);
                 if (Gauss6Node is null)
@@ -242,6 +246,7 @@ namespace GeodeticCoordinateConversion
                 {
                     this.Gauss6 = new GaussCoord(Gauss6Node);
                 }
+                BindGauss6Events();
             }
             catch (Exception err)
             {
