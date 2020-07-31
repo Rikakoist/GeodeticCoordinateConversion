@@ -7,8 +7,14 @@ using System.Threading.Tasks;
 
 namespace GeodeticCoordinateConversion
 {
+    /// <summary>
+    /// 用户控件使用的基类。
+    /// </summary>
     public class CalcObj
     {
+        /// <summary>
+        /// 是否选中。
+        /// </summary>
         public bool Selected = true;    
         /// <summary>
         /// 脏数据。

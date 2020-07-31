@@ -44,12 +44,11 @@
             this.SaveBtn = new System.Windows.Forms.Button();
             this.SelectionFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.gEODataTablesBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.BtnToolTip = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.DGV)).BeginInit();
             this.DataFlowLayoutPanel.SuspendLayout();
             this.SelectionFlowLayoutPanel.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gEODataTablesBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // DGV
@@ -169,6 +168,7 @@
             this.AddRowBtn.Name = "AddRowBtn";
             this.AddRowBtn.Size = new System.Drawing.Size(32, 32);
             this.AddRowBtn.TabIndex = 0;
+            this.BtnToolTip.SetToolTip(this.AddRowBtn, "添加新行");
             this.AddRowBtn.UseVisualStyleBackColor = true;
             // 
             // DeleteBtn
@@ -181,6 +181,7 @@
             this.DeleteBtn.Name = "DeleteBtn";
             this.DeleteBtn.Size = new System.Drawing.Size(32, 32);
             this.DeleteBtn.TabIndex = 1;
+            this.BtnToolTip.SetToolTip(this.DeleteBtn, "删除选中行");
             this.DeleteBtn.UseVisualStyleBackColor = true;
             this.DeleteBtn.Click += new System.EventHandler(this.DeleteRow);
             // 
@@ -194,6 +195,7 @@
             this.LoadBtn.Name = "LoadBtn";
             this.LoadBtn.Size = new System.Drawing.Size(32, 32);
             this.LoadBtn.TabIndex = 2;
+            this.BtnToolTip.SetToolTip(this.LoadBtn, "从文件加载记录");
             this.LoadBtn.UseVisualStyleBackColor = true;
             // 
             // SaveBtn
@@ -206,6 +208,7 @@
             this.SaveBtn.Name = "SaveBtn";
             this.SaveBtn.Size = new System.Drawing.Size(32, 32);
             this.SaveBtn.TabIndex = 3;
+            this.BtnToolTip.SetToolTip(this.SaveBtn, "将记录保存到文件");
             this.SaveBtn.UseVisualStyleBackColor = true;
             // 
             // SelectionFlowLayoutPanel
@@ -233,10 +236,6 @@
             this.flowLayoutPanel1.Size = new System.Drawing.Size(170, 23);
             this.flowLayoutPanel1.TabIndex = 11;
             // 
-            // gEODataTablesBindingSource
-            // 
-            this.gEODataTablesBindingSource.DataSource = typeof(GeodeticCoordinateConversion.GEODataTables);
-            // 
             // CoordConvertLayout
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -254,14 +253,12 @@
             this.DataFlowLayoutPanel.ResumeLayout(false);
             this.SelectionFlowLayoutPanel.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.gEODataTablesBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.BindingSource gEODataTablesBindingSource;
         private System.Windows.Forms.FlowLayoutPanel DataFlowLayoutPanel;
         private System.Windows.Forms.FlowLayoutPanel SelectionFlowLayoutPanel;
         internal System.Windows.Forms.DataGridView DGV;
@@ -276,5 +273,6 @@
         internal System.Windows.Forms.Button DeleteBtn;
         internal System.Windows.Forms.Button LoadBtn;
         internal System.Windows.Forms.Button SaveBtn;
+        private System.Windows.Forms.ToolTip BtnToolTip;
     }
 }

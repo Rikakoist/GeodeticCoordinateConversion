@@ -149,12 +149,14 @@ namespace GeodeticCoordinateConversion
                         {
                             this.Gauss3 = newGauss;
                             BindGauss3Events();
+                            Convert3To6();
                             break;
                         }
                     case GEOZoneType.Zone6:
                         {
                             this.Gauss6 = newGauss;
                             BindGauss6Events();
+                            Convert6To3();
                             break;
                         }
                 }

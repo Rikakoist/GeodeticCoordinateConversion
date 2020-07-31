@@ -15,7 +15,7 @@ namespace GeodeticCoordinateConversion
     {
         private GEOSettings AppSettings = new GEOSettings();
         private FileIO DataFile = new FileIO();
-       
+
         public BindingList<CoordConvert> CoordData = new BindingList<CoordConvert>();
         public BindingList<ZoneConvert> ZoneData = new BindingList<ZoneConvert>();
         DataGridView CoordDGV;
@@ -39,9 +39,9 @@ namespace GeodeticCoordinateConversion
             //Coord.SelectAllBtn.Click += new System.EventHandler(this.ConvertSelection);
             //Coord.SelectNoneBtn.Click += new System.EventHandler(this.ConvertSelection);
             //Coord.ReverseSelectBtn.Click += new System.EventHandler(this.ConvertSelection);      
-            
+
             Coord.TransferBtn.Click += new System.EventHandler(this.TransferCoord2Gauss);
-                
+
             this.ZoneDGV = Zone.DGV;
             Zone.TransferBtn.Visible = false;
             Zone.Load += new EventHandler(this.InitZoneConvert);
@@ -61,7 +61,7 @@ namespace GeodeticCoordinateConversion
 
         private void Form1_Load(object sender, EventArgs e)
         {
-           
+
         }
 
         #region Public
@@ -216,7 +216,10 @@ namespace GeodeticCoordinateConversion
 
         private void TransferCoord2Gauss(object sender, EventArgs e)
         {
-            TransferGauss();
+            foreach (GaussCoord G in TransferGauss())
+            {
+                ZoneData.Add(new ZoneConvert(G));
+            }
         }
 
         /// <summary>
@@ -228,12 +231,9 @@ namespace GeodeticCoordinateConversion
             List<GaussCoord> G = new List<GaussCoord>();
             foreach (CoordConvert c in CoordData)
             {
-                if (c.Selected)
+                if (c.Selected && (!c.Error) && (!(c.Gauss is null)))
                 {
-                    if (c.Gauss is null)
-                    {
-                        G.Add(c.Gauss);
-                    }
+                    G.Add(c.Gauss);
                 }
             }
             return G;
