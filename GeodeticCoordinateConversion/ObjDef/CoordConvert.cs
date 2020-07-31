@@ -235,11 +235,11 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                this.Gauss.XChanged += new GaussCoord.XChangedEventHander(this.ChangeState);
-                this.Gauss.YChanged += new GaussCoord.YChangedEventHander(this.ChangeState);
-                this.Gauss.EllipseChanged += new GaussCoord.EllipseChangedEventHander(this.ChangeState);
-                this.Gauss.ZoneChanged += new GaussCoord.ZoneChangedEventHander(this.ChangeState);
-                this.Gauss.ZoneTypeChanged += new GaussCoord.ZoneTypeChangedEventHander(this.ChangeState);
+                this.Gauss.ValueChanged += new GaussCoord.GaussValueChangedEventHander(this.ChangeState);
+                //this.Gauss.YChanged += new GaussCoord.YChangedEventHander(this.ChangeState);
+                //this.Gauss.EllipseChanged += new GaussCoord.EllipseChangedEventHander(this.ChangeState);
+                //this.Gauss.ZoneChanged += new GaussCoord.ZoneChangedEventHander(this.ChangeState);
+                //this.Gauss.ZoneTypeChanged += new GaussCoord.ZoneTypeChangedEventHander(this.ChangeState);
             }
             catch (Exception err)
             {
@@ -312,7 +312,7 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                if (!(BL is null)&& (!Calculated))
+                if (!(BL is null) && (!Calculated))
                 {
                     Gauss = BL.GaussDirect();
                     BindGaussEvents();

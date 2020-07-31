@@ -150,7 +150,7 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                this.guid = System.Guid.NewGuid();             
+                this.guid = System.Guid.NewGuid();
                 this.ZoneType = ZoneType;
                 this.B = B ?? throw new ArgumentNullException(ErrMessage.GEOBL.GEOBLNull);
                 this.L = L ?? throw new ArgumentNullException(ErrMessage.GEOBL.GEOBLNull);
@@ -322,7 +322,7 @@ namespace GeodeticCoordinateConversion
                 double tmpX = X + N / 2 * Math.Sin(tmpB) * Math.Cos(tmpB) * Math.Pow(l, 2) / Math.Pow(p, 2) + N / (24 * Math.Pow(p, 4)) * Math.Sin(tmpB) * (Math.Pow((Math.Cos(tmpB)), 3)) * (5 - Math.Pow(t, 2) + 9 * n + 4 * Math.Pow(n, 2)) * Math.Pow(l, 4) + N / (720 * Math.Pow(p, 6)) * Math.Sin(tmpB) * (Math.Pow((Math.Cos(tmpB)), 5)) * (61 - 58 * Math.Pow(t, 2) + Math.Pow(t, 4)) * Math.Pow(l, 6);
                 double tmpY = N * Math.Cos(tmpB) * l / p + N / (6 * Math.Pow(p, 3)) * (Math.Pow(Math.Cos(tmpB), 3)) * (1 - Math.Pow(t, 2) + n) * Math.Pow(l, 3) + N / (120 * Math.Pow(p, 5)) * (Math.Pow(Math.Cos(tmpB), 5)) * (5 - 18 * Math.Pow(t, 2) + Math.Pow(t, 4) + 14 * n - 58 * Math.Pow(t, 2) * n) * Math.Pow(l, 5);
 
-                GaussCoord GaussResult = new GaussCoord(CDEC.ZoneType,CDEC.Zone,tmpX,tmpY,this.GEOEllipse);
+                GaussCoord GaussResult = new GaussCoord(CDEC.ZoneType, CDEC.Zone, tmpX, tmpY, this.GEOEllipse);
 
                 return GaussResult;
             }

@@ -256,9 +256,7 @@ namespace GeodeticCoordinateConversion
         /// </summary>
         private void BindGauss3Events()
         {
-            this.Gauss3.XChanged += new GaussCoord.XChangedEventHander(this.ChangeState);
-            this.Gauss3.YChanged += new GaussCoord.YChangedEventHander(this.ChangeState);
-            this.Gauss3.EllipseChanged += new GaussCoord.EllipseChangedEventHander(this.ChangeState);
+            this.Gauss3.ValueChanged += new GaussCoord.GaussValueChangedEventHander(this.ChangeState);
         }
 
         /// <summary>
@@ -266,9 +264,7 @@ namespace GeodeticCoordinateConversion
         /// </summary>
         private void BindGauss6Events()
         {
-            this.Gauss6.XChanged += new GaussCoord.XChangedEventHander(this.ChangeState);
-            this.Gauss6.YChanged += new GaussCoord.YChangedEventHander(this.ChangeState);
-            this.Gauss6.EllipseChanged += new GaussCoord.EllipseChangedEventHander(this.ChangeState);
+            this.Gauss6.ValueChanged += new GaussCoord.GaussValueChangedEventHander(this.ChangeState);
         }
 
         /// <summary>

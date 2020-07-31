@@ -69,6 +69,7 @@ namespace GeodeticCoordinateConversion
                         return;
                     else
                     {
+                        EllipseChangedEventArgs e = new EllipseChangedEventArgs(EllipseChangedType.EllipseType, this.ellipseType, value);
                         ellipseType = value;
                         switch (value)
                         {
@@ -109,7 +110,7 @@ namespace GeodeticCoordinateConversion
                                     throw new Exception(ErrMessage.GEOEllipse.EllipseUnknown);
                                 }
                         }
-                        EllipseChanged?.Invoke(this, new EventArgs());
+                        EllipseChanged?.Invoke(this, e);
                     }
                 }
                 catch (Exception err)
@@ -175,8 +176,36 @@ namespace GeodeticCoordinateConversion
         #endregion
 
         #region Events
-        public delegate void EllipseChangedEventHander(object sender, EventArgs e);
+        public delegate void EllipseChangedEventHander(object sender, EllipseChangedEventArgs e);
         public event EllipseChangedEventHander EllipseChanged;
+
+        /// <summary>
+        /// 值改变事件。
+        /// </summary>
+        public class EllipseChangedEventArgs : EventArgs
+        {
+            private EllipseChangedType valueChangedType;
+            private object oldValue;
+            private object newValue;
+
+            public EllipseChangedType ValueChangedType { get { return this.valueChangedType; } }
+            public object OldValue { get { return this.oldValue; } }
+            public object NewValue { get { return this.newValue; } }
+
+            public EllipseChangedEventArgs(EllipseChangedType valueChangedType)
+            {
+                this.valueChangedType = valueChangedType;
+                this.oldValue = null;
+                this.newValue = null;
+            }
+
+            public EllipseChangedEventArgs(EllipseChangedType valueChangedType, object oldValue, object newValue)
+            {
+                this.valueChangedType = valueChangedType;
+                this.oldValue = oldValue;
+                this.newValue = newValue;
+            }
+        }
         #endregion
 
         #region Methods

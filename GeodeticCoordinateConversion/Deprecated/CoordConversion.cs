@@ -70,7 +70,7 @@ namespace GeodeticCoordinateConversion
 
             foreach (DEC CDEC in InputDEC)
             {
-                double l=0;
+                double l = 0;
                 if (ZoneType == 6)// 按6度分带计算l
                 {
                     CDEC.ZoneType = GEOZoneType.Zone6;
@@ -108,7 +108,7 @@ namespace GeodeticCoordinateConversion
                     X = X + N / 2 * Math.Sin(CDEC.B) * Math.Cos(CDEC.B) * Math.Pow(l, 2) / Math.Pow(p, 2) + N / (24 * Math.Pow(p, 4)) * Math.Sin(CDEC.B) * (Math.Pow((Math.Cos(CDEC.B)), 3)) * (5 - Math.Pow(t, 2) + 9 * n + 4 * Math.Pow(n, 2)) * Math.Pow(l, 4) + N / (720 * Math.Pow(p, 6)) * Math.Sin(CDEC.B) * (Math.Pow((Math.Cos(CDEC.B)), 5)) * (61 - 58 * Math.Pow(t, 2) + Math.Pow(t, 4)) * Math.Pow(l, 6),
                     Y = N * Math.Cos(CDEC.B) * l / p + N / (6 * Math.Pow(p, 3)) * (Math.Pow(Math.Cos(CDEC.B), 3)) * (1 - Math.Pow(t, 2) + n) * Math.Pow(l, 3) + N / (120 * Math.Pow(p, 5)) * (Math.Pow(Math.Cos(CDEC.B), 5)) * (5 - 18 * Math.Pow(t, 2) + Math.Pow(t, 4) + 14 * n - 58 * Math.Pow(t, 2) * n) * Math.Pow(l, 5),
                     Zone = CDEC.Zone,
-                    ZoneType = CDEC.ZoneType   
+                    ZoneType = CDEC.ZoneType
                 };
                 GaussResult.Add(GC);
             }

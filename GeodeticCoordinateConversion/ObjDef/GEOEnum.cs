@@ -31,7 +31,7 @@ namespace GeodeticCoordinateConversion
     }
 
     /// <summary>
-    /// 椭球枚举常量
+    /// 椭球枚举常量。
     /// </summary>
     public enum GEOEllipseType
     {
@@ -63,6 +63,87 @@ namespace GeodeticCoordinateConversion
     }
 
     /// <summary>
+    /// 高斯坐标值改变枚举常量。
+    /// </summary>
+    public enum EllipseChangedType
+    {
+        /// <summary>
+        /// a改变。
+        /// </summary>
+        [Description("a改变")]
+        a = 0,
+        /// <summary>
+        /// b改变。
+        /// </summary>
+        [Description("b改变")]
+        b = 1,
+        /// <summary>
+        /// 椭球类型改变。
+        /// </summary>
+        [Description("椭球类型改变")]
+        EllipseType = 2,
+    }
+
+    /// <summary>
+    /// 高斯坐标值改变枚举常量。
+    /// </summary>
+    public enum GaussValueChangedType
+    {
+        /// <summary>
+        /// X改变。
+        /// </summary>
+        [Description("X改变")]
+        X = 0,
+        /// <summary>
+        /// Y改变。
+        /// </summary>
+        [Description("Y改变")]
+        Y = 1,
+        /// <summary>
+        /// 带号改变。
+        /// </summary>
+        [Description("带号改变")]
+        Zone = 2,
+        /// <summary>
+        /// 分带改变。
+        /// </summary>
+        [Description("分带改变")]
+        ZoneType = 3,
+        /// <summary>
+        /// 椭球改变。
+        /// </summary>
+        [Description("椭球改变")]
+        Ellipse = 4,
+    }
+
+    /// <summary>
+    /// 地理经纬度值改变枚举常量。
+    /// </summary>
+    public enum GEOBLValueChangedType
+    {
+        /// <summary>
+        /// B改变。
+        /// </summary>
+        [Description("B改变")]
+        B = 0,
+        /// <summary>
+        /// L改变。
+        /// </summary>
+        [Description("L改变")]
+        L = 1,
+        /// <summary>
+        /// 分带改变。
+        /// </summary>
+        [Description("分带改变")]
+        ZoneType = 3,
+        /// <summary>
+        /// 椭球改变。
+        /// </summary>
+        [Description("椭球改变")]
+        Ellipse = 4,
+    }
+
+    /// <summary>
     /// 枚举常量的数据表。
     /// </summary>
     public static class GEODataTables
@@ -78,7 +159,7 @@ namespace GeodeticCoordinateConversion
             DT.Columns.Add("Name");
             DT.Columns.Add("Value");
 
-            foreach(int i in Enum.GetValues(typeof(GEOZoneType)))
+            foreach (int i in Enum.GetValues(typeof(GEOZoneType)))
             {
                 DataRow DR = DT.NewRow();
                 DR[nameof(GEOZoneType)] = (typeof(GEOZoneType).GetField(((GEOZoneType)i).ToString()).GetCustomAttributes(false)[0] as DescriptionAttribute).Description;

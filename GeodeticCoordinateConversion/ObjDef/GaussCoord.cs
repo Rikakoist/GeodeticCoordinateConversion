@@ -56,8 +56,9 @@ namespace GeodeticCoordinateConversion
             get => x;
             set
             {
+                GaussValueChangedEventArgs e = new GaussValueChangedEventArgs(GaussValueChangedType.X, this.x, value);
                 this.x = value;
-                XChanged?.Invoke(this, new EventArgs());
+                ValueChanged?.Invoke(this, e);
             }
         }
         /// <summary>
@@ -68,8 +69,9 @@ namespace GeodeticCoordinateConversion
             get => y;
             set
             {
+                GaussValueChangedEventArgs e = new GaussValueChangedEventArgs(GaussValueChangedType.Y, this.y, value);
                 this.y = value;
-                YChanged?.Invoke(this, new EventArgs());
+                ValueChanged?.Invoke(this, e);
             }
         }
         /// <summary>
@@ -83,14 +85,11 @@ namespace GeodeticCoordinateConversion
                 try
                 {
                     if (value == zoneType)
-                    {
                         return;
-                    }
-                    else
-                    {
-                        this.zoneType = value;
-                        ZoneTypeChanged?.Invoke(this, new EventArgs());
-                    }
+                    GaussValueChangedEventArgs e = new GaussValueChangedEventArgs(GaussValueChangedType.ZoneType, this.zoneType, value);
+                    this.zoneType = value;
+                    ValueChanged?.Invoke(this, e);
+
                 }
                 catch (Exception err)
                 {
@@ -109,6 +108,9 @@ namespace GeodeticCoordinateConversion
             {
                 try
                 {
+                    if (value == zone)
+                        return;
+                    GaussValueChangedEventArgs e = new GaussValueChangedEventArgs(GaussValueChangedType.Zone, this.zone, value);
                     switch (this.ZoneType)
                     {
                         case GEOZoneType.None:
@@ -139,7 +141,7 @@ namespace GeodeticCoordinateConversion
                                 throw new ArgumentException(ErrMessage.GEOZone.ZoneTypeUnknown);
                             }
                     }
-                    ZoneChanged?.Invoke(this, new EventArgs());
+                    ValueChanged?.Invoke(this, e);
                 }
                 catch (Exception err)
                 {
@@ -174,7 +176,7 @@ namespace GeodeticCoordinateConversion
                         }
                 }
             }
-          
+
         }
         #endregion
 
@@ -286,16 +288,41 @@ namespace GeodeticCoordinateConversion
         #endregion
 
         #region Events
-        public delegate void XChangedEventHander(object sender, EventArgs e);
-        public event XChangedEventHander XChanged;
-        public delegate void YChangedEventHander(object sender, EventArgs e);
-        public event YChangedEventHander YChanged;
-        public delegate void ZoneTypeChangedEventHander(object sender, EventArgs e);
-        public event ZoneTypeChangedEventHander ZoneTypeChanged;
-        public delegate void ZoneChangedEventHander(object sender, EventArgs e);
-        public event ZoneChangedEventHander ZoneChanged;
-        public delegate void EllipseChangedEventHander(object sender, EventArgs e);
-        public event EllipseChangedEventHander EllipseChanged;
+        public delegate void GaussValueChangedEventHander(object sender, GaussValueChangedEventArgs e);
+        public event GaussValueChangedEventHander ValueChanged;
+
+        /// <summary>
+        /// 值改变事件。
+        /// </summary>
+        public class GaussValueChangedEventArgs : EventArgs
+        {
+            private GaussValueChangedType valueChangedType;
+            private object oldValue;
+            private object newValue;
+            private EventArgs innerArg;
+
+            public GaussValueChangedType ValueChangedType { get { return this.valueChangedType; } }
+            public object OldValue { get { return this.oldValue; } }
+            public object NewValue { get { return this.newValue; } }
+            public EventArgs InnerArg { get { return this.innerArg; } }
+
+
+            public GaussValueChangedEventArgs(GaussValueChangedType valueChangedType, EventArgs innerArg = null)
+            {
+                this.valueChangedType = valueChangedType;
+                this.oldValue = null;
+                this.newValue = null;
+                this.innerArg = innerArg;
+            }
+
+            public GaussValueChangedEventArgs(GaussValueChangedType valueChangedType, object oldValue, object newValue, EventArgs innerArg = null)
+            {
+                this.valueChangedType = valueChangedType;
+                this.oldValue = oldValue;
+                this.newValue = newValue;
+                this.innerArg = innerArg;
+            }
+        }
         #endregion
 
         #region Methods
@@ -319,9 +346,10 @@ namespace GeodeticCoordinateConversion
         /// </summary>
         /// <param name="sender">触发者。</param>
         /// <param name="e">附加参数。</param>
-        private void EllipseChange(object sender, EventArgs e)
+        private void EllipseChange(object sender, Ellipse.EllipseChangedEventArgs e)
         {
-            EllipseChanged?.Invoke(this, e);
+            GaussValueChangedEventArgs ee = new GaussValueChangedEventArgs(GaussValueChangedType.Ellipse, e.OldValue, e.NewValue, e);
+            ValueChanged?.Invoke(this, ee);
         }
 
         /// <summary>
