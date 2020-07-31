@@ -125,6 +125,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="GEOSettings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -144,6 +145,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Plus1.png" />
+    <None Include="Resources\Plus.png" />
+    <None Include="Resources\Floppydisk.png" />
+    <None Include="Resources\Load.png" />
+    <None Include="Resources\Multiply.png" />
     <EmbeddedResource Include="GeoConvertDB.mdb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>

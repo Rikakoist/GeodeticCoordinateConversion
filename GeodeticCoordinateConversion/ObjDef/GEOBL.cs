@@ -51,14 +51,10 @@ namespace GeodeticCoordinateConversion
                 try
                 {
                     if (value == zoneType)
-                    {
                         return;
-                    }
-                    else
-                    {
-                        this.zoneType = value;
-                        ZoneTypeChanged?.Invoke(this, new EventArgs());
-                    }
+                    GEOBLValueChangedEventArgs e = new GEOBLValueChangedEventArgs(GEOBLValueChangedType.ZoneType, this.zoneType, value);
+                    this.zoneType = value;
+                    ValueChanged?.Invoke(this, e);
                 }
                 catch (Exception err)
                 {
@@ -191,14 +187,52 @@ namespace GeodeticCoordinateConversion
         #endregion
 
         #region Events
-        public delegate void BChangedEventHander(object sender, EventArgs e);
-        public event BChangedEventHander BChanged;
-        public delegate void LChangedEventHander(object sender, EventArgs e);
-        public event LChangedEventHander LChanged;
-        public delegate void EllipseChangedEventHander(object sender, EventArgs e);
-        public event EllipseChangedEventHander EllipseChanged;
-        public delegate void ZoneTypeChangedEventHander(object sender, EventArgs e);
-        public event ZoneTypeChangedEventHander ZoneTypeChanged;
+        public delegate void GEOBLValueChangedEventHander(object sender, GEOBLValueChangedEventArgs e);
+        public event GEOBLValueChangedEventHander ValueChanged;
+
+        /// <summary>
+        /// 度分秒经纬度值改变事件参数。
+        /// </summary>
+        public class GEOBLValueChangedEventArgs : EventArgs
+        {
+            private GEOBLValueChangedType valueChangedType;
+            private object oldValue;
+            private object newValue;
+            private EventArgs innerArg;
+
+            public GEOBLValueChangedType ValueChangedType { get { return this.valueChangedType; } }
+            public object OldValue { get { return this.oldValue; } }
+            public object NewValue { get { return this.newValue; } }
+            public EventArgs InnerArg { get { return this.innerArg; } }
+
+            /// <summary>
+            /// 通过度分秒经纬度值改变类型初始化。
+            /// </summary>
+            /// <param name="valueChangedType">度分秒经纬度值改变类型。</param>
+            /// <param name="innerArg">内部事件参数。</param>
+            public GEOBLValueChangedEventArgs(GEOBLValueChangedType valueChangedType, EventArgs innerArg = null)
+            {
+                this.valueChangedType = valueChangedType;
+                this.oldValue = null;
+                this.newValue = null;
+                this.innerArg = innerArg;
+            }
+
+            /// <summary>
+            /// 通过度分秒经纬度值改变类型、旧值和新值初始化。
+            /// </summary>
+            /// <param name="valueChangedType">度分秒经纬度值改变类型。</param>
+            /// <param name="oldValue">旧值。</param>
+            /// <param name="newValue">新值。</param>
+            /// <param name="innerArg">内部事件参数。</param>
+            public GEOBLValueChangedEventArgs(GEOBLValueChangedType valueChangedType, object oldValue, object newValue, EventArgs innerArg = null)
+            {
+                this.valueChangedType = valueChangedType;
+                this.oldValue = oldValue;
+                this.newValue = newValue;
+                this.innerArg = innerArg;
+            }
+        }
         #endregion
 
         #region Methods
@@ -210,7 +244,7 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                this.GEOEllipse.EllipseChanged += new Ellipse.EllipseChangedEventHander(this.EllipseChange);
+                this.GEOEllipse.ValueChanged += new Ellipse.EllipseChangedEventHander(this.EllipseChange);
             }
             catch (Exception err)
             {
@@ -223,9 +257,10 @@ namespace GeodeticCoordinateConversion
         /// </summary>
         /// <param name="sender">触发者。</param>
         /// <param name="e">附加参数。</param>
-        private void EllipseChange(object sender, EventArgs e)
+        private void EllipseChange(object sender, Ellipse.EllipseChangedEventArgs e)
         {
-            this.EllipseChanged?.Invoke(this, e);
+            GEOBLValueChangedEventArgs ee = new GEOBLValueChangedEventArgs(GEOBLValueChangedType.Ellipse, e.OldValue, e.NewValue, e);
+            this.ValueChanged?.Invoke(this, ee);
         }
 
         /// <summary>
@@ -235,13 +270,11 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                this.B.DChanged += new DMS.DChangedEventHander(this.BLChange);
-                this.B.MChanged += new DMS.MChangedEventHander(this.BLChange);
-                this.B.SChanged += new DMS.SChangedEventHander(this.BLChange);
+                this.B.ValueChanged += new DMS.DMSValueChangedEventHander(this.BLChange);
 
-                this.L.DChanged += new DMS.DChangedEventHander(this.BLChange);
-                this.L.MChanged += new DMS.MChangedEventHander(this.BLChange);
-                this.L.SChanged += new DMS.SChangedEventHander(this.BLChange);
+
+                this.L.ValueChanged += new DMS.DMSValueChangedEventHander(this.BLChange);
+
             }
             catch (Exception err)
             {
@@ -254,15 +287,17 @@ namespace GeodeticCoordinateConversion
         /// </summary>
         /// <param name="sender">触发者。</param>
         /// <param name="e">附加参数。</param>
-        private void BLChange(object sender, EventArgs e)
+        private void BLChange(object sender, DMS.DMSValueChangedEventArgs e)
         {
             if (sender == this.B)
             {
-                this.BChanged?.Invoke(this, e);
+                GEOBLValueChangedEventArgs ee = new GEOBLValueChangedEventArgs(GEOBLValueChangedType.B, e.OldValue, e.NewValue, e);
+                this.ValueChanged?.Invoke(this, ee);
             }
             if (sender == this.L)
             {
-                this.LChanged?.Invoke(this, e);
+                GEOBLValueChangedEventArgs ee = new GEOBLValueChangedEventArgs(GEOBLValueChangedType.L, e.OldValue, e.NewValue, e);
+                this.ValueChanged?.Invoke(this, ee);
             }
         }
 

@@ -29,8 +29,7 @@ namespace GeodeticCoordinateConversion
 
         private void CoordConvertLayout_Load(object sender, EventArgs e)
         {
-            this.Data.ListChanged += new ListChangedEventHandler(this.ResetColor);
-            CoordConvertDGV.Columns.Clear();
+            //CoordConvertDGV.Columns.Clear();
             //绑定数据源
             CoordConvertDGV.DataSource = Data;
             CoordConvertDGV.AutoGenerateColumns = true;
@@ -81,7 +80,7 @@ namespace GeodeticCoordinateConversion
         }
 
         private void SaveData(object sender, EventArgs e)
-        {      
+        {
             //using (var writer = new System.IO.StreamWriter(@"E:\S.xml"))
             //{
             //    var serializer = new XmlSerializer(Data.GetType());
@@ -95,6 +94,7 @@ namespace GeodeticCoordinateConversion
         {
             Data = new BindingList<CoordConvert>(DataFile.LoadCoordConvertData());
             CoordConvertDGV.DataSource = Data;
+            CoordConvertDGV.ClearSelection();
         }
 
         public void SaveData()
@@ -106,7 +106,7 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                CoordConvertDGV.Rows[e.RowIndex].Cells[nameof(CoordConvert.Error)].Style.BackColor = Color.White;
+                ResetColor(e.RowIndex);
             }
             catch (Exception err)
             {
@@ -128,34 +128,50 @@ namespace GeodeticCoordinateConversion
             }
         }
 
-        private void DirectBtn_Click(object sender, EventArgs e)
-        {
-            for (int i = 0; i < Data.Count; i++)
-            {
-                if ((Data[i].Selected)&& (Data[i].Dirty))
-                    CoordConvertDGV.Rows[i].Cells[nameof(CoordConvert.Error)].Style.BackColor = Data[i].GaussDirect() ? Color.Green : Color.Red;
-            }
-            CoordConvertDGV.ClearSelection();
-            CoordConvertDGV.Invalidate();
-        }
-
-        private void ReverseBtn_Click(object sender, EventArgs e)
+        private void ConvertOperation(object sender, EventArgs e)
         {
             for (int i = 0; i < Data.Count; i++)
             {
                 if ((Data[i].Selected) && (Data[i].Dirty))
-                    CoordConvertDGV.Rows[i].Cells[nameof(CoordConvert.Error)].Style.BackColor = Data[i].GaussReverse() ? Color.Green : Color.Red;
+                {
+                    if (sender == ReverseBtn)
+                    {
+                        Data[i].GaussReverse();
+                    }
+                    if (sender == DirectBtn)
+                    {
+                        Data[i].GaussDirect();
+                    }
+                }
+                ResetColor(i);
             }
             CoordConvertDGV.ClearSelection();
             CoordConvertDGV.Invalidate();
         }
 
-        private void ResetColor(object sender,ListChangedEventArgs e)
+        private void CoordConvertDGV_DataSourceChanged(object sender, EventArgs e)
         {
-           if(e.ListChangedType== ListChangedType.ItemChanged)
+            foreach (DataGridViewRow r in CoordConvertDGV.Rows)
             {
-                MessageBox.Show(e.NewIndex.ToString() + "  " + e.OldIndex.ToString());
+                ResetColor(r.Index);
             }
+        }
+
+        private void CoordConvertDGV_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            ResetColor(e.RowIndex);
+        }
+
+        private void ResetColor(int row)
+        {
+            CoordConvertDGV.Rows[row].Cells[nameof(CoordConvert.Selected)].Style.BackColor =
+                    Data[row].Selected? Color.DarkGreen : Color.White;
+            CoordConvertDGV.Rows[row].Cells[nameof(CoordConvert.Error)].Style.BackColor =
+                    (Data[row].Dirty||(!Data[row].Calculated)) ? Color.White : (Data[row].Error ? Color.Red : Color.Green);
+            CoordConvertDGV.Rows[row].Cells[nameof(CoordConvert.Dirty)].Style.BackColor =
+                    Data[row].Dirty ? Color.RosyBrown :Color.White;
+            CoordConvertDGV.Rows[row].Cells[nameof(CoordConvert.Calculated)].Style.BackColor =
+                   Data[row].Calculated? Color.ForestGreen : Color.White;
         }
 
         private void TransferBtn_Click(object sender, EventArgs e)
@@ -172,7 +188,7 @@ namespace GeodeticCoordinateConversion
             List<GaussCoord> G = new List<GaussCoord>();
             foreach (CoordConvert c in Data)
             {
-                if(c.Selected)
+                if (c.Selected)
                 {
                     if (c.Gauss is null)
                     {
@@ -181,6 +197,11 @@ namespace GeodeticCoordinateConversion
                 }
             }
             return G;
+        }
+
+        private void ConvertSelection(object sender, EventArgs e)
+        {
+
         }
     }
 }

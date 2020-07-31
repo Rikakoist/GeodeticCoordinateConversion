@@ -110,7 +110,7 @@ namespace GeodeticCoordinateConversion
                                     throw new Exception(ErrMessage.GEOEllipse.EllipseUnknown);
                                 }
                         }
-                        EllipseChanged?.Invoke(this, e);
+                        ValueChanged?.Invoke(this, e);
                     }
                 }
                 catch (Exception err)
@@ -177,10 +177,10 @@ namespace GeodeticCoordinateConversion
 
         #region Events
         public delegate void EllipseChangedEventHander(object sender, EllipseChangedEventArgs e);
-        public event EllipseChangedEventHander EllipseChanged;
+        public event EllipseChangedEventHander ValueChanged;
 
         /// <summary>
-        /// 值改变事件。
+        /// 椭球值改变事件参数。
         /// </summary>
         public class EllipseChangedEventArgs : EventArgs
         {
@@ -188,10 +188,23 @@ namespace GeodeticCoordinateConversion
             private object oldValue;
             private object newValue;
 
+            /// <summary>
+            /// 椭球值改变类型。
+            /// </summary>
             public EllipseChangedType ValueChangedType { get { return this.valueChangedType; } }
+            /// <summary>
+            /// 旧值。
+            /// </summary>
             public object OldValue { get { return this.oldValue; } }
+            /// <summary>
+            /// 新值。
+            /// </summary>
             public object NewValue { get { return this.newValue; } }
 
+            /// <summary>
+            /// 通过椭球值改变类型初始化。
+            /// </summary>
+            /// <param name="valueChangedType">椭球值改变类型。</param>
             public EllipseChangedEventArgs(EllipseChangedType valueChangedType)
             {
                 this.valueChangedType = valueChangedType;
@@ -199,6 +212,12 @@ namespace GeodeticCoordinateConversion
                 this.newValue = null;
             }
 
+            /// <summary>
+            /// 通过椭球值改变类型、旧值和新值初始化。
+            /// </summary>
+            /// <param name="valueChangedType"></param>
+            /// <param name="oldValue"></param>
+            /// <param name="newValue"></param>
             public EllipseChangedEventArgs(EllipseChangedType valueChangedType, object oldValue, object newValue)
             {
                 this.valueChangedType = valueChangedType;

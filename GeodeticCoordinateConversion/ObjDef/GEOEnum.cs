@@ -63,7 +63,7 @@ namespace GeodeticCoordinateConversion
     }
 
     /// <summary>
-    /// 高斯坐标值改变枚举常量。
+    /// 椭球值改变枚举常量。
     /// </summary>
     public enum EllipseChangedType
     {
@@ -82,6 +82,55 @@ namespace GeodeticCoordinateConversion
         /// </summary>
         [Description("椭球类型改变")]
         EllipseType = 2,
+    }
+
+    /// <summary>
+    /// 度分秒值改变枚举常量。
+    /// </summary>
+    public enum DMSValueChangedType
+    {
+        /// <summary>
+        /// 度改变。
+        /// </summary>
+        [Description("度改变")]
+        D = 0,
+        /// <summary>
+        /// 分改变。
+        /// </summary>
+        [Description("分改变")]
+        M = 1,
+        /// <summary>
+        /// 秒改变。
+        /// </summary>
+        [Description("秒改变")]
+        S = 2,
+    }
+
+    /// <summary>
+    /// 地理经纬度值改变枚举常量。
+    /// </summary>
+    public enum GEOBLValueChangedType
+    {
+        /// <summary>
+        /// B改变。
+        /// </summary>
+        [Description("B改变")]
+        B = 0,
+        /// <summary>
+        /// L改变。
+        /// </summary>
+        [Description("L改变")]
+        L = 1,
+        /// <summary>
+        /// 分带改变。
+        /// </summary>
+        [Description("分带改变")]
+        ZoneType = 3,
+        /// <summary>
+        /// 椭球改变。
+        /// </summary>
+        [Description("椭球改变")]
+        Ellipse = 4,
     }
 
     /// <summary>
@@ -104,33 +153,6 @@ namespace GeodeticCoordinateConversion
         /// </summary>
         [Description("带号改变")]
         Zone = 2,
-        /// <summary>
-        /// 分带改变。
-        /// </summary>
-        [Description("分带改变")]
-        ZoneType = 3,
-        /// <summary>
-        /// 椭球改变。
-        /// </summary>
-        [Description("椭球改变")]
-        Ellipse = 4,
-    }
-
-    /// <summary>
-    /// 地理经纬度值改变枚举常量。
-    /// </summary>
-    public enum GEOBLValueChangedType
-    {
-        /// <summary>
-        /// B改变。
-        /// </summary>
-        [Description("B改变")]
-        B = 0,
-        /// <summary>
-        /// L改变。
-        /// </summary>
-        [Description("L改变")]
-        L = 1,
         /// <summary>
         /// 分带改变。
         /// </summary>

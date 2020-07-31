@@ -276,7 +276,6 @@ namespace GeodeticCoordinateConversion
                 this.Y = double.Parse(ele.GetAttribute(nameof(Y)));
                 this.ZoneType = (GEOZoneType)int.Parse(ele.GetAttribute(nameof(ZoneType)));
                 this.Zone = int.Parse(ele.GetAttribute(nameof(Zone)));
-                //this.Center = double.Parse(ele.GetAttribute(nameof(Center)));
                 this.GEOEllipse = new Ellipse(xmlNode.SelectSingleNode(NodeInfo.EllipseNodePath));
                 BindEllipseEvent();
             }
@@ -292,7 +291,7 @@ namespace GeodeticCoordinateConversion
         public event GaussValueChangedEventHander ValueChanged;
 
         /// <summary>
-        /// 值改变事件。
+        /// 高斯坐标值改变事件参数。
         /// </summary>
         public class GaussValueChangedEventArgs : EventArgs
         {
@@ -306,7 +305,11 @@ namespace GeodeticCoordinateConversion
             public object NewValue { get { return this.newValue; } }
             public EventArgs InnerArg { get { return this.innerArg; } }
 
-
+            /// <summary>
+            /// 通过高斯坐标值改变类型初始化。
+            /// </summary>
+            /// <param name="valueChangedType">高斯坐标值改变类型。</param>
+            /// <param name="innerArg">内部事件参数。</param>
             public GaussValueChangedEventArgs(GaussValueChangedType valueChangedType, EventArgs innerArg = null)
             {
                 this.valueChangedType = valueChangedType;
@@ -315,6 +318,13 @@ namespace GeodeticCoordinateConversion
                 this.innerArg = innerArg;
             }
 
+            /// <summary>
+            /// 通过高斯坐标值改变类型、旧值和新值初始化。
+            /// </summary>
+            /// <param name="valueChangedType">高斯坐标值改变类型。</param>
+            /// <param name="oldValue">旧值。</param>
+            /// <param name="newValue">新值。</param>
+            /// <param name="innerArg">内部事件参数。</param>
             public GaussValueChangedEventArgs(GaussValueChangedType valueChangedType, object oldValue, object newValue, EventArgs innerArg = null)
             {
                 this.valueChangedType = valueChangedType;
@@ -333,7 +343,7 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                this.GEOEllipse.EllipseChanged += new Ellipse.EllipseChangedEventHander(this.EllipseChange);
+                this.GEOEllipse.ValueChanged += new Ellipse.EllipseChangedEventHander(this.EllipseChange);
             }
             catch (Exception err)
             {
@@ -416,7 +426,6 @@ namespace GeodeticCoordinateConversion
                 ele.SetAttribute(nameof(Y), this.Y.ToString());
                 ele.SetAttribute(nameof(ZoneType), ((int)this.ZoneType).ToString());
                 ele.SetAttribute(nameof(Zone), this.Zone.ToString());
-                ele.SetAttribute(nameof(Center), this.Center.ToString());
 
                 ele.AppendChild(this.GEOEllipse.ToXmlElement(xmlDocument));
 

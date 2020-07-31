@@ -12,6 +12,11 @@ namespace GeodeticCoordinateConversion
 {
     public partial class Form1 : Form
     {
+        private GEOSettings AppSettings = new GEOSettings();
+        private FileIO DataFile = new FileIO();
+        public BindingList<CoordConvert> CoordData = new BindingList<CoordConvert>();
+        public BindingList<ZoneConvert> ZoneData = new BindingList<ZoneConvert>();
+
         public Form1()
         {
             InitializeComponent();

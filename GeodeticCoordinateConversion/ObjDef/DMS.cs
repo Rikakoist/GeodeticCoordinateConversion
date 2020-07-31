@@ -41,16 +41,12 @@ namespace GeodeticCoordinateConversion
             set
             {
                 if ((value < Restraints.DegreeMin) || (value > Restraints.DegreeMax))
-                {
                     throw new ArgumentOutOfRangeException(ErrMessage.Data.DegreeOutOfRange);
-                }
-                else
-                {
-                    if (d == value)
-                        return;
-                    d = value;
-                    DChanged?.Invoke(this, new EventArgs());
-                }
+                if (d == value)
+                    return;
+                DMSValueChangedEventArgs e = new DMSValueChangedEventArgs(DMSValueChangedType.D, this.d, value);
+                d = value;
+                ValueChanged?.Invoke(this, e);
             }
         }
         /// <summary>
@@ -62,16 +58,12 @@ namespace GeodeticCoordinateConversion
             set
             {
                 if ((value < Restraints.MinuteMin) || (value > Restraints.MinuteMax))
-                {
                     throw new ArgumentOutOfRangeException(ErrMessage.Data.MinuteOutOfRange);
-                }
-                else
-                {
-                    if (m == value)
-                        return;
-                    m = value;
-                    MChanged?.Invoke(this, new EventArgs());
-                }
+                if (m == value)
+                    return;
+                DMSValueChangedEventArgs e = new DMSValueChangedEventArgs(DMSValueChangedType.M, this.m, value);
+                m = value;
+                ValueChanged?.Invoke(this, e);
             }
         }
         /// <summary>
@@ -83,16 +75,12 @@ namespace GeodeticCoordinateConversion
             set
             {
                 if ((value < Restraints.SecondMin) || (value > Restraints.SecondMax))
-                {
                     throw new ArgumentOutOfRangeException(ErrMessage.Data.SecondOutOfRange);
-                }
-                else
-                {
-                    if (s == value)
-                        return;
-                    s = value;
-                    SChanged?.Invoke(this, new EventArgs());
-                }
+                if (s == value)
+                    return;
+                DMSValueChangedEventArgs e = new DMSValueChangedEventArgs(DMSValueChangedType.S, this.s, value);
+                s = value;
+                ValueChanged?.Invoke(this, e);
             }
         }
         /// <summary>
@@ -180,12 +168,46 @@ namespace GeodeticCoordinateConversion
         #endregion
 
         #region Events
-        public delegate void DChangedEventHander(object sender, EventArgs e);
-        public event DChangedEventHander DChanged;
-        public delegate void MChangedEventHander(object sender, EventArgs e);
-        public event MChangedEventHander MChanged;
-        public delegate void SChangedEventHander(object sender, EventArgs e);
-        public event SChangedEventHander SChanged;
+        public delegate void DMSValueChangedEventHander(object sender, DMSValueChangedEventArgs e);
+        public event DMSValueChangedEventHander ValueChanged;
+
+        /// <summary>
+        /// 度分秒值改变事件参数。
+        /// </summary>
+        public class DMSValueChangedEventArgs : EventArgs
+        {
+            private DMSValueChangedType valueChangedType;
+            private object oldValue;
+            private object newValue;
+
+            public DMSValueChangedType ValueChangedType { get { return this.valueChangedType; } }
+            public object OldValue { get { return this.oldValue; } }
+            public object NewValue { get { return this.newValue; } }
+
+            /// <summary>
+            /// 通过度分秒值改变类型初始化。
+            /// </summary>
+            /// <param name="valueChangedType">度分秒值改变类型。</param>
+            public DMSValueChangedEventArgs(DMSValueChangedType valueChangedType)
+            {
+                this.valueChangedType = valueChangedType;
+                this.oldValue = null;
+                this.newValue = null;
+            }
+
+            /// <summary>
+            /// 通过度分秒值改变类型、旧值和新值初始化。
+            /// </summary>
+            /// <param name="valueChangedType">度分秒值改变类型。</param>
+            /// <param name="oldValue">旧值。</param>
+            /// <param name="newValue">新值。</param>
+            public DMSValueChangedEventArgs(DMSValueChangedType valueChangedType, object oldValue, object newValue)
+            {
+                this.valueChangedType = valueChangedType;
+                this.oldValue = oldValue;
+                this.newValue = newValue;
+            }
+        }
         #endregion
 
         #region Methods

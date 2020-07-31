@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using System.Xml;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace GeodeticCoordinateConversion
 {
@@ -236,10 +237,6 @@ namespace GeodeticCoordinateConversion
             try
             {
                 this.Gauss.ValueChanged += new GaussCoord.GaussValueChangedEventHander(this.ChangeState);
-                //this.Gauss.YChanged += new GaussCoord.YChangedEventHander(this.ChangeState);
-                //this.Gauss.EllipseChanged += new GaussCoord.EllipseChangedEventHander(this.ChangeState);
-                //this.Gauss.ZoneChanged += new GaussCoord.ZoneChangedEventHander(this.ChangeState);
-                //this.Gauss.ZoneTypeChanged += new GaussCoord.ZoneTypeChangedEventHander(this.ChangeState);
             }
             catch (Exception err)
             {
@@ -254,10 +251,7 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                this.BL.BChanged += new GEOBL.BChangedEventHander(this.ChangeState);
-                this.BL.LChanged += new GEOBL.LChangedEventHander(this.ChangeState);
-                this.BL.EllipseChanged += new GEOBL.EllipseChangedEventHander(this.ChangeState);
-                this.BL.ZoneTypeChanged += new GEOBL.ZoneTypeChangedEventHander(this.ChangeState);
+                this.BL.ValueChanged += new GEOBL.GEOBLValueChangedEventHander(this.ChangeState);
             }
             catch (Exception err)
             {
@@ -288,8 +282,10 @@ namespace GeodeticCoordinateConversion
                 {
                     BL = Gauss.GaussReverse();
                     BindBLEvents();
+                    this.Error = false;
                     return true;
                 }
+                this.Error = true;
                 return false;
             }
             catch (Exception err)
@@ -316,8 +312,10 @@ namespace GeodeticCoordinateConversion
                 {
                     Gauss = BL.GaussDirect();
                     BindGaussEvents();
+                    this.Error = false;
                     return true;
                 }
+                this.Error = true;
                 return false;
             }
             catch (Exception err)

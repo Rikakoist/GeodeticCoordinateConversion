@@ -291,8 +291,10 @@ namespace GeodeticCoordinateConversion
                     Gauss3 = Gauss6.GaussReverse() //六度带反算
                           .GaussDirect(GEOZoneType.Zone3);   //三度带正算
                     BindGauss3Events();
+                    this.Error = false;
                     return true;
                 }
+                this.Error = true;
                 return false;
             }
             catch (Exception err)
@@ -320,8 +322,10 @@ namespace GeodeticCoordinateConversion
                     Gauss6 = Gauss3.GaussReverse()   //三度带反算
                           .GaussDirect(GEOZoneType.Zone6);   //六度带正算
                     BindGauss6Events();
+                    this.Error = false;
                     return true;
                 }
+                this.Error = true;
                 return false;
             }
             catch (Exception err)
