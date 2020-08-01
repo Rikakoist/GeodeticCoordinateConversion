@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GeodeticCoordinateConversion
+namespace GeodeticCoordinateConversion.Deprecated
 {
     /// <summary>
     /// 坐标转换类（已废弃）。

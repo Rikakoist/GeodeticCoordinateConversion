@@ -176,13 +176,9 @@ namespace GeodeticCoordinateConversion
         /// </summary>
         public class DMSValueChangedEventArgs : EventArgs
         {
-            private DMSValueChangedType valueChangedType;
-            private object oldValue;
-            private object newValue;
-
-            public DMSValueChangedType ValueChangedType { get { return this.valueChangedType; } }
-            public object OldValue { get { return this.oldValue; } }
-            public object NewValue { get { return this.newValue; } }
+            public DMSValueChangedType ValueChangedType { get; }
+            public object OldValue { get; }
+            public object NewValue { get; }
 
             /// <summary>
             /// 通过度分秒值改变类型初始化。
@@ -190,9 +186,9 @@ namespace GeodeticCoordinateConversion
             /// <param name="valueChangedType">度分秒值改变类型。</param>
             public DMSValueChangedEventArgs(DMSValueChangedType valueChangedType)
             {
-                this.valueChangedType = valueChangedType;
-                this.oldValue = null;
-                this.newValue = null;
+                this.ValueChangedType = valueChangedType;
+                this.OldValue = null;
+                this.NewValue = null;
             }
 
             /// <summary>
@@ -203,9 +199,9 @@ namespace GeodeticCoordinateConversion
             /// <param name="newValue">新值。</param>
             public DMSValueChangedEventArgs(DMSValueChangedType valueChangedType, object oldValue, object newValue)
             {
-                this.valueChangedType = valueChangedType;
-                this.oldValue = oldValue;
-                this.newValue = newValue;
+                this.ValueChangedType = valueChangedType;
+                this.OldValue = oldValue;
+                this.NewValue = newValue;
             }
         }
         #endregion

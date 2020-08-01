@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 namespace GeodeticCoordinateConversion
 {
     /// <summary>
-    /// 用户控件使用的基类。
+    /// 用户控件使用的用于指示数据状态的基类。
     /// </summary>
-    public class CalcObj
+    public class DataStatus
     {
         /// <summary>
         /// 是否选中。

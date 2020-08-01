@@ -41,10 +41,6 @@ namespace GeodeticCoordinateConversion
         /// 椭球。
         /// </summary>
         public Ellipse GEOEllipse;
-        /// <summary>
-        /// 脏数据。
-        /// </summary>
-        public bool IsDirty = true;
         #endregion
 
         #region Properties
@@ -188,7 +184,7 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                this.guid = System.Guid.NewGuid();
+                this.guid = Guid.NewGuid();
                 this.ZoneType = (GEOZoneType)AppSettings.DefaultZoneType;
                 this.GEOEllipse = new Ellipse();
                 BindEllipseEvent();
@@ -207,7 +203,7 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                this.guid = System.Guid.NewGuid();
+                this.guid = Guid.NewGuid();
                 this.ZoneType = GEOZoneType.None;
                 this.GEOEllipse = new Ellipse(EllipseType);
                 BindEllipseEvent();
@@ -226,7 +222,7 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                this.guid = System.Guid.NewGuid();
+                this.guid = Guid.NewGuid();
                 this.ZoneType = GEOZoneType.None;
                 this.GEOEllipse = E ?? throw new ArgumentNullException(ErrMessage.GEOEllipse.EllipseNull);
                 BindEllipseEvent();
@@ -249,7 +245,7 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                this.guid = System.Guid.NewGuid();
+                this.guid = Guid.NewGuid();
                 this.X = X; this.Y = Y;
                 this.ZoneType = ZoneType;
                 this.Zone = Zone;
@@ -295,15 +291,10 @@ namespace GeodeticCoordinateConversion
         /// </summary>
         public class GaussValueChangedEventArgs : EventArgs
         {
-            private readonly GaussValueChangedType valueChangedType;
-            private readonly object oldValue;
-            private readonly object newValue;
-            private readonly EventArgs innerArg;
-
-            public GaussValueChangedType ValueChangedType { get { return this.valueChangedType; } }
-            public object OldValue { get { return this.oldValue; } }
-            public object NewValue { get { return this.newValue; } }
-            public EventArgs InnerArg { get { return this.innerArg; } }
+            public GaussValueChangedType ValueChangedType { get; }
+            public object OldValue { get; }
+            public object NewValue { get; }
+            public EventArgs InnerArg { get; }
 
             /// <summary>
             /// 通过高斯坐标值改变类型初始化。
@@ -312,10 +303,10 @@ namespace GeodeticCoordinateConversion
             /// <param name="innerArg">内部事件参数。</param>
             public GaussValueChangedEventArgs(GaussValueChangedType valueChangedType, EventArgs innerArg = null)
             {
-                this.valueChangedType = valueChangedType;
-                this.oldValue = null;
-                this.newValue = null;
-                this.innerArg = innerArg;
+                this.ValueChangedType = valueChangedType;
+                this.OldValue = null;
+                this.NewValue = null;
+                this.InnerArg = innerArg;
             }
 
             /// <summary>
@@ -327,10 +318,10 @@ namespace GeodeticCoordinateConversion
             /// <param name="innerArg">内部事件参数。</param>
             public GaussValueChangedEventArgs(GaussValueChangedType valueChangedType, object oldValue, object newValue, EventArgs innerArg = null)
             {
-                this.valueChangedType = valueChangedType;
-                this.oldValue = oldValue;
-                this.newValue = newValue;
-                this.innerArg = innerArg;
+                this.ValueChangedType = valueChangedType;
+                this.OldValue = oldValue;
+                this.NewValue = newValue;
+                this.InnerArg = innerArg;
             }
         }
         #endregion

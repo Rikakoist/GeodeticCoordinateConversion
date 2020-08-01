@@ -7,6 +7,9 @@ using System.Data.OleDb;
 using System.Data;
 using System.Windows.Forms;
 using System.IO;
+using GeodeticCoordinateConversion.Deprecated;
+using ADOX;
+using System.Runtime.InteropServices;
 
 namespace GeodeticCoordinateConversion
 {
@@ -40,7 +43,6 @@ namespace GeodeticCoordinateConversion
                         throw new DirectoryNotFoundException(ErrMessage.Generic.DirectoryNotFound);
                     dbPath = Path.Combine(value, AppSettings.DBName);
                     CheckDBExists();
-                    UpdateConnInfo();
                     this.DBPathChanged?.Invoke(this, null);
                 }
                 catch (Exception err)
@@ -49,7 +51,7 @@ namespace GeodeticCoordinateConversion
                 }
             }
         }
-        public string ConnectionInfo { get; private set; }
+        public string ConnectionInfo { get=>"Provider = Microsoft.Jet.OLEDB.4.0; Data Source = " + DBPath;}
 
         /// <summary>
         /// 默认的数据库管理构造函数，数据库路径为配置文件中路径。
@@ -94,9 +96,6 @@ namespace GeodeticCoordinateConversion
         {
             if (!File.Exists(DBPath))
             {
-                //Need confirmation
-                //if (MessageBoxes.Confirm(DBPath + " 不存在，是否创建？") == "OK")
-                //{
                 System.Reflection.Assembly DBAssembly = System.Reflection.Assembly.GetExecutingAssembly();
                 var DBStream = DBAssembly.GetManifestResourceStream("GeodeticCoordinateConversion.GeoConvertDB.mdb");
                 byte[] DBResource = new Byte[DBStream.Length];
@@ -104,20 +103,28 @@ namespace GeodeticCoordinateConversion
                 var DBFileStream = new FileStream(DBPath, FileMode.Create);
                 DBFileStream.Write(DBResource, 0, (int)DBStream.Length);
                 DBFileStream.Close();
-                //}
-                //else
-                //{
-                //    throw new Exception("数据库创建操作被用户取消。");
-                //}
             }
         }
 
         /// <summary>
-        /// 更新连接信息。
+        /// 检查GUID在对应表中是否存在。
         /// </summary>
-        private void UpdateConnInfo()
+        /// <param name="TableName">表名。</param>
+        /// <param name="guid">要检查的GUID。</param>
+        /// <returns>是否存在。</returns>
+        public bool CheckGUID(string TableName,Guid guid)
         {
-            ConnectionInfo = "Provider = Microsoft.Jet.OLEDB.4.0; Data Source = " + DBPath;
+            using (OleDbConnection con = new OleDbConnection(ConnectionInfo))
+            {
+                con.Open();
+                OleDbCommand cmd = new OleDbCommand
+                {
+                    CommandText = "SELECT GUID FROM " + TableName + " WHERE GUID = '"+guid.ToString()+"'",
+                    Connection = con
+                };
+                OleDbDataReader R = cmd.ExecuteReader();
+                return R.HasRows;
+            }
         }
 
         //保存操作

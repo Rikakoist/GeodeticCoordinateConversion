@@ -195,15 +195,10 @@ namespace GeodeticCoordinateConversion
         /// </summary>
         public class GEOBLValueChangedEventArgs : EventArgs
         {
-            private GEOBLValueChangedType valueChangedType;
-            private object oldValue;
-            private object newValue;
-            private EventArgs innerArg;
-
-            public GEOBLValueChangedType ValueChangedType { get { return this.valueChangedType; } }
-            public object OldValue { get { return this.oldValue; } }
-            public object NewValue { get { return this.newValue; } }
-            public EventArgs InnerArg { get { return this.innerArg; } }
+            public GEOBLValueChangedType ValueChangedType { get; }
+            public object OldValue { get; }
+            public object NewValue { get; }
+            public EventArgs InnerArg { get; }
 
             /// <summary>
             /// 通过度分秒经纬度值改变类型初始化。
@@ -212,10 +207,10 @@ namespace GeodeticCoordinateConversion
             /// <param name="innerArg">内部事件参数。</param>
             public GEOBLValueChangedEventArgs(GEOBLValueChangedType valueChangedType, EventArgs innerArg = null)
             {
-                this.valueChangedType = valueChangedType;
-                this.oldValue = null;
-                this.newValue = null;
-                this.innerArg = innerArg;
+                this.ValueChangedType = valueChangedType;
+                this.OldValue = null;
+                this.NewValue = null;
+                this.InnerArg = innerArg;
             }
 
             /// <summary>
@@ -227,10 +222,10 @@ namespace GeodeticCoordinateConversion
             /// <param name="innerArg">内部事件参数。</param>
             public GEOBLValueChangedEventArgs(GEOBLValueChangedType valueChangedType, object oldValue, object newValue, EventArgs innerArg = null)
             {
-                this.valueChangedType = valueChangedType;
-                this.oldValue = oldValue;
-                this.newValue = newValue;
-                this.innerArg = innerArg;
+                this.ValueChangedType = valueChangedType;
+                this.OldValue = oldValue;
+                this.NewValue = newValue;
+                this.InnerArg = innerArg;
             }
         }
         #endregion

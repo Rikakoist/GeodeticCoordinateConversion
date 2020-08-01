@@ -8,7 +8,7 @@ using System.Windows.Forms;
 using System.Xml;
 using System.Data;
 
-namespace GeodeticCoordinateConversion
+namespace GeodeticCoordinateConversion.Deprecated
 {
     class IO
     {

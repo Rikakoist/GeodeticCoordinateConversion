@@ -166,40 +166,6 @@ namespace GeodeticCoordinateConversion
         {
             this.B = B; this.L = L; this.ZoneType = ZoneType;
         }
-
-        /// <summary>
-        /// 根据分带类型重新计算带号和中央经线，在更改分带类型后自动触发。
-        /// </summary>
-        /// <returns>计算是否成功。</returns>
-        private bool Recalc()
-        {
-            /*
-            switch (this.ZoneType)
-            {
-                case GEOZoneType.None:
-                    {
-                        throw new ArgumentException(ErrMessage.GEOZone.ZoneTypeNotSet);
-                    }
-                case GEOZoneType.Zone3:
-                    {
-                        this.Zone = Convert.ToInt32(Math.Round(this.L / 3));
-                        this.Center = 3.0 * this.Zone;
-                        break;
-                    }
-                case GEOZoneType.Zone6:
-                    {
-                        this.Zone = Convert.ToInt32(Math.Round((this.L + 3) / 6));
-                        this.Center = 6.0 * this.Zone - 3;
-                        break;
-                    }
-                default:
-                    {
-                        throw new ArgumentException(ErrMessage.GEOZone.ZoneTypeUnknown);
-                    }
-            }*/
-            return true;
-            
-        }
     }
 
     class Tab1File

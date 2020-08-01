@@ -64,11 +64,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ObjDef\CalcObj.cs" />
-    <Compile Include="CoordConvertLayout.cs">
+    <Compile Include="ObjDef\DataStatus.cs" />
+    <Compile Include="Controls\CoordConvertLayout.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="CoordConvertLayout.Designer.cs">
+    <Compile Include="Controls\CoordConvertLayout.Designer.cs">
       <DependentUpon>CoordConvertLayout.cs</DependentUpon>
     </Compile>
     <Compile Include="ObjDef\DMS.cs" />
@@ -109,7 +109,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StaticObj\Restraints.cs" />
     <Compile Include="ObjDef\ZoneConvert.cs" />
-    <EmbeddedResource Include="CoordConvertLayout.resx">
+    <EmbeddedResource Include="Controls\CoordConvertLayout.resx">
       <DependentUpon>CoordConvertLayout.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
@@ -167,6 +167,17 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="ADOX">
+      <Guid>{00000600-0000-0010-8000-00AA006D2EA4}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

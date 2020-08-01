@@ -15,6 +15,7 @@ namespace GeodeticCoordinateConversion
     {
         private GEOSettings AppSettings = new GEOSettings();
         private FileIO DataFile = new FileIO();
+        //private DBIO DBFile = new DBIO();
 
         public BindingList<CoordConvert> CoordData = new BindingList<CoordConvert>();
         public BindingList<ZoneConvert> ZoneData = new BindingList<ZoneConvert>();
@@ -24,6 +25,8 @@ namespace GeodeticCoordinateConversion
         public Form1()
         {
             InitializeComponent();
+
+            //坐标转换事件绑定
             this.CoordDGV = Coord.DGV;
             Coord.Load += new EventHandler(this.InitCoordConvert);
 
@@ -36,12 +39,9 @@ namespace GeodeticCoordinateConversion
 
             Coord.ConvertSelectionChange += new CoordConvertLayout.ConvertSelectionChangeEventHander(this.ConvertSelection);
 
-            //Coord.SelectAllBtn.Click += new System.EventHandler(this.ConvertSelection);
-            //Coord.SelectNoneBtn.Click += new System.EventHandler(this.ConvertSelection);
-            //Coord.ReverseSelectBtn.Click += new System.EventHandler(this.ConvertSelection);      
-
             Coord.TransferBtn.Click += new System.EventHandler(this.TransferCoord2Gauss);
 
+            //换带事件绑定
             this.ZoneDGV = Zone.DGV;
             Zone.TransferBtn.Visible = false;
             Zone.Load += new EventHandler(this.InitZoneConvert);
@@ -54,9 +54,6 @@ namespace GeodeticCoordinateConversion
             Zone.ReverseBtn.Click += new System.EventHandler(this.ZoneConvertOperation);
 
             Zone.ConvertSelectionChange += new CoordConvertLayout.ConvertSelectionChangeEventHander(this.ConvertSelection);
-            ////Zone.SelectAllBtn.Click += new System.EventHandler(this.ConvertSelection);
-            ////Zone.SelectNoneBtn.Click += new System.EventHandler(this.ConvertSelection);
-            ////Zone.ReverseSelectBtn.Click += new System.EventHandler(this.ConvertSelection);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -66,6 +63,7 @@ namespace GeodeticCoordinateConversion
 
         #region Public
 
+        //添加行
         private void AddRow(object sender, EventArgs e)
         {
             if (sender == Coord.AddRowBtn)
@@ -78,6 +76,7 @@ namespace GeodeticCoordinateConversion
             }
         }
 
+        //加载数据
         private void LoadData(object sender, EventArgs e)
         {
             if (sender == Coord.LoadBtn)
@@ -94,25 +93,33 @@ namespace GeodeticCoordinateConversion
             }
         }
 
+        //保存数据
         private void SaveData(object sender, EventArgs e)
         {
             if (sender == Coord.SaveBtn)
             {
-                DataFile.SaveCoordConvertData(CoordData.ToList());
+                //foreach(CoordConvert c in CoordData)
+                //{
+                //    c.SaveToDB();
+                //}
+                if (CoordData.Count > 0)
+                    DataFile.SaveCoordConvertData(CoordData.ToList());
             }
             if (sender == Zone.SaveBtn)
             {
-                DataFile.SaveZoneConvertData(ZoneData.ToList());
+                if (ZoneData.Count > 0)
+                    DataFile.SaveZoneConvertData(ZoneData.ToList());
             }
         }
 
+        //选择操作
         private void ConvertSelection(object sender, string tag, EventArgs e)
         {
             if (sender == Coord)
             {
                 for (int i = 0; i < CoordData.Count; i++)
                 {
-                    CalcObj c = CoordData[i];
+                    DataStatus c = CoordData[i];
                     if (tag == "SelectAll")
                     {
                         if (!c.Selected)
@@ -135,7 +142,7 @@ namespace GeodeticCoordinateConversion
             {
                 for (int i = 0; i < ZoneData.Count; i++)
                 {
-                    CalcObj c = ZoneData[i];
+                    DataStatus c = ZoneData[i];
                     if (tag == "SelectAll")
                     {
                         if (!c.Selected)
@@ -158,6 +165,7 @@ namespace GeodeticCoordinateConversion
         #endregion
 
         #region CoordConvert
+        //初始化坐标转换
         private void InitCoordConvert(object sender, EventArgs e)
         {
             //绑定数据源
@@ -193,6 +201,7 @@ namespace GeodeticCoordinateConversion
             CoordDGV.Columns.Insert(CoordDGV.Columns["Y"].Index + 1, Zo);
         }
 
+        //坐标转换正反算操作
         private void CoordConvertOperation(object sender, EventArgs e)
         {
             for (int i = 0; i < CoordData.Count; i++)
@@ -214,6 +223,7 @@ namespace GeodeticCoordinateConversion
             CoordDGV.Invalidate();
         }
 
+        //坐标转换转高斯
         private void TransferCoord2Gauss(object sender, EventArgs e)
         {
             foreach (GaussCoord G in TransferGauss())
@@ -241,6 +251,7 @@ namespace GeodeticCoordinateConversion
         #endregion
 
         #region ZoneConvert
+        //初始化坐标换带
         private void InitZoneConvert(object sender, EventArgs e)
         {
             //绑定数据源
@@ -262,6 +273,7 @@ namespace GeodeticCoordinateConversion
             ZoneDGV.Columns.Insert(ZoneDGV.Columns["Y6"].Index + 1, Ell);
         }
 
+        //换带操作
         private void ZoneConvertOperation(object sender, EventArgs e)
         {
             for (int i = 0; i < ZoneData.Count; i++)

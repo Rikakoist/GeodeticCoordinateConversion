@@ -70,17 +70,17 @@ namespace GeodeticCoordinateConversion
             if (row >= DGV.Rows.Count)
                 return;
 
-            CalcObj o = (DGV.DataSource as BindingList<CoordConvert> != null)
-                ? ((DGV.DataSource as BindingList<CoordConvert>)[row] as CalcObj)
-                : ((DGV.DataSource as BindingList<ZoneConvert>)[row] as CalcObj);
+            DataStatus o = (DGV.DataSource as BindingList<CoordConvert> != null)
+                ? ((DGV.DataSource as BindingList<CoordConvert>)[row] as DataStatus)
+                : ((DGV.DataSource as BindingList<ZoneConvert>)[row] as DataStatus);
 
-            DGV.Rows[row].Cells[nameof(CalcObj.Selected)].Style.BackColor =
+            DGV.Rows[row].Cells[nameof(DataStatus.Selected)].Style.BackColor =
                     o.Selected ? Color.DarkGreen : Color.White;
-            DGV.Rows[row].Cells[nameof(CalcObj.Error)].Style.BackColor =
+            DGV.Rows[row].Cells[nameof(DataStatus.Error)].Style.BackColor =
                     (o.Dirty || (!o.Calculated)) ? Color.White : (o.Error ? Color.Red : Color.Green);
-            DGV.Rows[row].Cells[nameof(CalcObj.Dirty)].Style.BackColor =
+            DGV.Rows[row].Cells[nameof(DataStatus.Dirty)].Style.BackColor =
                     o.Dirty ? Color.RosyBrown : Color.White;
-            DGV.Rows[row].Cells[nameof(CalcObj.Calculated)].Style.BackColor =
+            DGV.Rows[row].Cells[nameof(DataStatus.Calculated)].Style.BackColor =
                    o.Calculated ? Color.ForestGreen : Color.White;
         }
 

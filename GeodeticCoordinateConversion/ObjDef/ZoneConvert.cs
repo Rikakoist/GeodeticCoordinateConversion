@@ -12,7 +12,7 @@ namespace GeodeticCoordinateConversion
     /// <summary>
     /// 6度带、3度带互转类。
     /// </summary>
-    public class ZoneConvert:CalcObj
+    public class ZoneConvert:DataStatus
     {
         #region Fields
         /// <summary>

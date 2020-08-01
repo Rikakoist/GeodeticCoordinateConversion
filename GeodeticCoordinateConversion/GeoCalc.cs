@@ -80,47 +80,6 @@ namespace GeodeticCoordinateConversion
         #endregion
 
         /// <summary>
-        /// 字符串转换到度分秒(DDD.MMSS)。
-        /// </summary>
-        /// <param name="InputStr">要转换到度分秒(DDD.MMSS)的字符串。</param>
-        /// <returns>转换到的度分秒。</returns>
-        internal static DMS Str2DMS(string InputStr)
-        {
-            DMS ResultDMS = new DMS();
-            if((InputStr.IndexOf('.') == 0)|| (InputStr.IndexOf('.') == InputStr.Length-1)||((InputStr.Split('.')).Length>2))
-            {
-                throw new FormatException(ErrMessage.Data.WrongDigitPosition);
-            }
-            if (InputStr.IndexOf('.') > 0)
-            {
-                string[] SplitStr = InputStr.Split('.');
-                //小数点后补0至四位
-                while (SplitStr[1].Length < 4)
-                {
-                    SplitStr[1] += "0";
-                }
-
-                //从字符串拆分度分秒
-                ResultDMS.D = Convert.ToInt32(SplitStr[0]);
-                ResultDMS.M = Convert.ToInt32(SplitStr[1].Substring(0, 2));
-                ResultDMS.S = Convert.ToDouble(SplitStr[1].Substring(2));
-            }
-            else
-            {
-                ResultDMS.D = Convert.ToInt32(InputStr);
-                ResultDMS.M = 0;
-                ResultDMS.S = 0;
-            }
-
-            //确认小数点位置
-            while (ResultDMS.S > 60.0)
-            {
-                ResultDMS.S /= 10;
-            }
-            return ResultDMS;
-        }
-
-        /// <summary>
         /// 度分秒(DDD.MMSS)转换到字符串。
         /// </summary>
         /// <param name="InputDMS">要转换到字符串的度分秒(DDD.MMSS)。</param>
@@ -135,23 +94,6 @@ namespace GeodeticCoordinateConversion
                 S = (Convert.ToDouble(S) * 10.0).ToString();
             }
             return InputDMS.D.ToString() + "." + InputDMS.M.ToString("00") + S;
-        }
-
-        //求中央经线
-        internal static double GetCenter(int Type, int Zone)
-        {
-            if (Type == 6)
-            {
-                return (6 * Zone - 3);
-            }
-            else if (Type == 3)
-            {
-                return (3 * Zone);
-            }
-            else
-            {
-                throw new Exception("分带不正确！");
-            }
         }
 
         //提取带号

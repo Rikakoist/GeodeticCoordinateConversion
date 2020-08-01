@@ -9,23 +9,20 @@ using System.Xml;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Reflection;
+using System.Data.OleDb;
 
 namespace GeodeticCoordinateConversion
 {
     /// <summary>
     /// 经纬度、高斯互转对象。
     /// </summary>
-    public class CoordConvert:CalcObj
+    public class CoordConvert : DataStatus
     {
         #region Fields
         /// <summary>
         /// 全局唯一ID。
         /// </summary>
         public readonly Guid guid;
-        //public bool Selected = true;
-        //public bool Error = true;
-        //public bool Dirty = false;
-        //public bool Calculated = false;
         /// <summary>
         /// 地理经纬度对象。
         /// </summary>
@@ -104,18 +101,6 @@ namespace GeodeticCoordinateConversion
                 Gauss.ZoneType = (GEOZoneType)int.Parse(value);
             }
         }
-        /*
-        [DisplayName("分带")]
-        public GEOZoneType ZoneType
-        {
-            get => BL.ZoneType;
-            set
-            {
-                BL.ZoneType = value;
-                Gauss.ZoneType = value;
-            }
-        }
-        */
         /// <summary>
         /// 高斯带号。
         /// </summary>
@@ -208,7 +193,7 @@ namespace GeodeticCoordinateConversion
             }
             catch (Exception err)
             {
-                throw new XmlException(ErrMessage.ZoneConvert.InitializeError, err);
+                throw new XmlException(ErrMessage.CoordConvert.InitializeError, err);
             }
         }
         #endregion
@@ -348,6 +333,68 @@ namespace GeodeticCoordinateConversion
             catch (Exception err)
             {
                 throw new XmlException(ErrMessage.ZoneConvert.SaveToXmlFailed, err);
+            }
+        }
+
+        public bool SaveToDB()
+        {
+            try
+            {
+                DBIO db = new DBIO();
+                using (OleDbConnection con = new OleDbConnection(db.ConnectionInfo))
+                {
+                    con.Open();
+                    OleDbCommand cmd = new OleDbCommand()
+                    {
+                        Connection = con,
+                    };
+
+                    if (db.CheckGUID(nameof(CoordConvert), this.guid))
+                    {
+                        cmd.CommandText = "UPDATE CoordConvert SET Selected = ?, Dirty = ?, Calculated = ?, [Error] = ?, BLGUID = ?, GaussGUID = ? WHERE [GUID] = ?";
+                        //cmd.CommandText = "UPDATE CoordConvert SET Selected = @Selected, Dirty = @Dirty, Calculated = @Calculated, Error = @Error, BLGUID = @BLGUID, GaussGUID = @GaussGUID WHERE GUID = @GUID";
+                        //cmd.CommandText = "Delete * FROM CoordConvert WHERE [GUID] = ?";
+                    }
+                    else
+                    {
+                        cmd.CommandText = "INSERT INTO CoordConvert ([GUID], Selected, Dirty, Calculated, [Error], BLGUID, GaussGUID) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                        //cmd.CommandText = "INSERT INTO CoordConvert (GUID, Selected, Dirty, Calculated, Error, BLGUID, GaussGUID) VALUES (@GUID, @Selected, @Dirty, @Calculated, @Error, @BLGUID, @GaussGUID)";
+                    }
+
+                    //cmd.Parameters.Add(guid.ToString());
+                    //cmd.Parameters.Add(Selected);
+                    //cmd.Parameters.Add(Dirty);
+                    //cmd.Parameters.Add(Calculated);
+                    //cmd.Parameters.Add(Error);
+                    //cmd.Parameters.Add(BL.guid.ToString());
+                    //cmd.Parameters.Add(Gauss.guid.ToString());
+
+                    //cmd.Parameters.AddWithValue("@GUID", guid.ToString());
+                    //cmd.Parameters.AddWithValue("@Selected", Selected);
+                    //cmd.Parameters.AddWithValue("@Dirty", Dirty);
+                    //cmd.Parameters.AddWithValue("@Calculated", Calculated);
+                    //cmd.Parameters.AddWithValue("@Error", Error);
+                    //cmd.Parameters.AddWithValue("@BLGUID", BL.guid.ToString());
+                    //cmd.Parameters.AddWithValue("@GaussGUID", Gauss.guid.ToString());
+
+                    cmd.Parameters.AddWithValue("[GUID]", guid.ToString());
+                    cmd.Parameters.AddWithValue("Selected", Selected);
+                    cmd.Parameters.AddWithValue("Dirty", Dirty);
+                    cmd.Parameters.AddWithValue("Calculated", Calculated);
+                    cmd.Parameters.AddWithValue("[Error]", Error);
+                    cmd.Parameters.AddWithValue("BLGUID", BL.guid.ToString());
+                    cmd.Parameters.AddWithValue("GaussGUID", Gauss.guid.ToString());
+
+                    //MessageBox.Show(cmd.CommandText.ToString());
+
+                    MessageBox.Show(cmd.ExecuteNonQuery().ToString());
+                }
+                return true;
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show(e.ToString()); 
+                return false;
             }
         }
         #endregion

@@ -148,9 +148,13 @@ namespace GeodeticCoordinateConversion
             }
         }
 
+        /// <summary>
+        /// 保存坐标转换数据到文件。
+        /// </summary>
+        /// <param name="Data">坐标转换数据。</param>
+        /// <returns>操作结果。</returns>
         public bool SaveCoordConvertData(List<CoordConvert> Data)
-        {
-            
+        {          
             foreach (XmlNode x in rootNode.SelectNodes(NodeInfo.CoordConvertNodePath))
             {
                 rootNode.RemoveChild(x);
@@ -164,6 +168,10 @@ namespace GeodeticCoordinateConversion
             return true;
         }
 
+        /// <summary>
+        /// 从文件读取坐标转换数据。
+        /// </summary>
+        /// <returns>操作结果。</returns>
         public List<CoordConvert> LoadCoordConvertData()
         {
             List<CoordConvert> Data = new List<CoordConvert>();
@@ -180,9 +188,13 @@ namespace GeodeticCoordinateConversion
             return Data; 
         }
 
+        /// <summary>
+        /// 保存换带数据到文件。
+        /// </summary>
+        /// <param name="Data">换带数据。</param>
+        /// <returns>操作结果。</returns>
         public bool SaveZoneConvertData(List<ZoneConvert> Data)
         {
-
             foreach (XmlNode x in rootNode.SelectNodes(NodeInfo.ZoneConvertNodePath))
             {
                 rootNode.RemoveChild(x);
@@ -196,6 +208,10 @@ namespace GeodeticCoordinateConversion
             return true;
         }
 
+        /// <summary>
+        /// 从文件读取换带数据。
+        /// </summary>
+        /// <returns>操作结果。</returns>
         public List<ZoneConvert> LoadZoneConvertData()
         {
             List<ZoneConvert> Data = new List<ZoneConvert>();
