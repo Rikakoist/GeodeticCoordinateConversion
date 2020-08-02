@@ -38,7 +38,7 @@ namespace GeodeticCoordinateConversion
             }
 
             AppSettings.Save();
-            Application.Run(new Form1());
+            Application.Run(new MainForm());
         }
     }
 }

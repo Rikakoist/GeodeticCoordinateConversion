@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace GeodeticCoordinateConversion
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         private GEOSettings AppSettings = new GEOSettings();
         private FileIO DataFile = new FileIO();
@@ -22,7 +22,7 @@ namespace GeodeticCoordinateConversion
         DataGridView CoordDGV;
         DataGridView ZoneDGV;
 
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
 
@@ -244,27 +244,16 @@ namespace GeodeticCoordinateConversion
         //坐标转换转高斯
         private void TransferCoord2Gauss(object sender, EventArgs e)
         {
-            foreach (GaussCoord G in TransferGauss())
-            {
-                ZoneData.Add(new ZoneConvert(G));
-            }
-        }
-
-        /// <summary>
-        /// 生成高斯坐标列表。
-        /// </summary>
-        /// <returns>高斯坐标列表。</returns>
-        public List<GaussCoord> TransferGauss()
-        {
-            List<GaussCoord> G = new List<GaussCoord>();
+            if (CoordData.Count <= 0)
+                return;
             foreach (CoordConvert c in CoordData)
             {
                 if (c.Selected && (!c.Error) && (!(c.Gauss is null)))
                 {
-                    G.Add(c.Gauss);
+                    ZoneData.Add(new ZoneConvert(c.Gauss));
                 }
             }
-            return G;
+            ConvertTabControl.SelectedTab = ZoneTabPage;
         }
         #endregion
 
