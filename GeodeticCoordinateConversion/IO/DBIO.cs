@@ -51,7 +51,7 @@ namespace GeodeticCoordinateConversion
                 }
             }
         }
-        public string ConnectionInfo { get=>"Provider = Microsoft.Jet.OLEDB.4.0; Data Source = " + DBPath;}
+        public string ConnectionInfo { get => "Provider = Microsoft.Jet.OLEDB.4.0; Data Source = " + DBPath; }
 
         /// <summary>
         /// 默认的数据库管理构造函数，数据库路径为配置文件中路径。
@@ -110,7 +110,7 @@ namespace GeodeticCoordinateConversion
         /// <param name="TableName">表名。</param>
         /// <param name="guid">要检查的GUID。</param>
         /// <returns>是否存在。</returns>
-        public bool CheckGUID(string TableName,Guid guid)
+        public bool CheckGUID(string TableName, Guid guid)
         {
             using (OleDbConnection con = new OleDbConnection(ConnectionInfo))
             {
@@ -126,7 +126,13 @@ namespace GeodeticCoordinateConversion
             }
         }
 
-        public DataRow SelectByGUID(string TableName,Guid guid)
+        /// <summary>
+        /// 返回指定表中该GUID的第一条记录。
+        /// </summary>
+        /// <param name="TableName">表名。</param>
+        /// <param name="guid">要查询的GUID。</param>
+        /// <returns></returns>
+        public DataRow SelectByGUID(string TableName, Guid guid)
         {
             using (OleDbConnection con = new OleDbConnection(ConnectionInfo))
             {
@@ -152,8 +158,20 @@ namespace GeodeticCoordinateConversion
         {
             if (Data.Count <= 0)
                 return false;
-
-            //todo
+            using (OleDbConnection con = new OleDbConnection(ConnectionInfo))
+            {
+                con.Open();
+                OleDbCommand cmd = new OleDbCommand
+                {
+                    CommandText = "DELETE * FROM CoordConvert",
+                    Connection = con
+                };
+                cmd.ExecuteNonQuery();
+            }
+            foreach (CoordConvert c in Data)
+            {
+                c.SaveToDB();
+            }
             return true;
         }
 
@@ -173,12 +191,64 @@ namespace GeodeticCoordinateConversion
                     Connection = con
                 };
                 OleDbDataAdapter Adapter = new OleDbDataAdapter(cmd);
-                DataTable dt = new DataTable();                
+                DataTable dt = new DataTable();
                 Adapter.Fill(dt);
-                
+
                 foreach (DataRow r in dt.Rows)
                 {
                     Data.Add(new CoordConvert(Guid.Parse(r["UID"].ToString())));
+                }
+            }
+            return Data;
+        }
+
+        /// <summary>
+        /// 保存换带数据到数据库。
+        /// </summary>
+        /// <returns>操作结果。</returns>
+        public bool SaveZoneConvertData(List<ZoneConvert> Data)
+        {
+            if (Data.Count <= 0)
+                return false;
+            using (OleDbConnection con = new OleDbConnection(ConnectionInfo))
+            {
+                con.Open();
+                OleDbCommand cmd = new OleDbCommand
+                {
+                    CommandText = "DELETE * FROM ZoneConvert",
+                    Connection = con
+                };
+                cmd.ExecuteNonQuery();
+            }
+            foreach (ZoneConvert c in Data)
+            {
+                c.SaveToDB();
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// 从数据库读取换带数据。
+        /// </summary>
+        /// <returns>读取的列表。</returns>
+        public List<ZoneConvert> LoadZoneConvertData()
+        {
+            List<ZoneConvert> Data = new List<ZoneConvert>();
+            using (OleDbConnection con = new OleDbConnection(ConnectionInfo))
+            {
+                con.Open();
+                OleDbCommand cmd = new OleDbCommand
+                {
+                    CommandText = "SELECT UID FROM ZoneConvert",
+                    Connection = con
+                };
+                OleDbDataAdapter Adapter = new OleDbDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                Adapter.Fill(dt);
+
+                foreach (DataRow r in dt.Rows)
+                {
+                    Data.Add(new ZoneConvert(Guid.Parse(r["UID"].ToString())));
                 }
             }
             return Data;

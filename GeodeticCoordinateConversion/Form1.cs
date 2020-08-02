@@ -33,7 +33,7 @@ namespace GeodeticCoordinateConversion
             Coord.AddRowBtn.Click += new System.EventHandler(this.AddRow);
             Coord.LoadFileBtn.Click += new System.EventHandler(this.LoadData);
             Coord.SaveFileBtn.Click += new System.EventHandler(this.SaveData);
-            Coord.LoadDBBtn.Click+= new System.EventHandler(this.LoadData);
+            Coord.LoadDBBtn.Click += new System.EventHandler(this.LoadData);
             Coord.SaveDBBtn.Click += new System.EventHandler(this.SaveData);
 
             Coord.DirectBtn.Click += new System.EventHandler(this.CoordConvertOperation);
@@ -51,6 +51,8 @@ namespace GeodeticCoordinateConversion
             Zone.AddRowBtn.Click += new System.EventHandler(this.AddRow);
             Zone.LoadFileBtn.Click += new System.EventHandler(this.LoadData);
             Zone.SaveFileBtn.Click += new System.EventHandler(this.SaveData);
+            Zone.LoadDBBtn.Click += new System.EventHandler(this.LoadData);
+            Zone.SaveDBBtn.Click += new System.EventHandler(this.SaveData);
 
             Zone.DirectBtn.Click += new System.EventHandler(this.ZoneConvertOperation);
             Zone.ReverseBtn.Click += new System.EventHandler(this.ZoneConvertOperation);
@@ -93,11 +95,17 @@ namespace GeodeticCoordinateConversion
                 ZoneDGV.DataSource = ZoneData;
                 ZoneDGV.ClearSelection();
             }
-            if(sender==Coord.LoadDBBtn)
+            if (sender == Coord.LoadDBBtn)
             {
                 CoordData = new BindingList<CoordConvert>(DBFile.LoadCoordConvertData());
                 CoordDGV.DataSource = CoordData;
                 CoordDGV.ClearSelection();
+            }
+            if (sender == Zone.LoadDBBtn)
+            {
+                ZoneData = new BindingList<ZoneConvert>(DBFile.LoadZoneConvertData());
+                ZoneDGV.DataSource = ZoneData;
+                ZoneDGV.ClearSelection();
             }
         }
 
@@ -106,20 +114,19 @@ namespace GeodeticCoordinateConversion
         {
             if (sender == Coord.SaveFileBtn)
             {
-                if (CoordData.Count > 0)
-                    DataFile.SaveCoordConvertData(CoordData.ToList());
+                DataFile.SaveCoordConvertData(CoordData.ToList());
             }
             if (sender == Zone.SaveFileBtn)
             {
-                if (ZoneData.Count > 0)
-                    DataFile.SaveZoneConvertData(ZoneData.ToList());
+                DataFile.SaveZoneConvertData(ZoneData.ToList());
             }
-            if(sender==Coord.SaveDBBtn)
+            if (sender == Coord.SaveDBBtn)
             {
-                foreach (CoordConvert c in CoordData)
-                {
-                    c.SaveToDB();
-                }
+                DBFile.SaveCoordConvertData(CoordData.ToList());
+            }
+            if (sender == Zone.SaveDBBtn)
+            {
+                DBFile.SaveZoneConvertData(ZoneData.ToList());
             }
         }
 

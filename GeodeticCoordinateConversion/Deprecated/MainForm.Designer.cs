@@ -1,4 +1,4 @@
-﻿namespace GeodeticCoordinateConversion
+﻿namespace GeodeticCoordinateConversion.Deprecated
 {
     partial class MainForm
     {

@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using System.IO;
 using GeodeticCoordinateConversion.Deprecated;
 
-namespace GeodeticCoordinateConversion
+namespace GeodeticCoordinateConversion.Deprecated
 {
     public partial class MainForm : Form
     {

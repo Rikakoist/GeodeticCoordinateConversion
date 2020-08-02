@@ -201,6 +201,8 @@ namespace GeodeticCoordinateConversion
         /// <returns>操作结果。</returns>
         public bool SaveZoneConvertData(List<ZoneConvert> Data)
         {
+            if (Data.Count <= 0)
+                return false;
             foreach (XmlNode x in rootNode.SelectNodes(NodeInfo.ZoneConvertNodePath))
             {
                 rootNode.RemoveChild(x);
