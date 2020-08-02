@@ -28,6 +28,10 @@ namespace GeodeticCoordinateConversion
             /// 地理经纬度转换到高斯坐标失败。
             /// </summary>
             public static string GEOBLToGaussFailed = "地理经纬度转换到高斯坐标失败。";
+            /// <summary>
+            /// 将坐标转换对象保存到XML结构失败。
+            /// </summary>
+            public static string SaveToXmlFailed = "将坐标转换对象保存到XML结构失败。";
         }
 
         /// <summary>

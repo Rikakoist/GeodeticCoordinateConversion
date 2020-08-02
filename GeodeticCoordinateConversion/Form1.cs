@@ -15,7 +15,7 @@ namespace GeodeticCoordinateConversion
     {
         private GEOSettings AppSettings = new GEOSettings();
         private FileIO DataFile = new FileIO();
-        //private DBIO DBFile = new DBIO();
+        private DBIO DBFile = new DBIO();
 
         public BindingList<CoordConvert> CoordData = new BindingList<CoordConvert>();
         public BindingList<ZoneConvert> ZoneData = new BindingList<ZoneConvert>();
@@ -31,8 +31,10 @@ namespace GeodeticCoordinateConversion
             Coord.Load += new EventHandler(this.InitCoordConvert);
 
             Coord.AddRowBtn.Click += new System.EventHandler(this.AddRow);
-            Coord.LoadBtn.Click += new System.EventHandler(this.LoadData);
-            Coord.SaveBtn.Click += new System.EventHandler(this.SaveData);
+            Coord.LoadFileBtn.Click += new System.EventHandler(this.LoadData);
+            Coord.SaveFileBtn.Click += new System.EventHandler(this.SaveData);
+            Coord.LoadDBBtn.Click+= new System.EventHandler(this.LoadData);
+            Coord.SaveDBBtn.Click += new System.EventHandler(this.SaveData);
 
             Coord.DirectBtn.Click += new System.EventHandler(this.CoordConvertOperation);
             Coord.ReverseBtn.Click += new System.EventHandler(this.CoordConvertOperation);
@@ -47,8 +49,8 @@ namespace GeodeticCoordinateConversion
             Zone.Load += new EventHandler(this.InitZoneConvert);
 
             Zone.AddRowBtn.Click += new System.EventHandler(this.AddRow);
-            Zone.LoadBtn.Click += new System.EventHandler(this.LoadData);
-            Zone.SaveBtn.Click += new System.EventHandler(this.SaveData);
+            Zone.LoadFileBtn.Click += new System.EventHandler(this.LoadData);
+            Zone.SaveFileBtn.Click += new System.EventHandler(this.SaveData);
 
             Zone.DirectBtn.Click += new System.EventHandler(this.ZoneConvertOperation);
             Zone.ReverseBtn.Click += new System.EventHandler(this.ZoneConvertOperation);
@@ -79,36 +81,45 @@ namespace GeodeticCoordinateConversion
         //加载数据
         private void LoadData(object sender, EventArgs e)
         {
-            if (sender == Coord.LoadBtn)
+            if (sender == Coord.LoadFileBtn)
             {
                 CoordData = new BindingList<CoordConvert>(DataFile.LoadCoordConvertData());
                 CoordDGV.DataSource = CoordData;
                 CoordDGV.ClearSelection();
             }
-            if (sender == Zone.LoadBtn)
+            if (sender == Zone.LoadFileBtn)
             {
                 ZoneData = new BindingList<ZoneConvert>(DataFile.LoadZoneConvertData());
                 ZoneDGV.DataSource = ZoneData;
                 ZoneDGV.ClearSelection();
+            }
+            if(sender==Coord.LoadDBBtn)
+            {
+                CoordData = new BindingList<CoordConvert>(DBFile.LoadCoordConvertData());
+                CoordDGV.DataSource = CoordData;
+                CoordDGV.ClearSelection();
             }
         }
 
         //保存数据
         private void SaveData(object sender, EventArgs e)
         {
-            if (sender == Coord.SaveBtn)
+            if (sender == Coord.SaveFileBtn)
             {
-                //foreach(CoordConvert c in CoordData)
-                //{
-                //    c.SaveToDB();
-                //}
                 if (CoordData.Count > 0)
                     DataFile.SaveCoordConvertData(CoordData.ToList());
             }
-            if (sender == Zone.SaveBtn)
+            if (sender == Zone.SaveFileBtn)
             {
                 if (ZoneData.Count > 0)
                     DataFile.SaveZoneConvertData(ZoneData.ToList());
+            }
+            if(sender==Coord.SaveDBBtn)
+            {
+                foreach (CoordConvert c in CoordData)
+                {
+                    c.SaveToDB();
+                }
             }
         }
 

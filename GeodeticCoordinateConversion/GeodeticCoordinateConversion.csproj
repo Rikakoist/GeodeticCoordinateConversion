@@ -146,6 +146,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Database.png" />
     <None Include="Resources\Plus1.png" />
     <None Include="Resources\Plus.png" />
     <None Include="Resources\Floppydisk.png" />

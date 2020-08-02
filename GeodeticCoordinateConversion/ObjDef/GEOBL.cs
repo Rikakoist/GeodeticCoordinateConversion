@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +18,7 @@ namespace GeodeticCoordinateConversion
         /// <summary>
         /// 全局唯一ID。
         /// </summary>
-        public readonly Guid guid;
+        public readonly Guid UID = Guid.NewGuid();
         /// <summary>
         /// 配置文件。
         /// </summary>
@@ -73,7 +75,7 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                this.guid = System.Guid.NewGuid();
+                this.UID = System.Guid.NewGuid();
                 this.ZoneType = (GEOZoneType)AppSettings.DefaultZoneType;
                 this.B = new DMS(); this.L = new DMS();
                 BindBLEvent();
@@ -96,7 +98,7 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                this.guid = System.Guid.NewGuid();
+                this.UID = System.Guid.NewGuid();
                 this.ZoneType = (GEOZoneType)AppSettings.DefaultZoneType;
                 this.B = new DMS(B);
                 this.L = new DMS(L);
@@ -120,7 +122,7 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                this.guid = System.Guid.NewGuid();
+                this.UID = System.Guid.NewGuid();
                 this.ZoneType = (GEOZoneType)AppSettings.DefaultZoneType;
                 this.B = B ?? throw new ArgumentNullException(ErrMessage.GEOBL.GEOBLNull);
                 this.L = L ?? throw new ArgumentNullException(ErrMessage.GEOBL.GEOBLNull);
@@ -146,7 +148,7 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                this.guid = System.Guid.NewGuid();
+                this.UID = System.Guid.NewGuid();
                 this.ZoneType = ZoneType;
                 this.B = B ?? throw new ArgumentNullException(ErrMessage.GEOBL.GEOBLNull);
                 this.L = L ?? throw new ArgumentNullException(ErrMessage.GEOBL.GEOBLNull);
@@ -170,7 +172,7 @@ namespace GeodeticCoordinateConversion
             try
             {
                 XmlElement ele = (XmlElement)xmlNode;
-                this.guid = Guid.Parse(ele.GetAttribute(nameof(guid)));
+                this.UID = Guid.Parse(ele.GetAttribute(nameof(UID)));
                 this.ZoneType = (GEOZoneType)int.Parse(ele.GetAttribute(nameof(ZoneType)));
                 this.B = new DMS(xmlNode.SelectSingleNode(NodeInfo.BNodePath));
                 this.L = new DMS(xmlNode.SelectSingleNode(NodeInfo.LNodePath));
@@ -182,6 +184,53 @@ namespace GeodeticCoordinateConversion
             catch (Exception err)
             {
                 throw new InitializeFromXmlException(ErrMessage.GEOBL.InitializeError, err);
+            }
+        }
+
+        /// <summary>
+        /// 通过GUID从数据库初始化度分秒经纬度。
+        /// </summary>
+        /// <param name="guid">要查询的GUID。</param>
+        public GEOBL(Guid guid)
+        {
+            try
+            {
+                DBIO db = new DBIO();
+                using (OleDbConnection con = new OleDbConnection(db.ConnectionInfo))
+                {
+                    con.Open();
+                    OleDbCommand cmd = new OleDbCommand()
+                    {
+                        Connection = con,
+                    };
+
+                    if (db.CheckGUID(nameof(GEOBL), guid))
+                    {
+                        DataRow dr = db.SelectByGUID(nameof(GEOBL), guid);
+                        this.UID = Guid.Parse(dr[nameof(UID)].ToString());
+                        this.ZoneType = (GEOZoneType)int.Parse(dr[nameof(ZoneType)].ToString());
+                        this.B =new DMS(dr[nameof(B)].ToString());
+                        this.L = new DMS(dr[nameof(L)].ToString());
+                        BindBLEvent();
+
+                        this.GEOEllipse = new Ellipse((GEOEllipseType)int.Parse(dr[nameof(Ellipse.EllipseType)].ToString()));
+                        BindEllipseEvent();
+                    }
+                    else
+                    {
+                        this.ZoneType = (GEOZoneType)AppSettings.DefaultZoneType;
+                        this.B = new DMS();
+                        this.L = new DMS();
+                        BindBLEvent();
+
+                        this.GEOEllipse = new Ellipse();
+                        BindEllipseEvent();
+                    }
+                }
+            }
+            catch (Exception err)
+            {
+                throw new InitializeException(ErrMessage.GaussCoord.InitializeError, err);
             }
         }
         #endregion
@@ -363,7 +412,7 @@ namespace GeodeticCoordinateConversion
         }
 
         /// <summary>
-        /// 转换到XML元素。
+        /// 度分秒经纬度类转换到XML元素。
         /// </summary>
         /// <param name="xmlDocument">指定的XML文档。</param>
         /// <param name="NodeName">新建的元素命名，默认为Geo。</param>
@@ -374,7 +423,7 @@ namespace GeodeticCoordinateConversion
             {
                 XmlElement ele = xmlDocument.CreateElement(NodeName);
 
-                ele.SetAttribute(nameof(guid), this.guid.ToString());
+                ele.SetAttribute(nameof(UID), this.UID.ToString());
                 ele.SetAttribute(nameof(ZoneType), ((int)this.ZoneType).ToString());
 
                 ele.AppendChild(this.GEOEllipse.ToXmlElement(xmlDocument));
@@ -386,6 +435,49 @@ namespace GeodeticCoordinateConversion
             catch (Exception err)
             {
                 throw new XmlException(ErrMessage.GEOBL.SaveToXmlFailed, err);
+            }
+        }
+
+        /// <summary>
+        /// 将度分秒经纬度类保存到数据库。
+        /// </summary>
+        /// <returns>操作结果。</returns>
+        public bool SaveToDB()
+        {
+            try
+            {
+                DBIO db = new DBIO();
+                using (OleDbConnection con = new OleDbConnection(db.ConnectionInfo))
+                {
+                    con.Open();
+                    OleDbCommand cmd = new OleDbCommand()
+                    {
+                        Connection = con,
+                    };
+
+                    OleDbParameter p = new OleDbParameter("@UID", UID.ToString());
+                    cmd.Parameters.AddWithValue("@B", B.Value);
+                    cmd.Parameters.AddWithValue("@L", L.Value);
+                    cmd.Parameters.AddWithValue("@EllipseType", GEOEllipse.EllipseType);
+                    cmd.Parameters.AddWithValue("@ZoneType", (int)ZoneType);
+
+                    if (db.CheckGUID(nameof(GEOBL), this.UID))
+                    {
+                        cmd.CommandText = "UPDATE GEOBL SET [B] = @B, [L] = @L, [EllipseType] = @EllipseType, [ZoneType] = @ZoneType WHERE [UID] = @UID";
+                        cmd.Parameters.Insert(cmd.Parameters.Count, p);
+                    }
+                    else
+                    {
+                        cmd.CommandText = "INSERT INTO GEOBL ([UID], [B], [L], [EllipseType], [ZoneType]) VALUES (@UID, @B, @L, @EllipseType, @ZoneType)";
+                        cmd.Parameters.Insert(0, p);
+                    }
+                    cmd.ExecuteNonQuery();
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
             }
         }
         #endregion

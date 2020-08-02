@@ -18,7 +18,7 @@ namespace GeodeticCoordinateConversion
         /// <summary>
         /// 全局唯一ID。
         /// </summary>
-        public readonly Guid guid;
+        public readonly Guid UID = Guid.NewGuid();
 
         /// <summary>
         /// 配置文件。
@@ -60,7 +60,6 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                this.guid = System.Guid.NewGuid();
                 this.DBPath = AppSettings.WorkFolder;
             }
             catch (Exception err)
@@ -77,7 +76,6 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                this.guid = System.Guid.NewGuid();
                 this.DBPath = DBPath;
             }
             catch (Exception err)
@@ -119,12 +117,71 @@ namespace GeodeticCoordinateConversion
                 con.Open();
                 OleDbCommand cmd = new OleDbCommand
                 {
-                    CommandText = "SELECT GUID FROM " + TableName + " WHERE GUID = '"+guid.ToString()+"'",
+                    CommandText = "SELECT UID FROM " + TableName + " WHERE UID = @UID",
                     Connection = con
                 };
+                cmd.Parameters.AddWithValue("@UID", guid.ToString());
                 OleDbDataReader R = cmd.ExecuteReader();
                 return R.HasRows;
             }
+        }
+
+        public DataRow SelectByGUID(string TableName,Guid guid)
+        {
+            using (OleDbConnection con = new OleDbConnection(ConnectionInfo))
+            {
+                con.Open();
+                OleDbCommand cmd = new OleDbCommand
+                {
+                    CommandText = "SELECT * FROM " + TableName + " WHERE UID = @UID",
+                    Connection = con
+                };
+                cmd.Parameters.AddWithValue("@UID", guid.ToString());
+                OleDbDataAdapter Adapter = new OleDbDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                Adapter.Fill(dt);
+                return dt.Rows[0];
+            }
+        }
+
+        /// <summary>
+        /// 保存坐标转换数据到数据库。
+        /// </summary>
+        /// <returns>操作结果。</returns>
+        public bool SaveCoordConvertData(List<CoordConvert> Data)
+        {
+            if (Data.Count <= 0)
+                return false;
+
+            //todo
+            return true;
+        }
+
+        /// <summary>
+        /// 从数据库读取坐标转换数据。
+        /// </summary>
+        /// <returns>读取的列表。</returns>
+        public List<CoordConvert> LoadCoordConvertData()
+        {
+            List<CoordConvert> Data = new List<CoordConvert>();
+            using (OleDbConnection con = new OleDbConnection(ConnectionInfo))
+            {
+                con.Open();
+                OleDbCommand cmd = new OleDbCommand
+                {
+                    CommandText = "SELECT UID FROM CoordConvert",
+                    Connection = con
+                };
+                OleDbDataAdapter Adapter = new OleDbDataAdapter(cmd);
+                DataTable dt = new DataTable();                
+                Adapter.Fill(dt);
+                
+                foreach (DataRow r in dt.Rows)
+                {
+                    Data.Add(new CoordConvert(Guid.Parse(r["UID"].ToString())));
+                }
+            }
+            return Data;
         }
 
         //保存操作

@@ -16,7 +16,7 @@ namespace GeodeticCoordinateConversion
         /// <summary>
         /// 全局唯一ID。
         /// </summary>
-        public readonly Guid guid;
+        public readonly Guid UID = Guid.NewGuid();
         /// <summary>
         /// 度（私有）。
         /// </summary>
@@ -101,7 +101,6 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                this.guid = System.Guid.NewGuid();
                 this.D = 0; this.M = 0; this.S = 0;
             }
             catch (Exception err)
@@ -118,7 +117,6 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                this.guid = System.Guid.NewGuid();
                 FromString(Str);
             }
             catch (Exception err)
@@ -137,7 +135,6 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                this.guid = System.Guid.NewGuid();
                 this.D = D; this.M = M; this.S = S;
             }
             catch (Exception err)
@@ -155,7 +152,7 @@ namespace GeodeticCoordinateConversion
             try
             {
                 XmlElement ele = (XmlElement)xmlNode;
-                this.guid = Guid.Parse(ele.GetAttribute(nameof(guid)));
+                this.UID = Guid.Parse(ele.GetAttribute(nameof(UID)));
                 this.D = double.Parse(ele.GetAttribute(nameof(D)));
                 this.M = double.Parse(ele.GetAttribute(nameof(M)));
                 this.S = double.Parse(ele.GetAttribute(nameof(S)));
@@ -219,7 +216,7 @@ namespace GeodeticCoordinateConversion
             {
                 XmlElement ele = xmlDocument.CreateElement(NodeName);
 
-                ele.SetAttribute(nameof(guid), this.guid.ToString());
+                ele.SetAttribute(nameof(UID), this.UID.ToString());
                 ele.SetAttribute(nameof(D), this.D.ToString());
                 ele.SetAttribute(nameof(M), this.M.ToString());
                 ele.SetAttribute(nameof(S), this.S.ToString());

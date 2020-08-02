@@ -16,7 +16,7 @@ namespace GeodeticCoordinateConversion
         /// <summary>
         /// 全局唯一ID。
         /// </summary>
-        public readonly Guid guid;
+        public readonly Guid UID = Guid.NewGuid();
         /// <summary>
         /// 配置文件。
         /// </summary>
@@ -130,7 +130,6 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                //this.EllipseType = GEOEllipseType.noEllipse;
                 this.EllipseType = (GEOEllipseType)AppSettings.DefaultEllipseType;
             }
             catch (Exception err)
@@ -184,22 +183,19 @@ namespace GeodeticCoordinateConversion
         /// </summary>
         public class EllipseChangedEventArgs : EventArgs
         {
-            private EllipseChangedType valueChangedType;
-            private object oldValue;
-            private object newValue;
 
             /// <summary>
             /// 椭球值改变类型。
             /// </summary>
-            public EllipseChangedType ValueChangedType { get { return this.valueChangedType; } }
+            public EllipseChangedType ValueChangedType { get; }
             /// <summary>
             /// 旧值。
             /// </summary>
-            public object OldValue { get { return this.oldValue; } }
+            public object OldValue { get; }
             /// <summary>
             /// 新值。
             /// </summary>
-            public object NewValue { get { return this.newValue; } }
+            public object NewValue { get; }
 
             /// <summary>
             /// 通过椭球值改变类型初始化。
@@ -207,9 +203,9 @@ namespace GeodeticCoordinateConversion
             /// <param name="valueChangedType">椭球值改变类型。</param>
             public EllipseChangedEventArgs(EllipseChangedType valueChangedType)
             {
-                this.valueChangedType = valueChangedType;
-                this.oldValue = null;
-                this.newValue = null;
+                this.ValueChangedType = valueChangedType;
+                this.OldValue = null;
+                this.NewValue = null;
             }
 
             /// <summary>
@@ -220,9 +216,9 @@ namespace GeodeticCoordinateConversion
             /// <param name="newValue"></param>
             public EllipseChangedEventArgs(EllipseChangedType valueChangedType, object oldValue, object newValue)
             {
-                this.valueChangedType = valueChangedType;
-                this.oldValue = oldValue;
-                this.newValue = newValue;
+                this.ValueChangedType = valueChangedType;
+                this.OldValue = oldValue;
+                this.NewValue = newValue;
             }
         }
         #endregion
@@ -256,7 +252,7 @@ namespace GeodeticCoordinateConversion
         /// <returns>比较结果。</returns>
         public override bool Equals(object obj)
         {
-            var ellipse = obj as Ellipse;
+            Ellipse ellipse = obj as Ellipse;
             return ellipse != null &&
                    a == ellipse.a &&
                    b == ellipse.b &&

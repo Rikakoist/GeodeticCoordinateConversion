@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +18,7 @@ namespace GeodeticCoordinateConversion
         /// <summary>
         /// 全局唯一ID。
         /// </summary>
-        public readonly Guid guid;
+        public readonly Guid UID = Guid.NewGuid();
         /// <summary>
         /// 配置文件。
         /// </summary>
@@ -184,7 +186,6 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                this.guid = Guid.NewGuid();
                 this.ZoneType = (GEOZoneType)AppSettings.DefaultZoneType;
                 this.GEOEllipse = new Ellipse();
                 BindEllipseEvent();
@@ -203,7 +204,6 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                this.guid = Guid.NewGuid();
                 this.ZoneType = GEOZoneType.None;
                 this.GEOEllipse = new Ellipse(EllipseType);
                 BindEllipseEvent();
@@ -222,7 +222,6 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                this.guid = Guid.NewGuid();
                 this.ZoneType = GEOZoneType.None;
                 this.GEOEllipse = E ?? throw new ArgumentNullException(ErrMessage.GEOEllipse.EllipseNull);
                 BindEllipseEvent();
@@ -245,7 +244,6 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                this.guid = Guid.NewGuid();
                 this.X = X; this.Y = Y;
                 this.ZoneType = ZoneType;
                 this.Zone = Zone;
@@ -267,7 +265,7 @@ namespace GeodeticCoordinateConversion
             try
             {
                 XmlElement ele = (XmlElement)xmlNode;
-                this.guid = Guid.Parse(ele.GetAttribute(nameof(guid)));
+                this.UID = Guid.Parse(ele.GetAttribute(nameof(UID)));
                 this.X = double.Parse(ele.GetAttribute(nameof(X)));
                 this.Y = double.Parse(ele.GetAttribute(nameof(Y)));
                 this.ZoneType = (GEOZoneType)int.Parse(ele.GetAttribute(nameof(ZoneType)));
@@ -278,6 +276,48 @@ namespace GeodeticCoordinateConversion
             catch (Exception err)
             {
                 throw new InitializeFromXmlException(ErrMessage.GaussCoord.InitializeError, err);
+            }
+        }
+
+        /// <summary>
+        /// 通过GUID从数据库初始化高斯坐标。
+        /// </summary>
+        /// <param name="guid">要查询的GUID。</param>
+        public GaussCoord(Guid guid)
+        {
+            try
+            {
+                DBIO db = new DBIO();
+                using (OleDbConnection con = new OleDbConnection(db.ConnectionInfo))
+                {
+                    con.Open();
+                    OleDbCommand cmd = new OleDbCommand()
+                    {
+                        Connection = con,
+                    };
+
+                    if (db.CheckGUID(nameof(GaussCoord), guid))
+                    {
+                        DataRow dr = db.SelectByGUID(nameof(GaussCoord), guid);
+                        this.UID = Guid.Parse(dr[nameof(UID)].ToString());
+                        this.X = double.Parse(dr[nameof(X)].ToString());
+                        this.Y = double.Parse(dr[nameof(Y)].ToString());
+                        this.ZoneType = (GEOZoneType)int.Parse(dr[nameof(ZoneType)].ToString());
+                        this.Zone = int.Parse(dr[nameof(Zone)].ToString());
+                        this.GEOEllipse = new Ellipse((GEOEllipseType)int.Parse(dr[nameof(Ellipse.EllipseType)].ToString()));
+                        BindEllipseEvent();
+                    }
+                    else
+                    {
+                        this.ZoneType = (GEOZoneType)AppSettings.DefaultZoneType;
+                        this.GEOEllipse = new Ellipse();
+                        BindEllipseEvent();
+                    }
+                }
+            }
+            catch (Exception err)
+            {
+                throw new InitializeException(ErrMessage.GaussCoord.InitializeError, err);
             }
         }
         #endregion
@@ -385,9 +425,6 @@ namespace GeodeticCoordinateConversion
                 double L = this.Y / (Nf * Math.Cos(Bf)) - (1 + 2 * Math.Pow(tf, 2) + nf) * Math.Pow(this.Y, 3) / (6 * Math.Pow(Nf, 3) * Math.Cos(Bf)) + (5 + 28 * Math.Pow(tf, 2) + 24 * Math.Pow(tf, 4) + 6 * nf + 8 * nf * Math.Pow(tf, 2)) * Math.Pow(this.Y, 5) / (120 * Math.Pow(Nf, 5) * Math.Cos(Bf));
                 L = L / Math.PI * 180;
 
-                ////计算中央经线
-                //GetCenter();
-
                 // 本带内经度换算
                 L += this.Center;
 
@@ -401,7 +438,7 @@ namespace GeodeticCoordinateConversion
         }
 
         /// <summary>
-        /// 转换到XML元素。
+        /// 高斯坐标转换到XML元素。
         /// </summary>
         /// <param name="xmlDocument">指定的XML文档。</param>
         /// <param name="NodeName">新建的元素命名。</param>
@@ -412,7 +449,7 @@ namespace GeodeticCoordinateConversion
             {
                 XmlElement ele = xmlDocument.CreateElement(NodeName);
 
-                ele.SetAttribute(nameof(guid), this.guid.ToString());
+                ele.SetAttribute(nameof(UID), this.UID.ToString());
                 ele.SetAttribute(nameof(X), this.X.ToString());
                 ele.SetAttribute(nameof(Y), this.Y.ToString());
                 ele.SetAttribute(nameof(ZoneType), ((int)this.ZoneType).ToString());
@@ -429,6 +466,50 @@ namespace GeodeticCoordinateConversion
         }
 
         /// <summary>
+        /// 将高斯坐标保存到数据库。
+        /// </summary>
+        /// <returns>操作结果。</returns>
+        public bool SaveToDB()
+        {
+            try
+            {
+                DBIO db = new DBIO();
+                using (OleDbConnection con = new OleDbConnection(db.ConnectionInfo))
+                {
+                    con.Open();
+                    OleDbCommand cmd = new OleDbCommand()
+                    {
+                        Connection = con,
+                    };
+
+                    OleDbParameter p = new OleDbParameter("@UID", UID.ToString());
+                    cmd.Parameters.AddWithValue("@X", X);
+                    cmd.Parameters.AddWithValue("@Y", Y);
+                    cmd.Parameters.AddWithValue("@EllipseType", GEOEllipse.EllipseType);
+                    cmd.Parameters.AddWithValue("@ZoneType", (int)ZoneType);
+                    cmd.Parameters.AddWithValue("@Zone", Zone);
+
+                    if (db.CheckGUID(nameof(GaussCoord), this.UID))
+                    {
+                        cmd.CommandText = "UPDATE GaussCoord SET [X] = @X, [Y] = @Y, [EllipseType] = @EllipseType, [ZoneType] = @ZoneType, [Zone] = @Zone WHERE [UID] = @UID";
+                        cmd.Parameters.Insert(cmd.Parameters.Count, p);
+                    }
+                    else
+                    {
+                        cmd.CommandText = "INSERT INTO GaussCoord ([UID], [X], [Y], [EllipseType], [ZoneType], [Zone]) VALUES (@UID, @X, @Y, @EllipseType, @ZoneType, @Zone)";
+                        cmd.Parameters.Insert(0, p);
+                    }
+                    cmd.ExecuteNonQuery();
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
         /// 相等。
         /// </summary>
         /// <param name="obj">比较对象。</param>
@@ -436,7 +517,7 @@ namespace GeodeticCoordinateConversion
         public override bool Equals(object obj)
         {
             return obj is GaussCoord coord &&
-                   guid.Equals(coord.guid) &&
+                   UID.Equals(coord.UID) &&
                    GEOEllipse.Equals(coord.GEOEllipse) &&
                    X == coord.X &&
                    Y == coord.Y &&
@@ -451,7 +532,7 @@ namespace GeodeticCoordinateConversion
         public override int GetHashCode()
         {
             var hashCode = 2001960405;
-            hashCode = hashCode * -1521134295 + EqualityComparer<Guid>.Default.GetHashCode(guid);
+            hashCode = hashCode * -1521134295 + EqualityComparer<Guid>.Default.GetHashCode(UID);
             hashCode = hashCode * -1521134295 + GEOEllipse.GetHashCode();
             hashCode = hashCode * -1521134295 + X.GetHashCode();
             hashCode = hashCode * -1521134295 + Y.GetHashCode();

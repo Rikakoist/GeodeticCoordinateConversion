@@ -12,6 +12,10 @@ namespace GeodeticCoordinateConversion
     class FileIO
     {
         /// <summary>
+        /// 全局唯一ID。
+        /// </summary>
+        public readonly Guid UID = Guid.NewGuid();
+        /// <summary>
         /// 配置文件。
         /// </summary>
         private GEOSettings AppSettings = new GEOSettings();
@@ -154,7 +158,9 @@ namespace GeodeticCoordinateConversion
         /// <param name="Data">坐标转换数据。</param>
         /// <returns>操作结果。</returns>
         public bool SaveCoordConvertData(List<CoordConvert> Data)
-        {          
+        {
+            if (Data.Count <= 0)
+                return false;
             foreach (XmlNode x in rootNode.SelectNodes(NodeInfo.CoordConvertNodePath))
             {
                 rootNode.RemoveChild(x);
@@ -171,7 +177,7 @@ namespace GeodeticCoordinateConversion
         /// <summary>
         /// 从文件读取坐标转换数据。
         /// </summary>
-        /// <returns>操作结果。</returns>
+        /// <returns>读取的列表。</returns>
         public List<CoordConvert> LoadCoordConvertData()
         {
             List<CoordConvert> Data = new List<CoordConvert>();

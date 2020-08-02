@@ -22,7 +22,7 @@ namespace GeodeticCoordinateConversion
         /// <summary>
         /// 全局唯一ID。
         /// </summary>
-        public readonly Guid guid;
+        public readonly Guid UID = Guid.NewGuid();
         /// <summary>
         /// 地理经纬度对象。
         /// </summary>
@@ -120,7 +120,6 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                this.guid = System.Guid.NewGuid();
                 this.BL = new GEOBL();
                 BindBLEvents();
                 this.Gauss = new GaussCoord();
@@ -141,7 +140,6 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                this.guid = System.Guid.NewGuid();
                 this.BL = BL ?? throw new ArgumentNullException(ErrMessage.GEOBL.GEOBLNull);
                 BindBLEvents();
                 this.Gauss = Gauss ?? throw new ArgumentNullException(ErrMessage.GaussCoord.GaussNull);
@@ -163,7 +161,7 @@ namespace GeodeticCoordinateConversion
             {
                 XmlElement ele = (XmlElement)xmlNode;
 
-                this.guid = Guid.Parse(ele.GetAttribute(nameof(guid)));
+                this.UID = Guid.Parse(ele.GetAttribute(nameof(UID)));
                 this.Dirty = bool.Parse(ele.GetAttribute(nameof(Dirty)));
                 this.Error = bool.Parse(ele.GetAttribute(nameof(Error)));
                 this.Selected = bool.Parse(ele.GetAttribute(nameof(Selected)));
@@ -194,6 +192,52 @@ namespace GeodeticCoordinateConversion
             catch (Exception err)
             {
                 throw new XmlException(ErrMessage.CoordConvert.InitializeError, err);
+            }
+        }
+
+        /// <summary>
+        /// 通过GUID从数据库初始化经纬度、高斯互转对象。
+        /// </summary>
+        /// <param name="guid">要查询的GUID。</param>
+        public CoordConvert(Guid guid)
+        {
+            try
+            {
+                DBIO db = new DBIO();
+                using (OleDbConnection con = new OleDbConnection(db.ConnectionInfo))
+                {
+                    con.Open();
+                    OleDbCommand cmd = new OleDbCommand()
+                    {
+                        Connection = con,
+                    };
+
+                    if (db.CheckGUID(nameof(CoordConvert), guid))
+                    {
+                        DataRow dr = db.SelectByGUID(nameof(CoordConvert), guid);
+                        this.UID = Guid.Parse(dr[nameof(UID)].ToString());
+                        this.Selected = bool.Parse(dr[nameof(Selected)].ToString());
+                        this.Dirty = bool.Parse(dr[nameof(Dirty)].ToString());
+                        this.Calculated = bool.Parse(dr[nameof(Calculated)].ToString());
+                        this.Error = bool.Parse(dr[nameof(Error)].ToString());
+
+                        this.BL = new GEOBL(Guid.Parse(dr[nameof(BL)].ToString()));
+                        BindBLEvents();
+                        this.Gauss = new GaussCoord(Guid.Parse(dr[nameof(Gauss)].ToString()));
+                        BindGaussEvents();
+                    }
+                    else
+                    {
+                        this.BL = new GEOBL();
+                        BindBLEvents();
+                        this.Gauss = new GaussCoord();
+                        BindGaussEvents();
+                    }
+                }
+            }
+            catch (Exception err)
+            {
+                throw new InitializeException(ErrMessage.CoordConvert.InitializeError, err);
             }
         }
         #endregion
@@ -302,7 +346,7 @@ namespace GeodeticCoordinateConversion
         }
 
         /// <summary>
-        /// 转换到XML元素。
+        /// 经纬度、高斯互转对象转换到XML元素。
         /// </summary>
         /// <param name="xmlDocument">指定的XML文档。</param>
         /// <param name="NodeName">新建的元素命名。</param>
@@ -313,7 +357,7 @@ namespace GeodeticCoordinateConversion
             {
                 XmlElement ele = xmlDocument.CreateElement(NodeName);
 
-                ele.SetAttribute(nameof(guid), guid.ToString());
+                ele.SetAttribute(nameof(UID), UID.ToString());
                 ele.SetAttribute(nameof(Dirty), Dirty.ToString());
                 ele.SetAttribute(nameof(Error), Error.ToString());
                 ele.SetAttribute(nameof(Selected), Selected.ToString());
@@ -332,10 +376,14 @@ namespace GeodeticCoordinateConversion
             }
             catch (Exception err)
             {
-                throw new XmlException(ErrMessage.ZoneConvert.SaveToXmlFailed, err);
+                throw new XmlException(ErrMessage.CoordConvert.SaveToXmlFailed, err);
             }
         }
 
+        /// <summary>
+        /// 将经纬度、高斯互转对象保存到数据库。
+        /// </summary>
+        /// <returns>操作结果。</returns>
         public bool SaveToDB()
         {
             try
@@ -349,51 +397,32 @@ namespace GeodeticCoordinateConversion
                         Connection = con,
                     };
 
-                    if (db.CheckGUID(nameof(CoordConvert), this.guid))
+                    OleDbParameter p = new OleDbParameter("@UID", UID.ToString());
+                    cmd.Parameters.AddWithValue("@Selected", Selected);
+                    cmd.Parameters.AddWithValue("@Dirty", Dirty);
+                    cmd.Parameters.AddWithValue("@Calculated", Calculated);
+                    cmd.Parameters.AddWithValue("@Error", Error);
+                    cmd.Parameters.AddWithValue("@BL", BL.UID.ToString());
+                    cmd.Parameters.AddWithValue("@Gauss", Gauss.UID.ToString());
+
+                    if (db.CheckGUID(nameof(CoordConvert), this.UID))
                     {
-                        cmd.CommandText = "UPDATE CoordConvert SET Selected = ?, Dirty = ?, Calculated = ?, [Error] = ?, BLGUID = ?, GaussGUID = ? WHERE [GUID] = ?";
-                        //cmd.CommandText = "UPDATE CoordConvert SET Selected = @Selected, Dirty = @Dirty, Calculated = @Calculated, Error = @Error, BLGUID = @BLGUID, GaussGUID = @GaussGUID WHERE GUID = @GUID";
-                        //cmd.CommandText = "Delete * FROM CoordConvert WHERE [GUID] = ?";
+                        cmd.CommandText = "UPDATE CoordConvert SET [Selected] = @Selected, [Dirty] = @Dirty, [Calculated] = @Calculated, [Error] = @Error, [BL] = @BL, [Gauss] = @Gauss WHERE [UID] = @UID";
+                        cmd.Parameters.Insert(cmd.Parameters.Count,p);
                     }
                     else
                     {
-                        cmd.CommandText = "INSERT INTO CoordConvert ([GUID], Selected, Dirty, Calculated, [Error], BLGUID, GaussGUID) VALUES (?, ?, ?, ?, ?, ?, ?)";
-                        //cmd.CommandText = "INSERT INTO CoordConvert (GUID, Selected, Dirty, Calculated, Error, BLGUID, GaussGUID) VALUES (@GUID, @Selected, @Dirty, @Calculated, @Error, @BLGUID, @GaussGUID)";
+                        cmd.CommandText = "INSERT INTO CoordConvert ([UID], [Selected], [Dirty], [Calculated], [Error], [BL], [Gauss]) VALUES (@UID, @Selected, @Dirty, @Calculated, @Error, @BL, @Gauss)";
+                        cmd.Parameters.Insert(0, p);
                     }
-
-                    //cmd.Parameters.Add(guid.ToString());
-                    //cmd.Parameters.Add(Selected);
-                    //cmd.Parameters.Add(Dirty);
-                    //cmd.Parameters.Add(Calculated);
-                    //cmd.Parameters.Add(Error);
-                    //cmd.Parameters.Add(BL.guid.ToString());
-                    //cmd.Parameters.Add(Gauss.guid.ToString());
-
-                    //cmd.Parameters.AddWithValue("@GUID", guid.ToString());
-                    //cmd.Parameters.AddWithValue("@Selected", Selected);
-                    //cmd.Parameters.AddWithValue("@Dirty", Dirty);
-                    //cmd.Parameters.AddWithValue("@Calculated", Calculated);
-                    //cmd.Parameters.AddWithValue("@Error", Error);
-                    //cmd.Parameters.AddWithValue("@BLGUID", BL.guid.ToString());
-                    //cmd.Parameters.AddWithValue("@GaussGUID", Gauss.guid.ToString());
-
-                    cmd.Parameters.AddWithValue("[GUID]", guid.ToString());
-                    cmd.Parameters.AddWithValue("Selected", Selected);
-                    cmd.Parameters.AddWithValue("Dirty", Dirty);
-                    cmd.Parameters.AddWithValue("Calculated", Calculated);
-                    cmd.Parameters.AddWithValue("[Error]", Error);
-                    cmd.Parameters.AddWithValue("BLGUID", BL.guid.ToString());
-                    cmd.Parameters.AddWithValue("GaussGUID", Gauss.guid.ToString());
-
-                    //MessageBox.Show(cmd.CommandText.ToString());
-
-                    MessageBox.Show(cmd.ExecuteNonQuery().ToString());
+                    cmd.ExecuteNonQuery();
                 }
+                Gauss.SaveToDB();
+                BL.SaveToDB();
                 return true;
             }
-            catch(Exception e)
+            catch (Exception)
             {
-                MessageBox.Show(e.ToString()); 
                 return false;
             }
         }
