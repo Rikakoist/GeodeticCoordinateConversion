@@ -236,41 +236,6 @@ namespace GeodeticCoordinateConversion
             return Data;
         }
 
-        public bool Tab2SaveToFile(List<Tab2File> T2F)
-        {
-            for (int i = 0; i < T2F.Count; i++)
-            {
-                XmlElement tabNode = document.CreateElement(NodeInfo.Tab2Node);
-
-                tabNode.AppendChild(T2F[i].Six.ToXmlElement(document, NodeInfo.Gauss6Node));
-                tabNode.AppendChild(T2F[i].Three.ToXmlElement(document, NodeInfo.Gauss3Node));
-
-                rootNode.AppendChild(tabNode);
-            }
-            document.Save(DocPath);
-            ModifyTime();
-            return true;
-        }
-
-        public List<Tab2File> Tab2LoadFromFile()
-        {
-            List<Tab2File> Result = new List<Tab2File>();
-            Result.Clear();
-            XmlNodeList XNL = rootNode.SelectNodes(NodeInfo.Tab2NodePath);
-            if (XNL.Count < 1)
-            {
-
-            }
-            else
-            {
-                for (int i = 0; i < XNL.Count; i++)
-                {
-                    Result.Add(new Tab2File(XNL[i]));
-                }
-            }
-            return Result;
-        }
-
         /// <summary>
         /// 配置文件路径异常。
         /// </summary>

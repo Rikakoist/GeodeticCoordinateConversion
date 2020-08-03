@@ -64,6 +64,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Deprecated\DBIO.cs" />
     <Compile Include="ObjDef\DataStatus.cs" />
     <Compile Include="Controls\CoordConvertLayout.cs">
       <SubType>UserControl</SubType>
@@ -146,6 +147,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Recycle.png" />
     <None Include="Resources\Database.png" />
     <None Include="Resources\Plus1.png" />
     <None Include="Resources\Plus.png" />

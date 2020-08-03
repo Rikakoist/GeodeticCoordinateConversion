@@ -60,9 +60,11 @@ namespace GeodeticCoordinateConversion
             Zone.ConvertSelectionChange += new CoordConvertLayout.ConvertSelectionChangeEventHander(this.ConvertSelection);
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void MainForm_Load(object sender, EventArgs e)
         {
-
+            TableListComboBox.DataSource = DBFile.GetTableList();
+            TableListComboBox.DisplayMember = "DESCRIPTION";
+            TableListComboBox.ValueMember = "TABLE_NAME";
         }
 
         #region Public
@@ -191,32 +193,32 @@ namespace GeodeticCoordinateConversion
             CoordDGV.AutoGenerateColumns = true;
 
             //替换椭球列
-            DataGridViewComboBoxColumn Ell = new DataGridViewComboBoxColumn
+            DataGridViewComboBoxColumn EllCol = new DataGridViewComboBoxColumn
             {
                 Name = nameof(CoordConvert.EllipseType),
                 HeaderText = (typeof(CoordConvert).GetProperty(nameof(CoordConvert.EllipseType))).GetCustomAttribute<DisplayNameAttribute>().DisplayName,
                 DisplayStyle = DataGridViewComboBoxDisplayStyle.ComboBox,
                 DataSource = GEODataTables.GetEllipseType(),
                 DisplayMember = nameof(GEOEllipseType),
-                DataPropertyName = "EllipseType",
+                DataPropertyName = nameof(Ellipse.EllipseType),
                 ValueMember = "Value"
             };
-            CoordDGV.Columns.Remove(CoordDGV.Columns["EllipseType"]);
-            CoordDGV.Columns.Insert(CoordDGV.Columns["L"].Index + 1, Ell);
+            CoordDGV.Columns.Remove(CoordDGV.Columns[nameof(Ellipse.EllipseType)]);
+            CoordDGV.Columns.Insert(CoordDGV.Columns[nameof(CoordConvert.L)].Index + 1, EllCol);
 
             //替换分带类型列
-            DataGridViewComboBoxColumn Zo = new DataGridViewComboBoxColumn
+            DataGridViewComboBoxColumn ZoneCol = new DataGridViewComboBoxColumn
             {
                 Name = nameof(CoordConvert.ZoneType),
                 HeaderText = (typeof(CoordConvert).GetProperty(nameof(CoordConvert.ZoneType))).GetCustomAttribute<DisplayNameAttribute>().DisplayName,
                 DisplayStyle = DataGridViewComboBoxDisplayStyle.ComboBox,
                 DataSource = GEODataTables.GetZoneType(),
                 DisplayMember = nameof(GEOZoneType),
-                DataPropertyName = "ZoneType",
+                DataPropertyName = nameof(CoordConvert.ZoneType),
                 ValueMember = "Value"
             };
-            CoordDGV.Columns.Remove(CoordDGV.Columns["ZoneType"]);
-            CoordDGV.Columns.Insert(CoordDGV.Columns["Y"].Index + 1, Zo);
+            CoordDGV.Columns.Remove(CoordDGV.Columns[nameof(CoordConvert.ZoneType)]);
+            CoordDGV.Columns.Insert(CoordDGV.Columns[nameof(CoordConvert.Y)].Index + 1, ZoneCol);
         }
 
         //坐标转换正反算操作
@@ -273,11 +275,11 @@ namespace GeodeticCoordinateConversion
                 DisplayStyle = DataGridViewComboBoxDisplayStyle.ComboBox,
                 DataSource = GEODataTables.GetEllipseType(),
                 DisplayMember = nameof(GEOEllipseType),
-                DataPropertyName = "EllipseType",
+                DataPropertyName = nameof(Ellipse.EllipseType),
                 ValueMember = "Value"
             };
-            ZoneDGV.Columns.Remove(ZoneDGV.Columns["EllipseType"]);
-            ZoneDGV.Columns.Insert(ZoneDGV.Columns["Y6"].Index + 1, Ell);
+            ZoneDGV.Columns.Remove(ZoneDGV.Columns[nameof(Ellipse.EllipseType)]);
+            ZoneDGV.Columns.Insert(ZoneDGV.Columns[nameof(ZoneConvert.Y6)].Index + 1, Ell);
         }
 
         //换带操作
@@ -301,6 +303,20 @@ namespace GeodeticCoordinateConversion
             ZoneDGV.ClearSelection();
             ZoneDGV.Invalidate();
         }
+        #endregion
+
+        #region DataView
+        //选中的表名更改
+        private void SelectedTableNameChanged(object sender, EventArgs e)
+        {
+            ReloadTable(this,e);
+        }
+
+        private void ReloadTable(object sender, EventArgs e)
+        {
+            DBDGV.DataSource = DBFile.GetFullTable(((TableListComboBox.DataSource as DataTable).Rows[TableListComboBox.SelectedIndex]["TABLE_NAME"]).ToString());
+        }
+
         #endregion
     }
 }

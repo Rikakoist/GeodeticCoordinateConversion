@@ -486,7 +486,7 @@ namespace GeodeticCoordinateConversion.Deprecated
                             {
                                 T2F.Clear();
                                 Tab2InputDataGridView.Rows.Clear();
-                                T2F = dataFile.Tab2LoadFromFile();
+                                T2F = IO.Tab2LoadFromFile(AppSettings.DataFileName);
                                 //T2F = IO.Tab2LoadFromFile(WorkFolder.Text + "\\ZoneConversion.xml");
 
                                 for (int i = 0; i < T2F.Count; i++)
@@ -526,7 +526,7 @@ namespace GeodeticCoordinateConversion.Deprecated
                                             },
                                         });
                                     }
-                                    dataFile.Tab2SaveToFile(T2F);
+                                    IO.Tab2SaveToFile(AppSettings.DataFileName,T2F);
                                     //IO.Tab2SaveToFile(WorkFolder.Text + "\\ZoneConversion.xml", T2F);
                                     SetHint("成功地将" + (Tab2InputDataGridView.Rows.Count - 1).ToString() + "条换带数据存储至文件。");
                                 }
