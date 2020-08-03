@@ -212,7 +212,7 @@ namespace GeodeticCoordinateConversion
                         Connection = con,
                     };
 
-                    if (db.CheckGUID(nameof(CoordConvert), guid))
+                    if (db.GUIDExists(nameof(CoordConvert), guid))
                     {
                         DataRow dr = db.SelectByGUID(nameof(CoordConvert), guid);
                         this.UID = Guid.Parse(dr[nameof(UID)].ToString());
@@ -405,7 +405,7 @@ namespace GeodeticCoordinateConversion
                     cmd.Parameters.AddWithValue("@BL", BL.UID.ToString());
                     cmd.Parameters.AddWithValue("@Gauss", Gauss.UID.ToString());
 
-                    if (db.CheckGUID(nameof(CoordConvert), this.UID))
+                    if (db.GUIDExists(nameof(CoordConvert), this.UID))
                     {
                         cmd.CommandText = "UPDATE CoordConvert SET [Selected] = @Selected, [Dirty] = @Dirty, [Calculated] = @Calculated, [Error] = @Error, [BL] = @BL, [Gauss] = @Gauss WHERE [UID] = @UID";
                         cmd.Parameters.Insert(cmd.Parameters.Count,p);

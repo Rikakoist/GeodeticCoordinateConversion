@@ -66,11 +66,11 @@
   <ItemGroup>
     <Compile Include="Deprecated\DBIO.cs" />
     <Compile Include="ObjDef\DataStatus.cs" />
-    <Compile Include="Controls\CoordConvertLayout.cs">
+    <Compile Include="Controls\CoordConvertCtrl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\CoordConvertLayout.Designer.cs">
-      <DependentUpon>CoordConvertLayout.cs</DependentUpon>
+    <Compile Include="Controls\CoordConvertCtrl.Designer.cs">
+      <DependentUpon>CoordConvertCtrl.cs</DependentUpon>
     </Compile>
     <Compile Include="ObjDef\DMS.cs" />
     <Compile Include="MainForm.cs">
@@ -110,8 +110,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StaticObj\Restraints.cs" />
     <Compile Include="ObjDef\ZoneConvert.cs" />
-    <EmbeddedResource Include="Controls\CoordConvertLayout.resx">
-      <DependentUpon>CoordConvertLayout.cs</DependentUpon>
+    <Compile Include="Controls\TableViewCtrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\TableViewCtrl.Designer.cs">
+      <DependentUpon>TableViewCtrl.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Controls\CoordConvertCtrl.resx">
+      <DependentUpon>CoordConvertCtrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\TableViewCtrl.resx">
+      <DependentUpon>TableViewCtrl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

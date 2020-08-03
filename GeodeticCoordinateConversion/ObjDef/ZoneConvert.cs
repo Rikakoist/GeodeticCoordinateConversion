@@ -272,7 +272,7 @@ namespace GeodeticCoordinateConversion
                         Connection = con,
                     };
 
-                    if (db.CheckGUID(nameof(ZoneConvert), guid))
+                    if (db.GUIDExists(nameof(ZoneConvert), guid))
                     {
                         DataRow dr = db.SelectByGUID(nameof(ZoneConvert), guid);
                         this.UID = Guid.Parse(dr[nameof(UID)].ToString());
@@ -461,7 +461,7 @@ namespace GeodeticCoordinateConversion
                     cmd.Parameters.AddWithValue("@Gauss6", Gauss6.UID.ToString());
                     cmd.Parameters.AddWithValue("@Gauss3", Gauss3.UID.ToString());
 
-                    if (db.CheckGUID(nameof(CoordConvert), this.UID))
+                    if (db.GUIDExists(nameof(CoordConvert), this.UID))
                     {
                         cmd.CommandText = "UPDATE ZoneConvert SET [Selected] = @Selected, [Dirty] = @Dirty, [Calculated] = @Calculated, [Error] = @Error, [Gauss6] = @Gauss6, [Gauss3] = @Gauss3 WHERE [UID] = @UID";
                         cmd.Parameters.Insert(cmd.Parameters.Count, p);

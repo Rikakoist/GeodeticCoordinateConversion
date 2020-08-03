@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -25,6 +26,7 @@ namespace GeodeticCoordinateConversion
         public MainForm()
         {
             InitializeComponent();
+            CheckForIllegalCrossThreadCalls = false;    //Better to use delegate.
 
             //坐标转换事件绑定
             this.CoordDGV = Coord.DGV;
@@ -58,13 +60,19 @@ namespace GeodeticCoordinateConversion
             Zone.ReverseBtn.Click += new System.EventHandler(this.ZoneConvertOperation);
 
             Zone.ConvertSelectionChange += new CoordConvertLayout.ConvertSelectionChangeEventHander(this.ConvertSelection);
+
+            //数据库表编辑控件
+            TableViewCtrl TVC = new TableViewCtrl()
+            {
+                Dock = DockStyle.Fill,
+                TabStop=true,
+               TabIndex =0,
+            };
+            this.DBTabPage.Controls.Add(TVC);
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            TableListComboBox.DataSource = DBFile.GetTableList();
-            TableListComboBox.DisplayMember = "DESCRIPTION";
-            TableListComboBox.ValueMember = "TABLE_NAME";
         }
 
         #region Public
@@ -83,103 +91,124 @@ namespace GeodeticCoordinateConversion
         }
 
         //加载数据
-        private void LoadData(object sender, EventArgs e)
+        private async void LoadData(object sender, EventArgs e)
         {
-            if (sender == Coord.LoadFileBtn)
+            try
             {
-                CoordData = new BindingList<CoordConvert>(DataFile.LoadCoordConvertData());
-                CoordDGV.DataSource = CoordData;
-                CoordDGV.ClearSelection();
+                if (sender == Coord.LoadFileBtn)
+                {
+                    CoordData = new BindingList<CoordConvert>(await Task.Run(() => DataFile.LoadCoordConvertData()));
+                    CoordDGV.DataSource = CoordData;
+                    CoordDGV.ClearSelection();
+                }
+                if (sender == Zone.LoadFileBtn)
+                {
+                    ZoneData = new BindingList<ZoneConvert>(await Task.Run(() => DataFile.LoadZoneConvertData()));
+                    ZoneDGV.DataSource = ZoneData;
+                    ZoneDGV.ClearSelection();
+                }
+                if (sender == Coord.LoadDBBtn)
+                {
+                    CoordData = new BindingList<CoordConvert>(await Task.Run(() => DBFile.LoadCoordConvertData()));
+                    CoordDGV.DataSource = CoordData;
+                    CoordDGV.ClearSelection();
+                }
+                if (sender == Zone.LoadDBBtn)
+                {
+                    ZoneData = new BindingList<ZoneConvert>(await Task.Run(() => DBFile.LoadZoneConvertData()));
+                    ZoneDGV.DataSource = ZoneData;
+                    ZoneDGV.ClearSelection();
+                }
             }
-            if (sender == Zone.LoadFileBtn)
+            catch (Exception err)
             {
-                ZoneData = new BindingList<ZoneConvert>(DataFile.LoadZoneConvertData());
-                ZoneDGV.DataSource = ZoneData;
-                ZoneDGV.ClearSelection();
-            }
-            if (sender == Coord.LoadDBBtn)
-            {
-                CoordData = new BindingList<CoordConvert>(DBFile.LoadCoordConvertData());
-                CoordDGV.DataSource = CoordData;
-                CoordDGV.ClearSelection();
-            }
-            if (sender == Zone.LoadDBBtn)
-            {
-                ZoneData = new BindingList<ZoneConvert>(DBFile.LoadZoneConvertData());
-                ZoneDGV.DataSource = ZoneData;
-                ZoneDGV.ClearSelection();
+                MessageBoxes.Error(err.ToString());
             }
         }
 
         //保存数据
-        private void SaveData(object sender, EventArgs e)
+        private async void SaveData(object sender, EventArgs e)
         {
-            if (sender == Coord.SaveFileBtn)
+            try
             {
-                DataFile.SaveCoordConvertData(CoordData.ToList());
+                if (sender == Coord.SaveFileBtn)
+                {
+                    await Task.Run(() => DataFile.SaveCoordConvertData(CoordData.ToList()));
+                }
+                if (sender == Zone.SaveFileBtn)
+                {
+                    await Task.Run(() => DataFile.SaveZoneConvertData(ZoneData.ToList()));
+                }
+                if (sender == Coord.SaveDBBtn)
+                {
+                    await Task.Run(() => DBFile.SaveCoordConvertData(CoordData.ToList()));
+                }
+                if (sender == Zone.SaveDBBtn)
+                {
+                    await Task.Run(() => DBFile.SaveZoneConvertData(ZoneData.ToList()));
+                }
             }
-            if (sender == Zone.SaveFileBtn)
+            catch (Exception err)
             {
-                DataFile.SaveZoneConvertData(ZoneData.ToList());
-            }
-            if (sender == Coord.SaveDBBtn)
-            {
-                DBFile.SaveCoordConvertData(CoordData.ToList());
-            }
-            if (sender == Zone.SaveDBBtn)
-            {
-                DBFile.SaveZoneConvertData(ZoneData.ToList());
+                MessageBoxes.Error(err.ToString());
             }
         }
 
         //选择操作
         private void ConvertSelection(object sender, string tag, EventArgs e)
         {
-            if (sender == Coord)
+            try
             {
-                for (int i = 0; i < CoordData.Count; i++)
+                if (sender == Coord)
                 {
-                    DataStatus c = CoordData[i];
-                    if (tag == "SelectAll")
+                    for (int i = 0; i < CoordData.Count; i++)
                     {
-                        if (!c.Selected)
-                            c.Selected = true;
+                        DataStatus c = CoordData[i];
+                        if (tag == "SelectAll")
+                        {
+                            if (!c.Selected)
+                                c.Selected = true;
+                        }
+                        if (tag == "SelectNone")
+                        {
+                            if (c.Selected)
+                                c.Selected = false;
+                        }
+                        if (tag == "ReverseSelect")
+                        {
+                            c.Selected = !c.Selected;
+                        }
+                        Coord.ResetColor(i);
                     }
-                    if (tag == "SelectNone")
-                    {
-                        if (c.Selected)
-                            c.Selected = false;
-                    }
-                    if (tag == "ReverseSelect")
-                    {
-                        c.Selected = !c.Selected;
-                    }
-                    Coord.ResetColor(i);
+                    CoordDGV.Invalidate();
                 }
-                CoordDGV.Invalidate();
+                if (sender == Zone)
+                {
+                    for (int i = 0; i < ZoneData.Count; i++)
+                    {
+                        DataStatus c = ZoneData[i];
+                        if (tag == "SelectAll")
+                        {
+                            if (!c.Selected)
+                                c.Selected = true;
+                        }
+                        if (tag == "SelectNone")
+                        {
+                            if (c.Selected)
+                                c.Selected = false;
+                        }
+                        if (tag == "ReverseSelect")
+                        {
+                            c.Selected = !c.Selected;
+                        }
+                        Zone.ResetColor(i);
+                    }
+                    ZoneDGV.Invalidate();
+                }
             }
-            if (sender == Zone)
+            catch (Exception err)
             {
-                for (int i = 0; i < ZoneData.Count; i++)
-                {
-                    DataStatus c = ZoneData[i];
-                    if (tag == "SelectAll")
-                    {
-                        if (!c.Selected)
-                            c.Selected = true;
-                    }
-                    if (tag == "SelectNone")
-                    {
-                        if (c.Selected)
-                            c.Selected = false;
-                    }
-                    if (tag == "ReverseSelect")
-                    {
-                        c.Selected = !c.Selected;
-                    }
-                    Zone.ResetColor(i);
-                }
-                ZoneDGV.Invalidate();
+                MessageBoxes.Error(err.ToString());
             }
         }
         #endregion
@@ -305,18 +334,5 @@ namespace GeodeticCoordinateConversion
         }
         #endregion
 
-        #region DataView
-        //选中的表名更改
-        private void SelectedTableNameChanged(object sender, EventArgs e)
-        {
-            ReloadTable(this,e);
-        }
-
-        private void ReloadTable(object sender, EventArgs e)
-        {
-            DBDGV.DataSource = DBFile.GetFullTable(((TableListComboBox.DataSource as DataTable).Rows[TableListComboBox.SelectedIndex]["TABLE_NAME"]).ToString());
-        }
-
-        #endregion
     }
 }

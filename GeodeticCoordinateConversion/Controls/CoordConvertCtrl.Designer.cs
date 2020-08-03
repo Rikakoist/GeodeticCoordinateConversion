@@ -42,11 +42,11 @@
             this.DeleteBtn = new System.Windows.Forms.Button();
             this.LoadFileBtn = new System.Windows.Forms.Button();
             this.SaveFileBtn = new System.Windows.Forms.Button();
+            this.LoadDBBtn = new System.Windows.Forms.Button();
+            this.SaveDBBtn = new System.Windows.Forms.Button();
             this.SelectionFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.BtnToolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.SaveDBBtn = new System.Windows.Forms.Button();
-            this.LoadDBBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGV)).BeginInit();
             this.DataFlowLayoutPanel.SuspendLayout();
             this.SelectionFlowLayoutPanel.SuspendLayout();
@@ -215,6 +215,30 @@
             this.BtnToolTip.SetToolTip(this.SaveFileBtn, "将记录保存到文件");
             this.SaveFileBtn.UseVisualStyleBackColor = true;
             // 
+            // LoadDBBtn
+            // 
+            this.LoadDBBtn.BackgroundImage = global::GeodeticCoordinateConversion.Properties.Resources.Database;
+            this.LoadDBBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.LoadDBBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.LoadDBBtn.Location = new System.Drawing.Point(0, 140);
+            this.LoadDBBtn.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
+            this.LoadDBBtn.Name = "LoadDBBtn";
+            this.LoadDBBtn.Size = new System.Drawing.Size(32, 32);
+            this.LoadDBBtn.TabIndex = 2;
+            this.LoadDBBtn.UseVisualStyleBackColor = true;
+            // 
+            // SaveDBBtn
+            // 
+            this.SaveDBBtn.BackgroundImage = global::GeodeticCoordinateConversion.Properties.Resources.Floppydisk;
+            this.SaveDBBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.SaveDBBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.SaveDBBtn.Location = new System.Drawing.Point(0, 175);
+            this.SaveDBBtn.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
+            this.SaveDBBtn.Name = "SaveDBBtn";
+            this.SaveDBBtn.Size = new System.Drawing.Size(32, 32);
+            this.SaveDBBtn.TabIndex = 3;
+            this.SaveDBBtn.UseVisualStyleBackColor = true;
+            // 
             // SelectionFlowLayoutPanel
             // 
             this.SelectionFlowLayoutPanel.AutoSize = true;
@@ -239,30 +263,6 @@
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(170, 23);
             this.flowLayoutPanel1.TabIndex = 2;
-            // 
-            // SaveDBBtn
-            // 
-            this.SaveDBBtn.BackgroundImage = global::GeodeticCoordinateConversion.Properties.Resources.Floppydisk;
-            this.SaveDBBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.SaveDBBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.SaveDBBtn.Location = new System.Drawing.Point(0, 175);
-            this.SaveDBBtn.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
-            this.SaveDBBtn.Name = "SaveDBBtn";
-            this.SaveDBBtn.Size = new System.Drawing.Size(32, 32);
-            this.SaveDBBtn.TabIndex = 3;
-            this.SaveDBBtn.UseVisualStyleBackColor = true;
-            // 
-            // LoadDBBtn
-            // 
-            this.LoadDBBtn.BackgroundImage = global::GeodeticCoordinateConversion.Properties.Resources.Database;
-            this.LoadDBBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.LoadDBBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.LoadDBBtn.Location = new System.Drawing.Point(0, 140);
-            this.LoadDBBtn.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
-            this.LoadDBBtn.Name = "LoadDBBtn";
-            this.LoadDBBtn.Size = new System.Drawing.Size(32, 32);
-            this.LoadDBBtn.TabIndex = 2;
-            this.LoadDBBtn.UseVisualStyleBackColor = true;
             // 
             // CoordConvertLayout
             // 

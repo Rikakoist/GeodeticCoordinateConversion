@@ -110,7 +110,7 @@ namespace GeodeticCoordinateConversion
         /// <param name="TableName">表名。</param>
         /// <param name="guid">要检查的GUID。</param>
         /// <returns>是否存在。</returns>
-        public bool CheckGUID(string TableName, Guid guid)
+        public bool GUIDExists(string TableName, Guid guid)
         {
             using (OleDbConnection con = new OleDbConnection(ConnectionInfo))
             {
@@ -131,7 +131,7 @@ namespace GeodeticCoordinateConversion
         /// </summary>
         /// <param name="TableName">表名。</param>
         /// <param name="guid">要查询的GUID。</param>
-        /// <returns></returns>
+        /// <returns>包含数据的记录行。</returns>
         public DataRow SelectByGUID(string TableName, Guid guid)
         {
             using (OleDbConnection con = new OleDbConnection(ConnectionInfo))
@@ -267,6 +267,11 @@ namespace GeodeticCoordinateConversion
             }
         }
 
+        /// <summary>
+        /// 根据表名获取完整表内容。
+        /// </summary>
+        /// <param name="TableName">表名。</param>
+        /// <returns>包含全部表内容的数据表。</returns>
         public DataTable GetFullTable(string TableName)
         {
             using (OleDbConnection con = new OleDbConnection(ConnectionInfo))
