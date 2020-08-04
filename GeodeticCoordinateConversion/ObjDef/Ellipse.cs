@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GeodeticCoordinateConversion.Properties;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,7 +21,7 @@ namespace GeodeticCoordinateConversion
         /// <summary>
         /// 配置文件。
         /// </summary>
-        private GEOSettings AppSettings = new GEOSettings();
+        private Settings AppSettings = new Settings();
         /// <summary>
         /// 椭球类型(私有)。
         /// </summary>

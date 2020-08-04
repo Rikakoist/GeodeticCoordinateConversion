@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using GeodeticCoordinateConversion.Deprecated;
+using GeodeticCoordinateConversion.Properties;
 
 namespace GeodeticCoordinateConversion.Deprecated
 {
@@ -24,7 +25,7 @@ namespace GeodeticCoordinateConversion.Deprecated
         Ellipse E = new Ellipse(0);
         FileIO dataFile = new FileIO();
         DBIO dbFile = new DBIO();
-        GEOSettings AppSettings = new GEOSettings();
+        Settings AppSettings = new Settings();
 
         public MainForm()
         {

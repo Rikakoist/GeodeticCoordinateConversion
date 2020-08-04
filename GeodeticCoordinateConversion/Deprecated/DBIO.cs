@@ -10,9 +10,13 @@ using System.IO;
 using GeodeticCoordinateConversion.Deprecated;
 using ADOX;
 using System.Runtime.InteropServices;
+using GeodeticCoordinateConversion.Properties;
 
 namespace GeodeticCoordinateConversion.Deprecated
 {
+    /// <summary>
+    /// 数据库管理类。
+    /// </summary>
     public sealed class DBIO
     {
         /// <summary>
@@ -23,7 +27,7 @@ namespace GeodeticCoordinateConversion.Deprecated
         /// <summary>
         /// 配置文件。
         /// </summary>
-        private GEOSettings AppSettings = new GEOSettings();
+        private Settings AppSettings = new Settings();
 
         /// <summary>
         /// 数据库文件存放的目录（私有）。

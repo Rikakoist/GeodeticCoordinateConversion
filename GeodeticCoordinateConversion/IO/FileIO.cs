@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GeodeticCoordinateConversion.Properties;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -9,6 +10,9 @@ using System.Xml;
 
 namespace GeodeticCoordinateConversion
 {
+    /// <summary>
+    /// 文件管理类。
+    /// </summary>
     class FileIO
     {
         /// <summary>
@@ -18,7 +22,7 @@ namespace GeodeticCoordinateConversion
         /// <summary>
         /// 配置文件。
         /// </summary>
-        private GEOSettings AppSettings = new GEOSettings();
+        private Settings AppSettings = new Settings();
 
         /// <summary>
         /// XML文档路径（私有）。
@@ -57,13 +61,16 @@ namespace GeodeticCoordinateConversion
             }
         }
 
+        /// <summary>
+        /// 默认的文件管理类构造函数，路径为配置文件中路径。
+        /// </summary>
         public FileIO()
         {
             this.DocPath = AppSettings.WorkFolder;
         }
 
         /// <summary>
-        /// 构造函数。
+        /// 使用指定的目录初始化文件管理类。
         /// </summary>
         /// <param name="ConfigFilePath">配置文件的路径。</param>
         public FileIO(string ConfigFilePath)

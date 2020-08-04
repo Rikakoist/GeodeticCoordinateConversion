@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TableViewCtrl));
             this.DataFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.AddRowBtn = new System.Windows.Forms.Button();
@@ -38,6 +39,7 @@
             this.TableListComboBox = new System.Windows.Forms.ComboBox();
             this.ReloadTableBtn = new System.Windows.Forms.Button();
             this.DGV = new System.Windows.Forms.DataGridView();
+            this.CtrlToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.DataFlowLayoutPanel.SuspendLayout();
             this.DataTableFlowLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGV)).BeginInit();
@@ -47,26 +49,27 @@
             // 
             this.DataFlowLayoutPanel.AutoSize = true;
             this.DataFlowLayoutPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.DataFlowLayoutPanel.Controls.Add(this.SaveFileBtn);
             this.DataFlowLayoutPanel.Controls.Add(this.AddRowBtn);
             this.DataFlowLayoutPanel.Controls.Add(this.DeleteBtn);
-            this.DataFlowLayoutPanel.Controls.Add(this.SaveFileBtn);
             this.DataFlowLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.DataFlowLayoutPanel.Location = new System.Drawing.Point(6, 45);
             this.DataFlowLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
             this.DataFlowLayoutPanel.Name = "DataFlowLayoutPanel";
             this.DataFlowLayoutPanel.Size = new System.Drawing.Size(32, 105);
-            this.DataFlowLayoutPanel.TabIndex = 5;
+            this.DataFlowLayoutPanel.TabIndex = 2;
             // 
             // AddRowBtn
             // 
-            this.AddRowBtn.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("AddRowBtn.BackgroundImage")));
+            this.AddRowBtn.BackgroundImage = global::GeodeticCoordinateConversion.Properties.Resources.Plus;
             this.AddRowBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.AddRowBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.AddRowBtn.Location = new System.Drawing.Point(0, 0);
+            this.AddRowBtn.Location = new System.Drawing.Point(0, 35);
             this.AddRowBtn.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
             this.AddRowBtn.Name = "AddRowBtn";
             this.AddRowBtn.Size = new System.Drawing.Size(32, 32);
-            this.AddRowBtn.TabIndex = 0;
+            this.AddRowBtn.TabIndex = 1;
+            this.CtrlToolTip.SetToolTip(this.AddRowBtn, "向当前表添加一条记录");
             this.AddRowBtn.UseVisualStyleBackColor = true;
             this.AddRowBtn.Click += new System.EventHandler(this.AddRow);
             // 
@@ -75,11 +78,12 @@
             this.DeleteBtn.BackgroundImage = global::GeodeticCoordinateConversion.Properties.Resources.Multiply;
             this.DeleteBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.DeleteBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.DeleteBtn.Location = new System.Drawing.Point(0, 35);
+            this.DeleteBtn.Location = new System.Drawing.Point(0, 70);
             this.DeleteBtn.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
             this.DeleteBtn.Name = "DeleteBtn";
             this.DeleteBtn.Size = new System.Drawing.Size(32, 32);
-            this.DeleteBtn.TabIndex = 1;
+            this.DeleteBtn.TabIndex = 2;
+            this.CtrlToolTip.SetToolTip(this.DeleteBtn, "删除选中的记录");
             this.DeleteBtn.UseVisualStyleBackColor = true;
             this.DeleteBtn.Click += new System.EventHandler(this.DelRow);
             // 
@@ -88,11 +92,12 @@
             this.SaveFileBtn.BackgroundImage = global::GeodeticCoordinateConversion.Properties.Resources.Floppydisk;
             this.SaveFileBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.SaveFileBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.SaveFileBtn.Location = new System.Drawing.Point(0, 70);
+            this.SaveFileBtn.Location = new System.Drawing.Point(0, 0);
             this.SaveFileBtn.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
             this.SaveFileBtn.Name = "SaveFileBtn";
             this.SaveFileBtn.Size = new System.Drawing.Size(32, 32);
-            this.SaveFileBtn.TabIndex = 6;
+            this.SaveFileBtn.TabIndex = 0;
+            this.CtrlToolTip.SetToolTip(this.SaveFileBtn, "保存对选中表的更改");
             this.SaveFileBtn.UseVisualStyleBackColor = true;
             this.SaveFileBtn.Click += new System.EventHandler(this.SaveChanges);
             // 
@@ -107,7 +112,7 @@
             this.DataTableFlowLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
             this.DataTableFlowLayoutPanel.Name = "DataTableFlowLayoutPanel";
             this.DataTableFlowLayoutPanel.Size = new System.Drawing.Size(267, 27);
-            this.DataTableFlowLayoutPanel.TabIndex = 4;
+            this.DataTableFlowLayoutPanel.TabIndex = 0;
             // 
             // TableLabel
             // 
@@ -142,6 +147,7 @@
             this.ReloadTableBtn.Name = "ReloadTableBtn";
             this.ReloadTableBtn.Size = new System.Drawing.Size(27, 27);
             this.ReloadTableBtn.TabIndex = 1;
+            this.CtrlToolTip.SetToolTip(this.ReloadTableBtn, "从数据库重新读取选定表");
             this.ReloadTableBtn.UseVisualStyleBackColor = true;
             this.ReloadTableBtn.Click += new System.EventHandler(this.ReloadTable);
             // 
@@ -159,7 +165,7 @@
             this.DGV.Name = "DGV";
             this.DGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DGV.Size = new System.Drawing.Size(842, 444);
-            this.DGV.TabIndex = 3;
+            this.DGV.TabIndex = 1;
             // 
             // TableViewCtrl
             // 
@@ -192,5 +198,6 @@
         private System.Windows.Forms.Button ReloadTableBtn;
         private System.Windows.Forms.DataGridView DGV;
         internal System.Windows.Forms.Button SaveFileBtn;
+        private System.Windows.Forms.ToolTip CtrlToolTip;
     }
 }

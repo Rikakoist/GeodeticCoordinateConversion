@@ -1,5 +1,7 @@
-﻿using System;
+﻿using GeodeticCoordinateConversion.Properties;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -323,6 +325,31 @@ namespace GeodeticCoordinateConversion
         /// 已将3°带转换到6°带。
         /// </summary>
         public static string Zone3To6Success = "已将3°带转换到6°带。";
+
+        public static string TableListLoaded(int TableCount)
+        {
+            return "在数据库 " + new Settings().DBName + " 中找到 " + TableCount + " 张表。";
+        }
+
+        public static string TableRecordCount(string TableName, int? RecordCount)
+        {
+            return TableName+" 表中有 " + RecordCount + " 条记录。";
+        }
+
+        public static string TableReloaded(string TableName)
+        {
+            return "已从数据库 " + new Settings().DBName + " 重载表 " + TableName;
+        }
+
+        public static string RowAdded()
+        {
+            return "添加了1条新的记录。";
+        }
+
+        public static string RowDeleted(int row)
+        {
+            return "删除了"+row+"条记录。";
+        }
     }
 
     /// <summary>
@@ -337,6 +364,78 @@ namespace GeodeticCoordinateConversion
         /// <summary>
         /// 最后编辑于。
         /// </summary>
-        public static string LastModified = "最后编辑于：";
+        public static string LastModified = "最后编辑于";
+        /// <summary>
+        /// 获取问候语。
+        /// </summary>
+        /// <returns>按照小时决定返回的问候语。</returns>
+        public static string Greet()
+        {
+            int h = DateTime.Now.Hour;
+            string pref = "你好，";
+            string suff = "。";
+            switch (h)
+            {
+                case 23:
+                case 0:
+                case 1:
+                    {
+                        pref = "夜深了，";
+                        break;
+                    }
+                case 2:
+                case 3:
+                case 4:
+                    {
+                        pref = "夜猫子";
+                        suff = "，你好。";
+                        break;
+                    }
+                case 5:
+                case 6:
+                case 7:
+                    {
+                        pref = "早上好，";
+                        break;
+                    }
+                case 8:
+                case 9:
+                case 10:
+                    {
+                        pref = "上午好，";
+                        break;
+                    }
+                case 11:
+                case 12:
+                case 13:
+                    {
+                        pref = "中午好，";
+                        break;
+                    }
+                case 14:
+                case 15:
+                case 16:
+                case 17:
+                    {
+                        pref = "下午好，";
+                        break;
+                    }
+                case 18:
+                case 19:
+                case 20:
+                case 21:
+                case 22:
+                    {
+                        pref = "晚上好，";
+                        break;
+                    }
+                default:
+                    {
+                        pref = "哈喽，";
+                        break;
+                    }
+            }
+            return pref + Environment.UserName + suff;
+        }
     }
 }

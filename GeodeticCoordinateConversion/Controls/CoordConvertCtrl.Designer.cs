@@ -164,7 +164,7 @@
             // 
             // AddRowBtn
             // 
-            this.AddRowBtn.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("AddRowBtn.BackgroundImage")));
+            this.AddRowBtn.BackgroundImage = global::GeodeticCoordinateConversion.Properties.Resources.Plus;
             this.AddRowBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.AddRowBtn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.AddRowBtn.Location = new System.Drawing.Point(0, 0);

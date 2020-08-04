@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GeodeticCoordinateConversion.Properties;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,7 +19,7 @@ namespace GeodeticCoordinateConversion
             Application.SetCompatibleTextRenderingDefault(false);
 
             //检查工作文件夹和文件名
-            GEOSettings AppSettings = new GEOSettings();
+            Settings AppSettings = new Settings();
             if ((String.IsNullOrWhiteSpace(AppSettings.WorkFolder))
                 || (!System.IO.Directory.Exists(AppSettings.WorkFolder)))
             {

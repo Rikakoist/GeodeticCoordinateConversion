@@ -12,6 +12,7 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -24,7 +25,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -48,7 +48,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Recycle.ico</ApplicationIcon>
+    <ApplicationIcon>Wi006432.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>GeodeticCoordinateConversion.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -64,6 +67,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AboutApp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutApp.Designer.cs">
+      <DependentUpon>AboutApp.cs</DependentUpon>
+    </Compile>
     <Compile Include="Deprecated\DBIO.cs" />
     <Compile Include="ObjDef\DataStatus.cs" />
     <Compile Include="Controls\CoordConvertCtrl.cs">
@@ -80,14 +89,13 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ObjDef\CoordConvert.cs" />
-    <Compile Include="GEOSettings.cs" />
     <Compile Include="IO\FileIO.cs" />
-    <Compile Include="GEOSettings.Designer.cs">
+    <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>GEOSettings.settings</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="StaticObj\CommonExceptions.cs" />
+    <Compile Include="StaticObj\CommonClass.cs" />
     <Compile Include="StaticObj\NodeInfo.cs" />
     <Compile Include="ObjDef\GEOEnum.cs" />
     <Compile Include="ObjDef\GEOBL.cs" />
@@ -116,6 +124,9 @@
     <Compile Include="Controls\TableViewCtrl.Designer.cs">
       <DependentUpon>TableViewCtrl.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AboutApp.resx">
+      <DependentUpon>AboutApp.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\CoordConvertCtrl.resx">
       <DependentUpon>CoordConvertCtrl.cs</DependentUpon>
     </EmbeddedResource>
@@ -130,18 +141,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <None Include="GEOSettings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>GEOSettings.Designer.cs</LastGenOutput>
-    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -156,9 +158,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\cat.jpg" />
+    <None Include="Resources\Key.png" />
+    <None Include="Resources\Twowheels.png" />
+    <None Include="Resources\Exclamation.png" />
+    <Content Include="Wi006432.ico" />
     <None Include="Resources\Recycle.png" />
     <None Include="Resources\Database.png" />
-    <None Include="Resources\Plus1.png" />
     <None Include="Resources\Plus.png" />
     <None Include="Resources\Floppydisk.png" />
     <None Include="Resources\Load.png" />
@@ -171,7 +177,7 @@
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
       <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 和 x64%29</ProductName>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">

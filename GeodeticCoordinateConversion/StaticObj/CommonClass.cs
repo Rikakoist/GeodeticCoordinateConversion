@@ -7,6 +7,41 @@ using System.Threading.Tasks;
 namespace GeodeticCoordinateConversion
 {
     /// <summary>
+    /// 提示值改变事件参数。
+    /// </summary>
+    public class HintChangedEventArgs : EventArgs
+    {
+        public object OldValue { get; }
+        public object NewValue { get; }
+        public EventArgs InnerArg { get; }
+
+        /// <summary>
+        /// 默认初始化。
+        /// </summary>
+        /// <param name="innerArg">内部事件参数。</param>
+        public HintChangedEventArgs(EventArgs innerArg = null)
+        {
+            this.OldValue = null;
+            this.NewValue = null;
+            this.InnerArg = innerArg;
+        }
+
+        /// <summary>
+        /// 通过提示值改变类型、旧值和新值初始化。
+        /// </summary>
+        /// <param name="oldValue">旧值。</param>
+        /// <param name="newValue">新值。</param>
+        /// <param name="innerArg">内部事件参数。</param>
+        public HintChangedEventArgs(object oldValue, object newValue, EventArgs innerArg = null)
+        {
+            this.OldValue = oldValue;
+            this.NewValue = newValue;
+            this.InnerArg = innerArg;
+        }
+    }
+
+
+    /// <summary>
     /// 绑定事件失败。
     /// </summary>
     [Serializable]

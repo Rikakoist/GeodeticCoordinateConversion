@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GeodeticCoordinateConversion.Properties;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,9 +15,10 @@ namespace GeodeticCoordinateConversion
 {
     public partial class MainForm : Form
     {
-        private GEOSettings AppSettings = new GEOSettings();
+        private Settings AppSettings = new Settings();
         private FileIO DataFile = new FileIO();
         private DBIO DBFile = new DBIO();
+        public string Hint { get=>HintLabel.Text; set => HintLabel.Text = value; }
 
         public BindingList<CoordConvert> CoordData = new BindingList<CoordConvert>();
         public BindingList<ZoneConvert> ZoneData = new BindingList<ZoneConvert>();
@@ -27,6 +29,7 @@ namespace GeodeticCoordinateConversion
         {
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;    //Better to use delegate.
+            Hint = CommonText.Greet();
 
             //坐标转换事件绑定
             this.CoordDGV = Coord.DGV;
@@ -68,6 +71,7 @@ namespace GeodeticCoordinateConversion
                 TabStop=true,
                TabIndex =0,
             };
+            TVC.HintChanged += new TableViewCtrl.HintChangedEventHandler(this.ChildHintChanged);
             this.DBTabPage.Controls.Add(TVC);
         }
 
@@ -211,6 +215,21 @@ namespace GeodeticCoordinateConversion
                 MessageBoxes.Error(err.ToString());
             }
         }
+
+        public void ChildHintChanged(object sender,HintChangedEventArgs e)
+        {
+            this.Hint = e.NewValue.ToString();
+        }
+
+        private void OpenSettings(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ShowAbout(object sender, EventArgs e)
+        {
+            new AboutApp().ShowDialog();
+        }
         #endregion
 
         #region CoordConvert
@@ -284,6 +303,7 @@ namespace GeodeticCoordinateConversion
                     ZoneData.Add(new ZoneConvert(c.Gauss));
                 }
             }
+             if(AppSettings.SwitchAfterGaussTransfer)
             ConvertTabControl.SelectedTab = ZoneTabPage;
         }
         #endregion

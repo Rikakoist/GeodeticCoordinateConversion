@@ -16,6 +16,17 @@ namespace GeodeticCoordinateConversion
         DBIO DBFile = new DBIO();
         DataSet ds = new DataSet();
         string tn;
+        private string hint;
+        public string Hint
+        {
+            get => hint;
+            set
+            {
+                HintChangedEventArgs e = new HintChangedEventArgs(hint, value);
+                hint = value;
+                HintChanged?.Invoke(this, e);
+            }
+        }
 
         public TableViewCtrl()
         {
@@ -23,8 +34,9 @@ namespace GeodeticCoordinateConversion
             CheckForIllegalCrossThreadCalls = false;
         }
 
+        #region Methods
         //加载时填充表名
-        private void DBLoad(object sender, EventArgs e)
+        private async void DBLoad(object sender, EventArgs e)
         {
             try
             {
@@ -32,11 +44,12 @@ namespace GeodeticCoordinateConversion
                 TableListComboBox.DisplayMember = "DESCRIPTION";
                 TableListComboBox.ValueMember = "TABLE_NAME";
 
-                for(int i = 0;i< TableListComboBox.Items.Count;i++)
-                {
-                    DBFile.GetTable(ds,(TableListComboBox.DataSource as DataTable).Rows[i]["TABLE_NAME"].ToString());
-                }
+                Hint = Hints.TableListLoaded(TableListComboBox.Items.Count);
 
+                for (int i = 0;i< TableListComboBox.Items.Count;i++)
+                {
+                   await Task.Run(()=> DBFile.GetTable(ds,(TableListComboBox.DataSource as DataTable).Rows[i]["TABLE_NAME"].ToString()));
+                }
                 SelectedTableNameChanged(null, null);
             }
             catch (Exception err)
@@ -52,6 +65,7 @@ namespace GeodeticCoordinateConversion
             {
                 tn = ((TableListComboBox.DataSource as DataTable).Rows[TableListComboBox.SelectedIndex]["TABLE_NAME"].ToString());
                 DGV.DataSource = ds.Tables[tn];
+                Hint = Hints.TableRecordCount(TableListComboBox.Text, ds.Tables[tn]?.Rows.Count);
             }
             catch (Exception err)
             {
@@ -63,22 +77,28 @@ namespace GeodeticCoordinateConversion
         private void ReloadTable(object sender, EventArgs e)
         {
             DBFile.GetTable(ds,tn);
+            Hint = Hints.TableReloaded(TableListComboBox.Text);
         }
 
         //添加行
         private void AddRow(object sender, EventArgs e)
         {
             ds.Tables[tn].Rows.Add();
+            Hint = Hints.RowAdded();
         }
 
         //删除行
         private void DelRow(object sender, EventArgs e)
         {
             DataGridViewSelectedRowCollection dr = DGV.SelectedRows;
+            int j = DGV.SelectedRows.Count;
+
             for (int i = 0; i < dr.Count; i++)
             {
-                ds.Tables[tn].Rows.RemoveAt(dr[i].Index);
+                ds.Tables[tn].Rows[dr[i].Index].Delete();
             }
+            ds.AcceptChanges();
+            Hint = Hints.RowDeleted(j);
         }
 
         //保存更改
@@ -93,5 +113,11 @@ namespace GeodeticCoordinateConversion
                 MessageBoxes.Error(err.ToString());
             }
         }
+        #endregion
+
+        #region Events
+        public delegate void HintChangedEventHandler(object sender, HintChangedEventArgs e);
+        public event HintChangedEventHandler HintChanged;
+        #endregion
     }
 }

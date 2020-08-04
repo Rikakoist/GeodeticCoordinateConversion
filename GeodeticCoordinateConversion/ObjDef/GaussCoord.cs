@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GeodeticCoordinateConversion.Properties;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
@@ -22,7 +23,7 @@ namespace GeodeticCoordinateConversion
         /// <summary>
         /// 配置文件。
         /// </summary>
-        private GEOSettings AppSettings = new GEOSettings();
+        private Settings AppSettings = new Settings();
         /// <summary>
         /// 带内x坐标（私有）。
         /// </summary>

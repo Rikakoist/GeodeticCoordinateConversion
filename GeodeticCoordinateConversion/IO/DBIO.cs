@@ -10,6 +10,7 @@ using System.IO;
 using GeodeticCoordinateConversion.Deprecated;
 using ADOX;
 using System.Runtime.InteropServices;
+using GeodeticCoordinateConversion.Properties;
 
 namespace GeodeticCoordinateConversion
 {
@@ -23,7 +24,7 @@ namespace GeodeticCoordinateConversion
         /// <summary>
         /// 配置文件。
         /// </summary>
-        private GEOSettings AppSettings = new GEOSettings();
+        private Settings AppSettings = new Settings();
 
         /// <summary>
         /// 数据库文件存放的目录（私有）。
@@ -337,171 +338,6 @@ namespace GeodeticCoordinateConversion
                 Adapter.InsertCommand = cb.GetInsertCommand();
                 Adapter.UpdateCommand = cb.GetUpdateCommand();
                 return Adapter.Update(DS, TableName);
-            }
-        }
-
-        //保存操作
-        public void SaveToDB(string Insert)
-        {
-            using (OleDbConnection Connection = new OleDbConnection(ConnectionInfo))
-            {
-                Connection.Open();
-                OleDbCommand Command = new OleDbCommand
-                {
-                    CommandText = Insert,
-                    Connection = Connection
-                };
-                Command.ExecuteNonQuery();
-            }
-        }
-
-        //读取操作
-        public void ReadFromDB(string TableName, DataGridView Datas)
-        {
-
-            using (OleDbConnection Connection = new OleDbConnection(ConnectionInfo))
-            {
-                Connection.Open();
-                OleDbCommand Command = new OleDbCommand
-                {
-                    CommandText = "SELECT * FROM " + TableName,
-                    Connection = Connection
-                };
-                OleDbDataAdapter Adapter = new OleDbDataAdapter
-                {
-                    SelectCommand = Command
-                };
-                DataSet ReadData = new DataSet();
-                Adapter.Fill(ReadData, TableName);
-                Datas.DataSource = ReadData.Tables[TableName];
-                Command.ExecuteReader();
-            }
-        }
-
-        //查询操作
-        public void ReadFromDB(string TableName, string QueryCommand, DataGridView Datas)
-        {
-
-            using (OleDbConnection Connection = new OleDbConnection(ConnectionInfo))
-            {
-                Connection.Open();
-                OleDbCommand Command = new OleDbCommand
-                {
-                    CommandText = QueryCommand,
-                    Connection = Connection
-                };
-                OleDbDataAdapter Adapter = new OleDbDataAdapter
-                {
-                    SelectCommand = Command
-                };
-                DataSet ReadData = new DataSet();
-                Adapter.Fill(ReadData, TableName);
-                Datas.DataSource = ReadData.Tables[TableName];
-                Command.ExecuteReader();
-            }
-        }
-
-        //读取到操作数据框的重载
-        public DataSet ReadToDG(string TableName)
-        {
-
-            DataSet ReadData = new DataSet();
-            using (OleDbConnection Connection = new OleDbConnection(ConnectionInfo))
-            {
-                Connection.Open();
-                OleDbCommand Command = new OleDbCommand
-                {
-                    CommandText = "SELECT * FROM " + TableName,
-                    Connection = Connection
-                };
-                OleDbDataAdapter Adapter = new OleDbDataAdapter
-                {
-                    SelectCommand = Command
-                };
-
-                Adapter.Fill(ReadData, TableName);
-            }
-            return ReadData;
-        }
-
-        //删除操作
-        public void DeleteFromDB(string TableName, DataGridView Datas, int RowIndex)
-        {
-
-            using (OleDbConnection Connection = new OleDbConnection(ConnectionInfo))
-            {
-                Connection.Open();
-                string DeleteRow = Datas.Rows[RowIndex].Cells[0].Value.ToString();
-                OleDbCommand DeleteCommand = new OleDbCommand
-                {
-                    CommandText = "DELETE FROM " + TableName + " WHERE ID = " + DeleteRow,
-                    Connection = Connection
-                };
-                DeleteCommand.ExecuteNonQuery();
-                if (MessageBoxes.Success("删除第" + (RowIndex + 1).ToString() + "行数据成功！") == "OK")
-                {
-                    ReadFromDB(TableName, DBPath, Datas);
-                }
-            }
-        }
-
-        //插入操作
-        public void InsertIntoDB(string TableName, DataGridView Datas, string Cols, string[] InputStringArray, int ColumnCount)
-        {
-
-            string Command = "INSERT INTO " + TableName + " " + Cols + " VALUES ('" + IO.DT() + "', ";
-            for (int i = 0; i < ColumnCount; i++)
-            {
-                if (i < ColumnCount - 1)
-                {
-                    Command += InputStringArray[i] + ", ";
-                }
-                if (i == ColumnCount - 1)
-                {
-                    Command += InputStringArray[i] + ")";
-                }
-            }
-            using (OleDbConnection Connection = new OleDbConnection(ConnectionInfo))
-            {
-                Connection.Open();
-                OleDbCommand CreateCommand = new OleDbCommand
-                {
-                    CommandText = Command,
-                    Connection = Connection
-                };
-                CreateCommand.ExecuteNonQuery();
-                if (MessageBoxes.Success("插入成功！") == "OK")
-                {
-                    ReadFromDB(TableName, DBPath, Datas);
-                }
-            }
-        }
-
-        //更新操作
-        public void UpdateDB(string TableName, DataGridView Datas, int ColumnIndex, int RowIndex)
-        {
-
-            using (OleDbConnection Connection = new OleDbConnection(ConnectionInfo))
-            {
-                Connection.Open();
-                string UpdateCols = Datas.Columns[ColumnIndex].HeaderText;  //Get column header
-                string UpdateRows = Datas.Rows[RowIndex].Cells[0].Value.ToString(); //Get the value of the first cell in the row focused
-                string NewValue = Datas.CurrentCell.Value.ToString();   //Get the value of currently selected cell
-                OleDbCommand Command = new OleDbCommand
-                {
-                    CommandText = "UPDATE " + TableName + " SET " + UpdateCols + " = " + NewValue + " WHERE ID = " + UpdateRows,
-                    Connection = Connection
-                };
-                Command.ExecuteNonQuery();
-            }
-        }
-
-        //检查行列数
-        public void CheckElementsAndCols(int ElementNums, int Cols)
-        {
-            if (ElementNums != Cols)
-            {
-                throw new Exception("要插入的元素数量不正确，应为" + ElementNums + "个。");
             }
         }
 

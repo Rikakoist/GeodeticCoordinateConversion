@@ -73,9 +73,29 @@ namespace GeodeticCoordinateConversion.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Exclamation {
+            get {
+                object obj = ResourceManager.GetObject("Exclamation", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Floppydisk {
             get {
                 object obj = ResourceManager.GetObject("Floppydisk", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Key {
+            get {
+                object obj = ResourceManager.GetObject("Key", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -116,6 +136,16 @@ namespace GeodeticCoordinateConversion.Properties {
         internal static System.Drawing.Bitmap Recycle {
             get {
                 object obj = ResourceManager.GetObject("Recycle", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Twowheels {
+            get {
+                object obj = ResourceManager.GetObject("Twowheels", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
