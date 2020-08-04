@@ -37,6 +37,7 @@
             this.TableListComboBox = new System.Windows.Forms.ComboBox();
             this.ReloadTableBtn = new System.Windows.Forms.Button();
             this.DBDGV = new System.Windows.Forms.DataGridView();
+            this.SaveFileBtn = new System.Windows.Forms.Button();
             this.DataFlowLayoutPanel.SuspendLayout();
             this.DataTableFlowLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DBDGV)).BeginInit();
@@ -48,11 +49,12 @@
             this.DataFlowLayoutPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.DataFlowLayoutPanel.Controls.Add(this.AddRowBtn);
             this.DataFlowLayoutPanel.Controls.Add(this.DeleteBtn);
+            this.DataFlowLayoutPanel.Controls.Add(this.SaveFileBtn);
             this.DataFlowLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.DataFlowLayoutPanel.Location = new System.Drawing.Point(6, 45);
             this.DataFlowLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
             this.DataFlowLayoutPanel.Name = "DataFlowLayoutPanel";
-            this.DataFlowLayoutPanel.Size = new System.Drawing.Size(32, 70);
+            this.DataFlowLayoutPanel.Size = new System.Drawing.Size(32, 105);
             this.DataFlowLayoutPanel.TabIndex = 5;
             // 
             // AddRowBtn
@@ -115,7 +117,7 @@
             this.TableListComboBox.Name = "TableListComboBox";
             this.TableListComboBox.Size = new System.Drawing.Size(163, 21);
             this.TableListComboBox.TabIndex = 0;
-            this.TableListComboBox.RightToLeftChanged += new System.EventHandler(this.SelectedTableNameChanged);
+            this.TableListComboBox.SelectedValueChanged += new System.EventHandler(this.SelectedTableNameChanged);
             // 
             // ReloadTableBtn
             // 
@@ -145,6 +147,20 @@
             this.DBDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DBDGV.Size = new System.Drawing.Size(842, 444);
             this.DBDGV.TabIndex = 3;
+            this.DBDGV.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.UpdateDB);
+            // 
+            // SaveFileBtn
+            // 
+            this.SaveFileBtn.BackgroundImage = global::GeodeticCoordinateConversion.Properties.Resources.Floppydisk;
+            this.SaveFileBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.SaveFileBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.SaveFileBtn.Location = new System.Drawing.Point(0, 70);
+            this.SaveFileBtn.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
+            this.SaveFileBtn.Name = "SaveFileBtn";
+            this.SaveFileBtn.Size = new System.Drawing.Size(32, 32);
+            this.SaveFileBtn.TabIndex = 6;
+            this.SaveFileBtn.UseVisualStyleBackColor = true;
+            this.SaveFileBtn.Click += new System.EventHandler(this.SaveChanges);
             // 
             // TableViewCtrl
             // 
@@ -176,5 +192,6 @@
         private System.Windows.Forms.ComboBox TableListComboBox;
         private System.Windows.Forms.Button ReloadTableBtn;
         private System.Windows.Forms.DataGridView DBDGV;
+        internal System.Windows.Forms.Button SaveFileBtn;
     }
 }

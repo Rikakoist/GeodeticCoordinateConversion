@@ -272,7 +272,7 @@ namespace GeodeticCoordinateConversion
         /// </summary>
         /// <param name="TableName">表名。</param>
         /// <returns>包含全部表内容的数据表。</returns>
-        public DataTable GetFullTable(string TableName)
+        public DataTable GetFullTable(string TableName,out OleDbDataAdapter Adapter)
         {
             using (OleDbConnection con = new OleDbConnection(ConnectionInfo))
             {
@@ -282,8 +282,10 @@ namespace GeodeticCoordinateConversion
                     CommandText = "SELECT * FROM " + TableName,
                     Connection = con
                 };
-                OleDbDataAdapter Adapter = new OleDbDataAdapter(cmd);
+                Adapter = new OleDbDataAdapter(cmd);
                 DataTable dt = new DataTable();
+                dt.TableName = TableName;
+                
                 Adapter.Fill(dt);
 
                 return dt;
