@@ -223,7 +223,7 @@ namespace GeodeticCoordinateConversion
 
         private void OpenSettings(object sender, EventArgs e)
         {
-
+            new SettingsForm().ShowDialog();
         }
 
         private void ShowAbout(object sender, EventArgs e)

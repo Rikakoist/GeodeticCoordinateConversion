@@ -73,6 +73,12 @@
     <Compile Include="AboutApp.Designer.cs">
       <DependentUpon>AboutApp.cs</DependentUpon>
     </Compile>
+    <Compile Include="SettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SettingsForm.Designer.cs">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Deprecated\DBIO.cs" />
     <Compile Include="ObjDef\DataStatus.cs" />
     <Compile Include="Controls\CoordConvertCtrl.cs">
@@ -144,6 +150,9 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="SettingsForm.resx">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -162,6 +171,7 @@
     <None Include="Resources\Key.png" />
     <None Include="Resources\Twowheels.png" />
     <None Include="Resources\Exclamation.png" />
+    <None Include="Resources\cat1.jpg" />
     <Content Include="Wi006432.ico" />
     <None Include="Resources\Recycle.png" />
     <None Include="Resources\Database.png" />
