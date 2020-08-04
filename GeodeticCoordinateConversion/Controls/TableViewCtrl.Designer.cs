@@ -32,15 +32,15 @@
             this.DataFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.AddRowBtn = new System.Windows.Forms.Button();
             this.DeleteBtn = new System.Windows.Forms.Button();
+            this.SaveFileBtn = new System.Windows.Forms.Button();
             this.DataTableFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.TableLabel = new System.Windows.Forms.Label();
             this.TableListComboBox = new System.Windows.Forms.ComboBox();
             this.ReloadTableBtn = new System.Windows.Forms.Button();
-            this.DBDGV = new System.Windows.Forms.DataGridView();
-            this.SaveFileBtn = new System.Windows.Forms.Button();
+            this.DGV = new System.Windows.Forms.DataGridView();
             this.DataFlowLayoutPanel.SuspendLayout();
             this.DataTableFlowLayoutPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DBDGV)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DGV)).BeginInit();
             this.SuspendLayout();
             // 
             // DataFlowLayoutPanel
@@ -82,6 +82,19 @@
             this.DeleteBtn.TabIndex = 1;
             this.DeleteBtn.UseVisualStyleBackColor = true;
             this.DeleteBtn.Click += new System.EventHandler(this.DelRow);
+            // 
+            // SaveFileBtn
+            // 
+            this.SaveFileBtn.BackgroundImage = global::GeodeticCoordinateConversion.Properties.Resources.Floppydisk;
+            this.SaveFileBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.SaveFileBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.SaveFileBtn.Location = new System.Drawing.Point(0, 70);
+            this.SaveFileBtn.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
+            this.SaveFileBtn.Name = "SaveFileBtn";
+            this.SaveFileBtn.Size = new System.Drawing.Size(32, 32);
+            this.SaveFileBtn.TabIndex = 6;
+            this.SaveFileBtn.UseVisualStyleBackColor = true;
+            this.SaveFileBtn.Click += new System.EventHandler(this.SaveChanges);
             // 
             // DataTableFlowLayoutPanel
             // 
@@ -132,35 +145,21 @@
             this.ReloadTableBtn.UseVisualStyleBackColor = true;
             this.ReloadTableBtn.Click += new System.EventHandler(this.ReloadTable);
             // 
-            // DBDGV
+            // DGV
             // 
-            this.DBDGV.AllowUserToAddRows = false;
-            this.DBDGV.AllowUserToDeleteRows = false;
-            this.DBDGV.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.DGV.AllowUserToAddRows = false;
+            this.DGV.AllowUserToDeleteRows = false;
+            this.DGV.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.DBDGV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.DBDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DBDGV.Location = new System.Drawing.Point(46, 45);
-            this.DBDGV.Margin = new System.Windows.Forms.Padding(0);
-            this.DBDGV.Name = "DBDGV";
-            this.DBDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DBDGV.Size = new System.Drawing.Size(842, 444);
-            this.DBDGV.TabIndex = 3;
-            this.DBDGV.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.UpdateDB);
-            // 
-            // SaveFileBtn
-            // 
-            this.SaveFileBtn.BackgroundImage = global::GeodeticCoordinateConversion.Properties.Resources.Floppydisk;
-            this.SaveFileBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.SaveFileBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.SaveFileBtn.Location = new System.Drawing.Point(0, 70);
-            this.SaveFileBtn.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
-            this.SaveFileBtn.Name = "SaveFileBtn";
-            this.SaveFileBtn.Size = new System.Drawing.Size(32, 32);
-            this.SaveFileBtn.TabIndex = 6;
-            this.SaveFileBtn.UseVisualStyleBackColor = true;
-            this.SaveFileBtn.Click += new System.EventHandler(this.SaveChanges);
+            this.DGV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.DGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGV.Location = new System.Drawing.Point(46, 45);
+            this.DGV.Margin = new System.Windows.Forms.Padding(0);
+            this.DGV.Name = "DGV";
+            this.DGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.DGV.Size = new System.Drawing.Size(842, 444);
+            this.DGV.TabIndex = 3;
             // 
             // TableViewCtrl
             // 
@@ -168,7 +167,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.DataFlowLayoutPanel);
             this.Controls.Add(this.DataTableFlowLayoutPanel);
-            this.Controls.Add(this.DBDGV);
+            this.Controls.Add(this.DGV);
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "TableViewCtrl";
             this.Size = new System.Drawing.Size(891, 492);
@@ -176,7 +175,7 @@
             this.DataFlowLayoutPanel.ResumeLayout(false);
             this.DataTableFlowLayoutPanel.ResumeLayout(false);
             this.DataTableFlowLayoutPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DBDGV)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DGV)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -191,7 +190,7 @@
         private System.Windows.Forms.Label TableLabel;
         private System.Windows.Forms.ComboBox TableListComboBox;
         private System.Windows.Forms.Button ReloadTableBtn;
-        private System.Windows.Forms.DataGridView DBDGV;
+        private System.Windows.Forms.DataGridView DGV;
         internal System.Windows.Forms.Button SaveFileBtn;
     }
 }

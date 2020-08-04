@@ -14,8 +14,7 @@ namespace GeodeticCoordinateConversion
     public partial class TableViewCtrl : UserControl
     {
         DBIO DBFile = new DBIO();
-        OleDbDataAdapter Adapter;
-        DataTable ds;
+        DataSet ds = new DataSet();
         string tn;
 
         public TableViewCtrl()
@@ -32,45 +31,27 @@ namespace GeodeticCoordinateConversion
                 TableListComboBox.DataSource = DBFile.GetTableList();
                 TableListComboBox.DisplayMember = "DESCRIPTION";
                 TableListComboBox.ValueMember = "TABLE_NAME";
+
+                for(int i = 0;i< TableListComboBox.Items.Count;i++)
+                {
+                    DBFile.GetTable(ds,(TableListComboBox.DataSource as DataTable).Rows[i]["TABLE_NAME"].ToString());
+                }
+
+                SelectedTableNameChanged(null, null);
             }
             catch (Exception err)
             {
                 MessageBoxes.Error(err.ToString());
-            }
-        }
-
-        public void GetFullTable(string TableName)
-        {
-            using (OleDbConnection con = new OleDbConnection(DBFile.ConnectionInfo))
-            {
-                con.Open();
-                OleDbCommand cmd = new OleDbCommand
-                {
-                    CommandText = "SELECT * FROM " + TableName,
-                    Connection = con
-                };
-                Adapter = new OleDbDataAdapter(cmd);
-                ds = new DataTable();
-              
-
-                Adapter.Fill(ds);
             }
         }
 
         //选中的表名更改
         private void SelectedTableNameChanged(object sender, EventArgs e)
         {
-            ReloadTable(this, e);
-        }
-
-        //重载表数据
-        private async void ReloadTable(object sender, EventArgs e)
-        {
             try
             {
-                tn= ((TableListComboBox.DataSource as DataTable).Rows[TableListComboBox.SelectedIndex]["TABLE_NAME"].ToString());
-                await Task.Run(() => GetFullTable(tn));
-                await Task.Run(() => DBDGV.DataSource = ds);            
+                tn = ((TableListComboBox.DataSource as DataTable).Rows[TableListComboBox.SelectedIndex]["TABLE_NAME"].ToString());
+                DGV.DataSource = ds.Tables[tn];
             }
             catch (Exception err)
             {
@@ -78,35 +59,34 @@ namespace GeodeticCoordinateConversion
             }
         }
 
+        //重载表数据
+        private void ReloadTable(object sender, EventArgs e)
+        {
+            DBFile.GetTable(ds,tn);
+        }
+
+        //添加行
         private void AddRow(object sender, EventArgs e)
         {
-
+            ds.Tables[tn].Rows.Add();
         }
 
+        //删除行
         private void DelRow(object sender, EventArgs e)
         {
-
+            DataGridViewSelectedRowCollection dr = DGV.SelectedRows;
+            for (int i = 0; i < dr.Count; i++)
+            {
+                ds.Tables[tn].Rows.RemoveAt(dr[i].Index);
+            }
         }
 
-        private void UpdateDB(object sender, DataGridViewCellEventArgs e)
-        {
-           
-        }
-
-        private void SaveChanges(object sender, EventArgs e)
+        //保存更改
+        private async void SaveChanges(object sender, EventArgs e)
         {
             try
             {
-                using (OleDbConnection con = new OleDbConnection(DBFile.ConnectionInfo))
-                {
-                    con.Open();
-                    Adapter = new OleDbDataAdapter("SELECT * FROM "+tn, con);
-                    OleDbCommandBuilder cb = new OleDbCommandBuilder(Adapter);
-                    Adapter.DeleteCommand = cb.GetDeleteCommand();
-                    Adapter.InsertCommand = cb.GetInsertCommand();
-                    Adapter.UpdateCommand = cb.GetUpdateCommand();
-                    int a = Adapter.Update(ds);
-                }
+               await Task.Run(()=> DBFile.SaveEdit(ds,tn));
             }
             catch (Exception err)
             {

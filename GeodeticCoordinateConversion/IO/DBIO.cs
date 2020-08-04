@@ -268,11 +268,11 @@ namespace GeodeticCoordinateConversion
         }
 
         /// <summary>
-        /// 根据表名获取完整表内容。
+        /// 根据表名，从数据库中查询对应表并填充到数据表中。
         /// </summary>
         /// <param name="TableName">表名。</param>
         /// <returns>包含全部表内容的数据表。</returns>
-        public DataTable GetFullTable(string TableName,out OleDbDataAdapter Adapter)
+        public DataTable GetTable(string TableName)
         {
             using (OleDbConnection con = new OleDbConnection(ConnectionInfo))
             {
@@ -282,16 +282,63 @@ namespace GeodeticCoordinateConversion
                     CommandText = "SELECT * FROM " + TableName,
                     Connection = con
                 };
-                Adapter = new OleDbDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                dt.TableName = TableName;
-                
+                OleDbDataAdapter Adapter = new OleDbDataAdapter(cmd);
+                DataTable dt = new DataTable
+                {
+                    TableName = TableName
+                };
+
                 Adapter.Fill(dt);
 
                 return dt;
             }
         }
 
+        /// <summary>
+        /// 根据表名，从数据库中查询对应表并填充到数据集中。
+        /// </summary>
+        /// <param name="DS">数据集，需初始化。</param>
+        /// <param name="TableName">表名。</param>
+        /// <returns></returns>
+        public bool GetTable(DataSet DS, string TableName)
+        {
+            using (OleDbConnection con = new OleDbConnection(ConnectionInfo))
+            {
+                con.Open();
+                OleDbCommand cmd = new OleDbCommand
+                {
+                    CommandText = "SELECT * FROM " + TableName,
+                    Connection = con
+                };
+                OleDbDataAdapter Adapter = new OleDbDataAdapter(cmd);
+                if(DS.Tables[TableName]!=null)
+                {
+                    DS.Tables[TableName].Clear();
+                }
+                Adapter.Fill(DS, TableName);
+                return true;
+            }
+        }
+
+        /// <summary>
+        /// 保存更改。
+        /// </summary>
+        /// <param name="DS">更改的数据集。</param>
+        /// <param name="TableName">表名。</param>
+        /// <returns></returns>
+        public int SaveEdit(DataSet DS, string TableName)
+        {
+            using (OleDbConnection con = new OleDbConnection(ConnectionInfo))
+            {
+                con.Open();
+                OleDbDataAdapter Adapter = new OleDbDataAdapter("SELECT * FROM " + TableName, con);
+                OleDbCommandBuilder cb = new OleDbCommandBuilder(Adapter);
+                Adapter.DeleteCommand = cb.GetDeleteCommand();
+                Adapter.InsertCommand = cb.GetInsertCommand();
+                Adapter.UpdateCommand = cb.GetUpdateCommand();
+                return Adapter.Update(DS, TableName);
+            }
+        }
 
         //保存操作
         public void SaveToDB(string Insert)
