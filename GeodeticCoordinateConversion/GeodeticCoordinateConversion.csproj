@@ -172,6 +172,11 @@
     <None Include="Resources\Twowheels.png" />
     <None Include="Resources\Exclamation.png" />
     <None Include="Resources\cat1.jpg" />
+    <None Include="Resources\Globe.png" />
+    <None Include="Resources\LoadFromFile.png" />
+    <None Include="Resources\SaveToFile.png" />
+    <None Include="Resources\LoadFromDB.png" />
+    <None Include="Resources\SaveToDB.png" />
     <Content Include="Wi006432.ico" />
     <None Include="Resources\Recycle.png" />
     <None Include="Resources\Database.png" />

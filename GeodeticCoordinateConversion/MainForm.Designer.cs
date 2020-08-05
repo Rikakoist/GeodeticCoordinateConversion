@@ -57,22 +57,22 @@
             this.ConvertTabControl.Controls.Add(this.CoordTabPage);
             this.ConvertTabControl.Controls.Add(this.ZoneTabPage);
             this.ConvertTabControl.Controls.Add(this.DBTabPage);
-            this.ConvertTabControl.Location = new System.Drawing.Point(0, 31);
+            this.ConvertTabControl.Location = new System.Drawing.Point(0, 25);
             this.ConvertTabControl.Margin = new System.Windows.Forms.Padding(0);
             this.ConvertTabControl.Multiline = true;
             this.ConvertTabControl.Name = "ConvertTabControl";
             this.ConvertTabControl.Padding = new System.Drawing.Point(0, 0);
             this.ConvertTabControl.SelectedIndex = 0;
-            this.ConvertTabControl.Size = new System.Drawing.Size(1045, 485);
+            this.ConvertTabControl.Size = new System.Drawing.Size(824, 414);
             this.ConvertTabControl.TabIndex = 0;
             // 
             // CoordTabPage
             // 
             this.CoordTabPage.Controls.Add(this.Coord);
-            this.CoordTabPage.Location = new System.Drawing.Point(4, 25);
+            this.CoordTabPage.Location = new System.Drawing.Point(4, 22);
             this.CoordTabPage.Margin = new System.Windows.Forms.Padding(0);
             this.CoordTabPage.Name = "CoordTabPage";
-            this.CoordTabPage.Size = new System.Drawing.Size(1037, 456);
+            this.CoordTabPage.Size = new System.Drawing.Size(816, 388);
             this.CoordTabPage.TabIndex = 0;
             this.CoordTabPage.Text = "坐标转换";
             this.CoordTabPage.UseVisualStyleBackColor = true;
@@ -83,16 +83,16 @@
             this.Coord.Location = new System.Drawing.Point(0, 0);
             this.Coord.Margin = new System.Windows.Forms.Padding(0);
             this.Coord.Name = "Coord";
-            this.Coord.Size = new System.Drawing.Size(1037, 456);
+            this.Coord.Size = new System.Drawing.Size(816, 388);
             this.Coord.TabIndex = 0;
             // 
             // ZoneTabPage
             // 
             this.ZoneTabPage.Controls.Add(this.Zone);
-            this.ZoneTabPage.Location = new System.Drawing.Point(4, 25);
+            this.ZoneTabPage.Location = new System.Drawing.Point(4, 22);
             this.ZoneTabPage.Margin = new System.Windows.Forms.Padding(0);
             this.ZoneTabPage.Name = "ZoneTabPage";
-            this.ZoneTabPage.Size = new System.Drawing.Size(1037, 456);
+            this.ZoneTabPage.Size = new System.Drawing.Size(657, 330);
             this.ZoneTabPage.TabIndex = 1;
             this.ZoneTabPage.Text = "换带计算";
             this.ZoneTabPage.UseVisualStyleBackColor = true;
@@ -103,15 +103,14 @@
             this.Zone.Location = new System.Drawing.Point(0, 0);
             this.Zone.Margin = new System.Windows.Forms.Padding(0);
             this.Zone.Name = "Zone";
-            this.Zone.Size = new System.Drawing.Size(1037, 456);
+            this.Zone.Size = new System.Drawing.Size(657, 330);
             this.Zone.TabIndex = 0;
             // 
             // DBTabPage
             // 
-            this.DBTabPage.Location = new System.Drawing.Point(4, 25);
-            this.DBTabPage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.DBTabPage.Location = new System.Drawing.Point(4, 22);
             this.DBTabPage.Name = "DBTabPage";
-            this.DBTabPage.Size = new System.Drawing.Size(1037, 456);
+            this.DBTabPage.Size = new System.Drawing.Size(657, 330);
             this.DBTabPage.TabIndex = 2;
             this.DBTabPage.Text = "数据查看";
             this.DBTabPage.UseVisualStyleBackColor = true;
@@ -121,17 +120,16 @@
             this.BottomStatusStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.BottomStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.HintLabel});
-            this.BottomStatusStrip.Location = new System.Drawing.Point(0, 518);
+            this.BottomStatusStrip.Location = new System.Drawing.Point(0, 436);
             this.BottomStatusStrip.Name = "BottomStatusStrip";
-            this.BottomStatusStrip.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
-            this.BottomStatusStrip.Size = new System.Drawing.Size(1045, 25);
+            this.BottomStatusStrip.Size = new System.Drawing.Size(824, 25);
             this.BottomStatusStrip.TabIndex = 2;
             // 
             // HintLabel
             // 
             this.HintLabel.Image = global::GeodeticCoordinateConversion.Properties.Resources.Key;
             this.HintLabel.Name = "HintLabel";
-            this.HintLabel.Size = new System.Drawing.Size(53, 20);
+            this.HintLabel.Size = new System.Drawing.Size(46, 20);
             this.HintLabel.Text = "test";
             // 
             // TopToolStrip
@@ -142,7 +140,7 @@
             this.AboutBtn});
             this.TopToolStrip.Location = new System.Drawing.Point(0, 0);
             this.TopToolStrip.Name = "TopToolStrip";
-            this.TopToolStrip.Size = new System.Drawing.Size(1045, 27);
+            this.TopToolStrip.Size = new System.Drawing.Size(824, 27);
             this.TopToolStrip.TabIndex = 1;
             // 
             // SettingsBtn
@@ -150,7 +148,7 @@
             this.SettingsBtn.Image = global::GeodeticCoordinateConversion.Properties.Resources.Twowheels;
             this.SettingsBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.SettingsBtn.Name = "SettingsBtn";
-            this.SettingsBtn.Size = new System.Drawing.Size(65, 24);
+            this.SettingsBtn.Size = new System.Drawing.Size(57, 24);
             this.SettingsBtn.Text = "设置";
             this.SettingsBtn.Click += new System.EventHandler(this.OpenSettings);
             // 
@@ -159,20 +157,20 @@
             this.AboutBtn.Image = global::GeodeticCoordinateConversion.Properties.Resources.Exclamation;
             this.AboutBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.AboutBtn.Name = "AboutBtn";
-            this.AboutBtn.Size = new System.Drawing.Size(65, 24);
+            this.AboutBtn.Size = new System.Drawing.Size(57, 24);
             this.AboutBtn.Text = "关于";
             this.AboutBtn.Click += new System.EventHandler(this.ShowAbout);
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1045, 543);
+            this.ClientSize = new System.Drawing.Size(824, 461);
             this.Controls.Add(this.TopToolStrip);
             this.Controls.Add(this.ConvertTabControl);
             this.Controls.Add(this.BottomStatusStrip);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.MinimumSize = new System.Drawing.Size(680, 400);
             this.Name = "MainForm";
             this.Text = "大地坐标转换实习程序";
             this.Load += new System.EventHandler(this.MainForm_Load);

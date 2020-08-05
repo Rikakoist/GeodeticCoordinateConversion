@@ -137,19 +137,19 @@ namespace GeodeticCoordinateConversion
             {
                 if (sender == Coord.SaveFileBtn)
                 {
-                    await Task.Run(() => DataFile.SaveCoordConvertData(CoordData.ToList()));
+                    await Task.Run(() => DataFile.SaveCoordConvertData(CoordData.ToList(),AppSettings.ClearExistingRecordSaveDataToFile));
                 }
                 if (sender == Zone.SaveFileBtn)
                 {
-                    await Task.Run(() => DataFile.SaveZoneConvertData(ZoneData.ToList()));
+                    await Task.Run(() => DataFile.SaveZoneConvertData(ZoneData.ToList(),AppSettings.ClearExistingRecordSaveDataToFile));
                 }
                 if (sender == Coord.SaveDBBtn)
                 {
-                    await Task.Run(() => DBFile.SaveCoordConvertData(CoordData.ToList()));
+                    await Task.Run(() => DBFile.SaveCoordConvertData(CoordData.ToList(), AppSettings.ClearExistingRecordSaveDataToDB));
                 }
                 if (sender == Zone.SaveDBBtn)
                 {
-                    await Task.Run(() => DBFile.SaveZoneConvertData(ZoneData.ToList()));
+                    await Task.Run(() => DBFile.SaveZoneConvertData(ZoneData.ToList(), AppSettings.ClearExistingRecordSaveDataToDB));
                 }
             }
             catch (Exception err)
@@ -216,16 +216,20 @@ namespace GeodeticCoordinateConversion
             }
         }
 
+        //子控件的提示信息改变
         public void ChildHintChanged(object sender,HintChangedEventArgs e)
         {
             this.Hint = e.NewValue.ToString();
         }
 
+        //打开设置窗口
         private void OpenSettings(object sender, EventArgs e)
         {
-            new SettingsForm().ShowDialog();
+            if (new SettingsForm().ShowDialog() == DialogResult.OK)
+                Application.Restart();
         }
 
+        //关于窗口
         private void ShowAbout(object sender, EventArgs e)
         {
             new AboutApp().ShowDialog();

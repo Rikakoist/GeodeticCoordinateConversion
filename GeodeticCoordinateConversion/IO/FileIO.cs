@@ -22,12 +22,16 @@ namespace GeodeticCoordinateConversion
         /// <summary>
         /// 配置文件。
         /// </summary>
-        private Settings AppSettings = new Settings();
+        private static Settings AppSettings = new Settings();
 
         /// <summary>
         /// XML文档路径（私有）。
         /// </summary>
-        private string docPath;
+        private string docPath = AppSettings.WorkFolder;
+        /// <summary>
+        /// XML文档名称（私有）。
+        /// </summary>
+        private string docName = AppSettings.DataFileName;
         /// <summary>
         /// XML文档对象。
         /// </summary>
@@ -42,14 +46,14 @@ namespace GeodeticCoordinateConversion
         /// </summary>
         public string DocPath
         {
-            get => docPath;
+            get => Path.Combine(docPath,docName);
             set
             {
                 try
                 {
                     if (!Directory.Exists(value))
                         throw new DirectoryNotFoundException(ErrMessage.Generic.DirectoryNotFound);
-                    docPath = Path.Combine(value, AppSettings.DataFileName);
+                    docPath = value;
                     CheckDataFileExists();
                     this.DocPathChanged?.Invoke(this, null);
                     InitDoc();
@@ -66,18 +70,20 @@ namespace GeodeticCoordinateConversion
         /// </summary>
         public FileIO()
         {
-            this.DocPath = AppSettings.WorkFolder;
+            CheckDataFileExists();
         }
 
         /// <summary>
         /// 使用指定的目录初始化文件管理类。
         /// </summary>
         /// <param name="ConfigFilePath">配置文件的路径。</param>
-        public FileIO(string ConfigFilePath)
+        public FileIO(string ConfigFilePath,string ConfigFileName)
         {
             try
             {
-                DocPath = ConfigFilePath;
+                docPath = ConfigFilePath;
+                docName = ConfigFileName;
+                CheckDataFileExists();
             }
             catch (Exception err)
             {
@@ -163,14 +169,18 @@ namespace GeodeticCoordinateConversion
         /// 保存坐标转换数据到文件。
         /// </summary>
         /// <param name="Data">坐标转换数据。</param>
+        /// <param name="ClearExistingRecord">是否清除已有记录。</param>
         /// <returns>操作结果。</returns>
-        public bool SaveCoordConvertData(List<CoordConvert> Data)
+        public bool SaveCoordConvertData(List<CoordConvert> Data, bool ClearExistingRecord = true)
         {
             if (Data.Count <= 0)
                 return false;
-            foreach (XmlNode x in rootNode.SelectNodes(NodeInfo.CoordConvertNodePath))
+            if (ClearExistingRecord)
             {
-                rootNode.RemoveChild(x);
+                foreach (XmlNode x in rootNode.SelectNodes(NodeInfo.CoordConvertNodePath))
+                {
+                    rootNode.RemoveChild(x);
+                }
             }
             foreach(CoordConvert c in Data)
             {
@@ -205,14 +215,18 @@ namespace GeodeticCoordinateConversion
         /// 保存换带数据到文件。
         /// </summary>
         /// <param name="Data">换带数据。</param>
+        /// <param name="ClearExistingRecord">是否清除已有记录。</param>
         /// <returns>操作结果。</returns>
-        public bool SaveZoneConvertData(List<ZoneConvert> Data)
+        public bool SaveZoneConvertData(List<ZoneConvert> Data, bool ClearExistingRecord = true)
         {
             if (Data.Count <= 0)
                 return false;
-            foreach (XmlNode x in rootNode.SelectNodes(NodeInfo.ZoneConvertNodePath))
+            if (ClearExistingRecord)
             {
-                rootNode.RemoveChild(x);
+                foreach (XmlNode x in rootNode.SelectNodes(NodeInfo.ZoneConvertNodePath))
+                {
+                    rootNode.RemoveChild(x);
+                }
             }
             foreach (ZoneConvert c in Data)
             {

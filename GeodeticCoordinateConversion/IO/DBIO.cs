@@ -154,20 +154,25 @@ namespace GeodeticCoordinateConversion
         /// <summary>
         /// 保存坐标转换数据到数据库。
         /// </summary>
+        /// <param name="Data">要保存的数据。</param>
+        /// <param name="ClearExistingRecord">是否清除已有记录。</param>
         /// <returns>操作结果。</returns>
-        public bool SaveCoordConvertData(List<CoordConvert> Data)
+        public bool SaveCoordConvertData(List<CoordConvert> Data, bool ClearExistingRecord = true)
         {
             if (Data.Count <= 0)
                 return false;
-            using (OleDbConnection con = new OleDbConnection(ConnectionInfo))
+            if (ClearExistingRecord)
             {
-                con.Open();
-                OleDbCommand cmd = new OleDbCommand
+                using (OleDbConnection con = new OleDbConnection(ConnectionInfo))
                 {
-                    CommandText = "DELETE * FROM CoordConvert",
-                    Connection = con
-                };
-                cmd.ExecuteNonQuery();
+                    con.Open();
+                    OleDbCommand cmd = new OleDbCommand
+                    {
+                        CommandText = "DELETE * FROM CoordConvert",
+                        Connection = con
+                    };
+                    cmd.ExecuteNonQuery();
+                }
             }
             foreach (CoordConvert c in Data)
             {
@@ -206,20 +211,25 @@ namespace GeodeticCoordinateConversion
         /// <summary>
         /// 保存换带数据到数据库。
         /// </summary>
+        /// <param name="Data">要保存的数据。</param>
+        /// <param name="ClearExistingRecord">是否清除已有记录。</param>
         /// <returns>操作结果。</returns>
-        public bool SaveZoneConvertData(List<ZoneConvert> Data)
+        public bool SaveZoneConvertData(List<ZoneConvert> Data, bool ClearExistingRecord = true)
         {
             if (Data.Count <= 0)
                 return false;
-            using (OleDbConnection con = new OleDbConnection(ConnectionInfo))
+            if (ClearExistingRecord)
             {
-                con.Open();
-                OleDbCommand cmd = new OleDbCommand
+                using (OleDbConnection con = new OleDbConnection(ConnectionInfo))
                 {
-                    CommandText = "DELETE * FROM ZoneConvert",
-                    Connection = con
-                };
-                cmd.ExecuteNonQuery();
+                    con.Open();
+                    OleDbCommand cmd = new OleDbCommand
+                    {
+                        CommandText = "DELETE * FROM ZoneConvert",
+                        Connection = con
+                    };
+                    cmd.ExecuteNonQuery();
+                }
             }
             foreach (ZoneConvert c in Data)
             {

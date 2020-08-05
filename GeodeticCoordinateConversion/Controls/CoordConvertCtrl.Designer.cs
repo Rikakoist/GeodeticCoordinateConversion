@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CoordConvertLayout));
             this.DGV = new System.Windows.Forms.DataGridView();
             this.DirectBtn = new System.Windows.Forms.Button();
             this.ReverseBtn = new System.Windows.Forms.Button();
@@ -102,8 +101,9 @@
             this.TransferBtn.Location = new System.Drawing.Point(800, 5);
             this.TransferBtn.Name = "TransferBtn";
             this.TransferBtn.Size = new System.Drawing.Size(75, 23);
-            this.TransferBtn.TabIndex = 3;
+            this.TransferBtn.TabIndex = 4;
             this.TransferBtn.Text = ">>";
+            this.BtnToolTip.SetToolTip(this.TransferBtn, "高斯坐标转移到换带");
             this.TransferBtn.UseVisualStyleBackColor = true;
             // 
             // SelectAllBtn
@@ -160,7 +160,7 @@
             this.DataFlowLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
             this.DataFlowLayoutPanel.Name = "DataFlowLayoutPanel";
             this.DataFlowLayoutPanel.Size = new System.Drawing.Size(32, 210);
-            this.DataFlowLayoutPanel.TabIndex = 0;
+            this.DataFlowLayoutPanel.TabIndex = 1;
             // 
             // AddRowBtn
             // 
@@ -191,7 +191,7 @@
             // 
             // LoadFileBtn
             // 
-            this.LoadFileBtn.BackgroundImage = global::GeodeticCoordinateConversion.Properties.Resources.Load;
+            this.LoadFileBtn.BackgroundImage = global::GeodeticCoordinateConversion.Properties.Resources.LoadFromFile;
             this.LoadFileBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.LoadFileBtn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.LoadFileBtn.Location = new System.Drawing.Point(0, 70);
@@ -204,7 +204,7 @@
             // 
             // SaveFileBtn
             // 
-            this.SaveFileBtn.BackgroundImage = global::GeodeticCoordinateConversion.Properties.Resources.Floppydisk;
+            this.SaveFileBtn.BackgroundImage = global::GeodeticCoordinateConversion.Properties.Resources.SaveToFile;
             this.SaveFileBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.SaveFileBtn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.SaveFileBtn.Location = new System.Drawing.Point(0, 105);
@@ -217,26 +217,28 @@
             // 
             // LoadDBBtn
             // 
-            this.LoadDBBtn.BackgroundImage = global::GeodeticCoordinateConversion.Properties.Resources.Database;
+            this.LoadDBBtn.BackgroundImage = global::GeodeticCoordinateConversion.Properties.Resources.LoadFromDB;
             this.LoadDBBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.LoadDBBtn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.LoadDBBtn.Location = new System.Drawing.Point(0, 140);
             this.LoadDBBtn.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
             this.LoadDBBtn.Name = "LoadDBBtn";
             this.LoadDBBtn.Size = new System.Drawing.Size(32, 32);
-            this.LoadDBBtn.TabIndex = 2;
+            this.LoadDBBtn.TabIndex = 4;
+            this.BtnToolTip.SetToolTip(this.LoadDBBtn, "从数据库加载记录");
             this.LoadDBBtn.UseVisualStyleBackColor = true;
             // 
             // SaveDBBtn
             // 
-            this.SaveDBBtn.BackgroundImage = global::GeodeticCoordinateConversion.Properties.Resources.Floppydisk;
+            this.SaveDBBtn.BackgroundImage = global::GeodeticCoordinateConversion.Properties.Resources.SaveToDB;
             this.SaveDBBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.SaveDBBtn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.SaveDBBtn.Location = new System.Drawing.Point(0, 175);
             this.SaveDBBtn.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
             this.SaveDBBtn.Name = "SaveDBBtn";
             this.SaveDBBtn.Size = new System.Drawing.Size(32, 32);
-            this.SaveDBBtn.TabIndex = 3;
+            this.SaveDBBtn.TabIndex = 5;
+            this.BtnToolTip.SetToolTip(this.SaveDBBtn, "将记录保存到数据库");
             this.SaveDBBtn.UseVisualStyleBackColor = true;
             // 
             // SelectionFlowLayoutPanel
@@ -250,7 +252,7 @@
             this.SelectionFlowLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
             this.SelectionFlowLayoutPanel.Name = "SelectionFlowLayoutPanel";
             this.SelectionFlowLayoutPanel.Size = new System.Drawing.Size(191, 23);
-            this.SelectionFlowLayoutPanel.TabIndex = 1;
+            this.SelectionFlowLayoutPanel.TabIndex = 2;
             // 
             // flowLayoutPanel1
             // 
@@ -262,7 +264,7 @@
             this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(170, 23);
-            this.flowLayoutPanel1.TabIndex = 2;
+            this.flowLayoutPanel1.TabIndex = 3;
             // 
             // CoordConvertLayout
             // 

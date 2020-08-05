@@ -94,5 +94,53 @@ namespace GeodeticCoordinateConversion.Properties {
                 this["SwitchAfterGaussTransfer"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ClearExistingRecordSaveDataToFile {
+            get {
+                return ((bool)(this["ClearExistingRecordSaveDataToFile"]));
+            }
+            set {
+                this["ClearExistingRecordSaveDataToFile"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ClearExistingRecordSaveDataToDB {
+            get {
+                return ((bool)(this["ClearExistingRecordSaveDataToDB"]));
+            }
+            set {
+                this["ClearExistingRecordSaveDataToDB"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ClearExistingRecordSaveDBToFile {
+            get {
+                return ((bool)(this["ClearExistingRecordSaveDBToFile"]));
+            }
+            set {
+                this["ClearExistingRecordSaveDBToFile"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ClearExistingRecordSaveFileToDB {
+            get {
+                return ((bool)(this["ClearExistingRecordSaveFileToDB"]));
+            }
+            set {
+                this["ClearExistingRecordSaveFileToDB"] = value;
+            }
+        }
     }
 }

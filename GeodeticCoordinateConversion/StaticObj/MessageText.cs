@@ -325,30 +325,74 @@ namespace GeodeticCoordinateConversion
         /// 已将3°带转换到6°带。
         /// </summary>
         public static string Zone3To6Success = "已将3°带转换到6°带。";
-
+        /// <summary>
+        /// 用户取消了操作。
+        /// </summary>
+        public static string OperationCanceled = "用户取消了操作。";
+        /// <summary>
+        /// 已加载表列表。
+        /// </summary>
+        /// <param name="TableCount">表数。</param>
+        /// <returns></returns>
         public static string TableListLoaded(int TableCount)
         {
             return "在数据库 " + new Settings().DBName + " 中找到 " + TableCount + " 张表。";
         }
-
+        /// <summary>
+        /// 表记录数。
+        /// </summary>
+        /// <param name="TableName">表名。</param>
+        /// <param name="RecordCount">记录数。</param>
+        /// <returns></returns>
         public static string TableRecordCount(string TableName, int? RecordCount)
         {
             return TableName+" 表中有 " + RecordCount + " 条记录。";
         }
-
+        /// <summary>
+        /// 已重载表。
+        /// </summary>
+        /// <param name="TableName">表名。</param>
+        /// <returns></returns>
         public static string TableReloaded(string TableName)
         {
             return "已从数据库 " + new Settings().DBName + " 重载表 " + TableName;
         }
-
+        /// <summary>
+        /// 已添加行。
+        /// </summary>
+        /// <returns></returns>
         public static string RowAdded()
         {
             return "添加了1条新的记录。";
         }
-
+        /// <summary>
+        /// 已删除行。
+        /// </summary>
+        /// <param name="row">行数。</param>
+        /// <returns></returns>
         public static string RowDeleted(int row)
         {
             return "删除了"+row+"条记录。";
+        }
+        /// <summary>
+        /// 数据库转换到文件。
+        /// </summary>
+        /// <param name="CoordCount">坐标转换记录条数。</param>
+        /// <param name="ZoneCount">换带记录条数。</param>
+        /// <returns></returns>
+        public static string DBSavedToFile(int? CoordCount,int? ZoneCount)
+        {
+            return "成功将数据库 "+ new Settings().DBName+" 中 "+CoordCount+" 条坐标转换记录和 "+ZoneCount+ " 条换带记录导出到文件 "+new Settings().DataFileName+"。";
+        }
+        /// <summary>
+        /// 文件转换到数据库。
+        /// </summary>
+        /// <param name="CoordCount">坐标转换记录条数。</param>
+        /// <param name="ZoneCount">换带记录条数。</param>
+        /// <returns></returns>
+        public static string FileSavedToDB(int? CoordCount, int? ZoneCount)
+        {
+            return "成功将文件 " + new Settings().DataFileName + " 中 " + CoordCount + " 条坐标转换记录和 " + ZoneCount + " 条换带记录导入到数据库"+new Settings().DBName+"。";
         }
     }
 

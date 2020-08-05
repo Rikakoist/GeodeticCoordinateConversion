@@ -29,20 +29,23 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TableViewCtrl));
             this.DataFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.SaveFileBtn = new System.Windows.Forms.Button();
             this.AddRowBtn = new System.Windows.Forms.Button();
             this.DeleteBtn = new System.Windows.Forms.Button();
-            this.SaveFileBtn = new System.Windows.Forms.Button();
             this.DataTableFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.TableLabel = new System.Windows.Forms.Label();
             this.TableListComboBox = new System.Windows.Forms.ComboBox();
             this.ReloadTableBtn = new System.Windows.Forms.Button();
             this.DGV = new System.Windows.Forms.DataGridView();
             this.CtrlToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.LoadDBFromFileBtn = new System.Windows.Forms.Button();
+            this.SaveDBToFileBtn = new System.Windows.Forms.Button();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.DataFlowLayoutPanel.SuspendLayout();
             this.DataTableFlowLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGV)).BeginInit();
+            this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // DataFlowLayoutPanel
@@ -57,7 +60,21 @@
             this.DataFlowLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
             this.DataFlowLayoutPanel.Name = "DataFlowLayoutPanel";
             this.DataFlowLayoutPanel.Size = new System.Drawing.Size(32, 105);
-            this.DataFlowLayoutPanel.TabIndex = 2;
+            this.DataFlowLayoutPanel.TabIndex = 1;
+            // 
+            // SaveFileBtn
+            // 
+            this.SaveFileBtn.BackgroundImage = global::GeodeticCoordinateConversion.Properties.Resources.Floppydisk;
+            this.SaveFileBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.SaveFileBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.SaveFileBtn.Location = new System.Drawing.Point(0, 0);
+            this.SaveFileBtn.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
+            this.SaveFileBtn.Name = "SaveFileBtn";
+            this.SaveFileBtn.Size = new System.Drawing.Size(32, 32);
+            this.SaveFileBtn.TabIndex = 0;
+            this.CtrlToolTip.SetToolTip(this.SaveFileBtn, "保存对选中表的更改");
+            this.SaveFileBtn.UseVisualStyleBackColor = true;
+            this.SaveFileBtn.Click += new System.EventHandler(this.SaveChanges);
             // 
             // AddRowBtn
             // 
@@ -87,20 +104,6 @@
             this.DeleteBtn.UseVisualStyleBackColor = true;
             this.DeleteBtn.Click += new System.EventHandler(this.DelRow);
             // 
-            // SaveFileBtn
-            // 
-            this.SaveFileBtn.BackgroundImage = global::GeodeticCoordinateConversion.Properties.Resources.Floppydisk;
-            this.SaveFileBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.SaveFileBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.SaveFileBtn.Location = new System.Drawing.Point(0, 0);
-            this.SaveFileBtn.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
-            this.SaveFileBtn.Name = "SaveFileBtn";
-            this.SaveFileBtn.Size = new System.Drawing.Size(32, 32);
-            this.SaveFileBtn.TabIndex = 0;
-            this.CtrlToolTip.SetToolTip(this.SaveFileBtn, "保存对选中表的更改");
-            this.SaveFileBtn.UseVisualStyleBackColor = true;
-            this.SaveFileBtn.Click += new System.EventHandler(this.SaveChanges);
-            // 
             // DataTableFlowLayoutPanel
             // 
             this.DataTableFlowLayoutPanel.AutoSize = true;
@@ -108,11 +111,11 @@
             this.DataTableFlowLayoutPanel.Controls.Add(this.TableLabel);
             this.DataTableFlowLayoutPanel.Controls.Add(this.TableListComboBox);
             this.DataTableFlowLayoutPanel.Controls.Add(this.ReloadTableBtn);
-            this.DataTableFlowLayoutPanel.Location = new System.Drawing.Point(46, 8);
+            this.DataTableFlowLayoutPanel.Location = new System.Drawing.Point(46, 9);
             this.DataTableFlowLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
             this.DataTableFlowLayoutPanel.Name = "DataTableFlowLayoutPanel";
             this.DataTableFlowLayoutPanel.Size = new System.Drawing.Size(267, 27);
-            this.DataTableFlowLayoutPanel.TabIndex = 0;
+            this.DataTableFlowLayoutPanel.TabIndex = 2;
             // 
             // TableLabel
             // 
@@ -165,12 +168,54 @@
             this.DGV.Name = "DGV";
             this.DGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DGV.Size = new System.Drawing.Size(842, 444);
-            this.DGV.TabIndex = 1;
+            this.DGV.TabIndex = 0;
+            // 
+            // LoadDBFromFileBtn
+            // 
+            this.LoadDBFromFileBtn.BackgroundImage = global::GeodeticCoordinateConversion.Properties.Resources.LoadFromFile;
+            this.LoadDBFromFileBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.LoadDBFromFileBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.LoadDBFromFileBtn.Location = new System.Drawing.Point(47, 0);
+            this.LoadDBFromFileBtn.Margin = new System.Windows.Forms.Padding(0, 0, 15, 0);
+            this.LoadDBFromFileBtn.Name = "LoadDBFromFileBtn";
+            this.LoadDBFromFileBtn.Size = new System.Drawing.Size(32, 32);
+            this.LoadDBFromFileBtn.TabIndex = 1;
+            this.CtrlToolTip.SetToolTip(this.LoadDBFromFileBtn, "从文件导入数据库");
+            this.LoadDBFromFileBtn.UseVisualStyleBackColor = true;
+            this.LoadDBFromFileBtn.Click += new System.EventHandler(this.LoadDBFromFile);
+            // 
+            // SaveDBToFileBtn
+            // 
+            this.SaveDBToFileBtn.BackgroundImage = global::GeodeticCoordinateConversion.Properties.Resources.SaveToFile;
+            this.SaveDBToFileBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.SaveDBToFileBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.SaveDBToFileBtn.Location = new System.Drawing.Point(0, 0);
+            this.SaveDBToFileBtn.Margin = new System.Windows.Forms.Padding(0, 0, 15, 0);
+            this.SaveDBToFileBtn.Name = "SaveDBToFileBtn";
+            this.SaveDBToFileBtn.Size = new System.Drawing.Size(32, 32);
+            this.SaveDBToFileBtn.TabIndex = 0;
+            this.CtrlToolTip.SetToolTip(this.SaveDBToFileBtn, "保存数据库到文件");
+            this.SaveDBToFileBtn.UseVisualStyleBackColor = true;
+            this.SaveDBToFileBtn.Click += new System.EventHandler(this.SaveDBToFile);
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.AutoSize = true;
+            this.flowLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.flowLayoutPanel1.Controls.Add(this.SaveDBToFileBtn);
+            this.flowLayoutPanel1.Controls.Add(this.LoadDBFromFileBtn);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(364, 6);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(94, 32);
+            this.flowLayoutPanel1.TabIndex = 3;
             // 
             // TableViewCtrl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.DataFlowLayoutPanel);
             this.Controls.Add(this.DataTableFlowLayoutPanel);
             this.Controls.Add(this.DGV);
@@ -182,6 +227,7 @@
             this.DataTableFlowLayoutPanel.ResumeLayout(false);
             this.DataTableFlowLayoutPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGV)).EndInit();
+            this.flowLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -199,5 +245,8 @@
         private System.Windows.Forms.DataGridView DGV;
         internal System.Windows.Forms.Button SaveFileBtn;
         private System.Windows.Forms.ToolTip CtrlToolTip;
+        internal System.Windows.Forms.Button SaveDBToFileBtn;
+        internal System.Windows.Forms.Button LoadDBFromFileBtn;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
     }
 }

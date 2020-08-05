@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.OleDb;
+using System.IO;
+using GeodeticCoordinateConversion.Properties;
 
 namespace GeodeticCoordinateConversion
 {
@@ -46,9 +48,9 @@ namespace GeodeticCoordinateConversion
 
                 Hint = Hints.TableListLoaded(TableListComboBox.Items.Count);
 
-                for (int i = 0;i< TableListComboBox.Items.Count;i++)
+                for (int i = 0; i < TableListComboBox.Items.Count; i++)
                 {
-                   await Task.Run(()=> DBFile.GetTable(ds,(TableListComboBox.DataSource as DataTable).Rows[i]["TABLE_NAME"].ToString()));
+                    await Task.Run(() => DBFile.GetTable(ds, (TableListComboBox.DataSource as DataTable).Rows[i]["TABLE_NAME"].ToString()));
                 }
                 SelectedTableNameChanged(null, null);
             }
@@ -76,7 +78,7 @@ namespace GeodeticCoordinateConversion
         //重载表数据
         private void ReloadTable(object sender, EventArgs e)
         {
-            DBFile.GetTable(ds,tn);
+            DBFile.GetTable(ds, tn);
             Hint = Hints.TableReloaded(TableListComboBox.Text);
         }
 
@@ -106,7 +108,7 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-               await Task.Run(()=> DBFile.SaveEdit(ds,tn));
+                await Task.Run(() => DBFile.SaveEdit(ds, tn));
             }
             catch (Exception err)
             {
@@ -119,5 +121,58 @@ namespace GeodeticCoordinateConversion
         public delegate void HintChangedEventHandler(object sender, HintChangedEventArgs e);
         public event HintChangedEventHandler HintChanged;
         #endregion
+
+        private void SaveDBToFile(object sender, EventArgs e)
+        {
+            SaveFileDialog SFD = new SaveFileDialog()
+            {
+                AddExtension = true,
+                CheckPathExists = true,
+                DefaultExt = "xml",
+                FileName = new Properties.Settings().DataFileName,
+                Filter = "XML files (*.xml)|*.xml",
+                Title = "选择保存位置...",
+            };
+            if (SFD.ShowDialog() == DialogResult.OK)
+            {
+                FileIO F = new FileIO(Path.GetDirectoryName(SFD.FileName), Path.GetFileName(SFD.FileName));
+                List<CoordConvert> C = new DBIO().LoadCoordConvertData();
+                F.SaveCoordConvertData(C,new Settings().ClearExistingRecordSaveDBToFile);
+                List<ZoneConvert> Z = new DBIO().LoadZoneConvertData();
+                F.SaveZoneConvertData(Z, new Settings().ClearExistingRecordSaveDBToFile);
+                Hint = Hints.DBSavedToFile(C?.Count,Z?.Count);
+            }
+            else
+            {
+                Hint = Hints.OperationCanceled;
+            }
+        }
+
+        private void LoadDBFromFile(object sender, EventArgs e)
+        {
+            OpenFileDialog OFD = new OpenFileDialog()
+            {
+                AddExtension=true,
+                CheckFileExists=true,
+                CheckPathExists=true,
+                DefaultExt = "xml",
+                FileName = new Properties.Settings().DataFileName,
+                Filter= "XML files (*.xml)|*.xml",
+                Title="选择数据文件...",
+            };
+            if(OFD.ShowDialog()==DialogResult.OK)
+            {
+                FileIO F = new FileIO(Path.GetDirectoryName(OFD.FileName), Path.GetFileName(OFD.FileName));
+                List<CoordConvert> C = F.LoadCoordConvertData();
+                new DBIO().SaveCoordConvertData(C,new Settings().ClearExistingRecordSaveFileToDB);
+                List<ZoneConvert> Z = F.LoadZoneConvertData();
+                new DBIO().SaveZoneConvertData(Z, new Settings().ClearExistingRecordSaveFileToDB);
+                Hint = Hints.FileSavedToDB(C?.Count,Z?.Count);
+            }
+            else
+            {
+                Hint = Hints.OperationCanceled;
+            }
+        }
     }
 }
