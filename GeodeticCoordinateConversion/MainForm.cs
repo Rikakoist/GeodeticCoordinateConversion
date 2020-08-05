@@ -18,7 +18,7 @@ namespace GeodeticCoordinateConversion
         private Settings AppSettings = new Settings();
         private FileIO DataFile = new FileIO();
         private DBIO DBFile = new DBIO();
-        public string Hint { get=>HintLabel.Text; set => HintLabel.Text = value; }
+        public string Hint { get => HintLabel.Text; set => HintLabel.Text = value; }
 
         public BindingList<CoordConvert> CoordData = new BindingList<CoordConvert>();
         public BindingList<ZoneConvert> ZoneData = new BindingList<ZoneConvert>();
@@ -68,8 +68,8 @@ namespace GeodeticCoordinateConversion
             TableViewCtrl TVC = new TableViewCtrl()
             {
                 Dock = DockStyle.Fill,
-                TabStop=true,
-               TabIndex =0,
+                TabStop = true,
+                TabIndex = 0,
             };
             TVC.HintChanged += new TableViewCtrl.HintChangedEventHandler(this.ChildHintChanged);
             this.DBTabPage.Controls.Add(TVC);
@@ -104,24 +104,28 @@ namespace GeodeticCoordinateConversion
                     CoordData = new BindingList<CoordConvert>(await Task.Run(() => DataFile.LoadCoordConvertData()));
                     CoordDGV.DataSource = CoordData;
                     CoordDGV.ClearSelection();
+                    Hint = Hints.DataLoaded((GEODataSourceType)0, CoordData.Count(), (GEODataType)0);
                 }
                 if (sender == Zone.LoadFileBtn)
                 {
                     ZoneData = new BindingList<ZoneConvert>(await Task.Run(() => DataFile.LoadZoneConvertData()));
                     ZoneDGV.DataSource = ZoneData;
                     ZoneDGV.ClearSelection();
+                    Hint = Hints.DataLoaded((GEODataSourceType)0, ZoneData.Count(), (GEODataType)1);
                 }
                 if (sender == Coord.LoadDBBtn)
                 {
                     CoordData = new BindingList<CoordConvert>(await Task.Run(() => DBFile.LoadCoordConvertData()));
                     CoordDGV.DataSource = CoordData;
                     CoordDGV.ClearSelection();
+                    Hint = Hints.DataLoaded((GEODataSourceType)1, CoordData.Count(), (GEODataType)0);
                 }
                 if (sender == Zone.LoadDBBtn)
                 {
                     ZoneData = new BindingList<ZoneConvert>(await Task.Run(() => DBFile.LoadZoneConvertData()));
                     ZoneDGV.DataSource = ZoneData;
                     ZoneDGV.ClearSelection();
+                    Hint = Hints.DataLoaded((GEODataSourceType)1, ZoneData.Count(), (GEODataType)1);
                 }
             }
             catch (Exception err)
@@ -137,19 +141,23 @@ namespace GeodeticCoordinateConversion
             {
                 if (sender == Coord.SaveFileBtn)
                 {
-                    await Task.Run(() => DataFile.SaveCoordConvertData(CoordData.ToList(),AppSettings.ClearExistingRecordSaveDataToFile));
+                    await Task.Run(() => DataFile.SaveCoordConvertData(CoordData.ToList(), AppSettings.ClearExistingRecordData2File));
+                    Hint = Hints.DataSaved((GEODataSourceType)0, CoordData.Count(), (GEODataType)0);
                 }
                 if (sender == Zone.SaveFileBtn)
                 {
-                    await Task.Run(() => DataFile.SaveZoneConvertData(ZoneData.ToList(),AppSettings.ClearExistingRecordSaveDataToFile));
+                    await Task.Run(() => DataFile.SaveZoneConvertData(ZoneData.ToList(), AppSettings.ClearExistingRecordData2File));
+                    Hint = Hints.DataSaved((GEODataSourceType)0, ZoneData.Count(), (GEODataType)1);
                 }
                 if (sender == Coord.SaveDBBtn)
                 {
-                    await Task.Run(() => DBFile.SaveCoordConvertData(CoordData.ToList(), AppSettings.ClearExistingRecordSaveDataToDB));
+                    await Task.Run(() => DBFile.SaveCoordConvertData(CoordData.ToList(), AppSettings.ClearExistingRecordData2DB));
+                    Hint = Hints.DataSaved((GEODataSourceType)1, CoordData.Count(), (GEODataType)0);
                 }
                 if (sender == Zone.SaveDBBtn)
                 {
-                    await Task.Run(() => DBFile.SaveZoneConvertData(ZoneData.ToList(), AppSettings.ClearExistingRecordSaveDataToDB));
+                    await Task.Run(() => DBFile.SaveZoneConvertData(ZoneData.ToList(), AppSettings.ClearExistingRecordData2DB));
+                    Hint = Hints.DataSaved((GEODataSourceType)1, ZoneData.Count(), (GEODataType)1);
                 }
             }
             catch (Exception err)
@@ -217,9 +225,15 @@ namespace GeodeticCoordinateConversion
         }
 
         //子控件的提示信息改变
-        public void ChildHintChanged(object sender,HintChangedEventArgs e)
+        public void ChildHintChanged(object sender, HintChangedEventArgs e)
         {
             this.Hint = e.NewValue.ToString();
+        }
+
+        //时钟
+        private void Clock(object sender, EventArgs e)
+        {
+            TimeStripStatusLabel.Text = DateTime.Now.ToLongTimeString();
         }
 
         //打开设置窗口
@@ -276,23 +290,42 @@ namespace GeodeticCoordinateConversion
         //坐标转换正反算操作
         private void CoordConvertOperation(object sender, EventArgs e)
         {
+            if (CoordData.Count <= 0)
+                return;
+            int _success = 0; int _fail = 0; int _calc = 0;
             for (int i = 0; i < CoordData.Count; i++)
             {
                 if ((CoordData[i].Selected) && (CoordData[i].Dirty))
                 {
+                    _calc++;
                     if (sender == Coord.ReverseBtn)
                     {
-                        CoordData[i].GaussReverse();
+                        if (CoordData[i].GaussReverse())
+                            _success++;
+                        else
+                            _fail++;
                     }
                     if (sender == Coord.DirectBtn)
                     {
-                        CoordData[i].GaussDirect();
+                        if (CoordData[i].GaussDirect())
+                            _success++;
+                        else
+                            _fail++;
                     }
                 }
                 Coord.ResetColor(i);
             }
             CoordDGV.ClearSelection();
             CoordDGV.Invalidate();
+            if (sender == Coord.ReverseBtn)
+            {
+                Hint = Hints.ConvertResult(GEOConvertType.GaussReverse, CoordData.Count, _calc, _success, _fail);
+            }
+            if (sender == Coord.DirectBtn)
+            {
+                Hint = Hints.ConvertResult(GEOConvertType.GaussDirect, CoordData.Count, _calc, _success, _fail);
+            }
+            _success = _fail = _calc = 0;
         }
 
         //坐标转换转高斯
@@ -307,8 +340,8 @@ namespace GeodeticCoordinateConversion
                     ZoneData.Add(new ZoneConvert(c.Gauss));
                 }
             }
-             if(AppSettings.SwitchAfterGaussTransfer)
-            ConvertTabControl.SelectedTab = ZoneTabPage;
+            if (AppSettings.SwitchAfterGaussTransfer)
+                ConvertTabControl.SelectedTab = ZoneTabPage;
         }
         #endregion
 
@@ -338,25 +371,43 @@ namespace GeodeticCoordinateConversion
         //换带操作
         private void ZoneConvertOperation(object sender, EventArgs e)
         {
+            if (ZoneData.Count <= 0)
+                return;
+            int _success = 0; int _fail = 0; int _calc = 0;
             for (int i = 0; i < ZoneData.Count; i++)
             {
                 if ((ZoneData[i].Selected) && (ZoneData[i].Dirty))
                 {
+                    _calc++;
                     if (sender == Zone.ReverseBtn)
                     {
-                        ZoneData[i].Convert3To6();
+                        if (ZoneData[i].Convert3To6())
+                            _success++;
+                        else
+                            _fail++;
                     }
                     if (sender == Zone.DirectBtn)
                     {
-                        ZoneData[i].Convert6To3();
+                        if (ZoneData[i].Convert6To3())
+                            _success++;
+                        else
+                            _fail++;
                     }
                 }
                 Zone.ResetColor(i);
             }
             ZoneDGV.ClearSelection();
             ZoneDGV.Invalidate();
+            if (sender == Zone.ReverseBtn)
+            {
+                Hint = Hints.ConvertResult(GEOConvertType.Zone3To6, ZoneData.Count, _calc, _success, _fail);
+            }
+            if (sender == Zone.DirectBtn)
+            {
+                Hint = Hints.ConvertResult(GEOConvertType.Zone6To3, ZoneData.Count, _calc, _success, _fail);
+            }
+            _success = _fail = _calc = 0;
         }
         #endregion
-
     }
 }

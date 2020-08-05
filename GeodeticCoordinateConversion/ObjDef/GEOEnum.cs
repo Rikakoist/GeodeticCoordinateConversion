@@ -166,6 +166,40 @@ namespace GeodeticCoordinateConversion
     }
 
     /// <summary>
+    /// 数据类型。
+    /// </summary>
+    public enum GEODataType
+    {
+        [Description("坐标转换")]
+        CoordConvert = 0,
+        [Description("换带")]
+        ZoneConvert = 1,
+    }
+
+    /// <summary>
+    /// 数据来源类型。
+    /// </summary>
+    public enum GEODataSourceType
+    {
+        [Description("数据文件")]
+        File = 0,
+        [Description("数据库")]
+        DB = 1,
+    }
+
+    public enum GEOConvertType
+    {
+        [Description("高斯正算")]
+        GaussDirect = 0,
+        [Description("高斯反算")]
+        GaussReverse = 1,
+        [Description("6°带转3°带")]
+        Zone6To3 = 2,
+        [Description("3°带转6°带")]
+        Zone3To6 = 3,
+    }
+
+    /// <summary>
     /// 枚举常量的数据表。
     /// </summary>
     public static class GEODataTables
@@ -233,6 +267,17 @@ namespace GeodeticCoordinateConversion
                 DT.Rows.Add(DR);
             }
             return DT;
+        }
+
+        /// <summary>
+        /// 获取指定枚举指定值的描述内容。
+        /// </summary>
+        /// <param name="e">枚举。</param>
+        /// <param name="i">枚举值。</param>
+        /// <returns>描述。</returns>
+        public static string GetDescription(Enum e, int i)
+        {
+            return (e.GetType().GetField(Enum.GetName(e.GetType(), i)).GetCustomAttributes(false)[0] as DescriptionAttribute).Description;
         }
     }
 }

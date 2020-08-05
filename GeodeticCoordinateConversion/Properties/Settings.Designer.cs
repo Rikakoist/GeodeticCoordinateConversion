@@ -98,48 +98,48 @@ namespace GeodeticCoordinateConversion.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool ClearExistingRecordSaveDataToFile {
+        public bool ClearExistingRecordData2File {
             get {
-                return ((bool)(this["ClearExistingRecordSaveDataToFile"]));
+                return ((bool)(this["ClearExistingRecordData2File"]));
             }
             set {
-                this["ClearExistingRecordSaveDataToFile"] = value;
+                this["ClearExistingRecordData2File"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool ClearExistingRecordSaveDataToDB {
+        public bool ClearExistingRecordData2DB {
             get {
-                return ((bool)(this["ClearExistingRecordSaveDataToDB"]));
+                return ((bool)(this["ClearExistingRecordData2DB"]));
             }
             set {
-                this["ClearExistingRecordSaveDataToDB"] = value;
+                this["ClearExistingRecordData2DB"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool ClearExistingRecordSaveDBToFile {
+        public bool ClearExistingRecordDB2File {
             get {
-                return ((bool)(this["ClearExistingRecordSaveDBToFile"]));
+                return ((bool)(this["ClearExistingRecordDB2File"]));
             }
             set {
-                this["ClearExistingRecordSaveDBToFile"] = value;
+                this["ClearExistingRecordDB2File"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool ClearExistingRecordSaveFileToDB {
+        public bool ClearExistingRecordFile2DB {
             get {
-                return ((bool)(this["ClearExistingRecordSaveFileToDB"]));
+                return ((bool)(this["ClearExistingRecordFile2DB"]));
             }
             set {
-                this["ClearExistingRecordSaveFileToDB"] = value;
+                this["ClearExistingRecordFile2DB"] = value;
             }
         }
     }

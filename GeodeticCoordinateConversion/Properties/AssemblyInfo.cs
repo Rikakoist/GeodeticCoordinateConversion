@@ -5,13 +5,13 @@ using System.Runtime.InteropServices;
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("GeodeticCoordinateConversion")]
-[assembly: AssemblyDescription("大地坐标转换实习程序。")]
+[assembly: AssemblyTitle("Geodetic Coordinate Conversion")]
+[assembly: AssemblyDescription("大地坐标转换实习程序，由Rikakoist编写。")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("GeodeticCoordinateConversion")]
 [assembly: AssemblyCopyright("Copyright © Rikakoist 2020")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyTrademark("Copyright © Rikakoist 2020")]
 [assembly: AssemblyCulture("")]
 
 // 将 ComVisible 设置为 false 会使此程序集中的类型
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 //可以指定所有这些值，也可以使用“生成号”和“修订号”的默认值
 //通过使用 "*"，如下所示:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2020.08.04.1")]
-[assembly: AssemblyFileVersion("2020.08.04.1")]
+[assembly: AssemblyVersion("2020.08.05.2")]
+[assembly: AssemblyFileVersion("2020.08.05.2")]

@@ -7,7 +7,6 @@ using System.Data.OleDb;
 using System.Data;
 using System.Windows.Forms;
 using System.IO;
-using GeodeticCoordinateConversion.Deprecated;
 using ADOX;
 using System.Runtime.InteropServices;
 using GeodeticCoordinateConversion.Properties;
@@ -19,30 +18,35 @@ namespace GeodeticCoordinateConversion
         /// <summary>
         /// 全局唯一ID。
         /// </summary>
-        public readonly Guid UID = Guid.NewGuid();
+        public static readonly Guid UID = Guid.NewGuid();
 
         /// <summary>
         /// 配置文件。
         /// </summary>
-        private Settings AppSettings = new Settings();
+        private static Settings AppSettings = new Settings();
 
         /// <summary>
         /// 数据库文件存放的目录（私有）。
         /// </summary>
         private string dbPath;
         /// <summary>
+        /// 数据库文件名称（私有）。
+        /// </summary>
+        private string dbName;
+        /// <summary>
         /// 数据库文件存放的目录。
         /// </summary>
         public string DBPath
         {
-            get => dbPath;
+            get => Path.Combine(dbPath, dbName);
             set
             {
                 try
                 {
-                    if (!Directory.Exists(value))
-                        throw new DirectoryNotFoundException(ErrMessage.Generic.DirectoryNotFound);
-                    dbPath = Path.Combine(value, AppSettings.DBName);
+                    if (!File.Exists(value))
+                        throw new FileNotFoundException(ErrMessage.Generic.FileNotFound);
+                    dbPath = Path.GetDirectoryName(value);
+                    dbName = Path.GetFileName(value);
                     CheckDBExists();
                     this.DBPathChanged?.Invoke(this, null);
                 }
@@ -61,7 +65,9 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                this.DBPath = AppSettings.WorkFolder;
+                this.dbPath = AppSettings.WorkFolder;
+                this.dbName = AppSettings.DBName;
+                CheckDBExists();
             }
             catch (Exception err)
             {
@@ -73,11 +79,13 @@ namespace GeodeticCoordinateConversion
         /// 通过数据库所在的文件夹路径初始化数据库管理对象。
         /// </summary>
         /// <param name="DBPath">数据库所在的文件夹路径。</param>
-        public DBIO(string DBPath)
+        public DBIO(string DBPath, string DBName)
         {
             try
             {
-                this.DBPath = DBPath;
+                this.dbPath = DBPath;
+                this.dbName = DBName;
+                CheckDBExists();
             }
             catch (Exception err)
             {
@@ -97,7 +105,7 @@ namespace GeodeticCoordinateConversion
             {
                 System.Reflection.Assembly DBAssembly = System.Reflection.Assembly.GetExecutingAssembly();
                 var DBStream = DBAssembly.GetManifestResourceStream("GeodeticCoordinateConversion.GeoConvertDB.mdb");
-                byte[] DBResource = new Byte[DBStream.Length];
+                byte[] DBResource = new byte[DBStream.Length];
                 DBStream.Read(DBResource, 0, (int)DBStream.Length);
                 var DBFileStream = new FileStream(DBPath, FileMode.Create);
                 DBFileStream.Write(DBResource, 0, (int)DBStream.Length);
@@ -322,7 +330,7 @@ namespace GeodeticCoordinateConversion
                     Connection = con
                 };
                 OleDbDataAdapter Adapter = new OleDbDataAdapter(cmd);
-                if(DS.Tables[TableName]!=null)
+                if (DS.Tables[TableName] != null)
                 {
                     DS.Tables[TableName].Clear();
                 }

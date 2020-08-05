@@ -21,10 +21,6 @@ namespace GeodeticCoordinateConversion
         /// 全局唯一ID。
         /// </summary>
         public readonly Guid UID = Guid.NewGuid();
-        //public bool Selected = true;
-        //public bool Error = true;
-        //public bool Dirty = false;
-        //public bool Calculated = false;
         /// <summary>
         /// 高斯6°带坐标对象。
         /// </summary>

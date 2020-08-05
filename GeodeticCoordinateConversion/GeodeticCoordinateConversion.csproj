@@ -48,7 +48,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Wi006432.ico</ApplicationIcon>
+    <ApplicationIcon>Globe.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>GeodeticCoordinateConversion.Program</StartupObject>
@@ -79,7 +79,6 @@
     <Compile Include="SettingsForm.Designer.cs">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Deprecated\DBIO.cs" />
     <Compile Include="ObjDef\DataStatus.cs" />
     <Compile Include="Controls\CoordConvertCtrl.cs">
       <SubType>UserControl</SubType>
@@ -109,15 +108,7 @@
     <Compile Include="IO\DBIO.cs" />
     <Compile Include="ObjDef\Ellipse.cs" />
     <Compile Include="StaticObj\MessageText.cs" />
-    <Compile Include="Deprecated\FileIO.cs" />
     <Compile Include="GeoCalc.cs" />
-    <Compile Include="Deprecated\CoordConversion.cs" />
-    <Compile Include="Deprecated\MainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Deprecated\MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="MessageBoxes.cs" />
     <Compile Include="ObjDef\MidVar.cs" />
     <Compile Include="Program.cs" />
@@ -142,9 +133,6 @@
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Deprecated\MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
@@ -167,17 +155,18 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\cat.jpg" />
+    <None Include="Resources\Clock.png" />
     <None Include="Resources\Key.png" />
     <None Include="Resources\Twowheels.png" />
     <None Include="Resources\Exclamation.png" />
-    <None Include="Resources\cat1.jpg" />
     <None Include="Resources\Globe.png" />
     <None Include="Resources\LoadFromFile.png" />
     <None Include="Resources\SaveToFile.png" />
     <None Include="Resources\LoadFromDB.png" />
     <None Include="Resources\SaveToDB.png" />
-    <Content Include="Wi006432.ico" />
+    <None Include="Resources\Open.png" />
+    <None Include="Resources\cat.jpg" />
+    <Content Include="Globe.ico" />
     <None Include="Resources\Recycle.png" />
     <None Include="Resources\Database.png" />
     <None Include="Resources\Plus.png" />
@@ -187,7 +176,6 @@
     <EmbeddedResource Include="GeoConvertDB.mdb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <Content Include="Recycle.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">

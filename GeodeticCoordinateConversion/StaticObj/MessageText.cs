@@ -264,6 +264,11 @@ namespace GeodeticCoordinateConversion
             /// </summary>
             public static string DirectoryNotFound = "指定的文件夹不存在。";
             /// <summary>
+            /// 指定的文件不存在。
+            /// </summary>
+            public static string FileNotFound = "指定的文件不存在。";
+
+            /// <summary>
             /// 绑定事件失败。
             /// </summary>
             public static string BindEventFailed = "绑定事件失败。";
@@ -318,17 +323,44 @@ namespace GeodeticCoordinateConversion
     public static class Hints
     {
         /// <summary>
-        /// 已将6°带转换到3°带。
-        /// </summary>
-        public static string Zone6To3Success = "已将6°带转换到3°带。";
-        /// <summary>
-        /// 已将3°带转换到6°带。
-        /// </summary>
-        public static string Zone3To6Success = "已将3°带转换到6°带。";
-        /// <summary>
         /// 用户取消了操作。
         /// </summary>
         public static string OperationCanceled = "用户取消了操作。";
+        /// <summary>
+        /// 计算结果。
+        /// </summary>
+        /// <param name="convertType">转换类型。</param>
+        /// <param name="all">记录总条数。</param>
+        /// <param name="calculated">已计算条数。</param>
+        /// <param name="success">成功条数。</param>
+        /// <param name="failed">失败条数。</param>
+        /// <returns></returns>
+        public static string ConvertResult(GEOConvertType convertType, int all, int calculated, int success, int failed)
+        {
+            return GEODataTables.GetDescription(new GEOConvertType(), (int)convertType) + "完成，共有 " + all + " 条记录，计算了 " + calculated + " 条记录，成功 " + success + " 条，失败 " + failed + " 条。";
+        }
+        /// <summary>
+        /// 已加载数据。
+        /// </summary>
+        /// <param name="dataSourceType">数据源类型。</param>
+        /// <param name="Count">记录数量。</param>
+        /// <param name="dataType">数据类型</param>
+        /// <returns></returns>
+        public static string DataLoaded(GEODataSourceType dataSourceType, int Count, GEODataType dataType)
+        {
+            return "从" + GEODataTables.GetDescription(new GEODataSourceType(), (int)dataSourceType) + "加载了 " + Count + " 条" + GEODataTables.GetDescription(new GEODataType(), (int)dataType) + "记录。";
+        }
+        /// <summary>
+        /// 已保存数据。
+        /// </summary>
+        /// <param name="dataSourceType">数据源类型。</param>
+        /// <param name="Count">记录数量。</param>
+        /// <param name="dataType">数据类型</param>
+        /// <returns></returns>
+        public static string DataSaved(GEODataSourceType dataSourceType, int Count, GEODataType dataType)
+        {
+            return "已将 " + Count + " 条" + GEODataTables.GetDescription(new GEODataType(), (int)dataType) + "记录保存到" + GEODataTables.GetDescription(new GEODataSourceType(), (int)dataSourceType) + "。";
+        }
         /// <summary>
         /// 已加载表列表。
         /// </summary>
@@ -346,7 +378,7 @@ namespace GeodeticCoordinateConversion
         /// <returns></returns>
         public static string TableRecordCount(string TableName, int? RecordCount)
         {
-            return TableName+" 表中有 " + RecordCount + " 条记录。";
+            return TableName + " 表中有 " + RecordCount + " 条记录。";
         }
         /// <summary>
         /// 已重载表。
@@ -372,7 +404,7 @@ namespace GeodeticCoordinateConversion
         /// <returns></returns>
         public static string RowDeleted(int row)
         {
-            return "删除了"+row+"条记录。";
+            return "删除了" + row + "条记录。";
         }
         /// <summary>
         /// 数据库转换到文件。
@@ -380,9 +412,9 @@ namespace GeodeticCoordinateConversion
         /// <param name="CoordCount">坐标转换记录条数。</param>
         /// <param name="ZoneCount">换带记录条数。</param>
         /// <returns></returns>
-        public static string DBSavedToFile(int? CoordCount,int? ZoneCount)
+        public static string DBSavedToFile(int? CoordCount, int? ZoneCount)
         {
-            return "成功将数据库 "+ new Settings().DBName+" 中 "+CoordCount+" 条坐标转换记录和 "+ZoneCount+ " 条换带记录导出到文件 "+new Settings().DataFileName+"。";
+            return "成功将数据库 " + new Settings().DBName + " 中 " + CoordCount + " 条坐标转换记录和 " + ZoneCount + " 条换带记录导出到文件 " + new Settings().DataFileName + "。";
         }
         /// <summary>
         /// 文件转换到数据库。
@@ -392,7 +424,7 @@ namespace GeodeticCoordinateConversion
         /// <returns></returns>
         public static string FileSavedToDB(int? CoordCount, int? ZoneCount)
         {
-            return "成功将文件 " + new Settings().DataFileName + " 中 " + CoordCount + " 条坐标转换记录和 " + ZoneCount + " 条换带记录导入到数据库"+new Settings().DBName+"。";
+            return "成功将文件 " + new Settings().DataFileName + " 中 " + CoordCount + " 条坐标转换记录和 " + ZoneCount + " 条换带记录导入到数据库" + new Settings().DBName + "。";
         }
     }
 

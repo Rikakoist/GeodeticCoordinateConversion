@@ -22,6 +22,11 @@ namespace GeodeticCoordinateConversion
             this.textBoxDescription.Text = AssemblyDescription;
         }
 
+        private void OpenBrowser(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/Rikakoist/GeodeticCoordinateConversion");
+        }
+
         #region Assembly Attribute Accessors
 
         public string AssemblyTitle

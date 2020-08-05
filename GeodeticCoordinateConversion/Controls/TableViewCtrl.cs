@@ -129,7 +129,7 @@ namespace GeodeticCoordinateConversion
                 AddExtension = true,
                 CheckPathExists = true,
                 DefaultExt = "xml",
-                FileName = new Properties.Settings().DataFileName,
+                FileName = new Settings().DataFileName,
                 Filter = "XML files (*.xml)|*.xml",
                 Title = "选择保存位置...",
             };
@@ -137,10 +137,10 @@ namespace GeodeticCoordinateConversion
             {
                 FileIO F = new FileIO(Path.GetDirectoryName(SFD.FileName), Path.GetFileName(SFD.FileName));
                 List<CoordConvert> C = new DBIO().LoadCoordConvertData();
-                F.SaveCoordConvertData(C,new Settings().ClearExistingRecordSaveDBToFile);
+                F.SaveCoordConvertData(C, new Settings().ClearExistingRecordDB2File);
                 List<ZoneConvert> Z = new DBIO().LoadZoneConvertData();
-                F.SaveZoneConvertData(Z, new Settings().ClearExistingRecordSaveDBToFile);
-                Hint = Hints.DBSavedToFile(C?.Count,Z?.Count);
+                F.SaveZoneConvertData(Z, new Settings().ClearExistingRecordDB2File);
+                Hint = Hints.DBSavedToFile(C?.Count, Z?.Count);
             }
             else
             {
@@ -152,22 +152,22 @@ namespace GeodeticCoordinateConversion
         {
             OpenFileDialog OFD = new OpenFileDialog()
             {
-                AddExtension=true,
-                CheckFileExists=true,
-                CheckPathExists=true,
+                AddExtension = true,
+                CheckFileExists = true,
+                CheckPathExists = true,
                 DefaultExt = "xml",
-                FileName = new Properties.Settings().DataFileName,
-                Filter= "XML files (*.xml)|*.xml",
-                Title="选择数据文件...",
+                FileName = new Settings().DataFileName,
+                Filter = "XML files (*.xml)|*.xml",
+                Title = "选择数据文件...",
             };
-            if(OFD.ShowDialog()==DialogResult.OK)
+            if (OFD.ShowDialog() == DialogResult.OK)
             {
                 FileIO F = new FileIO(Path.GetDirectoryName(OFD.FileName), Path.GetFileName(OFD.FileName));
                 List<CoordConvert> C = F.LoadCoordConvertData();
-                new DBIO().SaveCoordConvertData(C,new Settings().ClearExistingRecordSaveFileToDB);
+                new DBIO().SaveCoordConvertData(C, new Settings().ClearExistingRecordFile2DB);
                 List<ZoneConvert> Z = F.LoadZoneConvertData();
-                new DBIO().SaveZoneConvertData(Z, new Settings().ClearExistingRecordSaveFileToDB);
-                Hint = Hints.FileSavedToDB(C?.Count,Z?.Count);
+                new DBIO().SaveZoneConvertData(Z, new Settings().ClearExistingRecordFile2DB);
+                Hint = Hints.FileSavedToDB(C?.Count, Z?.Count);
             }
             else
             {

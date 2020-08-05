@@ -46,14 +46,15 @@ namespace GeodeticCoordinateConversion
         /// </summary>
         public string DocPath
         {
-            get => Path.Combine(docPath,docName);
+            get => Path.Combine(docPath, docName);
             set
             {
                 try
                 {
-                    if (!Directory.Exists(value))
-                        throw new DirectoryNotFoundException(ErrMessage.Generic.DirectoryNotFound);
-                    docPath = value;
+                    if (!File.Exists(value))
+                        throw new FileNotFoundException(ErrMessage.Generic.FileNotFound);
+                    docPath = Path.GetDirectoryName(value);
+                    docName = Path.GetFileName(value);
                     CheckDataFileExists();
                     this.DocPathChanged?.Invoke(this, null);
                     InitDoc();
@@ -77,7 +78,7 @@ namespace GeodeticCoordinateConversion
         /// 使用指定的目录初始化文件管理类。
         /// </summary>
         /// <param name="ConfigFilePath">配置文件的路径。</param>
-        public FileIO(string ConfigFilePath,string ConfigFileName)
+        public FileIO(string ConfigFilePath, string ConfigFileName)
         {
             try
             {
@@ -113,6 +114,7 @@ namespace GeodeticCoordinateConversion
                 document.Save(DocPath);
                 this.DocModified?.Invoke(this, null);
             }
+            InitDoc();
         }
 
         /// <summary>
@@ -182,7 +184,7 @@ namespace GeodeticCoordinateConversion
                     rootNode.RemoveChild(x);
                 }
             }
-            foreach(CoordConvert c in Data)
+            foreach (CoordConvert c in Data)
             {
                 rootNode.AppendChild(c.ToXmlElement(document));
             }
@@ -202,13 +204,13 @@ namespace GeodeticCoordinateConversion
             XmlNodeList XNL = rootNode.SelectNodes(NodeInfo.CoordConvertNodePath);
             if (XNL.Count >= 1)
             {
-                
-                foreach(XmlNode x in XNL)
+
+                foreach (XmlNode x in XNL)
                 {
                     Data.Add(new CoordConvert(x));
                 }
             }
-            return Data; 
+            return Data;
         }
 
         /// <summary>
