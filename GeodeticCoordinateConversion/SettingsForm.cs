@@ -17,26 +17,26 @@ namespace GeodeticCoordinateConversion
         public SettingsForm()
         {
             InitializeComponent();
-            WorkFolderTextBox.DataBindings.Add(nameof(WorkFolderTextBox.Text), S, nameof(S.WorkFolder));
-            DataFileNameTextBox.DataBindings.Add(nameof(DataFileNameTextBox.Text), S, nameof(S.DataFileName));
-            DBNameTextBox.DataBindings.Add(nameof(DBNameTextBox.Text), S, nameof(S.DBName));
+            WorkFolderTextBox.DataBindings.Add(nameof(TextBox.Text), S, nameof(S.WorkFolder));
+            DataFileNameTextBox.DataBindings.Add(nameof(TextBox.Text), S, nameof(S.DataFileName));
+            DBNameTextBox.DataBindings.Add(nameof(TextBox.Text), S, nameof(S.DBName));
 
             DefaultEllipseTypeComboBox.DataSource = GEODataTables.GetEllipseType();
             DefaultEllipseTypeComboBox.DisplayMember = nameof(GEOEllipseType);
             DefaultEllipseTypeComboBox.ValueMember = "Value";
-            DefaultEllipseTypeComboBox.DataBindings.Add(nameof(DefaultEllipseTypeComboBox.SelectedValue), S, nameof(S.DefaultEllipseType));
+            DefaultEllipseTypeComboBox.DataBindings.Add(nameof(ComboBox.SelectedValue), S, nameof(S.DefaultEllipseType));
 
             DefaultZoneTypeComboBox.DataSource = GEODataTables.GetZoneType();
             DefaultZoneTypeComboBox.DisplayMember = nameof(GEOZoneType);
             DefaultZoneTypeComboBox.ValueMember = "Value";
-            DefaultZoneTypeComboBox.DataBindings.Add(nameof(DefaultZoneTypeComboBox.SelectedValue), S, nameof(S.DefaultZoneType));
+            DefaultZoneTypeComboBox.DataBindings.Add(nameof(ComboBox.SelectedValue), S, nameof(S.DefaultZoneType));
 
-            SwitchAfterGaussTransferCheckBox.DataBindings.Add(nameof(SwitchAfterGaussTransferCheckBox.Checked), S, nameof(S.SwitchAfterGaussTransfer));
+            SwitchAfterGaussTransferCheckBox.DataBindings.Add(nameof(CheckBox.Checked), S, nameof(S.SwitchAfterGaussTransfer));
 
-            ClearExistingRecordData2FileCheckBox.DataBindings.Add(nameof(ClearExistingRecordData2FileCheckBox.Checked), S, nameof(S.ClearExistingRecordData2File));
-            ClearExistingRecordData2DBCheckBox.DataBindings.Add(nameof(ClearExistingRecordData2DBCheckBox.Checked), S, nameof(S.ClearExistingRecordData2DB));
-            ClearExistingRecordDB2FileCheckBox.DataBindings.Add(nameof(ClearExistingRecordDB2FileCheckBox.Checked), S, nameof(S.ClearExistingRecordDB2File));
-            ClearExistingRecordFile2DBCheckBox.DataBindings.Add(nameof(ClearExistingRecordFile2DBCheckBox.Checked), S, nameof(S.ClearExistingRecordFile2DB));
+            ClearExistingRecordData2FileCheckBox.DataBindings.Add(nameof(CheckBox.Checked), S, nameof(S.ClearExistingRecordData2File));
+            ClearExistingRecordData2DBCheckBox.DataBindings.Add(nameof(CheckBox.Checked), S, nameof(S.ClearExistingRecordData2DB));
+            ClearExistingRecordDB2FileCheckBox.DataBindings.Add(nameof(CheckBox.Checked), S, nameof(S.ClearExistingRecordDB2File));
+            ClearExistingRecordFile2DBCheckBox.DataBindings.Add(nameof(CheckBox.Checked), S, nameof(S.ClearExistingRecordFile2DB));
         }
 
         private void BrowseWorkFolder(object sender, EventArgs e)
