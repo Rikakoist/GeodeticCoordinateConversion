@@ -188,18 +188,9 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                DBIO db = new DBIO();
-                using (OleDbConnection con = new OleDbConnection(db.ConnectionInfo))
-                {
-                    con.Open();
-                    OleDbCommand cmd = new OleDbCommand()
+                    if (DBIO.GUIDExists(nameof(GEOBL), guid))
                     {
-                        Connection = con,
-                    };
-
-                    if (db.GUIDExists(nameof(GEOBL), guid))
-                    {
-                        DataRow dr = db.SelectByGUID(nameof(GEOBL), guid);
+                        DataRow dr = DBIO.SelectByGUID(nameof(GEOBL), guid);
                         this.UID = Guid.Parse(dr[nameof(UID)].ToString());
                         this.ZoneType = (GEOZoneType)int.Parse(dr[nameof(ZoneType)].ToString());
                         this.B =new DMS(dr[nameof(B)].ToString());
@@ -220,7 +211,6 @@ namespace GeodeticCoordinateConversion
                         BindEllipseEvent();
                     }
                 }
-            }
             catch (Exception err)
             {
                 throw new InitializeException(ErrMessage.GaussCoord.InitializeError, err);
@@ -439,13 +429,10 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                DBIO db = new DBIO();
-                using (OleDbConnection con = new OleDbConnection(db.ConnectionInfo))
-                {
-                    con.Open();
+
                     OleDbCommand cmd = new OleDbCommand()
                     {
-                        Connection = con,
+                        Connection = DBIO.con,
                     };
 
                     OleDbParameter p = new OleDbParameter("@UID", UID.ToString());
@@ -454,7 +441,7 @@ namespace GeodeticCoordinateConversion
                     cmd.Parameters.AddWithValue("@EllipseType", GEOEllipse.EllipseType);
                     cmd.Parameters.AddWithValue("@ZoneType", (int)ZoneType);
 
-                    if (db.GUIDExists(nameof(GEOBL), this.UID))
+                    if (DBIO.GUIDExists(nameof(GEOBL), this.UID))
                     {
                         cmd.CommandText = "UPDATE GEOBL SET [B] = @B, [L] = @L, [EllipseType] = @EllipseType, [ZoneType] = @ZoneType WHERE [UID] = @UID";
                         cmd.Parameters.Insert(cmd.Parameters.Count, p);
@@ -465,7 +452,6 @@ namespace GeodeticCoordinateConversion
                         cmd.Parameters.Insert(0, p);
                     }
                     cmd.ExecuteNonQuery();
-                }
                 return true;
             }
             catch (Exception)

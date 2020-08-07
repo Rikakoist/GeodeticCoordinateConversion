@@ -284,18 +284,9 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                DBIO db = new DBIO();
-                using (OleDbConnection con = new OleDbConnection(db.ConnectionInfo))
-                {
-                    con.Open();
-                    OleDbCommand cmd = new OleDbCommand()
+                    if (DBIO.GUIDExists(nameof(GaussCoord), guid))
                     {
-                        Connection = con,
-                    };
-
-                    if (db.GUIDExists(nameof(GaussCoord), guid))
-                    {
-                        DataRow dr = db.SelectByGUID(nameof(GaussCoord), guid);
+                        DataRow dr = DBIO.SelectByGUID(nameof(GaussCoord), guid);
                         this.UID = Guid.Parse(dr[nameof(UID)].ToString());
                         this.X = double.Parse(dr[nameof(X)].ToString());
                         this.Y = double.Parse(dr[nameof(Y)].ToString());
@@ -310,7 +301,6 @@ namespace GeodeticCoordinateConversion
                         this.GEOEllipse = new Ellipse();
                         BindEllipseEvent();
                     }
-                }
             }
             catch (Exception err)
             {
@@ -470,13 +460,9 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                DBIO db = new DBIO();
-                using (OleDbConnection con = new OleDbConnection(db.ConnectionInfo))
-                {
-                    con.Open();
                     OleDbCommand cmd = new OleDbCommand()
                     {
-                        Connection = con,
+                        Connection = DBIO.con,
                     };
 
                     OleDbParameter p = new OleDbParameter("@UID", UID.ToString());
@@ -486,7 +472,7 @@ namespace GeodeticCoordinateConversion
                     cmd.Parameters.AddWithValue("@ZoneType", (int)ZoneType);
                     cmd.Parameters.AddWithValue("@Zone", Zone);
 
-                    if (db.GUIDExists(nameof(GaussCoord), this.UID))
+                    if (DBIO.GUIDExists(nameof(GaussCoord), this.UID))
                     {
                         cmd.CommandText = "UPDATE GaussCoord SET [X] = @X, [Y] = @Y, [EllipseType] = @EllipseType, [ZoneType] = @ZoneType, [Zone] = @Zone WHERE [UID] = @UID";
                         cmd.Parameters.Insert(cmd.Parameters.Count, p);
@@ -497,7 +483,6 @@ namespace GeodeticCoordinateConversion
                         cmd.Parameters.Insert(0, p);
                     }
                     cmd.ExecuteNonQuery();
-                }
                 return true;
             }
             catch (Exception)

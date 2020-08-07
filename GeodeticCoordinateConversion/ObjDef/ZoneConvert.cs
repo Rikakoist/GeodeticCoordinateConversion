@@ -259,18 +259,9 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                DBIO db = new DBIO();
-                using (OleDbConnection con = new OleDbConnection(db.ConnectionInfo))
-                {
-                    con.Open();
-                    OleDbCommand cmd = new OleDbCommand()
+                    if (DBIO.GUIDExists(nameof(ZoneConvert), guid))
                     {
-                        Connection = con,
-                    };
-
-                    if (db.GUIDExists(nameof(ZoneConvert), guid))
-                    {
-                        DataRow dr = db.SelectByGUID(nameof(ZoneConvert), guid);
+                        DataRow dr = DBIO.SelectByGUID(nameof(ZoneConvert), guid);
                         this.UID = Guid.Parse(dr[nameof(UID)].ToString());
                         this.Selected = bool.Parse(dr[nameof(Selected)].ToString());
                         this.Dirty = bool.Parse(dr[nameof(Dirty)].ToString());
@@ -289,7 +280,6 @@ namespace GeodeticCoordinateConversion
                         this.Gauss3 = new GaussCoord();
                         BindGauss3Events();
                     }
-                }
             }
             catch (Exception err)
             {
@@ -440,16 +430,13 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                DBIO db = new DBIO();
-                using (OleDbConnection con = new OleDbConnection(db.ConnectionInfo))
-                {
-                    con.Open();
-                    OleDbCommand cmd = new OleDbCommand()
-                    {
-                        Connection = con,
-                    };
 
-                    OleDbParameter p = new OleDbParameter("@UID", UID.ToString());
+                OleDbCommand cmd = new OleDbCommand()
+                {
+                    Connection = DBIO.con,
+                };
+
+                OleDbParameter p = new OleDbParameter("@UID", UID.ToString());
                     cmd.Parameters.AddWithValue("@Selected", Selected);
                     cmd.Parameters.AddWithValue("@Dirty", Dirty);
                     cmd.Parameters.AddWithValue("@Calculated", Calculated);
@@ -457,7 +444,7 @@ namespace GeodeticCoordinateConversion
                     cmd.Parameters.AddWithValue("@Gauss6", Gauss6.UID.ToString());
                     cmd.Parameters.AddWithValue("@Gauss3", Gauss3.UID.ToString());
 
-                    if (db.GUIDExists(nameof(CoordConvert), this.UID))
+                    if (DBIO.GUIDExists(nameof(CoordConvert), this.UID))
                     {
                         cmd.CommandText = "UPDATE ZoneConvert SET [Selected] = @Selected, [Dirty] = @Dirty, [Calculated] = @Calculated, [Error] = @Error, [Gauss6] = @Gauss6, [Gauss3] = @Gauss3 WHERE [UID] = @UID";
                         cmd.Parameters.Insert(cmd.Parameters.Count, p);
@@ -468,7 +455,6 @@ namespace GeodeticCoordinateConversion
                         cmd.Parameters.Insert(0, p);
                     }
                     cmd.ExecuteNonQuery();
-                }
                 Gauss6.SaveToDB();
                 Gauss3.SaveToDB();
                 return true;

@@ -203,18 +203,9 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                DBIO db = new DBIO();
-                using (OleDbConnection con = new OleDbConnection(db.ConnectionInfo))
-                {
-                    con.Open();
-                    OleDbCommand cmd = new OleDbCommand()
+                    if (DBIO.GUIDExists(nameof(CoordConvert), guid))
                     {
-                        Connection = con,
-                    };
-
-                    if (db.GUIDExists(nameof(CoordConvert), guid))
-                    {
-                        DataRow dr = db.SelectByGUID(nameof(CoordConvert), guid);
+                        DataRow dr = DBIO.SelectByGUID(nameof(CoordConvert), guid);
                         this.UID = Guid.Parse(dr[nameof(UID)].ToString());
                         this.Selected = bool.Parse(dr[nameof(Selected)].ToString());
                         this.Dirty = bool.Parse(dr[nameof(Dirty)].ToString());
@@ -233,7 +224,6 @@ namespace GeodeticCoordinateConversion
                         this.Gauss = new GaussCoord();
                         BindGaussEvents();
                     }
-                }
             }
             catch (Exception err)
             {
@@ -388,13 +378,9 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                DBIO db = new DBIO();
-                using (OleDbConnection con = new OleDbConnection(db.ConnectionInfo))
-                {
-                    con.Open();
                     OleDbCommand cmd = new OleDbCommand()
                     {
-                        Connection = con,
+                        Connection = DBIO.con,
                     };
 
                     OleDbParameter p = new OleDbParameter("@UID", UID.ToString());
@@ -405,7 +391,7 @@ namespace GeodeticCoordinateConversion
                     cmd.Parameters.AddWithValue("@BL", BL.UID.ToString());
                     cmd.Parameters.AddWithValue("@Gauss", Gauss.UID.ToString());
 
-                    if (db.GUIDExists(nameof(CoordConvert), this.UID))
+                    if (DBIO.GUIDExists(nameof(CoordConvert), this.UID))
                     {
                         cmd.CommandText = "UPDATE CoordConvert SET [Selected] = @Selected, [Dirty] = @Dirty, [Calculated] = @Calculated, [Error] = @Error, [BL] = @BL, [Gauss] = @Gauss WHERE [UID] = @UID";
                         cmd.Parameters.Insert(cmd.Parameters.Count,p);
@@ -416,7 +402,6 @@ namespace GeodeticCoordinateConversion
                         cmd.Parameters.Insert(0, p);
                     }
                     cmd.ExecuteNonQuery();
-                }
                 Gauss.SaveToDB();
                 BL.SaveToDB();
                 return true;

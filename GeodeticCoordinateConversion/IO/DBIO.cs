@@ -13,7 +13,7 @@ using GeodeticCoordinateConversion.Properties;
 
 namespace GeodeticCoordinateConversion
 {
-    public sealed class DBIO
+    public static class DBIO
     {
         /// <summary>
         /// 全局唯一ID。
@@ -28,15 +28,15 @@ namespace GeodeticCoordinateConversion
         /// <summary>
         /// 数据库文件存放的目录（私有）。
         /// </summary>
-        private string dbPath;
+        private static string dbPath = new Settings().WorkFolder;
         /// <summary>
         /// 数据库文件名称（私有）。
         /// </summary>
-        private string dbName;
+        private static string dbName = new Settings().DBName;
         /// <summary>
-        /// 数据库文件存放的目录。
+        /// 数据库文件存放的完整路径。
         /// </summary>
-        public string DBPath
+        public static string DBPath
         {
             get => Path.Combine(dbPath, dbName);
             set
@@ -48,7 +48,7 @@ namespace GeodeticCoordinateConversion
                     dbPath = Path.GetDirectoryName(value);
                     dbName = Path.GetFileName(value);
                     CheckDBExists();
-                    this.DBPathChanged?.Invoke(this, null);
+                    DBPathChanged?.Invoke(DBPath, null);
                 }
                 catch (Exception err)
                 {
@@ -56,50 +56,16 @@ namespace GeodeticCoordinateConversion
                 }
             }
         }
-        public string ConnectionInfo { get => "Provider = Microsoft.Jet.OLEDB.4.0; Data Source = " + DBPath; }
-
-        /// <summary>
-        /// 默认的数据库管理构造函数，数据库路径为配置文件中路径。
-        /// </summary>
-        public DBIO()
-        {
-            try
-            {
-                this.dbPath = AppSettings.WorkFolder;
-                this.dbName = AppSettings.DBName;
-                CheckDBExists();
-            }
-            catch (Exception err)
-            {
-                throw new InitializeException(ErrMessage.DB.InitializeError, err);
-            }
-        }
-
-        /// <summary>
-        /// 通过数据库所在的文件夹路径初始化数据库管理对象。
-        /// </summary>
-        /// <param name="DBPath">数据库所在的文件夹路径。</param>
-        public DBIO(string DBPath, string DBName)
-        {
-            try
-            {
-                this.dbPath = DBPath;
-                this.dbName = DBName;
-                CheckDBExists();
-            }
-            catch (Exception err)
-            {
-                throw new InitializeException(ErrMessage.DB.InitializeError, err);
-            }
-        }
+        public static string ConnectionInfo { get => "Provider = Microsoft.Jet.OLEDB.4.0; Data Source = " + DBPath; }
+        public static OleDbConnection con = new OleDbConnection(ConnectionInfo);
 
         public delegate void DBPathChangedEventHander(object sender, EventArgs e);
-        public event DBPathChangedEventHander DBPathChanged;
+        public static event DBPathChangedEventHander DBPathChanged;
 
         /// <summary>
         /// 检查数据库是否存在，不存在则创建。
         /// </summary>
-        private void CheckDBExists()
+        public static void CheckDBExists()
         {
             if (!File.Exists(DBPath))
             {
@@ -114,25 +80,55 @@ namespace GeodeticCoordinateConversion
         }
 
         /// <summary>
+        /// 开启连接。
+        /// </summary>
+        /// <returns>操作结果。</returns>
+        public static bool OpenConnection()
+        {
+            try
+            {
+                con.Open();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 关闭连接。
+        /// </summary>
+        /// <returns>操作结果。</returns>
+        public static bool CloseConnection()
+        {
+            try
+            {
+                con.Close();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
         /// 检查GUID在对应表中是否存在。
         /// </summary>
         /// <param name="TableName">表名。</param>
         /// <param name="guid">要检查的GUID。</param>
         /// <returns>是否存在。</returns>
-        public bool GUIDExists(string TableName, Guid guid)
+        public static bool GUIDExists(string TableName, Guid guid)
         {
-            using (OleDbConnection con = new OleDbConnection(ConnectionInfo))
+            OleDbCommand cmd = new OleDbCommand
             {
-                con.Open();
-                OleDbCommand cmd = new OleDbCommand
-                {
-                    CommandText = "SELECT UID FROM " + TableName + " WHERE UID = @UID",
-                    Connection = con
-                };
-                cmd.Parameters.AddWithValue("@UID", guid.ToString());
-                OleDbDataReader R = cmd.ExecuteReader();
-                return R.HasRows;
-            }
+                CommandText = "SELECT UID FROM " + TableName + " WHERE UID = @UID",
+                Connection = con
+            };
+            cmd.Parameters.AddWithValue("@UID", guid.ToString());
+            OleDbDataReader R = cmd.ExecuteReader();
+            return R.HasRows;
         }
 
         /// <summary>
@@ -141,22 +137,18 @@ namespace GeodeticCoordinateConversion
         /// <param name="TableName">表名。</param>
         /// <param name="guid">要查询的GUID。</param>
         /// <returns>包含数据的记录行。</returns>
-        public DataRow SelectByGUID(string TableName, Guid guid)
+        public static DataRow SelectByGUID(string TableName, Guid guid)
         {
-            using (OleDbConnection con = new OleDbConnection(ConnectionInfo))
+            OleDbCommand cmd = new OleDbCommand
             {
-                con.Open();
-                OleDbCommand cmd = new OleDbCommand
-                {
-                    CommandText = "SELECT * FROM " + TableName + " WHERE UID = @UID",
-                    Connection = con
-                };
-                cmd.Parameters.AddWithValue("@UID", guid.ToString());
-                OleDbDataAdapter Adapter = new OleDbDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                Adapter.Fill(dt);
-                return dt.Rows[0];
-            }
+                CommandText = "SELECT * FROM " + TableName + " WHERE UID = @UID",
+                Connection = con
+            };
+            cmd.Parameters.AddWithValue("@UID", guid.ToString());
+            OleDbDataAdapter Adapter = new OleDbDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            Adapter.Fill(dt);
+            return dt.Rows[0];
         }
 
         /// <summary>
@@ -165,22 +157,18 @@ namespace GeodeticCoordinateConversion
         /// <param name="Data">要保存的数据。</param>
         /// <param name="ClearExistingRecord">是否清除已有记录。</param>
         /// <returns>操作结果。</returns>
-        public bool SaveCoordConvertData(List<CoordConvert> Data, bool ClearExistingRecord = true)
+        public static bool SaveCoordConvertData(List<CoordConvert> Data, bool ClearExistingRecord = true)
         {
             if (Data.Count <= 0)
                 return false;
             if (ClearExistingRecord)
             {
-                using (OleDbConnection con = new OleDbConnection(ConnectionInfo))
+                OleDbCommand cmd = new OleDbCommand
                 {
-                    con.Open();
-                    OleDbCommand cmd = new OleDbCommand
-                    {
-                        CommandText = "DELETE * FROM CoordConvert",
-                        Connection = con
-                    };
-                    cmd.ExecuteNonQuery();
-                }
+                    CommandText = "DELETE * FROM CoordConvert",
+                    Connection = con
+                };
+                cmd.ExecuteNonQuery();
             }
             foreach (CoordConvert c in Data)
             {
@@ -193,25 +181,21 @@ namespace GeodeticCoordinateConversion
         /// 从数据库读取坐标转换数据。
         /// </summary>
         /// <returns>读取的列表。</returns>
-        public List<CoordConvert> LoadCoordConvertData()
+        public static List<CoordConvert> LoadCoordConvertData()
         {
             List<CoordConvert> Data = new List<CoordConvert>();
-            using (OleDbConnection con = new OleDbConnection(ConnectionInfo))
+            OleDbCommand cmd = new OleDbCommand
             {
-                con.Open();
-                OleDbCommand cmd = new OleDbCommand
-                {
-                    CommandText = "SELECT UID FROM CoordConvert",
-                    Connection = con
-                };
-                OleDbDataAdapter Adapter = new OleDbDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                Adapter.Fill(dt);
+                CommandText = "SELECT UID FROM CoordConvert",
+                Connection = con
+            };
+            OleDbDataAdapter Adapter = new OleDbDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            Adapter.Fill(dt);
 
-                foreach (DataRow r in dt.Rows)
-                {
-                    Data.Add(new CoordConvert(Guid.Parse(r["UID"].ToString())));
-                }
+            foreach (DataRow r in dt.Rows)
+            {
+                Data.Add(new CoordConvert(Guid.Parse(r["UID"].ToString())));
             }
             return Data;
         }
@@ -222,22 +206,18 @@ namespace GeodeticCoordinateConversion
         /// <param name="Data">要保存的数据。</param>
         /// <param name="ClearExistingRecord">是否清除已有记录。</param>
         /// <returns>操作结果。</returns>
-        public bool SaveZoneConvertData(List<ZoneConvert> Data, bool ClearExistingRecord = true)
+        public static bool SaveZoneConvertData(List<ZoneConvert> Data, bool ClearExistingRecord = true)
         {
             if (Data.Count <= 0)
                 return false;
             if (ClearExistingRecord)
             {
-                using (OleDbConnection con = new OleDbConnection(ConnectionInfo))
+                OleDbCommand cmd = new OleDbCommand
                 {
-                    con.Open();
-                    OleDbCommand cmd = new OleDbCommand
-                    {
-                        CommandText = "DELETE * FROM ZoneConvert",
-                        Connection = con
-                    };
-                    cmd.ExecuteNonQuery();
-                }
+                    CommandText = "DELETE * FROM ZoneConvert",
+                    Connection = con
+                };
+                cmd.ExecuteNonQuery();
             }
             foreach (ZoneConvert c in Data)
             {
@@ -250,25 +230,21 @@ namespace GeodeticCoordinateConversion
         /// 从数据库读取换带数据。
         /// </summary>
         /// <returns>读取的列表。</returns>
-        public List<ZoneConvert> LoadZoneConvertData()
+        public static List<ZoneConvert> LoadZoneConvertData()
         {
             List<ZoneConvert> Data = new List<ZoneConvert>();
-            using (OleDbConnection con = new OleDbConnection(ConnectionInfo))
+            OleDbCommand cmd = new OleDbCommand
             {
-                con.Open();
-                OleDbCommand cmd = new OleDbCommand
-                {
-                    CommandText = "SELECT UID FROM ZoneConvert",
-                    Connection = con
-                };
-                OleDbDataAdapter Adapter = new OleDbDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                Adapter.Fill(dt);
+                CommandText = "SELECT UID FROM ZoneConvert",
+                Connection = con
+            };
+            OleDbDataAdapter Adapter = new OleDbDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            Adapter.Fill(dt);
 
-                foreach (DataRow r in dt.Rows)
-                {
-                    Data.Add(new ZoneConvert(Guid.Parse(r["UID"].ToString())));
-                }
+            foreach (DataRow r in dt.Rows)
+            {
+                Data.Add(new ZoneConvert(Guid.Parse(r["UID"].ToString())));
             }
             return Data;
         }
@@ -277,13 +253,9 @@ namespace GeodeticCoordinateConversion
         /// 获取数据库中的表列表。
         /// </summary>
         /// <returns>数据库表结构的数据表。</returns>
-        public DataTable GetTableList()
+        public static DataTable GetTableList()
         {
-            using (OleDbConnection con = new OleDbConnection(ConnectionInfo))
-            {
-                con.Open();
-                return con.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, new object[] { null, null, null, "Table" });
-            }
+            return con.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, new object[] { null, null, null, "Table" });
         }
 
         /// <summary>
@@ -291,26 +263,22 @@ namespace GeodeticCoordinateConversion
         /// </summary>
         /// <param name="TableName">表名。</param>
         /// <returns>包含全部表内容的数据表。</returns>
-        public DataTable GetTable(string TableName)
+        public static DataTable GetTable(string TableName)
         {
-            using (OleDbConnection con = new OleDbConnection(ConnectionInfo))
+            OleDbCommand cmd = new OleDbCommand
             {
-                con.Open();
-                OleDbCommand cmd = new OleDbCommand
-                {
-                    CommandText = "SELECT * FROM " + TableName,
-                    Connection = con
-                };
-                OleDbDataAdapter Adapter = new OleDbDataAdapter(cmd);
-                DataTable dt = new DataTable
-                {
-                    TableName = TableName
-                };
+                CommandText = "SELECT * FROM " + TableName,
+                Connection = con
+            };
+            OleDbDataAdapter Adapter = new OleDbDataAdapter(cmd);
+            DataTable dt = new DataTable
+            {
+                TableName = TableName
+            };
 
-                Adapter.Fill(dt);
+            Adapter.Fill(dt);
 
-                return dt;
-            }
+            return dt;
         }
 
         /// <summary>
@@ -319,24 +287,20 @@ namespace GeodeticCoordinateConversion
         /// <param name="DS">数据集，需初始化。</param>
         /// <param name="TableName">表名。</param>
         /// <returns></returns>
-        public bool GetTable(DataSet DS, string TableName)
+        public static bool GetTable(DataSet DS, string TableName)
         {
-            using (OleDbConnection con = new OleDbConnection(ConnectionInfo))
+            OleDbCommand cmd = new OleDbCommand
             {
-                con.Open();
-                OleDbCommand cmd = new OleDbCommand
-                {
-                    CommandText = "SELECT * FROM " + TableName,
-                    Connection = con
-                };
-                OleDbDataAdapter Adapter = new OleDbDataAdapter(cmd);
-                if (DS.Tables[TableName] != null)
-                {
-                    DS.Tables[TableName].Clear();
-                }
-                Adapter.Fill(DS, TableName);
-                return true;
+                CommandText = "SELECT * FROM " + TableName,
+                Connection = con
+            };
+            OleDbDataAdapter Adapter = new OleDbDataAdapter(cmd);
+            if (DS.Tables[TableName] != null)
+            {
+                DS.Tables[TableName].Clear();
             }
+            Adapter.Fill(DS, TableName);
+            return true;
         }
 
         /// <summary>
@@ -345,18 +309,14 @@ namespace GeodeticCoordinateConversion
         /// <param name="DS">更改的数据集。</param>
         /// <param name="TableName">表名。</param>
         /// <returns></returns>
-        public int SaveEdit(DataSet DS, string TableName)
+        public static int SaveEdit(DataSet DS, string TableName)
         {
-            using (OleDbConnection con = new OleDbConnection(ConnectionInfo))
-            {
-                con.Open();
-                OleDbDataAdapter Adapter = new OleDbDataAdapter("SELECT * FROM " + TableName, con);
-                OleDbCommandBuilder cb = new OleDbCommandBuilder(Adapter);
-                Adapter.DeleteCommand = cb.GetDeleteCommand();
-                Adapter.InsertCommand = cb.GetInsertCommand();
-                Adapter.UpdateCommand = cb.GetUpdateCommand();
-                return Adapter.Update(DS, TableName);
-            }
+            OleDbDataAdapter Adapter = new OleDbDataAdapter("SELECT * FROM " + TableName, con);
+            OleDbCommandBuilder cb = new OleDbCommandBuilder(Adapter);
+            Adapter.DeleteCommand = cb.GetDeleteCommand();
+            Adapter.InsertCommand = cb.GetInsertCommand();
+            Adapter.UpdateCommand = cb.GetUpdateCommand();
+            return Adapter.Update(DS, TableName);
         }
 
         /// <summary>

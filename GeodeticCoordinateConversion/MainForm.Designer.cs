@@ -32,18 +32,18 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.ConvertTabControl = new System.Windows.Forms.TabControl();
             this.CoordTabPage = new System.Windows.Forms.TabPage();
+            this.Coord = new GeodeticCoordinateConversion.CoordConvertLayout();
             this.ZoneTabPage = new System.Windows.Forms.TabPage();
+            this.Zone = new GeodeticCoordinateConversion.CoordConvertLayout();
             this.DBTabPage = new System.Windows.Forms.TabPage();
             this.CtrlToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.BottomStatusStrip = new System.Windows.Forms.StatusStrip();
-            this.TopToolStrip = new System.Windows.Forms.ToolStrip();
-            this.ClockTimer = new System.Windows.Forms.Timer(this.components);
-            this.SettingsBtn = new System.Windows.Forms.ToolStripButton();
-            this.AboutBtn = new System.Windows.Forms.ToolStripButton();
             this.HintLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.TimeStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.Coord = new GeodeticCoordinateConversion.CoordConvertLayout();
-            this.Zone = new GeodeticCoordinateConversion.CoordConvertLayout();
+            this.TopToolStrip = new System.Windows.Forms.ToolStrip();
+            this.SettingsBtn = new System.Windows.Forms.ToolStripButton();
+            this.AboutBtn = new System.Windows.Forms.ToolStripButton();
+            this.ClockTimer = new System.Windows.Forms.Timer(this.components);
             this.ConvertTabControl.SuspendLayout();
             this.CoordTabPage.SuspendLayout();
             this.ZoneTabPage.SuspendLayout();
@@ -79,6 +79,15 @@
             this.CoordTabPage.Text = "坐标转换";
             this.CoordTabPage.UseVisualStyleBackColor = true;
             // 
+            // Coord
+            // 
+            this.Coord.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Coord.Location = new System.Drawing.Point(0, 0);
+            this.Coord.Margin = new System.Windows.Forms.Padding(0);
+            this.Coord.Name = "Coord";
+            this.Coord.Size = new System.Drawing.Size(816, 388);
+            this.Coord.TabIndex = 0;
+            // 
             // ZoneTabPage
             // 
             this.ZoneTabPage.Controls.Add(this.Zone);
@@ -89,6 +98,15 @@
             this.ZoneTabPage.TabIndex = 1;
             this.ZoneTabPage.Text = "换带计算";
             this.ZoneTabPage.UseVisualStyleBackColor = true;
+            // 
+            // Zone
+            // 
+            this.Zone.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Zone.Location = new System.Drawing.Point(0, 0);
+            this.Zone.Margin = new System.Windows.Forms.Padding(0);
+            this.Zone.Name = "Zone";
+            this.Zone.Size = new System.Drawing.Size(816, 388);
+            this.Zone.TabIndex = 0;
             // 
             // DBTabPage
             // 
@@ -111,6 +129,21 @@
             this.BottomStatusStrip.Size = new System.Drawing.Size(824, 25);
             this.BottomStatusStrip.TabIndex = 2;
             // 
+            // HintLabel
+            // 
+            this.HintLabel.Image = global::GeodeticCoordinateConversion.Properties.Resources.Key;
+            this.HintLabel.Name = "HintLabel";
+            this.HintLabel.Size = new System.Drawing.Size(101, 20);
+            this.HintLabel.Text = "少女祈祷中...";
+            // 
+            // TimeStripStatusLabel
+            // 
+            this.TimeStripStatusLabel.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.TimeStripStatusLabel.Image = global::GeodeticCoordinateConversion.Properties.Resources.Clock;
+            this.TimeStripStatusLabel.Name = "TimeStripStatusLabel";
+            this.TimeStripStatusLabel.Size = new System.Drawing.Size(101, 20);
+            this.TimeStripStatusLabel.Text = "少女祈祷中...";
+            // 
             // TopToolStrip
             // 
             this.TopToolStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
@@ -122,12 +155,6 @@
             this.TopToolStrip.Size = new System.Drawing.Size(824, 27);
             this.TopToolStrip.TabIndex = 1;
             this.TopToolStrip.TabStop = true;
-            // 
-            // ClockTimer
-            // 
-            this.ClockTimer.Enabled = true;
-            this.ClockTimer.Interval = 1000;
-            this.ClockTimer.Tick += new System.EventHandler(this.Clock);
             // 
             // SettingsBtn
             // 
@@ -147,38 +174,11 @@
             this.AboutBtn.Text = "关于";
             this.AboutBtn.Click += new System.EventHandler(this.ShowAbout);
             // 
-            // HintLabel
+            // ClockTimer
             // 
-            this.HintLabel.Image = global::GeodeticCoordinateConversion.Properties.Resources.Key;
-            this.HintLabel.Name = "HintLabel";
-            this.HintLabel.Size = new System.Drawing.Size(101, 20);
-            this.HintLabel.Text = "少女祈祷中...";
-            // 
-            // TimeStripStatusLabel
-            // 
-            this.TimeStripStatusLabel.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.TimeStripStatusLabel.Image = global::GeodeticCoordinateConversion.Properties.Resources.Clock;
-            this.TimeStripStatusLabel.Name = "TimeStripStatusLabel";
-            this.TimeStripStatusLabel.Size = new System.Drawing.Size(101, 20);
-            this.TimeStripStatusLabel.Text = "少女祈祷中...";
-            // 
-            // Coord
-            // 
-            this.Coord.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Coord.Location = new System.Drawing.Point(0, 0);
-            this.Coord.Margin = new System.Windows.Forms.Padding(0);
-            this.Coord.Name = "Coord";
-            this.Coord.Size = new System.Drawing.Size(816, 388);
-            this.Coord.TabIndex = 0;
-            // 
-            // Zone
-            // 
-            this.Zone.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Zone.Location = new System.Drawing.Point(0, 0);
-            this.Zone.Margin = new System.Windows.Forms.Padding(0);
-            this.Zone.Name = "Zone";
-            this.Zone.Size = new System.Drawing.Size(816, 388);
-            this.Zone.TabIndex = 0;
+            this.ClockTimer.Enabled = true;
+            this.ClockTimer.Interval = 1000;
+            this.ClockTimer.Tick += new System.EventHandler(this.Clock);
             // 
             // MainForm
             // 
@@ -192,6 +192,7 @@
             this.MinimumSize = new System.Drawing.Size(680, 400);
             this.Name = "MainForm";
             this.Text = "大地坐标转换实习程序";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.ConvertTabControl.ResumeLayout(false);
             this.CoordTabPage.ResumeLayout(false);
