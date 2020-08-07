@@ -13,13 +13,9 @@ namespace GeodeticCoordinateConversion
     /// <summary>
     /// 度分秒经纬度类。
     /// </summary>
-    public sealed class GEOBL
+    public sealed class GEOBL : UIDClass
     {
         #region Fields
-        /// <summary>
-        /// 全局唯一ID。
-        /// </summary>
-        public readonly Guid UID = Guid.NewGuid();
         /// <summary>
         /// 分带类型（私有）。
         /// </summary>
@@ -188,29 +184,29 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                    if (DBIO.GUIDExists(nameof(GEOBL), guid))
-                    {
-                        DataRow dr = DBIO.SelectByGUID(nameof(GEOBL), guid);
-                        this.UID = Guid.Parse(dr[nameof(UID)].ToString());
-                        this.ZoneType = (GEOZoneType)int.Parse(dr[nameof(ZoneType)].ToString());
-                        this.B =new DMS(dr[nameof(B)].ToString());
-                        this.L = new DMS(dr[nameof(L)].ToString());
-                        BindBLEvent();
+                if (DBIO.GUIDExists(nameof(GEOBL), guid))
+                {
+                    DataRow dr = DBIO.SelectByGUID(nameof(GEOBL), guid);
+                    this.UID = Guid.Parse(dr[nameof(UID)].ToString());
+                    this.ZoneType = (GEOZoneType)int.Parse(dr[nameof(ZoneType)].ToString());
+                    this.B = new DMS(dr[nameof(B)].ToString());
+                    this.L = new DMS(dr[nameof(L)].ToString());
+                    BindBLEvent();
 
-                        this.GEOEllipse = new Ellipse((GEOEllipseType)int.Parse(dr[nameof(Ellipse.EllipseType)].ToString()));
-                        BindEllipseEvent();
-                    }
-                    else
-                    {
-                        this.ZoneType = (GEOZoneType)new Settings().DefaultZoneType;
-                        this.B = new DMS();
-                        this.L = new DMS();
-                        BindBLEvent();
-
-                        this.GEOEllipse = new Ellipse();
-                        BindEllipseEvent();
-                    }
+                    this.GEOEllipse = new Ellipse((GEOEllipseType)int.Parse(dr[nameof(Ellipse.EllipseType)].ToString()));
+                    BindEllipseEvent();
                 }
+                else
+                {
+                    this.ZoneType = (GEOZoneType)new Settings().DefaultZoneType;
+                    this.B = new DMS();
+                    this.L = new DMS();
+                    BindBLEvent();
+
+                    this.GEOEllipse = new Ellipse();
+                    BindEllipseEvent();
+                }
+            }
             catch (Exception err)
             {
                 throw new InitializeException(ErrMessage.GaussCoord.InitializeError, err);
@@ -429,29 +425,28 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
+                OleDbCommand cmd = new OleDbCommand()
+                {
+                    Connection = DBIO.con,
+                };
 
-                    OleDbCommand cmd = new OleDbCommand()
-                    {
-                        Connection = DBIO.con,
-                    };
+                OleDbParameter p = new OleDbParameter("@UID", UID.ToString());
+                cmd.Parameters.AddWithValue("@B", B.Value);
+                cmd.Parameters.AddWithValue("@L", L.Value);
+                cmd.Parameters.AddWithValue("@EllipseType", GEOEllipse.EllipseType);
+                cmd.Parameters.AddWithValue("@ZoneType", (int)ZoneType);
 
-                    OleDbParameter p = new OleDbParameter("@UID", UID.ToString());
-                    cmd.Parameters.AddWithValue("@B", B.Value);
-                    cmd.Parameters.AddWithValue("@L", L.Value);
-                    cmd.Parameters.AddWithValue("@EllipseType", GEOEllipse.EllipseType);
-                    cmd.Parameters.AddWithValue("@ZoneType", (int)ZoneType);
-
-                    if (DBIO.GUIDExists(nameof(GEOBL), this.UID))
-                    {
-                        cmd.CommandText = "UPDATE GEOBL SET [B] = @B, [L] = @L, [EllipseType] = @EllipseType, [ZoneType] = @ZoneType WHERE [UID] = @UID";
-                        cmd.Parameters.Insert(cmd.Parameters.Count, p);
-                    }
-                    else
-                    {
-                        cmd.CommandText = "INSERT INTO GEOBL ([UID], [B], [L], [EllipseType], [ZoneType]) VALUES (@UID, @B, @L, @EllipseType, @ZoneType)";
-                        cmd.Parameters.Insert(0, p);
-                    }
-                    cmd.ExecuteNonQuery();
+                if (DBIO.GUIDExists(nameof(GEOBL), this.UID))
+                {
+                    cmd.CommandText = "UPDATE GEOBL SET [B] = @B, [L] = @L, [EllipseType] = @EllipseType, [ZoneType] = @ZoneType WHERE [UID] = @UID";
+                    cmd.Parameters.Insert(cmd.Parameters.Count, p);
+                }
+                else
+                {
+                    cmd.CommandText = "INSERT INTO GEOBL ([UID], [B], [L], [EllipseType], [ZoneType]) VALUES (@UID, @B, @L, @EllipseType, @ZoneType)";
+                    cmd.Parameters.Insert(0, p);
+                }
+                cmd.ExecuteNonQuery();
                 return true;
             }
             catch (Exception)

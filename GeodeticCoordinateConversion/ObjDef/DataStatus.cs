@@ -8,9 +8,19 @@ using System.Threading.Tasks;
 namespace GeodeticCoordinateConversion
 {
     /// <summary>
+    /// UID类。
+    /// </summary>
+    public class UIDClass
+    {
+        /// <summary>
+        /// 全局唯一ID。
+        /// </summary>
+        public Guid UID { get; protected set; } = Guid.NewGuid();
+    }
+    /// <summary>
     /// 用户控件使用的用于指示数据状态的基类。
     /// </summary>
-    public class DataStatus
+    public class DataStatus:UIDClass
     {
         /// <summary>
         /// 是否选中。

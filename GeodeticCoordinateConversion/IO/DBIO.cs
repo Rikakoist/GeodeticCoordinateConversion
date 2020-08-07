@@ -19,12 +19,6 @@ namespace GeodeticCoordinateConversion
         /// 全局唯一ID。
         /// </summary>
         public static readonly Guid UID = Guid.NewGuid();
-
-        /// <summary>
-        /// 配置文件。
-        /// </summary>
-        private static Settings AppSettings = new Settings();
-
         /// <summary>
         /// 数据库文件存放的目录（私有）。
         /// </summary>
@@ -69,13 +63,84 @@ namespace GeodeticCoordinateConversion
         {
             if (!File.Exists(DBPath))
             {
-                System.Reflection.Assembly DBAssembly = System.Reflection.Assembly.GetExecutingAssembly();
-                var DBStream = DBAssembly.GetManifestResourceStream("GeodeticCoordinateConversion.GeoConvertDB.mdb");
-                byte[] DBResource = new byte[DBStream.Length];
-                DBStream.Read(DBResource, 0, (int)DBStream.Length);
-                var DBFileStream = new FileStream(DBPath, FileMode.Create);
-                DBFileStream.Write(DBResource, 0, (int)DBStream.Length);
-                DBFileStream.Close();
+                Catalog C = new Catalog();
+                C.Create(ConnectionInfo);
+
+                ADODB.Connection Conn = new ADODB.Connection();
+                Conn.Open(ConnectionInfo);
+                C.ActiveConnection = Conn;
+
+                Table CoordTab = new Table
+                {
+                    Name = nameof(CoordConvert),
+                    ParentCatalog = C
+                };
+
+                CoordTab.Columns.Append(nameof(UIDClass.UID), DataTypeEnum.adGUID);
+                CoordTab.Keys.Append("PrimaryKey", KeyTypeEnum.adKeyPrimary, nameof(UIDClass.UID), null,null);
+                CoordTab.Columns[nameof(UIDClass.UID)].Properties["Description"].Value = "坐标转换对象的GUID。";
+                CoordTab.Columns.Append(nameof(DataStatus.Selected), DataTypeEnum.adBoolean);
+                CoordTab.Columns.Append(nameof(DataStatus.Dirty), DataTypeEnum.adBoolean);
+                CoordTab.Columns.Append(nameof(DataStatus.Calculated), DataTypeEnum.adBoolean);
+                CoordTab.Columns.Append(nameof(DataStatus.Error), DataTypeEnum.adBoolean);
+                CoordTab.Columns.Append(nameof(CoordConvert.BL), DataTypeEnum.adGUID);
+                CoordTab.Columns.Append(nameof(CoordConvert.Gauss), DataTypeEnum.adGUID);
+                C.Tables.Append(CoordTab);
+
+                Table ZoneTab = new Table
+                {
+                    Name = nameof(ZoneConvert),
+                    ParentCatalog = C
+                };
+
+                ZoneTab.Columns.Append(nameof(UIDClass.UID), DataTypeEnum.adGUID);
+                ZoneTab.Keys.Append("PrimaryKey", KeyTypeEnum.adKeyPrimary, nameof(UIDClass.UID), null, null);
+                ZoneTab.Columns.Append(nameof(DataStatus.Selected), DataTypeEnum.adBoolean);
+                ZoneTab.Columns.Append(nameof(DataStatus.Dirty), DataTypeEnum.adBoolean);
+                ZoneTab.Columns.Append(nameof(DataStatus.Calculated), DataTypeEnum.adBoolean);
+                ZoneTab.Columns.Append(nameof(DataStatus.Error), DataTypeEnum.adBoolean);
+                ZoneTab.Columns.Append(nameof(ZoneConvert.Gauss6), DataTypeEnum.adGUID);
+                ZoneTab.Columns.Append(nameof(ZoneConvert.Gauss3), DataTypeEnum.adGUID);
+                C.Tables.Append(ZoneTab);
+
+                Table GaussTab = new Table
+                {
+                    Name = nameof(GaussCoord),
+                    ParentCatalog = C
+                };
+
+                GaussTab.Columns.Append(nameof(UIDClass.UID), DataTypeEnum.adGUID);
+                GaussTab.Keys.Append("PrimaryKey", KeyTypeEnum.adKeyPrimary, nameof(UIDClass.UID), null, null);
+                GaussTab.Columns.Append(nameof(GaussCoord.X), DataTypeEnum.adDouble);
+                GaussTab.Columns.Append(nameof(GaussCoord.Y), DataTypeEnum.adDouble);
+                GaussTab.Columns.Append(nameof(Ellipse.EllipseType), DataTypeEnum.adInteger);
+                GaussTab.Columns.Append(nameof(GaussCoord.ZoneType), DataTypeEnum.adInteger);
+                GaussTab.Columns.Append(nameof(GaussCoord.Zone), DataTypeEnum.adInteger);
+                C.Tables.Append(GaussTab);
+
+                Table GEOBLTab = new Table
+                {
+                    Name = nameof(GEOBL),
+                    ParentCatalog = C
+                };
+
+                GEOBLTab.Columns.Append(nameof(UIDClass.UID), DataTypeEnum.adGUID);
+                GEOBLTab.Keys.Append("PrimaryKey", KeyTypeEnum.adKeyPrimary, nameof(UIDClass.UID), null, null);
+                GEOBLTab.Columns.Append(nameof(GEOBL.B), DataTypeEnum.adVarWChar);
+                GEOBLTab.Columns.Append(nameof(GEOBL.L), DataTypeEnum.adVarWChar);
+                GEOBLTab.Columns.Append(nameof(Ellipse.EllipseType), DataTypeEnum.adInteger);
+                GEOBLTab.Columns.Append(nameof(GEOBL.ZoneType), DataTypeEnum.adInteger);
+                C.Tables.Append(GEOBLTab);
+
+                Conn.Close();
+
+                //System.Reflection.Assembly DBAssembly = System.Reflection.Assembly.GetExecutingAssembly();
+                //var DBStream = DBAssembly.GetManifestResourceStream("GeodeticCoordinateConversion.GeoConvertDB.mdb");
+                //byte[] DBResource = new byte[DBStream.Length];
+                //DBStream.Read(DBResource, 0, (int)DBStream.Length);
+                //var DBFileStream = new FileStream(DBPath, FileMode.Create);
+                //DBFileStream.Write(DBResource, 0, (int)DBStream.Length);
+                //DBFileStream.Close();
             }
         }
 

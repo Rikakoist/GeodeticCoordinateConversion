@@ -10,6 +10,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Reflection;
 using System.Data.OleDb;
+using System.Runtime.InteropServices;
 
 namespace GeodeticCoordinateConversion
 {
@@ -19,10 +20,6 @@ namespace GeodeticCoordinateConversion
     public class CoordConvert : DataStatus
     {
         #region Fields
-        /// <summary>
-        /// 全局唯一ID。
-        /// </summary>
-        public readonly Guid UID = Guid.NewGuid();
         /// <summary>
         /// 地理经纬度对象。
         /// </summary>
@@ -38,6 +35,7 @@ namespace GeodeticCoordinateConversion
         /// 是否选中。
         /// </summary>
         [DisplayName("选中")]
+        [DispId(0)]
         public bool Selected { get => base.Selected; set => base.Selected = value; }
         /// <summary>
         /// 地理纬度。
@@ -203,27 +201,27 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                    if (DBIO.GUIDExists(nameof(CoordConvert), guid))
-                    {
-                        DataRow dr = DBIO.SelectByGUID(nameof(CoordConvert), guid);
-                        this.UID = Guid.Parse(dr[nameof(UID)].ToString());
-                        this.Selected = bool.Parse(dr[nameof(Selected)].ToString());
-                        this.Dirty = bool.Parse(dr[nameof(Dirty)].ToString());
-                        this.Calculated = bool.Parse(dr[nameof(Calculated)].ToString());
-                        this.Error = bool.Parse(dr[nameof(Error)].ToString());
+                if (DBIO.GUIDExists(nameof(CoordConvert), guid))
+                {
+                    DataRow dr = DBIO.SelectByGUID(nameof(CoordConvert), guid);
+                    this.UID = Guid.Parse(dr[nameof(UID)].ToString());
+                    this.Selected = bool.Parse(dr[nameof(Selected)].ToString());
+                    this.Dirty = bool.Parse(dr[nameof(Dirty)].ToString());
+                    this.Calculated = bool.Parse(dr[nameof(Calculated)].ToString());
+                    this.Error = bool.Parse(dr[nameof(Error)].ToString());
 
-                        this.BL = new GEOBL(Guid.Parse(dr[nameof(BL)].ToString()));
-                        BindBLEvents();
-                        this.Gauss = new GaussCoord(Guid.Parse(dr[nameof(Gauss)].ToString()));
-                        BindGaussEvents();
-                    }
-                    else
-                    {
-                        this.BL = new GEOBL();
-                        BindBLEvents();
-                        this.Gauss = new GaussCoord();
-                        BindGaussEvents();
-                    }
+                    this.BL = new GEOBL(Guid.Parse(dr[nameof(BL)].ToString()));
+                    BindBLEvents();
+                    this.Gauss = new GaussCoord(Guid.Parse(dr[nameof(Gauss)].ToString()));
+                    BindGaussEvents();
+                }
+                else
+                {
+                    this.BL = new GEOBL();
+                    BindBLEvents();
+                    this.Gauss = new GaussCoord();
+                    BindGaussEvents();
+                }
             }
             catch (Exception err)
             {
@@ -378,30 +376,30 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                    OleDbCommand cmd = new OleDbCommand()
-                    {
-                        Connection = DBIO.con,
-                    };
+                OleDbCommand cmd = new OleDbCommand()
+                {
+                    Connection = DBIO.con,
+                };
 
-                    OleDbParameter p = new OleDbParameter("@UID", UID.ToString());
-                    cmd.Parameters.AddWithValue("@Selected", Selected);
-                    cmd.Parameters.AddWithValue("@Dirty", Dirty);
-                    cmd.Parameters.AddWithValue("@Calculated", Calculated);
-                    cmd.Parameters.AddWithValue("@Error", Error);
-                    cmd.Parameters.AddWithValue("@BL", BL.UID.ToString());
-                    cmd.Parameters.AddWithValue("@Gauss", Gauss.UID.ToString());
+                OleDbParameter p = new OleDbParameter("@UID", UID.ToString());
+                cmd.Parameters.AddWithValue("@Selected", Selected);
+                cmd.Parameters.AddWithValue("@Dirty", Dirty);
+                cmd.Parameters.AddWithValue("@Calculated", Calculated);
+                cmd.Parameters.AddWithValue("@Error", Error);
+                cmd.Parameters.AddWithValue("@BL", BL.UID.ToString());
+                cmd.Parameters.AddWithValue("@Gauss", Gauss.UID.ToString());
 
-                    if (DBIO.GUIDExists(nameof(CoordConvert), this.UID))
-                    {
-                        cmd.CommandText = "UPDATE CoordConvert SET [Selected] = @Selected, [Dirty] = @Dirty, [Calculated] = @Calculated, [Error] = @Error, [BL] = @BL, [Gauss] = @Gauss WHERE [UID] = @UID";
-                        cmd.Parameters.Insert(cmd.Parameters.Count,p);
-                    }
-                    else
-                    {
-                        cmd.CommandText = "INSERT INTO CoordConvert ([UID], [Selected], [Dirty], [Calculated], [Error], [BL], [Gauss]) VALUES (@UID, @Selected, @Dirty, @Calculated, @Error, @BL, @Gauss)";
-                        cmd.Parameters.Insert(0, p);
-                    }
-                    cmd.ExecuteNonQuery();
+                if (DBIO.GUIDExists(nameof(CoordConvert), this.UID))
+                {
+                    cmd.CommandText = "UPDATE CoordConvert SET [Selected] = @Selected, [Dirty] = @Dirty, [Calculated] = @Calculated, [Error] = @Error, [BL] = @BL, [Gauss] = @Gauss WHERE [UID] = @UID";
+                    cmd.Parameters.Insert(cmd.Parameters.Count, p);
+                }
+                else
+                {
+                    cmd.CommandText = "INSERT INTO CoordConvert ([UID], [Selected], [Dirty], [Calculated], [Error], [BL], [Gauss]) VALUES (@UID, @Selected, @Dirty, @Calculated, @Error, @BL, @Gauss)";
+                    cmd.Parameters.Insert(0, p);
+                }
+                cmd.ExecuteNonQuery();
                 Gauss.SaveToDB();
                 BL.SaveToDB();
                 return true;

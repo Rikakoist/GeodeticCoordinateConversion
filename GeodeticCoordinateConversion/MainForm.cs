@@ -251,7 +251,7 @@ namespace GeodeticCoordinateConversion
         //关闭连接
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-
+            ClockTimer.Dispose();
         }
         #endregion
 

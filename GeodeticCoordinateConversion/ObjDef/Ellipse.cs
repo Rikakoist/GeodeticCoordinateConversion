@@ -11,13 +11,9 @@ namespace GeodeticCoordinateConversion
     /// <summary>
     /// 椭球对象
     /// </summary>
-    public class Ellipse
+    public class Ellipse : UIDClass
     {
         #region Fields
-        /// <summary>
-        /// 全局唯一ID。
-        /// </summary>
-        public readonly Guid UID = Guid.NewGuid();
         /// <summary>
         /// 椭球类型(私有)。
         /// </summary>
@@ -34,20 +30,23 @@ namespace GeodeticCoordinateConversion
         /// <summary>
         /// 第一偏心率。
         /// </summary>
-        public double e {
+        public double e
+        {
             get => (Math.Sqrt(Math.Pow(this.a, 2) - Math.Pow(this.b, 2)) / this.a);
         }
         /// <summary>
         /// 第二偏心率。
         /// </summary>
-        public double e2 {
-            get=> (Math.Sqrt(Math.Pow(this.a, 2) - Math.Pow(this.b, 2)) / this.b);
+        public double e2
+        {
+            get => (Math.Sqrt(Math.Pow(this.a, 2) - Math.Pow(this.b, 2)) / this.b);
         }
         /// <summary>
         /// 极点处子午线曲率半径。
         /// </summary>
-        public double c {
-            get=> (Math.Pow(this.a, 2) / this.b);
+        public double c
+        {
+            get => (Math.Pow(this.a, 2) / this.b);
         }
         #endregion
 

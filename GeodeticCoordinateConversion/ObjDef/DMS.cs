@@ -10,13 +10,9 @@ namespace GeodeticCoordinateConversion
     /// <summary>
     /// 度分秒类。
     /// </summary>
-    public sealed class DMS
+    public sealed class DMS : UIDClass
     {
         #region Fields
-        /// <summary>
-        /// 全局唯一ID。
-        /// </summary>
-        public readonly Guid UID = Guid.NewGuid();
         /// <summary>
         /// 度（私有）。
         /// </summary>
