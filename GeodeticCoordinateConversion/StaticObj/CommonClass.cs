@@ -6,6 +6,53 @@ using System.Threading.Tasks;
 
 namespace GeodeticCoordinateConversion
 {
+    class GeoCalc
+    {
+        #region 角度计算类
+        //十进制转弧度
+        public static double DEC2ARC(double DEC)
+        {
+            return (DEC * Math.PI / 180);
+        }
+
+        //度分秒转十进制
+        public static double DMS2DEC(DMS DDMS)
+        {
+            double Result = DDMS.D + DDMS.M / 60.0 + DDMS.S / 3600.0;
+            return Result;
+        }
+
+        //十进制转度分秒
+        public static DMS DEC2DMS(double DEC)
+        {
+            //DMS Result = new DMS
+            //{
+            //    D = (int)DEC
+            //};
+            //Result.M = (int)((DEC - Result.D) * 60);
+            //Result.S = ((DEC - Result.D) * 60 - Result.M) * 60;
+            DMS Result = new DMS
+            {
+                D = 0,
+                M = 0,
+                S = DEC * 3600,
+            };
+            while (Result.S >= 60)
+            {
+                Result.S -= 60;
+                Result.M += 1;
+            }
+            while (Result.M >= 60)
+            {
+                Result.M -= 60;
+                Result.D += 1;
+            }
+
+            return Result;
+        }
+        #endregion
+    }
+
     /// <summary>
     /// 提示值改变事件参数。
     /// </summary>

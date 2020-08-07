@@ -104,28 +104,28 @@ namespace GeodeticCoordinateConversion
                     CoordData = new BindingList<CoordConvert>(await Task.Run(() => DataFile.LoadCoordConvertData()));
                     CoordDGV.DataSource = CoordData;
                     CoordDGV.ClearSelection();
-                    Hint = Hints.DataLoaded((GEODataSourceType)0, CoordData.Count(), (GEODataType)0);
+                    Hint = Hints.DataLoaded(GEODataSourceType.File, CoordData.Count(), GEODataType.CoordConvert);
                 }
                 if (sender == Zone.LoadFileBtn)
                 {
                     ZoneData = new BindingList<ZoneConvert>(await Task.Run(() => DataFile.LoadZoneConvertData()));
                     ZoneDGV.DataSource = ZoneData;
                     ZoneDGV.ClearSelection();
-                    Hint = Hints.DataLoaded((GEODataSourceType)0, ZoneData.Count(), (GEODataType)1);
+                    Hint = Hints.DataLoaded(GEODataSourceType.File, ZoneData.Count(), GEODataType.ZoneConvert);
                 }
                 if (sender == Coord.LoadDBBtn)
                 {
                     CoordData = new BindingList<CoordConvert>(await Task.Run(() => DBFile.LoadCoordConvertData()));
                     CoordDGV.DataSource = CoordData;
                     CoordDGV.ClearSelection();
-                    Hint = Hints.DataLoaded((GEODataSourceType)1, CoordData.Count(), (GEODataType)0);
+                    Hint = Hints.DataLoaded(GEODataSourceType.DB, CoordData.Count(), GEODataType.CoordConvert);
                 }
                 if (sender == Zone.LoadDBBtn)
                 {
                     ZoneData = new BindingList<ZoneConvert>(await Task.Run(() => DBFile.LoadZoneConvertData()));
                     ZoneDGV.DataSource = ZoneData;
                     ZoneDGV.ClearSelection();
-                    Hint = Hints.DataLoaded((GEODataSourceType)1, ZoneData.Count(), (GEODataType)1);
+                    Hint = Hints.DataLoaded(GEODataSourceType.DB, ZoneData.Count(), GEODataType.ZoneConvert);
                 }
             }
             catch (Exception err)
@@ -142,22 +142,22 @@ namespace GeodeticCoordinateConversion
                 if (sender == Coord.SaveFileBtn)
                 {
                     await Task.Run(() => DataFile.SaveCoordConvertData(CoordData.ToList(), AppSettings.ClearExistingRecordData2File));
-                    Hint = Hints.DataSaved((GEODataSourceType)0, CoordData.Count(), (GEODataType)0);
+                    Hint = Hints.DataSaved(GEODataSourceType.File, CoordData.Count(), GEODataType.CoordConvert);
                 }
                 if (sender == Zone.SaveFileBtn)
                 {
                     await Task.Run(() => DataFile.SaveZoneConvertData(ZoneData.ToList(), AppSettings.ClearExistingRecordData2File));
-                    Hint = Hints.DataSaved((GEODataSourceType)0, ZoneData.Count(), (GEODataType)1);
+                    Hint = Hints.DataSaved(GEODataSourceType.File, ZoneData.Count(), GEODataType.ZoneConvert);
                 }
                 if (sender == Coord.SaveDBBtn)
                 {
                     await Task.Run(() => DBFile.SaveCoordConvertData(CoordData.ToList(), AppSettings.ClearExistingRecordData2DB));
-                    Hint = Hints.DataSaved((GEODataSourceType)1, CoordData.Count(), (GEODataType)0);
+                    Hint = Hints.DataSaved(GEODataSourceType.DB, CoordData.Count(), GEODataType.CoordConvert);
                 }
                 if (sender == Zone.SaveDBBtn)
                 {
                     await Task.Run(() => DBFile.SaveZoneConvertData(ZoneData.ToList(), AppSettings.ClearExistingRecordData2DB));
-                    Hint = Hints.DataSaved((GEODataSourceType)1, ZoneData.Count(), (GEODataType)1);
+                    Hint = Hints.DataSaved(GEODataSourceType.DB, ZoneData.Count(), GEODataType.ZoneConvert);
                 }
             }
             catch (Exception err)
@@ -265,6 +265,7 @@ namespace GeodeticCoordinateConversion
                 HeaderText = (typeof(CoordConvert).GetProperty(nameof(CoordConvert.EllipseType))).GetCustomAttribute<DisplayNameAttribute>().DisplayName,
                 DisplayStyle = DataGridViewComboBoxDisplayStyle.ComboBox,
                 DataSource = GEODataTables.GetEllipseType(),
+                //DataSource = GEODataTables.GetEnumType(GEOEllipseType),
                 DisplayMember = nameof(GEOEllipseType),
                 DataPropertyName = nameof(Ellipse.EllipseType),
                 ValueMember = "Value"

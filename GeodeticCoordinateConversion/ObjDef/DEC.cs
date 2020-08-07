@@ -167,38 +167,4 @@ namespace GeodeticCoordinateConversion
             this.B = B; this.L = L; this.ZoneType = ZoneType;
         }
     }
-
-    class Tab1File
-    {
-        public GEOBL Tab1FileBL;
-        public GaussCoord Tab1FileGC;
-
-        public Tab1File()
-        {
-
-        }
-
-        public Tab1File(XmlNode xmlNode)
-        {
-            this.Tab1FileBL = new GEOBL(xmlNode.SelectSingleNode(NodeInfo.BLNodePath));
-            this.Tab1FileGC = new GaussCoord(xmlNode.SelectSingleNode(NodeInfo.GaussNode));
-        }
-    }
-
-    class Tab2File
-    {
-        public GaussCoord Six;
-        public GaussCoord Three;
-
-        public Tab2File()
-        {
-
-        }
-
-        public Tab2File(XmlNode xmlNode)
-        {
-            this.Six = new GaussCoord(xmlNode.SelectSingleNode(NodeInfo.Gauss6NodePath));
-            this.Three = new GaussCoord(xmlNode.SelectSingleNode(NodeInfo.Gauss3NodePath));
-        }
-    }
 }

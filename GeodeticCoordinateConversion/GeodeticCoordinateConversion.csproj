@@ -108,9 +108,8 @@
     <Compile Include="IO\DBIO.cs" />
     <Compile Include="ObjDef\Ellipse.cs" />
     <Compile Include="StaticObj\MessageText.cs" />
-    <Compile Include="GeoCalc.cs" />
-    <Compile Include="MessageBoxes.cs" />
-    <Compile Include="ObjDef\MidVar.cs" />
+    <Compile Include="StaticObj\MessageBoxes.cs" />
+    <Compile Include="ObjDef\DEC.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StaticObj\Restraints.cs" />
