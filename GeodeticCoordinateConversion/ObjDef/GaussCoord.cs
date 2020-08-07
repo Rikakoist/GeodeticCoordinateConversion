@@ -21,10 +21,6 @@ namespace GeodeticCoordinateConversion
         /// </summary>
         public readonly Guid UID = Guid.NewGuid();
         /// <summary>
-        /// 配置文件。
-        /// </summary>
-        private Settings AppSettings = new Settings();
-        /// <summary>
         /// 带内x坐标（私有）。
         /// </summary>
         private double x;
@@ -55,8 +51,8 @@ namespace GeodeticCoordinateConversion
             get => x;
             set
             {
-                GaussValueChangedEventArgs e = new GaussValueChangedEventArgs(GaussValueChangedType.X, this.x, value);
-                this.x = value;
+                GaussValueChangedEventArgs e = new GaussValueChangedEventArgs(GaussValueChangedType.X, x, value);
+                x = value;
                 ValueChanged?.Invoke(this, e);
             }
         }
@@ -68,8 +64,8 @@ namespace GeodeticCoordinateConversion
             get => y;
             set
             {
-                GaussValueChangedEventArgs e = new GaussValueChangedEventArgs(GaussValueChangedType.Y, this.y, value);
-                this.y = value;
+                GaussValueChangedEventArgs e = new GaussValueChangedEventArgs(GaussValueChangedType.Y, y, value);
+                y = value;
                 ValueChanged?.Invoke(this, e);
             }
         }
@@ -85,14 +81,14 @@ namespace GeodeticCoordinateConversion
                 {
                     if (value == zoneType)
                         return;
-                    GaussValueChangedEventArgs e = new GaussValueChangedEventArgs(GaussValueChangedType.ZoneType, this.zoneType, value);
-                    this.zoneType = value;
+                    GaussValueChangedEventArgs e = new GaussValueChangedEventArgs(GaussValueChangedType.ZoneType, zoneType, value);
+                    zoneType = value;
                     ValueChanged?.Invoke(this, e);
 
                 }
                 catch (Exception err)
                 {
-                    this.ZoneType = GEOZoneType.None;
+                    zoneType = GEOZoneType.None;
                     throw new ArgumentOutOfRangeException(ErrMessage.GEOZone.ZoneTypeUnknown, err);
                 }
             }
@@ -109,7 +105,7 @@ namespace GeodeticCoordinateConversion
                 {
                     if (value == zone)
                         return;
-                    GaussValueChangedEventArgs e = new GaussValueChangedEventArgs(GaussValueChangedType.Zone, this.zone, value);
+                    GaussValueChangedEventArgs e = new GaussValueChangedEventArgs(GaussValueChangedType.Zone, zone, value);
                     switch (this.ZoneType)
                     {
                         case GEOZoneType.None:
@@ -123,7 +119,7 @@ namespace GeodeticCoordinateConversion
                                 {
                                     throw new ArgumentOutOfRangeException(ErrMessage.Data.Zone3OutOfRange);
                                 }
-                                this.zone = value;
+                                zone = value;
                                 break;
                             }
                         case GEOZoneType.Zone6:
@@ -132,7 +128,7 @@ namespace GeodeticCoordinateConversion
                                 {
                                     throw new ArgumentOutOfRangeException(ErrMessage.Data.Zone6OutOfRange);
                                 }
-                                this.zone = value;
+                                zone = value;
                                 break;
                             }
                         default:
@@ -187,7 +183,7 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                this.ZoneType = (GEOZoneType)AppSettings.DefaultZoneType;
+                this.ZoneType = (GEOZoneType)new Settings().DefaultZoneType;
                 this.GEOEllipse = new Ellipse();
                 BindEllipseEvent();
             }
@@ -310,7 +306,7 @@ namespace GeodeticCoordinateConversion
                     }
                     else
                     {
-                        this.ZoneType = (GEOZoneType)AppSettings.DefaultZoneType;
+                        this.ZoneType = (GEOZoneType)new Settings().DefaultZoneType;
                         this.GEOEllipse = new Ellipse();
                         BindEllipseEvent();
                     }

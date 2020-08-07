@@ -19,10 +19,6 @@ namespace GeodeticCoordinateConversion
         /// </summary>
         public readonly Guid UID = Guid.NewGuid();
         /// <summary>
-        /// 配置文件。
-        /// </summary>
-        private Settings AppSettings = new Settings();
-        /// <summary>
         /// 椭球类型(私有)。
         /// </summary>
         private GEOEllipseType ellipseType;
@@ -131,7 +127,7 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                this.EllipseType = (GEOEllipseType)AppSettings.DefaultEllipseType;
+                this.EllipseType = (GEOEllipseType)new Settings().DefaultEllipseType;
             }
             catch (Exception err)
             {

@@ -44,7 +44,7 @@ namespace GeodeticCoordinateConversion
                     throw new ArgumentOutOfRangeException(ErrMessage.Data.DegreeOutOfRange);
                 if (d == value)
                     return;
-                DMSValueChangedEventArgs e = new DMSValueChangedEventArgs(DMSValueChangedType.D, this.d, value);
+                DMSValueChangedEventArgs e = new DMSValueChangedEventArgs(DMSValueChangedType.D, d, value);
                 d = value;
                 ValueChanged?.Invoke(this, e);
             }
@@ -61,7 +61,7 @@ namespace GeodeticCoordinateConversion
                     throw new ArgumentOutOfRangeException(ErrMessage.Data.MinuteOutOfRange);
                 if (m == value)
                     return;
-                DMSValueChangedEventArgs e = new DMSValueChangedEventArgs(DMSValueChangedType.M, this.m, value);
+                DMSValueChangedEventArgs e = new DMSValueChangedEventArgs(DMSValueChangedType.M, m, value);
                 m = value;
                 ValueChanged?.Invoke(this, e);
             }
@@ -78,7 +78,7 @@ namespace GeodeticCoordinateConversion
                     throw new ArgumentOutOfRangeException(ErrMessage.Data.SecondOutOfRange);
                 if (s == value)
                     return;
-                DMSValueChangedEventArgs e = new DMSValueChangedEventArgs(DMSValueChangedType.S, this.s, value);
+                DMSValueChangedEventArgs e = new DMSValueChangedEventArgs(DMSValueChangedType.S, s, value);
                 s = value;
                 ValueChanged?.Invoke(this, e);
             }

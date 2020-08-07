@@ -21,10 +21,6 @@ namespace GeodeticCoordinateConversion
         /// </summary>
         public readonly Guid UID = Guid.NewGuid();
         /// <summary>
-        /// 配置文件。
-        /// </summary>
-        private Settings AppSettings = new Settings();
-        /// <summary>
         /// 分带类型（私有）。
         /// </summary>
         private GEOZoneType zoneType;
@@ -55,13 +51,13 @@ namespace GeodeticCoordinateConversion
                 {
                     if (value == zoneType)
                         return;
-                    GEOBLValueChangedEventArgs e = new GEOBLValueChangedEventArgs(GEOBLValueChangedType.ZoneType, this.zoneType, value);
-                    this.zoneType = value;
+                    GEOBLValueChangedEventArgs e = new GEOBLValueChangedEventArgs(GEOBLValueChangedType.ZoneType, zoneType, value);
+                    zoneType = value;
                     ValueChanged?.Invoke(this, e);
                 }
                 catch (Exception err)
                 {
-                    this.ZoneType = GEOZoneType.None;
+                    zoneType = GEOZoneType.None;
                     throw new ArgumentOutOfRangeException(ErrMessage.GEOZone.ZoneTypeUnknown, err);
                 }
             }
@@ -76,8 +72,7 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                this.UID = System.Guid.NewGuid();
-                this.ZoneType = (GEOZoneType)AppSettings.DefaultZoneType;
+                this.ZoneType = (GEOZoneType)new Settings().DefaultZoneType;
                 this.B = new DMS(); this.L = new DMS();
                 BindBLEvent();
 
@@ -99,8 +94,7 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                this.UID = System.Guid.NewGuid();
-                this.ZoneType = (GEOZoneType)AppSettings.DefaultZoneType;
+                this.ZoneType = (GEOZoneType)new Settings().DefaultZoneType;
                 this.B = new DMS(B);
                 this.L = new DMS(L);
                 BindBLEvent();
@@ -123,8 +117,7 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                this.UID = System.Guid.NewGuid();
-                this.ZoneType = (GEOZoneType)AppSettings.DefaultZoneType;
+                this.ZoneType = (GEOZoneType)new Settings().DefaultZoneType;
                 this.B = B ?? throw new ArgumentNullException(ErrMessage.GEOBL.GEOBLNull);
                 this.L = L ?? throw new ArgumentNullException(ErrMessage.GEOBL.GEOBLNull);
                 BindBLEvent();
@@ -149,7 +142,6 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                this.UID = System.Guid.NewGuid();
                 this.ZoneType = ZoneType;
                 this.B = B ?? throw new ArgumentNullException(ErrMessage.GEOBL.GEOBLNull);
                 this.L = L ?? throw new ArgumentNullException(ErrMessage.GEOBL.GEOBLNull);
@@ -219,7 +211,7 @@ namespace GeodeticCoordinateConversion
                     }
                     else
                     {
-                        this.ZoneType = (GEOZoneType)AppSettings.DefaultZoneType;
+                        this.ZoneType = (GEOZoneType)new Settings().DefaultZoneType;
                         this.B = new DMS();
                         this.L = new DMS();
                         BindBLEvent();
