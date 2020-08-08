@@ -63,6 +63,7 @@ namespace GeodeticCoordinateConversion
         {
             if (!File.Exists(DBPath))
             {
+                #region Create database using ADOX
                 Catalog C = new Catalog();
                 C.Create(ConnectionInfo);
 
@@ -70,29 +71,36 @@ namespace GeodeticCoordinateConversion
                 Conn.Open(ConnectionInfo);
                 C.ActiveConnection = Conn;
 
+                //坐标转换数据表
                 Table CoordTab = new Table
                 {
                     Name = nameof(CoordConvert),
                     ParentCatalog = C
                 };
-
                 CoordTab.Columns.Append(nameof(UIDClass.UID), DataTypeEnum.adGUID);
-                CoordTab.Keys.Append("PrimaryKey", KeyTypeEnum.adKeyPrimary, nameof(UIDClass.UID), null,null);
-                CoordTab.Columns[nameof(UIDClass.UID)].Properties["Description"].Value = "坐标转换对象的GUID。";
+                CoordTab.Keys.Append("PrimaryKey", KeyTypeEnum.adKeyPrimary, nameof(UIDClass.UID), null, null);
                 CoordTab.Columns.Append(nameof(DataStatus.Selected), DataTypeEnum.adBoolean);
                 CoordTab.Columns.Append(nameof(DataStatus.Dirty), DataTypeEnum.adBoolean);
                 CoordTab.Columns.Append(nameof(DataStatus.Calculated), DataTypeEnum.adBoolean);
                 CoordTab.Columns.Append(nameof(DataStatus.Error), DataTypeEnum.adBoolean);
                 CoordTab.Columns.Append(nameof(CoordConvert.BL), DataTypeEnum.adGUID);
                 CoordTab.Columns.Append(nameof(CoordConvert.Gauss), DataTypeEnum.adGUID);
+
+                CoordTab.Columns[nameof(UIDClass.UID)].Properties["Description"].Value = DBStr.CoordConvert.UID;
+                CoordTab.Columns[nameof(DataStatus.Selected)].Properties["Description"].Value = DBStr.DataStatus.Selected;
+                CoordTab.Columns[nameof(DataStatus.Dirty)].Properties["Description"].Value = DBStr.DataStatus.Dirty;
+                CoordTab.Columns[nameof(DataStatus.Calculated)].Properties["Description"].Value = DBStr.DataStatus.Calculated;
+                CoordTab.Columns[nameof(DataStatus.Error)].Properties["Description"].Value = DBStr.DataStatus.Error;
+                CoordTab.Columns[nameof(CoordConvert.BL)].Properties["Description"].Value = DBStr.CoordConvert.BL;
+                CoordTab.Columns[nameof(CoordConvert.Gauss)].Properties["Description"].Value = DBStr.CoordConvert.Gauss;
                 C.Tables.Append(CoordTab);
 
+                //换带数据表
                 Table ZoneTab = new Table
                 {
                     Name = nameof(ZoneConvert),
                     ParentCatalog = C
                 };
-
                 ZoneTab.Columns.Append(nameof(UIDClass.UID), DataTypeEnum.adGUID);
                 ZoneTab.Keys.Append("PrimaryKey", KeyTypeEnum.adKeyPrimary, nameof(UIDClass.UID), null, null);
                 ZoneTab.Columns.Append(nameof(DataStatus.Selected), DataTypeEnum.adBoolean);
@@ -101,14 +109,22 @@ namespace GeodeticCoordinateConversion
                 ZoneTab.Columns.Append(nameof(DataStatus.Error), DataTypeEnum.adBoolean);
                 ZoneTab.Columns.Append(nameof(ZoneConvert.Gauss6), DataTypeEnum.adGUID);
                 ZoneTab.Columns.Append(nameof(ZoneConvert.Gauss3), DataTypeEnum.adGUID);
+
+                ZoneTab.Columns[nameof(UIDClass.UID)].Properties["Description"].Value = DBStr.ZoneConvert.UID;
+                ZoneTab.Columns[nameof(DataStatus.Selected)].Properties["Description"].Value = DBStr.DataStatus.Selected;
+                ZoneTab.Columns[nameof(DataStatus.Dirty)].Properties["Description"].Value = DBStr.DataStatus.Dirty;
+                ZoneTab.Columns[nameof(DataStatus.Calculated)].Properties["Description"].Value = DBStr.DataStatus.Calculated;
+                ZoneTab.Columns[nameof(DataStatus.Error)].Properties["Description"].Value = DBStr.DataStatus.Error;
+                ZoneTab.Columns[nameof(ZoneConvert.Gauss6)].Properties["Description"].Value = DBStr.ZoneConvert.Gauss6;
+                ZoneTab.Columns[nameof(ZoneConvert.Gauss3)].Properties["Description"].Value = DBStr.ZoneConvert.Gauss3;
                 C.Tables.Append(ZoneTab);
 
+                //高斯坐标表
                 Table GaussTab = new Table
                 {
                     Name = nameof(GaussCoord),
                     ParentCatalog = C
                 };
-
                 GaussTab.Columns.Append(nameof(UIDClass.UID), DataTypeEnum.adGUID);
                 GaussTab.Keys.Append("PrimaryKey", KeyTypeEnum.adKeyPrimary, nameof(UIDClass.UID), null, null);
                 GaussTab.Columns.Append(nameof(GaussCoord.X), DataTypeEnum.adDouble);
@@ -116,31 +132,48 @@ namespace GeodeticCoordinateConversion
                 GaussTab.Columns.Append(nameof(Ellipse.EllipseType), DataTypeEnum.adInteger);
                 GaussTab.Columns.Append(nameof(GaussCoord.ZoneType), DataTypeEnum.adInteger);
                 GaussTab.Columns.Append(nameof(GaussCoord.Zone), DataTypeEnum.adInteger);
+
+                GaussTab.Columns[nameof(GaussCoord.UID)].Properties["Description"].Value = DBStr.GaussCoord.UID;
+                GaussTab.Columns[nameof(GaussCoord.X)].Properties["Description"].Value = DBStr.GaussCoord.X;
+                GaussTab.Columns[nameof(GaussCoord.Y)].Properties["Description"].Value = DBStr.GaussCoord.Y;
+                GaussTab.Columns[nameof(Ellipse.EllipseType)].Properties["Description"].Value = DBStr.GaussCoord.EllipseType;
+                GaussTab.Columns[nameof(GaussCoord.ZoneType)].Properties["Description"].Value = DBStr.GaussCoord.ZoneType;
+                GaussTab.Columns[nameof(GaussCoord.Zone)].Properties["Description"].Value = DBStr.GaussCoord.Zone;
                 C.Tables.Append(GaussTab);
 
+                //地理经纬度表
                 Table GEOBLTab = new Table
                 {
                     Name = nameof(GEOBL),
                     ParentCatalog = C
                 };
-
                 GEOBLTab.Columns.Append(nameof(UIDClass.UID), DataTypeEnum.adGUID);
                 GEOBLTab.Keys.Append("PrimaryKey", KeyTypeEnum.adKeyPrimary, nameof(UIDClass.UID), null, null);
                 GEOBLTab.Columns.Append(nameof(GEOBL.B), DataTypeEnum.adVarWChar);
                 GEOBLTab.Columns.Append(nameof(GEOBL.L), DataTypeEnum.adVarWChar);
                 GEOBLTab.Columns.Append(nameof(Ellipse.EllipseType), DataTypeEnum.adInteger);
                 GEOBLTab.Columns.Append(nameof(GEOBL.ZoneType), DataTypeEnum.adInteger);
+
+                GEOBLTab.Columns[nameof(GEOBL.UID)].Properties["Description"].Value = DBStr.GEOBL.UID;
+                GEOBLTab.Columns[nameof(GEOBL.B)].Properties["Description"].Value = DBStr.GEOBL.B;
+                GEOBLTab.Columns[nameof(GEOBL.L)].Properties["Description"].Value = DBStr.GEOBL.L;
+                GEOBLTab.Columns[nameof(Ellipse.EllipseType)].Properties["Description"].Value = DBStr.GEOBL.EllipseType;
+                GEOBLTab.Columns[nameof(GEOBL.ZoneType)].Properties["Description"].Value = DBStr.GEOBL.ZoneType;
                 C.Tables.Append(GEOBLTab);
 
                 Conn.Close();
+                #endregion
 
-                //System.Reflection.Assembly DBAssembly = System.Reflection.Assembly.GetExecutingAssembly();
-                //var DBStream = DBAssembly.GetManifestResourceStream("GeodeticCoordinateConversion.GeoConvertDB.mdb");
-                //byte[] DBResource = new byte[DBStream.Length];
-                //DBStream.Read(DBResource, 0, (int)DBStream.Length);
-                //var DBFileStream = new FileStream(DBPath, FileMode.Create);
-                //DBFileStream.Write(DBResource, 0, (int)DBStream.Length);
-                //DBFileStream.Close();
+                //Add table description using DAO.
+                DAO.Database DB = new DAO.DBEngine().OpenDatabase(DBPath);
+                DAO.TableDef CoordDef =DB.TableDefs[nameof(CoordConvert)];
+                CoordDef.Properties.Append(CoordDef.CreateProperty("Description", DAO.DataTypeEnum.dbText, DBStr.CoordConvert.Description));
+                DAO.TableDef ZoneDef = DB.TableDefs[nameof(ZoneConvert)];
+                ZoneDef.Properties.Append(ZoneDef.CreateProperty("Description", DAO.DataTypeEnum.dbText, DBStr.ZoneConvert.Description));
+                DAO.TableDef GaussDef = DB.TableDefs[nameof(GaussCoord)];
+                GaussDef.Properties.Append(GaussDef.CreateProperty("Description", DAO.DataTypeEnum.dbText, DBStr.GaussCoord.Description));
+                DAO.TableDef BLDef = DB.TableDefs[nameof(GEOBL)];
+                BLDef.Properties.Append(BLDef.CreateProperty("Description", DAO.DataTypeEnum.dbText, DBStr.GEOBL.Description));
             }
         }
 

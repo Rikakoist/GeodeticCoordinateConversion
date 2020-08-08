@@ -28,7 +28,7 @@ namespace GeodeticCoordinateConversion
         {
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;    //Better to use delegate.
-            Hint = CommonText.Greet();
+            Hint = Hints.Greet();
 
             //坐标转换事件绑定
             this.CoordDGV = Coord.DGV;
