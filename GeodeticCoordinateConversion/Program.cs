@@ -39,7 +39,10 @@ namespace GeodeticCoordinateConversion
             }
 
             AppSettings.Save();
+            DBIO.CheckDBExists();
+            DBIO.OpenConnection();
             Application.Run(new MainForm());
+            DBIO.CloseConnection();
         }
     }
 }

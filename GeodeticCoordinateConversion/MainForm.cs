@@ -17,7 +17,6 @@ namespace GeodeticCoordinateConversion
     {
         private Settings AppSettings = new Settings();
         private FileIO DataFile = new FileIO();
-        private DBIO DBFile = new DBIO();
         public string Hint { get => HintLabel.Text; set => HintLabel.Text = value; }
 
         public BindingList<CoordConvert> CoordData = new BindingList<CoordConvert>();
@@ -29,7 +28,7 @@ namespace GeodeticCoordinateConversion
         {
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;    //Better to use delegate.
-            Hint = CommonText.Greet();
+            Hint = Hints.Greet();
 
             //坐标转换事件绑定
             this.CoordDGV = Coord.DGV;
@@ -115,14 +114,14 @@ namespace GeodeticCoordinateConversion
                 }
                 if (sender == Coord.LoadDBBtn)
                 {
-                    CoordData = new BindingList<CoordConvert>(await Task.Run(() => DBFile.LoadCoordConvertData()));
+                    CoordData = new BindingList<CoordConvert>(await Task.Run(() => DBIO.LoadCoordConvertData()));
                     CoordDGV.DataSource = CoordData;
                     CoordDGV.ClearSelection();
                     Hint = Hints.DataLoaded(GEODataSourceType.DB, CoordData.Count(), GEODataType.CoordConvert);
                 }
                 if (sender == Zone.LoadDBBtn)
                 {
-                    ZoneData = new BindingList<ZoneConvert>(await Task.Run(() => DBFile.LoadZoneConvertData()));
+                    ZoneData = new BindingList<ZoneConvert>(await Task.Run(() => DBIO.LoadZoneConvertData()));
                     ZoneDGV.DataSource = ZoneData;
                     ZoneDGV.ClearSelection();
                     Hint = Hints.DataLoaded(GEODataSourceType.DB, ZoneData.Count(), GEODataType.ZoneConvert);
@@ -151,12 +150,12 @@ namespace GeodeticCoordinateConversion
                 }
                 if (sender == Coord.SaveDBBtn)
                 {
-                    await Task.Run(() => DBFile.SaveCoordConvertData(CoordData.ToList(), AppSettings.ClearExistingRecordData2DB));
+                    await Task.Run(() => DBIO.SaveCoordConvertData(CoordData.ToList(), AppSettings.ClearExistingRecordData2DB));
                     Hint = Hints.DataSaved(GEODataSourceType.DB, CoordData.Count(), GEODataType.CoordConvert);
                 }
                 if (sender == Zone.SaveDBBtn)
                 {
-                    await Task.Run(() => DBFile.SaveZoneConvertData(ZoneData.ToList(), AppSettings.ClearExistingRecordData2DB));
+                    await Task.Run(() => DBIO.SaveZoneConvertData(ZoneData.ToList(), AppSettings.ClearExistingRecordData2DB));
                     Hint = Hints.DataSaved(GEODataSourceType.DB, ZoneData.Count(), GEODataType.ZoneConvert);
                 }
             }
@@ -247,6 +246,12 @@ namespace GeodeticCoordinateConversion
         private void ShowAbout(object sender, EventArgs e)
         {
             new AboutApp().ShowDialog();
+        }
+
+        //关闭连接
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            ClockTimer.Dispose();
         }
         #endregion
 

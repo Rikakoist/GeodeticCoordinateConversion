@@ -13,17 +13,9 @@ namespace GeodeticCoordinateConversion
     /// <summary>
     /// 高斯坐标类。
     /// </summary>
-    public sealed class GaussCoord
+    public sealed class GaussCoord : UIDClass
     {
         #region Fields
-        /// <summary>
-        /// 全局唯一ID。
-        /// </summary>
-        public readonly Guid UID = Guid.NewGuid();
-        /// <summary>
-        /// 配置文件。
-        /// </summary>
-        private Settings AppSettings = new Settings();
         /// <summary>
         /// 带内x坐标（私有）。
         /// </summary>
@@ -55,8 +47,8 @@ namespace GeodeticCoordinateConversion
             get => x;
             set
             {
-                GaussValueChangedEventArgs e = new GaussValueChangedEventArgs(GaussValueChangedType.X, this.x, value);
-                this.x = value;
+                GaussValueChangedEventArgs e = new GaussValueChangedEventArgs(GaussValueChangedType.X, x, value);
+                x = value;
                 ValueChanged?.Invoke(this, e);
             }
         }
@@ -68,8 +60,8 @@ namespace GeodeticCoordinateConversion
             get => y;
             set
             {
-                GaussValueChangedEventArgs e = new GaussValueChangedEventArgs(GaussValueChangedType.Y, this.y, value);
-                this.y = value;
+                GaussValueChangedEventArgs e = new GaussValueChangedEventArgs(GaussValueChangedType.Y, y, value);
+                y = value;
                 ValueChanged?.Invoke(this, e);
             }
         }
@@ -85,14 +77,14 @@ namespace GeodeticCoordinateConversion
                 {
                     if (value == zoneType)
                         return;
-                    GaussValueChangedEventArgs e = new GaussValueChangedEventArgs(GaussValueChangedType.ZoneType, this.zoneType, value);
-                    this.zoneType = value;
+                    GaussValueChangedEventArgs e = new GaussValueChangedEventArgs(GaussValueChangedType.ZoneType, zoneType, value);
+                    zoneType = value;
                     ValueChanged?.Invoke(this, e);
 
                 }
                 catch (Exception err)
                 {
-                    this.ZoneType = GEOZoneType.None;
+                    zoneType = GEOZoneType.None;
                     throw new ArgumentOutOfRangeException(ErrMessage.GEOZone.ZoneTypeUnknown, err);
                 }
             }
@@ -109,7 +101,7 @@ namespace GeodeticCoordinateConversion
                 {
                     if (value == zone)
                         return;
-                    GaussValueChangedEventArgs e = new GaussValueChangedEventArgs(GaussValueChangedType.Zone, this.zone, value);
+                    GaussValueChangedEventArgs e = new GaussValueChangedEventArgs(GaussValueChangedType.Zone, zone, value);
                     switch (this.ZoneType)
                     {
                         case GEOZoneType.None:
@@ -123,7 +115,7 @@ namespace GeodeticCoordinateConversion
                                 {
                                     throw new ArgumentOutOfRangeException(ErrMessage.Data.Zone3OutOfRange);
                                 }
-                                this.zone = value;
+                                zone = value;
                                 break;
                             }
                         case GEOZoneType.Zone6:
@@ -132,7 +124,7 @@ namespace GeodeticCoordinateConversion
                                 {
                                     throw new ArgumentOutOfRangeException(ErrMessage.Data.Zone6OutOfRange);
                                 }
-                                this.zone = value;
+                                zone = value;
                                 break;
                             }
                         default:
@@ -187,7 +179,7 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                this.ZoneType = (GEOZoneType)AppSettings.DefaultZoneType;
+                this.ZoneType = (GEOZoneType)new Settings().DefaultZoneType;
                 this.GEOEllipse = new Ellipse();
                 BindEllipseEvent();
             }
@@ -288,32 +280,22 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                DBIO db = new DBIO();
-                using (OleDbConnection con = new OleDbConnection(db.ConnectionInfo))
+                if (DBIO.GUIDExists(nameof(GaussCoord), guid))
                 {
-                    con.Open();
-                    OleDbCommand cmd = new OleDbCommand()
-                    {
-                        Connection = con,
-                    };
-
-                    if (db.GUIDExists(nameof(GaussCoord), guid))
-                    {
-                        DataRow dr = db.SelectByGUID(nameof(GaussCoord), guid);
-                        this.UID = Guid.Parse(dr[nameof(UID)].ToString());
-                        this.X = double.Parse(dr[nameof(X)].ToString());
-                        this.Y = double.Parse(dr[nameof(Y)].ToString());
-                        this.ZoneType = (GEOZoneType)int.Parse(dr[nameof(ZoneType)].ToString());
-                        this.Zone = int.Parse(dr[nameof(Zone)].ToString());
-                        this.GEOEllipse = new Ellipse((GEOEllipseType)int.Parse(dr[nameof(Ellipse.EllipseType)].ToString()));
-                        BindEllipseEvent();
-                    }
-                    else
-                    {
-                        this.ZoneType = (GEOZoneType)AppSettings.DefaultZoneType;
-                        this.GEOEllipse = new Ellipse();
-                        BindEllipseEvent();
-                    }
+                    DataRow dr = DBIO.SelectByGUID(nameof(GaussCoord), guid);
+                    this.UID = Guid.Parse(dr[nameof(UID)].ToString());
+                    this.X = double.Parse(dr[nameof(X)].ToString());
+                    this.Y = double.Parse(dr[nameof(Y)].ToString());
+                    this.ZoneType = (GEOZoneType)int.Parse(dr[nameof(ZoneType)].ToString());
+                    this.Zone = int.Parse(dr[nameof(Zone)].ToString());
+                    this.GEOEllipse = new Ellipse((GEOEllipseType)int.Parse(dr[nameof(Ellipse.EllipseType)].ToString()));
+                    BindEllipseEvent();
+                }
+                else
+                {
+                    this.ZoneType = (GEOZoneType)new Settings().DefaultZoneType;
+                    this.GEOEllipse = new Ellipse();
+                    BindEllipseEvent();
                 }
             }
             catch (Exception err)
@@ -474,34 +456,29 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                DBIO db = new DBIO();
-                using (OleDbConnection con = new OleDbConnection(db.ConnectionInfo))
+                OleDbCommand cmd = new OleDbCommand()
                 {
-                    con.Open();
-                    OleDbCommand cmd = new OleDbCommand()
-                    {
-                        Connection = con,
-                    };
+                    Connection = DBIO.con,
+                };
 
-                    OleDbParameter p = new OleDbParameter("@UID", UID.ToString());
-                    cmd.Parameters.AddWithValue("@X", X);
-                    cmd.Parameters.AddWithValue("@Y", Y);
-                    cmd.Parameters.AddWithValue("@EllipseType", GEOEllipse.EllipseType);
-                    cmd.Parameters.AddWithValue("@ZoneType", (int)ZoneType);
-                    cmd.Parameters.AddWithValue("@Zone", Zone);
+                OleDbParameter p = new OleDbParameter("@UID", UID.ToString());
+                cmd.Parameters.AddWithValue("@X", X);
+                cmd.Parameters.AddWithValue("@Y", Y);
+                cmd.Parameters.AddWithValue("@EllipseType", GEOEllipse.EllipseType);
+                cmd.Parameters.AddWithValue("@ZoneType", (int)ZoneType);
+                cmd.Parameters.AddWithValue("@Zone", Zone);
 
-                    if (db.GUIDExists(nameof(GaussCoord), this.UID))
-                    {
-                        cmd.CommandText = "UPDATE GaussCoord SET [X] = @X, [Y] = @Y, [EllipseType] = @EllipseType, [ZoneType] = @ZoneType, [Zone] = @Zone WHERE [UID] = @UID";
-                        cmd.Parameters.Insert(cmd.Parameters.Count, p);
-                    }
-                    else
-                    {
-                        cmd.CommandText = "INSERT INTO GaussCoord ([UID], [X], [Y], [EllipseType], [ZoneType], [Zone]) VALUES (@UID, @X, @Y, @EllipseType, @ZoneType, @Zone)";
-                        cmd.Parameters.Insert(0, p);
-                    }
-                    cmd.ExecuteNonQuery();
+                if (DBIO.GUIDExists(nameof(GaussCoord), this.UID))
+                {
+                    cmd.CommandText = "UPDATE GaussCoord SET [X] = @X, [Y] = @Y, [EllipseType] = @EllipseType, [ZoneType] = @ZoneType, [Zone] = @Zone WHERE [UID] = @UID";
+                    cmd.Parameters.Insert(cmd.Parameters.Count, p);
                 }
+                else
+                {
+                    cmd.CommandText = "INSERT INTO GaussCoord ([UID], [X], [Y], [EllipseType], [ZoneType], [Zone]) VALUES (@UID, @X, @Y, @EllipseType, @ZoneType, @Zone)";
+                    cmd.Parameters.Insert(0, p);
+                }
+                cmd.ExecuteNonQuery();
                 return true;
             }
             catch (Exception)

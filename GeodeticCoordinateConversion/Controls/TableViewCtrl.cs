@@ -15,7 +15,6 @@ namespace GeodeticCoordinateConversion
 {
     public partial class TableViewCtrl : UserControl
     {
-        DBIO DBFile = new DBIO();
         DataSet ds = new DataSet();
         string tn;
         private string hint;
@@ -42,7 +41,7 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                TableListComboBox.DataSource = DBFile.GetTableList();
+                TableListComboBox.DataSource = DBIO.GetTableList();
                 TableListComboBox.DisplayMember = "DESCRIPTION";
                 TableListComboBox.ValueMember = "TABLE_NAME";
 
@@ -50,7 +49,7 @@ namespace GeodeticCoordinateConversion
 
                 for (int i = 0; i < TableListComboBox.Items.Count; i++)
                 {
-                    await Task.Run(() => DBFile.GetTable(ds, (TableListComboBox.DataSource as DataTable).Rows[i]["TABLE_NAME"].ToString()));
+                    await Task.Run(() => DBIO.GetTable(ds, (TableListComboBox.DataSource as DataTable).Rows[i]["TABLE_NAME"].ToString()));
                 }
                 SelectedTableNameChanged(null, null);
             }
@@ -78,7 +77,7 @@ namespace GeodeticCoordinateConversion
         //重载表数据
         private void ReloadTable(object sender, EventArgs e)
         {
-            DBFile.GetTable(ds, tn);
+            DBIO.GetTable(ds, tn);
             Hint = Hints.TableReloaded(TableListComboBox.Text);
         }
 
@@ -108,7 +107,7 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                await Task.Run(() => DBFile.SaveEdit(ds, tn));
+                await Task.Run(() => DBIO.SaveEdit(ds, tn));
             }
             catch (Exception err)
             {
@@ -136,9 +135,9 @@ namespace GeodeticCoordinateConversion
             if (SFD.ShowDialog() == DialogResult.OK)
             {
                 FileIO F = new FileIO(Path.GetDirectoryName(SFD.FileName), Path.GetFileName(SFD.FileName));
-                List<CoordConvert> C = new DBIO().LoadCoordConvertData();
+                List<CoordConvert> C = DBIO.LoadCoordConvertData();
                 F.SaveCoordConvertData(C, new Settings().ClearExistingRecordDB2File);
-                List<ZoneConvert> Z = new DBIO().LoadZoneConvertData();
+                List<ZoneConvert> Z = DBIO.LoadZoneConvertData();
                 F.SaveZoneConvertData(Z, new Settings().ClearExistingRecordDB2File);
                 Hint = Hints.DBSavedToFile(C?.Count, Z?.Count);
             }
@@ -164,9 +163,9 @@ namespace GeodeticCoordinateConversion
             {
                 FileIO F = new FileIO(Path.GetDirectoryName(OFD.FileName), Path.GetFileName(OFD.FileName));
                 List<CoordConvert> C = F.LoadCoordConvertData();
-                new DBIO().SaveCoordConvertData(C, new Settings().ClearExistingRecordFile2DB);
+                DBIO.SaveCoordConvertData(C, new Settings().ClearExistingRecordFile2DB);
                 List<ZoneConvert> Z = F.LoadZoneConvertData();
-                new DBIO().SaveZoneConvertData(Z, new Settings().ClearExistingRecordFile2DB);
+                DBIO.SaveZoneConvertData(Z, new Settings().ClearExistingRecordFile2DB);
                 Hint = Hints.FileSavedToDB(C?.Count, Z?.Count);
             }
             else

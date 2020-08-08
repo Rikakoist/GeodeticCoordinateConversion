@@ -138,7 +138,7 @@ namespace GeodeticCoordinateConversion
         private bool CreateTimeNode()
         {
             XmlNode modi = document.CreateElement(NodeInfo.TimeNode);
-            ((XmlElement)modi).SetAttribute(NodeInfo.LastModifiedAttr, CommonText.Now);
+            ((XmlElement)modi).SetAttribute(NodeInfo.LastModifiedAttr, XMLStr.Now);
             rootNode.AppendChild(modi);
             return true;
         }
@@ -152,7 +152,7 @@ namespace GeodeticCoordinateConversion
             try
             {
                 XmlNode modi = rootNode.SelectSingleNode(NodeInfo.TimeNodePath);
-                ((XmlElement)modi).SetAttribute(NodeInfo.LastModifiedAttr, CommonText.Now);
+                ((XmlElement)modi).SetAttribute(NodeInfo.LastModifiedAttr, XMLStr.Now);
                 document.Save(DocPath);
                 return true;
             }

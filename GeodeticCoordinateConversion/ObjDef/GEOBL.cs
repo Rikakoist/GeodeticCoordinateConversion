@@ -13,17 +13,9 @@ namespace GeodeticCoordinateConversion
     /// <summary>
     /// 度分秒经纬度类。
     /// </summary>
-    public sealed class GEOBL
+    public sealed class GEOBL : UIDClass
     {
         #region Fields
-        /// <summary>
-        /// 全局唯一ID。
-        /// </summary>
-        public readonly Guid UID = Guid.NewGuid();
-        /// <summary>
-        /// 配置文件。
-        /// </summary>
-        private Settings AppSettings = new Settings();
         /// <summary>
         /// 分带类型（私有）。
         /// </summary>
@@ -55,13 +47,13 @@ namespace GeodeticCoordinateConversion
                 {
                     if (value == zoneType)
                         return;
-                    GEOBLValueChangedEventArgs e = new GEOBLValueChangedEventArgs(GEOBLValueChangedType.ZoneType, this.zoneType, value);
-                    this.zoneType = value;
+                    GEOBLValueChangedEventArgs e = new GEOBLValueChangedEventArgs(GEOBLValueChangedType.ZoneType, zoneType, value);
+                    zoneType = value;
                     ValueChanged?.Invoke(this, e);
                 }
                 catch (Exception err)
                 {
-                    this.ZoneType = GEOZoneType.None;
+                    zoneType = GEOZoneType.None;
                     throw new ArgumentOutOfRangeException(ErrMessage.GEOZone.ZoneTypeUnknown, err);
                 }
             }
@@ -76,8 +68,7 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                this.UID = System.Guid.NewGuid();
-                this.ZoneType = (GEOZoneType)AppSettings.DefaultZoneType;
+                this.ZoneType = (GEOZoneType)new Settings().DefaultZoneType;
                 this.B = new DMS(); this.L = new DMS();
                 BindBLEvent();
 
@@ -99,8 +90,7 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                this.UID = System.Guid.NewGuid();
-                this.ZoneType = (GEOZoneType)AppSettings.DefaultZoneType;
+                this.ZoneType = (GEOZoneType)new Settings().DefaultZoneType;
                 this.B = new DMS(B);
                 this.L = new DMS(L);
                 BindBLEvent();
@@ -123,8 +113,7 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                this.UID = System.Guid.NewGuid();
-                this.ZoneType = (GEOZoneType)AppSettings.DefaultZoneType;
+                this.ZoneType = (GEOZoneType)new Settings().DefaultZoneType;
                 this.B = B ?? throw new ArgumentNullException(ErrMessage.GEOBL.GEOBLNull);
                 this.L = L ?? throw new ArgumentNullException(ErrMessage.GEOBL.GEOBLNull);
                 BindBLEvent();
@@ -149,7 +138,6 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                this.UID = System.Guid.NewGuid();
                 this.ZoneType = ZoneType;
                 this.B = B ?? throw new ArgumentNullException(ErrMessage.GEOBL.GEOBLNull);
                 this.L = L ?? throw new ArgumentNullException(ErrMessage.GEOBL.GEOBLNull);
@@ -196,37 +184,27 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                DBIO db = new DBIO();
-                using (OleDbConnection con = new OleDbConnection(db.ConnectionInfo))
+                if (DBIO.GUIDExists(nameof(GEOBL), guid))
                 {
-                    con.Open();
-                    OleDbCommand cmd = new OleDbCommand()
-                    {
-                        Connection = con,
-                    };
+                    DataRow dr = DBIO.SelectByGUID(nameof(GEOBL), guid);
+                    this.UID = Guid.Parse(dr[nameof(UID)].ToString());
+                    this.ZoneType = (GEOZoneType)int.Parse(dr[nameof(ZoneType)].ToString());
+                    this.B = new DMS(dr[nameof(B)].ToString());
+                    this.L = new DMS(dr[nameof(L)].ToString());
+                    BindBLEvent();
 
-                    if (db.GUIDExists(nameof(GEOBL), guid))
-                    {
-                        DataRow dr = db.SelectByGUID(nameof(GEOBL), guid);
-                        this.UID = Guid.Parse(dr[nameof(UID)].ToString());
-                        this.ZoneType = (GEOZoneType)int.Parse(dr[nameof(ZoneType)].ToString());
-                        this.B =new DMS(dr[nameof(B)].ToString());
-                        this.L = new DMS(dr[nameof(L)].ToString());
-                        BindBLEvent();
+                    this.GEOEllipse = new Ellipse((GEOEllipseType)int.Parse(dr[nameof(Ellipse.EllipseType)].ToString()));
+                    BindEllipseEvent();
+                }
+                else
+                {
+                    this.ZoneType = (GEOZoneType)new Settings().DefaultZoneType;
+                    this.B = new DMS();
+                    this.L = new DMS();
+                    BindBLEvent();
 
-                        this.GEOEllipse = new Ellipse((GEOEllipseType)int.Parse(dr[nameof(Ellipse.EllipseType)].ToString()));
-                        BindEllipseEvent();
-                    }
-                    else
-                    {
-                        this.ZoneType = (GEOZoneType)AppSettings.DefaultZoneType;
-                        this.B = new DMS();
-                        this.L = new DMS();
-                        BindBLEvent();
-
-                        this.GEOEllipse = new Ellipse();
-                        BindEllipseEvent();
-                    }
+                    this.GEOEllipse = new Ellipse();
+                    BindEllipseEvent();
                 }
             }
             catch (Exception err)
@@ -447,33 +425,28 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                DBIO db = new DBIO();
-                using (OleDbConnection con = new OleDbConnection(db.ConnectionInfo))
+                OleDbCommand cmd = new OleDbCommand()
                 {
-                    con.Open();
-                    OleDbCommand cmd = new OleDbCommand()
-                    {
-                        Connection = con,
-                    };
+                    Connection = DBIO.con,
+                };
 
-                    OleDbParameter p = new OleDbParameter("@UID", UID.ToString());
-                    cmd.Parameters.AddWithValue("@B", B.Value);
-                    cmd.Parameters.AddWithValue("@L", L.Value);
-                    cmd.Parameters.AddWithValue("@EllipseType", GEOEllipse.EllipseType);
-                    cmd.Parameters.AddWithValue("@ZoneType", (int)ZoneType);
+                OleDbParameter p = new OleDbParameter("@UID", UID.ToString());
+                cmd.Parameters.AddWithValue("@B", B.Value);
+                cmd.Parameters.AddWithValue("@L", L.Value);
+                cmd.Parameters.AddWithValue("@EllipseType", GEOEllipse.EllipseType);
+                cmd.Parameters.AddWithValue("@ZoneType", (int)ZoneType);
 
-                    if (db.GUIDExists(nameof(GEOBL), this.UID))
-                    {
-                        cmd.CommandText = "UPDATE GEOBL SET [B] = @B, [L] = @L, [EllipseType] = @EllipseType, [ZoneType] = @ZoneType WHERE [UID] = @UID";
-                        cmd.Parameters.Insert(cmd.Parameters.Count, p);
-                    }
-                    else
-                    {
-                        cmd.CommandText = "INSERT INTO GEOBL ([UID], [B], [L], [EllipseType], [ZoneType]) VALUES (@UID, @B, @L, @EllipseType, @ZoneType)";
-                        cmd.Parameters.Insert(0, p);
-                    }
-                    cmd.ExecuteNonQuery();
+                if (DBIO.GUIDExists(nameof(GEOBL), this.UID))
+                {
+                    cmd.CommandText = "UPDATE GEOBL SET [B] = @B, [L] = @L, [EllipseType] = @EllipseType, [ZoneType] = @ZoneType WHERE [UID] = @UID";
+                    cmd.Parameters.Insert(cmd.Parameters.Count, p);
                 }
+                else
+                {
+                    cmd.CommandText = "INSERT INTO GEOBL ([UID], [B], [L], [EllipseType], [ZoneType]) VALUES (@UID, @B, @L, @EllipseType, @ZoneType)";
+                    cmd.Parameters.Insert(0, p);
+                }
+                cmd.ExecuteNonQuery();
                 return true;
             }
             catch (Exception)

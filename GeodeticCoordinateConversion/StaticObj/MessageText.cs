@@ -323,6 +323,78 @@ namespace GeodeticCoordinateConversion
     public static class Hints
     {
         /// <summary>
+        /// 获取问候语。
+        /// </summary>
+        /// <returns>按照小时决定返回的问候语。</returns>
+        public static string Greet()
+        {
+            int h = DateTime.Now.Hour;
+            string pref = "你好，";
+            string suff = "。";
+            switch (h)
+            {
+                case 23:
+                case 0:
+                case 1:
+                    {
+                        pref = "夜深了，";
+                        break;
+                    }
+                case 2:
+                case 3:
+                case 4:
+                    {
+                        pref = "夜猫子";
+                        suff = "，你好。";
+                        break;
+                    }
+                case 5:
+                case 6:
+                case 7:
+                    {
+                        pref = "早上好，";
+                        break;
+                    }
+                case 8:
+                case 9:
+                case 10:
+                    {
+                        pref = "上午好，";
+                        break;
+                    }
+                case 11:
+                case 12:
+                case 13:
+                    {
+                        pref = "中午好，";
+                        break;
+                    }
+                case 14:
+                case 15:
+                case 16:
+                case 17:
+                    {
+                        pref = "下午好，";
+                        break;
+                    }
+                case 18:
+                case 19:
+                case 20:
+                case 21:
+                case 22:
+                    {
+                        pref = "晚上好，";
+                        break;
+                    }
+                default:
+                    {
+                        pref = "哈喽，";
+                        break;
+                    }
+            }
+            return pref + Environment.UserName + suff;
+        }
+        /// <summary>
         /// 用户取消了操作。
         /// </summary>
         public static string OperationCanceled = "用户取消了操作。";
@@ -429,9 +501,9 @@ namespace GeodeticCoordinateConversion
     }
 
     /// <summary>
-    /// 文本。
+    /// 数据文件文本。
     /// </summary>
-    public static class CommonText
+    public static class XMLStr
     {
         /// <summary>
         /// 当前时间。
@@ -441,77 +513,71 @@ namespace GeodeticCoordinateConversion
         /// 最后编辑于。
         /// </summary>
         public static string LastModified = "最后编辑于";
+    }
+
+    /// <summary>
+    /// 数据库描述字符串。
+    /// </summary>
+    public static class DBStr
+    {
         /// <summary>
-        /// 获取问候语。
+        /// 数据状态。
         /// </summary>
-        /// <returns>按照小时决定返回的问候语。</returns>
-        public static string Greet()
+        public static class DataStatus
         {
-            int h = DateTime.Now.Hour;
-            string pref = "你好，";
-            string suff = "。";
-            switch (h)
-            {
-                case 23:
-                case 0:
-                case 1:
-                    {
-                        pref = "夜深了，";
-                        break;
-                    }
-                case 2:
-                case 3:
-                case 4:
-                    {
-                        pref = "夜猫子";
-                        suff = "，你好。";
-                        break;
-                    }
-                case 5:
-                case 6:
-                case 7:
-                    {
-                        pref = "早上好，";
-                        break;
-                    }
-                case 8:
-                case 9:
-                case 10:
-                    {
-                        pref = "上午好，";
-                        break;
-                    }
-                case 11:
-                case 12:
-                case 13:
-                    {
-                        pref = "中午好，";
-                        break;
-                    }
-                case 14:
-                case 15:
-                case 16:
-                case 17:
-                    {
-                        pref = "下午好，";
-                        break;
-                    }
-                case 18:
-                case 19:
-                case 20:
-                case 21:
-                case 22:
-                    {
-                        pref = "晚上好，";
-                        break;
-                    }
-                default:
-                    {
-                        pref = "哈喽，";
-                        break;
-                    }
-            }
-            return pref + Environment.UserName + suff;
+            public static string Selected = "对象是否选中。";
+            public static string Dirty = "对象是否为脏数据。";
+            public static string Calculated = "对象是否已计算。";
+            public static string Error = "对象是否有计算错误。";
+        }
+
+        /// <summary>
+        /// 坐标转换。
+        /// </summary>
+        public static class CoordConvert
+        {
+            public static string Description = "坐标转换";
+            public static string UID = "坐标转换对象的GUID。";
+            public static string BL = "坐标转换对象包含的地理经纬度对象的GUID。";
+            public static string Gauss = "坐标转换对象包含的高斯坐标对象的GUID。";
+        }
+
+        /// <summary>
+        /// 换带计算。
+        /// </summary>
+        public static class ZoneConvert
+        {
+            public static string Description = "换带计算";
+            public static string UID = "换带对象的GUID。";
+            public static string Gauss6 = "换带对象包含的高斯6°带坐标对象的GUID。";
+            public static string Gauss3 = "换带对象包含的高斯3°带坐标对象的GUID。";
+        }
+
+        /// <summary>
+        /// 高斯坐标。
+        /// </summary>
+        public static class GaussCoord
+        {
+            public static string Description = "高斯坐标";
+            public static string UID = "高斯坐标对象的GUID。";
+            public static string X = "带内X坐标。";
+            public static string Y = "带内Y坐标。";
+            public static string EllipseType = "高斯坐标的椭球类型。";
+            public static string ZoneType = "高斯坐标的分带类型。";
+            public static string Zone = "高斯坐标带号。";
+        }
+
+        /// <summary>
+        /// 地理经纬度。
+        /// </summary>
+        public static class GEOBL
+        {
+            public static string Description = "地理经纬度";
+            public static string UID = "地理经纬度对象的GUID。";
+            public static string B = "表示纬度的字符串。";
+            public static string L = "表示经度的字符串。";
+            public static string EllipseType = "地理经纬度的椭球类型。";
+            public static string ZoneType = "地理经纬度的分带类型。";
         }
     }
 }

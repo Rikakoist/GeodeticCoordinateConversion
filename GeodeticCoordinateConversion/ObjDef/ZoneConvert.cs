@@ -14,13 +14,9 @@ namespace GeodeticCoordinateConversion
     /// <summary>
     /// 6度带、3度带互转类。
     /// </summary>
-    public class ZoneConvert:DataStatus
+    public class ZoneConvert : DataStatus
     {
         #region Fields
-        /// <summary>
-        /// 全局唯一ID。
-        /// </summary>
-        public readonly Guid UID = Guid.NewGuid();
         /// <summary>
         /// 高斯6°带坐标对象。
         /// </summary>
@@ -259,36 +255,26 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                DBIO db = new DBIO();
-                using (OleDbConnection con = new OleDbConnection(db.ConnectionInfo))
+                if (DBIO.GUIDExists(nameof(ZoneConvert), guid))
                 {
-                    con.Open();
-                    OleDbCommand cmd = new OleDbCommand()
-                    {
-                        Connection = con,
-                    };
+                    DataRow dr = DBIO.SelectByGUID(nameof(ZoneConvert), guid);
+                    this.UID = Guid.Parse(dr[nameof(UID)].ToString());
+                    this.Selected = bool.Parse(dr[nameof(Selected)].ToString());
+                    this.Dirty = bool.Parse(dr[nameof(Dirty)].ToString());
+                    this.Calculated = bool.Parse(dr[nameof(Calculated)].ToString());
+                    this.Error = bool.Parse(dr[nameof(Error)].ToString());
 
-                    if (db.GUIDExists(nameof(ZoneConvert), guid))
-                    {
-                        DataRow dr = db.SelectByGUID(nameof(ZoneConvert), guid);
-                        this.UID = Guid.Parse(dr[nameof(UID)].ToString());
-                        this.Selected = bool.Parse(dr[nameof(Selected)].ToString());
-                        this.Dirty = bool.Parse(dr[nameof(Dirty)].ToString());
-                        this.Calculated = bool.Parse(dr[nameof(Calculated)].ToString());
-                        this.Error = bool.Parse(dr[nameof(Error)].ToString());
-
-                        this.Gauss6 = new GaussCoord(Guid.Parse(dr[nameof(Gauss6)].ToString()));
-                        BindGauss6Events();
-                        this.Gauss3 = new GaussCoord(Guid.Parse(dr[nameof(Gauss3)].ToString()));
-                        BindGauss3Events();
-                    }
-                    else
-                    {
-                        this.Gauss6 = new GaussCoord();
-                        BindGauss6Events();
-                        this.Gauss3 = new GaussCoord();
-                        BindGauss3Events();
-                    }
+                    this.Gauss6 = new GaussCoord(Guid.Parse(dr[nameof(Gauss6)].ToString()));
+                    BindGauss6Events();
+                    this.Gauss3 = new GaussCoord(Guid.Parse(dr[nameof(Gauss3)].ToString()));
+                    BindGauss3Events();
+                }
+                else
+                {
+                    this.Gauss6 = new GaussCoord();
+                    BindGauss6Events();
+                    this.Gauss3 = new GaussCoord();
+                    BindGauss3Events();
                 }
             }
             catch (Exception err)
@@ -419,7 +405,7 @@ namespace GeodeticCoordinateConversion
                 {
                     ele.AppendChild(this.Gauss3.ToXmlElement(xmlDocument, NodeInfo.Gauss3Node));
                 }
-                
+
                 if (Gauss6 != null)
                 {
                     ele.AppendChild(this.Gauss6.ToXmlElement(xmlDocument, NodeInfo.Gauss6Node));
@@ -440,35 +426,30 @@ namespace GeodeticCoordinateConversion
         {
             try
             {
-                DBIO db = new DBIO();
-                using (OleDbConnection con = new OleDbConnection(db.ConnectionInfo))
+                OleDbCommand cmd = new OleDbCommand()
                 {
-                    con.Open();
-                    OleDbCommand cmd = new OleDbCommand()
-                    {
-                        Connection = con,
-                    };
+                    Connection = DBIO.con,
+                };
 
-                    OleDbParameter p = new OleDbParameter("@UID", UID.ToString());
-                    cmd.Parameters.AddWithValue("@Selected", Selected);
-                    cmd.Parameters.AddWithValue("@Dirty", Dirty);
-                    cmd.Parameters.AddWithValue("@Calculated", Calculated);
-                    cmd.Parameters.AddWithValue("@Error", Error);
-                    cmd.Parameters.AddWithValue("@Gauss6", Gauss6.UID.ToString());
-                    cmd.Parameters.AddWithValue("@Gauss3", Gauss3.UID.ToString());
+                OleDbParameter p = new OleDbParameter("@UID", UID.ToString());
+                cmd.Parameters.AddWithValue("@Selected", Selected);
+                cmd.Parameters.AddWithValue("@Dirty", Dirty);
+                cmd.Parameters.AddWithValue("@Calculated", Calculated);
+                cmd.Parameters.AddWithValue("@Error", Error);
+                cmd.Parameters.AddWithValue("@Gauss6", Gauss6.UID.ToString());
+                cmd.Parameters.AddWithValue("@Gauss3", Gauss3.UID.ToString());
 
-                    if (db.GUIDExists(nameof(CoordConvert), this.UID))
-                    {
-                        cmd.CommandText = "UPDATE ZoneConvert SET [Selected] = @Selected, [Dirty] = @Dirty, [Calculated] = @Calculated, [Error] = @Error, [Gauss6] = @Gauss6, [Gauss3] = @Gauss3 WHERE [UID] = @UID";
-                        cmd.Parameters.Insert(cmd.Parameters.Count, p);
-                    }
-                    else
-                    {
-                        cmd.CommandText = "INSERT INTO ZoneConvert ([UID], [Selected], [Dirty], [Calculated], [Error], [Gauss6], [Gauss3]) VALUES (@UID, @Selected, @Dirty, @Calculated, @Error, @Gauss6, @Gauss3)";
-                        cmd.Parameters.Insert(0, p);
-                    }
-                    cmd.ExecuteNonQuery();
+                if (DBIO.GUIDExists(nameof(CoordConvert), this.UID))
+                {
+                    cmd.CommandText = "UPDATE ZoneConvert SET [Selected] = @Selected, [Dirty] = @Dirty, [Calculated] = @Calculated, [Error] = @Error, [Gauss6] = @Gauss6, [Gauss3] = @Gauss3 WHERE [UID] = @UID";
+                    cmd.Parameters.Insert(cmd.Parameters.Count, p);
                 }
+                else
+                {
+                    cmd.CommandText = "INSERT INTO ZoneConvert ([UID], [Selected], [Dirty], [Calculated], [Error], [Gauss6], [Gauss3]) VALUES (@UID, @Selected, @Dirty, @Calculated, @Error, @Gauss6, @Gauss3)";
+                    cmd.Parameters.Insert(0, p);
+                }
+                cmd.ExecuteNonQuery();
                 Gauss6.SaveToDB();
                 Gauss3.SaveToDB();
                 return true;
