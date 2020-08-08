@@ -74,14 +74,16 @@ namespace GeodeticCoordinateConversion
                 ? ((DGV.DataSource as BindingList<CoordConvert>)[row] as DataStatus)
                 : ((DGV.DataSource as BindingList<ZoneConvert>)[row] as DataStatus);
 
+            Properties.Settings S = new Properties.Settings();
+
             DGV.Rows[row].Cells[nameof(DataStatus.Selected)].Style.BackColor =
-                    o.Selected ? Color.DarkGreen : Color.White;
+                    o.Selected ? S.SelectedColor : S.DefaultCellColor;
             DGV.Rows[row].Cells[nameof(DataStatus.Error)].Style.BackColor =
-                    (o.Dirty || (!o.Calculated)) ? Color.White : (o.Error ? Color.Red : Color.Green);
+                    (o.Dirty || (!o.Calculated)) ? S.DefaultCellColor : (o.Error ? S.ErrorColor : S.CorrectColor);
             DGV.Rows[row].Cells[nameof(DataStatus.Dirty)].Style.BackColor =
-                    o.Dirty ? Color.RosyBrown : Color.White;
+                    o.Dirty ? S.DirtyColor : S.DefaultCellColor;
             DGV.Rows[row].Cells[nameof(DataStatus.Calculated)].Style.BackColor =
-                   o.Calculated ? Color.ForestGreen : Color.White;
+                   o.Calculated ? S.CalculatedColor : S.DefaultCellColor;
         }
 
         private void ChangeSelection(object sender, EventArgs e)

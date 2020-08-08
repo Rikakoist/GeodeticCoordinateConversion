@@ -142,5 +142,77 @@ namespace GeodeticCoordinateConversion.Properties {
                 this["ClearExistingRecordFile2DB"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Green")]
+        public global::System.Drawing.Color SelectedColor {
+            get {
+                return ((global::System.Drawing.Color)(this["SelectedColor"]));
+            }
+            set {
+                this["SelectedColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Red")]
+        public global::System.Drawing.Color ErrorColor {
+            get {
+                return ((global::System.Drawing.Color)(this["ErrorColor"]));
+            }
+            set {
+                this["ErrorColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Green")]
+        public global::System.Drawing.Color CorrectColor {
+            get {
+                return ((global::System.Drawing.Color)(this["CorrectColor"]));
+            }
+            set {
+                this["CorrectColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Crimson")]
+        public global::System.Drawing.Color DirtyColor {
+            get {
+                return ((global::System.Drawing.Color)(this["DirtyColor"]));
+            }
+            set {
+                this["DirtyColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("DarkGreen")]
+        public global::System.Drawing.Color CalculatedColor {
+            get {
+                return ((global::System.Drawing.Color)(this["CalculatedColor"]));
+            }
+            set {
+                this["CalculatedColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("White")]
+        public global::System.Drawing.Color DefaultCellColor {
+            get {
+                return ((global::System.Drawing.Color)(this["DefaultCellColor"]));
+            }
+            set {
+                this["DefaultCellColor"] = value;
+            }
+        }
     }
 }

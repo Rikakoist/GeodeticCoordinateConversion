@@ -17,6 +17,7 @@ namespace GeodeticCoordinateConversion
         public SettingsForm()
         {
             InitializeComponent();
+            //通用
             WorkFolderTextBox.DataBindings.Add(nameof(TextBox.Text), S, nameof(S.WorkFolder));
             DataFileNameTextBox.DataBindings.Add(nameof(TextBox.Text), S, nameof(S.DataFileName));
             DBNameTextBox.DataBindings.Add(nameof(TextBox.Text), S, nameof(S.DBName));
@@ -33,10 +34,19 @@ namespace GeodeticCoordinateConversion
 
             SwitchAfterGaussTransferCheckBox.DataBindings.Add(nameof(CheckBox.Checked), S, nameof(S.SwitchAfterGaussTransfer));
 
+            //数据 
             ClearExistingRecordData2FileCheckBox.DataBindings.Add(nameof(CheckBox.Checked), S, nameof(S.ClearExistingRecordData2File));
             ClearExistingRecordData2DBCheckBox.DataBindings.Add(nameof(CheckBox.Checked), S, nameof(S.ClearExistingRecordData2DB));
             ClearExistingRecordDB2FileCheckBox.DataBindings.Add(nameof(CheckBox.Checked), S, nameof(S.ClearExistingRecordDB2File));
             ClearExistingRecordFile2DBCheckBox.DataBindings.Add(nameof(CheckBox.Checked), S, nameof(S.ClearExistingRecordFile2DB));
+
+            //外观
+            DefaultCellColorBtn.DataBindings.Add(nameof(Button.BackColor),S,nameof(S.DefaultCellColor));
+            SelectedColorBtn.DataBindings.Add(nameof(Button.BackColor), S, nameof(S.SelectedColor));
+            ErrorColorBtn.DataBindings.Add(nameof(Button.BackColor), S, nameof(S.ErrorColor));
+            CorrectColorBtn.DataBindings.Add(nameof(Button.BackColor), S, nameof(S.CorrectColor));
+            DirtyColorBtn.DataBindings.Add(nameof(Button.BackColor), S, nameof(S.DirtyColor));
+            CalculatedColorBtn.DataBindings.Add(nameof(Button.BackColor), S, nameof(S.CalculatedColor));
         }
 
         private void BrowseWorkFolder(object sender, EventArgs e)
@@ -54,8 +64,23 @@ namespace GeodeticCoordinateConversion
 
         private void OpenFolder(object sender, EventArgs e)
         {
-            if(System.IO.Directory.Exists(S.WorkFolder))
-            System.Diagnostics.Process.Start("Explorer.exe",S.WorkFolder);
+            if (System.IO.Directory.Exists(S.WorkFolder))
+                System.Diagnostics.Process.Start("Explorer.exe", S.WorkFolder);
+        }
+
+        private void ChangeColor(object sender, EventArgs e)
+        {
+            Button B = sender as Button;
+            ColorDialog CD = new ColorDialog()
+            {
+                AllowFullOpen = true,
+                Color = B.BackColor,
+            };
+            if (CD.ShowDialog() == DialogResult.OK)
+            {
+                B.BackColor = CD.Color;
+            }
+            CD.Dispose();
         }
 
         private void SaveChanges(object sender, EventArgs e)
