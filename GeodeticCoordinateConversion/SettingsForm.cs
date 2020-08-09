@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
+using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -12,12 +14,53 @@ namespace GeodeticCoordinateConversion
 {
     public partial class SettingsForm : Form
     {
-        Properties.Settings S = new Properties.Settings();
+        static Properties.Settings S = new Properties.Settings();
+        public static ResourceManager rm = new ResourceManager("GeodeticCoordinateConversion.Resources." + S.Language, Assembly.GetExecutingAssembly());
 
         public SettingsForm()
         {
             InitializeComponent();
+
+            this.Text = rm.GetString("Settings");
+            TitleLabel.Text = rm.GetString("SettingTitle");
+
+            GeneralTabPage.Text = rm.GetString("General");
+            DataTabPage.Text = rm.GetString("Data");
+            DataColorTabPage.Text = rm.GetString("Appearance");
+
+            LanguageLabel.Text = rm.GetString("Language");
+            BtnToolTip.SetToolTip(LanguageComboBox, rm.GetString("SetAppLanguage"));
+            WorkFolderLabel.Text = rm.GetString("WorkFolder");
+            DataFileNameLabel.Text = rm.GetString("DataFileName");
+            DBNameLabel.Text = rm.GetString("DBName");
+            DefaultEllipseTypeLabel.Text = rm.GetString("DefaultEllipse");
+            BtnToolTip.SetToolTip(DefaultEllipseTypeComboBox, rm.GetString("DefaultEllipseAddingRow"));
+            DefaultZoneTypeLabel.Text = rm.GetString("DefaultZoneType");
+            BtnToolTip.SetToolTip(DefaultZoneTypeComboBox, rm.GetString("DefaultZoneTypeAddingRow"));
+
+            SwitchAfterGaussTransferCheckBox.Text = rm.GetString("SwitchAfterGaussTransfer");
+            ClearExistingRecordData2FileCheckBox.Text = rm.GetString("ClearExistingRecordData2File");
+            ClearExistingRecordData2DBCheckBox.Text = rm.GetString("ClearExistingRecordData2DB");
+            ClearExistingRecordDB2FileCheckBox.Text = rm.GetString("ClearExistingRecordDB2File");
+            ClearExistingRecordFile2DBCheckBox.Text = rm.GetString("ClearExistingRecordFile2DB");
+
+            DefaultCellColorLabel.Text = rm.GetString("DefaultCellColor");
+            SelectedColorLabel.Text = rm.GetString("SelectedColor");
+            ErrorColorLabel.Text = rm.GetString("ErrorColor");
+            CorrectColorLabel.Text = rm.GetString("CorrectColor");
+            DirtyColorLabel.Text = rm.GetString("DirtyColor");
+            CalculatedColorLabel.Text = rm.GetString("CalculatedColor");
+
+            BtnToolTip.SetToolTip(ConfirmBtn, rm.GetString("SaveBtnRequireRestart"));
+            BtnToolTip.SetToolTip(CancelBtn, rm.GetString("AbortChange"));
+            BtnToolTip.SetToolTip(ResetBtn, rm.GetString("ResetDefaultRequireStart"));
+
             //通用
+            LanguageComboBox.DataSource = GEODataTables.GetLangType();
+            LanguageComboBox.DisplayMember = nameof(GEOLang);
+            LanguageComboBox.ValueMember = "Name";
+            LanguageComboBox.DataBindings.Add(nameof(ComboBox.SelectedValue), S, nameof(S.Language));
+
             WorkFolderTextBox.DataBindings.Add(nameof(TextBox.Text), S, nameof(S.WorkFolder));
             DataFileNameTextBox.DataBindings.Add(nameof(TextBox.Text), S, nameof(S.DataFileName));
             DBNameTextBox.DataBindings.Add(nameof(TextBox.Text), S, nameof(S.DBName));

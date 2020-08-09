@@ -3,11 +3,25 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Linq;
+using System.Reflection;
+using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace GeodeticCoordinateConversion
 {
+
+    /// <summary>
+    /// 应用语言。
+    /// </summary>
+    public enum GEOLang
+    {
+        [Description("简体中文")]
+        zh_cn = 0,
+        [Description("English")]
+        en_us = 1,
+    }
+
     /// <summary>
     /// 高斯坐标分带枚举量。
     /// </summary>
@@ -204,6 +218,25 @@ namespace GeodeticCoordinateConversion
     /// </summary>
     public static class GEODataTables
     {
+
+        public static DataTable GetLangType()
+        {
+            DataTable DT = new DataTable();
+            DT.Columns.Add(nameof(GEOLang));
+            DT.Columns.Add("Name");
+            DT.Columns.Add("Value");
+
+            foreach (int i in Enum.GetValues(typeof(GEOLang)))
+            {
+                DataRow DR = DT.NewRow();
+                DR[nameof(GEOLang)] = (typeof(GEOLang).GetField(((GEOLang)i).ToString()).GetCustomAttributes(false)[0] as DescriptionAttribute).Description;
+                DR["Name"] = Enum.GetName(typeof(GEOLang), i);
+                DR["Value"] = i;
+                DT.Rows.Add(DR);
+            }
+            return DT;
+        }
+
         /// <summary>
         /// 获取分带类型的数据表。
         /// </summary>

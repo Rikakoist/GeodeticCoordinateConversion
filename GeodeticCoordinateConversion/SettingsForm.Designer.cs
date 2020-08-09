@@ -56,26 +56,28 @@
             this.ClearExistingRecordData2DBCheckBox = new System.Windows.Forms.CheckBox();
             this.ClearExistingRecordData2FileCheckBox = new System.Windows.Forms.CheckBox();
             this.SwitchAfterGaussTransferCheckBox = new System.Windows.Forms.CheckBox();
-            this.PicPictureBox = new System.Windows.Forms.PictureBox();
             this.DataColorTabPage = new System.Windows.Forms.TabPage();
-            this.SelectedColorLabel = new System.Windows.Forms.Label();
-            this.SelectedColorBtn = new System.Windows.Forms.Button();
-            this.ErrorColorLabel = new System.Windows.Forms.Label();
-            this.ErrorColorBtn = new System.Windows.Forms.Button();
-            this.CorrectColorLabel = new System.Windows.Forms.Label();
-            this.CorrectColorBtn = new System.Windows.Forms.Button();
-            this.DirtyColorLabel = new System.Windows.Forms.Label();
-            this.DirtyColorBtn = new System.Windows.Forms.Button();
-            this.CalculatedColorLabel = new System.Windows.Forms.Label();
-            this.CalculatedColorBtn = new System.Windows.Forms.Button();
-            this.DefaultCellColorLabel = new System.Windows.Forms.Label();
             this.DefaultCellColorBtn = new System.Windows.Forms.Button();
+            this.CalculatedColorBtn = new System.Windows.Forms.Button();
+            this.DirtyColorBtn = new System.Windows.Forms.Button();
+            this.CorrectColorBtn = new System.Windows.Forms.Button();
+            this.ErrorColorBtn = new System.Windows.Forms.Button();
+            this.DefaultCellColorLabel = new System.Windows.Forms.Label();
+            this.CalculatedColorLabel = new System.Windows.Forms.Label();
+            this.DirtyColorLabel = new System.Windows.Forms.Label();
+            this.CorrectColorLabel = new System.Windows.Forms.Label();
+            this.ErrorColorLabel = new System.Windows.Forms.Label();
+            this.SelectedColorBtn = new System.Windows.Forms.Button();
+            this.SelectedColorLabel = new System.Windows.Forms.Label();
+            this.PicPictureBox = new System.Windows.Forms.PictureBox();
+            this.LanguageLabel = new System.Windows.Forms.Label();
+            this.LanguageComboBox = new System.Windows.Forms.ComboBox();
             this.BtnFlowLayoutPanel.SuspendLayout();
             this.SettingsTabControl.SuspendLayout();
             this.GeneralTabPage.SuspendLayout();
             this.DataTabPage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PicPictureBox)).BeginInit();
             this.DataColorTabPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PicPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // TitleLabel
@@ -94,7 +96,7 @@
             // 
             this.WorkFolderLabel.AutoSize = true;
             this.WorkFolderLabel.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.WorkFolderLabel.Location = new System.Drawing.Point(39, 50);
+            this.WorkFolderLabel.Location = new System.Drawing.Point(39, 81);
             this.WorkFolderLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.WorkFolderLabel.Name = "WorkFolderLabel";
             this.WorkFolderLabel.Size = new System.Drawing.Size(106, 22);
@@ -104,21 +106,21 @@
             // 
             // WorkFolderTextBox
             // 
-            this.WorkFolderTextBox.Location = new System.Drawing.Point(164, 49);
+            this.WorkFolderTextBox.Location = new System.Drawing.Point(193, 80);
             this.WorkFolderTextBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.WorkFolderTextBox.Name = "WorkFolderTextBox";
             this.WorkFolderTextBox.ReadOnly = true;
-            this.WorkFolderTextBox.Size = new System.Drawing.Size(384, 25);
-            this.WorkFolderTextBox.TabIndex = 0;
+            this.WorkFolderTextBox.Size = new System.Drawing.Size(355, 25);
+            this.WorkFolderTextBox.TabIndex = 1;
             this.WorkFolderTextBox.TabStop = false;
             // 
             // WorkFolderBtn
             // 
             this.WorkFolderBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.WorkFolderBtn.Location = new System.Drawing.Point(558, 49);
+            this.WorkFolderBtn.Location = new System.Drawing.Point(558, 80);
             this.WorkFolderBtn.Name = "WorkFolderBtn";
             this.WorkFolderBtn.Size = new System.Drawing.Size(40, 25);
-            this.WorkFolderBtn.TabIndex = 0;
+            this.WorkFolderBtn.TabIndex = 1;
             this.WorkFolderBtn.Text = "...";
             this.BtnToolTip.SetToolTip(this.WorkFolderBtn, "选择工作文件夹");
             this.WorkFolderBtn.UseVisualStyleBackColor = true;
@@ -128,7 +130,7 @@
             // 
             this.DataFileNameLabel.AutoSize = true;
             this.DataFileNameLabel.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DataFileNameLabel.Location = new System.Drawing.Point(39, 97);
+            this.DataFileNameLabel.Location = new System.Drawing.Point(39, 127);
             this.DataFileNameLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.DataFileNameLabel.Name = "DataFileNameLabel";
             this.DataFileNameLabel.Size = new System.Drawing.Size(106, 22);
@@ -138,17 +140,17 @@
             // 
             // DataFileNameTextBox
             // 
-            this.DataFileNameTextBox.Location = new System.Drawing.Point(164, 96);
+            this.DataFileNameTextBox.Location = new System.Drawing.Point(193, 126);
             this.DataFileNameTextBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.DataFileNameTextBox.Name = "DataFileNameTextBox";
-            this.DataFileNameTextBox.Size = new System.Drawing.Size(384, 25);
-            this.DataFileNameTextBox.TabIndex = 2;
+            this.DataFileNameTextBox.Size = new System.Drawing.Size(355, 25);
+            this.DataFileNameTextBox.TabIndex = 3;
             // 
             // DBNameLabel
             // 
             this.DBNameLabel.AutoSize = true;
             this.DBNameLabel.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DBNameLabel.Location = new System.Drawing.Point(39, 144);
+            this.DBNameLabel.Location = new System.Drawing.Point(39, 173);
             this.DBNameLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.DBNameLabel.Name = "DBNameLabel";
             this.DBNameLabel.Size = new System.Drawing.Size(122, 22);
@@ -158,17 +160,17 @@
             // 
             // DBNameTextBox
             // 
-            this.DBNameTextBox.Location = new System.Drawing.Point(164, 143);
+            this.DBNameTextBox.Location = new System.Drawing.Point(193, 172);
             this.DBNameTextBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.DBNameTextBox.Name = "DBNameTextBox";
-            this.DBNameTextBox.Size = new System.Drawing.Size(384, 25);
-            this.DBNameTextBox.TabIndex = 3;
+            this.DBNameTextBox.Size = new System.Drawing.Size(355, 25);
+            this.DBNameTextBox.TabIndex = 4;
             // 
             // DefaultEllipseTypeLabel
             // 
             this.DefaultEllipseTypeLabel.AutoSize = true;
             this.DefaultEllipseTypeLabel.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DefaultEllipseTypeLabel.Location = new System.Drawing.Point(39, 191);
+            this.DefaultEllipseTypeLabel.Location = new System.Drawing.Point(39, 219);
             this.DefaultEllipseTypeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.DefaultEllipseTypeLabel.Name = "DefaultEllipseTypeLabel";
             this.DefaultEllipseTypeLabel.Size = new System.Drawing.Size(90, 22);
@@ -180,17 +182,17 @@
             // 
             this.DefaultEllipseTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.DefaultEllipseTypeComboBox.FormattingEnabled = true;
-            this.DefaultEllipseTypeComboBox.Location = new System.Drawing.Point(164, 189);
+            this.DefaultEllipseTypeComboBox.Location = new System.Drawing.Point(359, 217);
             this.DefaultEllipseTypeComboBox.Name = "DefaultEllipseTypeComboBox";
-            this.DefaultEllipseTypeComboBox.Size = new System.Drawing.Size(201, 27);
-            this.DefaultEllipseTypeComboBox.TabIndex = 4;
+            this.DefaultEllipseTypeComboBox.Size = new System.Drawing.Size(189, 27);
+            this.DefaultEllipseTypeComboBox.TabIndex = 5;
             this.BtnToolTip.SetToolTip(this.DefaultEllipseTypeComboBox, "添加新记录时的默认椭球");
             // 
             // DefaultZoneTypeLabel
             // 
             this.DefaultZoneTypeLabel.AutoSize = true;
             this.DefaultZoneTypeLabel.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DefaultZoneTypeLabel.Location = new System.Drawing.Point(39, 238);
+            this.DefaultZoneTypeLabel.Location = new System.Drawing.Point(39, 265);
             this.DefaultZoneTypeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.DefaultZoneTypeLabel.Name = "DefaultZoneTypeLabel";
             this.DefaultZoneTypeLabel.Size = new System.Drawing.Size(90, 22);
@@ -202,10 +204,10 @@
             // 
             this.DefaultZoneTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.DefaultZoneTypeComboBox.FormattingEnabled = true;
-            this.DefaultZoneTypeComboBox.Location = new System.Drawing.Point(164, 236);
+            this.DefaultZoneTypeComboBox.Location = new System.Drawing.Point(359, 263);
             this.DefaultZoneTypeComboBox.Name = "DefaultZoneTypeComboBox";
-            this.DefaultZoneTypeComboBox.Size = new System.Drawing.Size(201, 27);
-            this.DefaultZoneTypeComboBox.TabIndex = 5;
+            this.DefaultZoneTypeComboBox.Size = new System.Drawing.Size(189, 27);
+            this.DefaultZoneTypeComboBox.TabIndex = 6;
             this.BtnToolTip.SetToolTip(this.DefaultZoneTypeComboBox, "添加新记录时的默认分带");
             // 
             // BtnFlowLayoutPanel
@@ -264,10 +266,10 @@
             this.OpenWorkFolder.BackgroundImage = global::GeodeticCoordinateConversion.Properties.Resources.Open;
             this.OpenWorkFolder.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.OpenWorkFolder.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.OpenWorkFolder.Location = new System.Drawing.Point(604, 49);
+            this.OpenWorkFolder.Location = new System.Drawing.Point(604, 80);
             this.OpenWorkFolder.Name = "OpenWorkFolder";
             this.OpenWorkFolder.Size = new System.Drawing.Size(25, 25);
-            this.OpenWorkFolder.TabIndex = 1;
+            this.OpenWorkFolder.TabIndex = 2;
             this.BtnToolTip.SetToolTip(this.OpenWorkFolder, "打开工作文件夹");
             this.OpenWorkFolder.UseVisualStyleBackColor = true;
             this.OpenWorkFolder.Click += new System.EventHandler(this.OpenFolder);
@@ -289,11 +291,13 @@
             // GeneralTabPage
             // 
             this.GeneralTabPage.Controls.Add(this.OpenWorkFolder);
+            this.GeneralTabPage.Controls.Add(this.LanguageLabel);
             this.GeneralTabPage.Controls.Add(this.WorkFolderLabel);
             this.GeneralTabPage.Controls.Add(this.WorkFolderTextBox);
             this.GeneralTabPage.Controls.Add(this.DataFileNameLabel);
             this.GeneralTabPage.Controls.Add(this.DefaultZoneTypeComboBox);
             this.GeneralTabPage.Controls.Add(this.DataFileNameTextBox);
+            this.GeneralTabPage.Controls.Add(this.LanguageComboBox);
             this.GeneralTabPage.Controls.Add(this.DefaultEllipseTypeComboBox);
             this.GeneralTabPage.Controls.Add(this.DBNameLabel);
             this.GeneralTabPage.Controls.Add(this.WorkFolderBtn);
@@ -383,17 +387,6 @@
             this.SwitchAfterGaussTransferCheckBox.Text = "坐标转换转移至换带后，自动切换标签页";
             this.SwitchAfterGaussTransferCheckBox.UseVisualStyleBackColor = true;
             // 
-            // PicPictureBox
-            // 
-            this.PicPictureBox.BackgroundImage = global::GeodeticCoordinateConversion.Properties.Resources.Globe;
-            this.PicPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.PicPictureBox.Location = new System.Drawing.Point(28, 20);
-            this.PicPictureBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.PicPictureBox.Name = "PicPictureBox";
-            this.PicPictureBox.Size = new System.Drawing.Size(64, 64);
-            this.PicPictureBox.TabIndex = 0;
-            this.PicPictureBox.TabStop = false;
-            // 
             // DataColorTabPage
             // 
             this.DataColorTabPage.Controls.Add(this.DefaultCellColorBtn);
@@ -415,124 +408,25 @@
             this.DataColorTabPage.Text = "外观";
             this.DataColorTabPage.UseVisualStyleBackColor = true;
             // 
-            // SelectedColorLabel
+            // DefaultCellColorBtn
             // 
-            this.SelectedColorLabel.AutoSize = true;
-            this.SelectedColorLabel.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SelectedColorLabel.Location = new System.Drawing.Point(174, 86);
-            this.SelectedColorLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.SelectedColorLabel.Name = "SelectedColorLabel";
-            this.SelectedColorLabel.Size = new System.Drawing.Size(122, 22);
-            this.SelectedColorLabel.TabIndex = 1;
-            this.SelectedColorLabel.Text = "选中记录颜色：";
-            this.SelectedColorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // SelectedColorBtn
-            // 
-            this.SelectedColorBtn.BackColor = System.Drawing.Color.White;
-            this.SelectedColorBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.SelectedColorBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SelectedColorBtn.Location = new System.Drawing.Point(336, 86);
-            this.SelectedColorBtn.Margin = new System.Windows.Forms.Padding(0);
-            this.SelectedColorBtn.Name = "SelectedColorBtn";
-            this.SelectedColorBtn.Size = new System.Drawing.Size(75, 23);
-            this.SelectedColorBtn.TabIndex = 1;
-            this.SelectedColorBtn.UseVisualStyleBackColor = false;
-            this.SelectedColorBtn.Click += new System.EventHandler(this.ChangeColor);
-            // 
-            // ErrorColorLabel
-            // 
-            this.ErrorColorLabel.AutoSize = true;
-            this.ErrorColorLabel.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ErrorColorLabel.Location = new System.Drawing.Point(174, 131);
-            this.ErrorColorLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.ErrorColorLabel.Name = "ErrorColorLabel";
-            this.ErrorColorLabel.Size = new System.Drawing.Size(122, 22);
-            this.ErrorColorLabel.TabIndex = 2;
-            this.ErrorColorLabel.Text = "错误记录颜色：";
-            this.ErrorColorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // ErrorColorBtn
-            // 
-            this.ErrorColorBtn.BackColor = System.Drawing.Color.White;
-            this.ErrorColorBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.ErrorColorBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ErrorColorBtn.Location = new System.Drawing.Point(336, 131);
-            this.ErrorColorBtn.Margin = new System.Windows.Forms.Padding(0);
-            this.ErrorColorBtn.Name = "ErrorColorBtn";
-            this.ErrorColorBtn.Size = new System.Drawing.Size(75, 23);
-            this.ErrorColorBtn.TabIndex = 2;
-            this.ErrorColorBtn.UseVisualStyleBackColor = false;
-            this.ErrorColorBtn.Click += new System.EventHandler(this.ChangeColor);
-            // 
-            // CorrectColorLabel
-            // 
-            this.CorrectColorLabel.AutoSize = true;
-            this.CorrectColorLabel.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CorrectColorLabel.Location = new System.Drawing.Point(174, 176);
-            this.CorrectColorLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.CorrectColorLabel.Name = "CorrectColorLabel";
-            this.CorrectColorLabel.Size = new System.Drawing.Size(122, 22);
-            this.CorrectColorLabel.TabIndex = 3;
-            this.CorrectColorLabel.Text = "正确记录颜色：";
-            this.CorrectColorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // CorrectColorBtn
-            // 
-            this.CorrectColorBtn.BackColor = System.Drawing.Color.White;
-            this.CorrectColorBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.CorrectColorBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.CorrectColorBtn.Location = new System.Drawing.Point(336, 176);
-            this.CorrectColorBtn.Margin = new System.Windows.Forms.Padding(0);
-            this.CorrectColorBtn.Name = "CorrectColorBtn";
-            this.CorrectColorBtn.Size = new System.Drawing.Size(75, 23);
-            this.CorrectColorBtn.TabIndex = 3;
-            this.CorrectColorBtn.UseVisualStyleBackColor = false;
-            this.CorrectColorBtn.Click += new System.EventHandler(this.ChangeColor);
-            // 
-            // DirtyColorLabel
-            // 
-            this.DirtyColorLabel.AutoSize = true;
-            this.DirtyColorLabel.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DirtyColorLabel.Location = new System.Drawing.Point(174, 221);
-            this.DirtyColorLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.DirtyColorLabel.Name = "DirtyColorLabel";
-            this.DirtyColorLabel.Size = new System.Drawing.Size(106, 22);
-            this.DirtyColorLabel.TabIndex = 4;
-            this.DirtyColorLabel.Text = "脏数据颜色：";
-            this.DirtyColorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // DirtyColorBtn
-            // 
-            this.DirtyColorBtn.BackColor = System.Drawing.Color.White;
-            this.DirtyColorBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.DirtyColorBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.DirtyColorBtn.Location = new System.Drawing.Point(336, 221);
-            this.DirtyColorBtn.Margin = new System.Windows.Forms.Padding(0);
-            this.DirtyColorBtn.Name = "DirtyColorBtn";
-            this.DirtyColorBtn.Size = new System.Drawing.Size(75, 23);
-            this.DirtyColorBtn.TabIndex = 4;
-            this.DirtyColorBtn.UseVisualStyleBackColor = false;
-            this.DirtyColorBtn.Click += new System.EventHandler(this.ChangeColor);
-            // 
-            // CalculatedColorLabel
-            // 
-            this.CalculatedColorLabel.AutoSize = true;
-            this.CalculatedColorLabel.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CalculatedColorLabel.Location = new System.Drawing.Point(174, 266);
-            this.CalculatedColorLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.CalculatedColorLabel.Name = "CalculatedColorLabel";
-            this.CalculatedColorLabel.Size = new System.Drawing.Size(138, 22);
-            this.CalculatedColorLabel.TabIndex = 5;
-            this.CalculatedColorLabel.Text = "已计算数据颜色：";
-            this.CalculatedColorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.DefaultCellColorBtn.BackColor = System.Drawing.Color.White;
+            this.DefaultCellColorBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.DefaultCellColorBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.DefaultCellColorBtn.Location = new System.Drawing.Point(340, 41);
+            this.DefaultCellColorBtn.Margin = new System.Windows.Forms.Padding(0);
+            this.DefaultCellColorBtn.Name = "DefaultCellColorBtn";
+            this.DefaultCellColorBtn.Size = new System.Drawing.Size(75, 23);
+            this.DefaultCellColorBtn.TabIndex = 0;
+            this.DefaultCellColorBtn.UseVisualStyleBackColor = false;
+            this.DefaultCellColorBtn.Click += new System.EventHandler(this.ChangeColor);
             // 
             // CalculatedColorBtn
             // 
             this.CalculatedColorBtn.BackColor = System.Drawing.Color.White;
             this.CalculatedColorBtn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.CalculatedColorBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.CalculatedColorBtn.Location = new System.Drawing.Point(336, 266);
+            this.CalculatedColorBtn.Location = new System.Drawing.Point(340, 266);
             this.CalculatedColorBtn.Margin = new System.Windows.Forms.Padding(0);
             this.CalculatedColorBtn.Name = "CalculatedColorBtn";
             this.CalculatedColorBtn.Size = new System.Drawing.Size(75, 23);
@@ -540,11 +434,50 @@
             this.CalculatedColorBtn.UseVisualStyleBackColor = false;
             this.CalculatedColorBtn.Click += new System.EventHandler(this.ChangeColor);
             // 
+            // DirtyColorBtn
+            // 
+            this.DirtyColorBtn.BackColor = System.Drawing.Color.White;
+            this.DirtyColorBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.DirtyColorBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.DirtyColorBtn.Location = new System.Drawing.Point(340, 221);
+            this.DirtyColorBtn.Margin = new System.Windows.Forms.Padding(0);
+            this.DirtyColorBtn.Name = "DirtyColorBtn";
+            this.DirtyColorBtn.Size = new System.Drawing.Size(75, 23);
+            this.DirtyColorBtn.TabIndex = 4;
+            this.DirtyColorBtn.UseVisualStyleBackColor = false;
+            this.DirtyColorBtn.Click += new System.EventHandler(this.ChangeColor);
+            // 
+            // CorrectColorBtn
+            // 
+            this.CorrectColorBtn.BackColor = System.Drawing.Color.White;
+            this.CorrectColorBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.CorrectColorBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CorrectColorBtn.Location = new System.Drawing.Point(340, 176);
+            this.CorrectColorBtn.Margin = new System.Windows.Forms.Padding(0);
+            this.CorrectColorBtn.Name = "CorrectColorBtn";
+            this.CorrectColorBtn.Size = new System.Drawing.Size(75, 23);
+            this.CorrectColorBtn.TabIndex = 3;
+            this.CorrectColorBtn.UseVisualStyleBackColor = false;
+            this.CorrectColorBtn.Click += new System.EventHandler(this.ChangeColor);
+            // 
+            // ErrorColorBtn
+            // 
+            this.ErrorColorBtn.BackColor = System.Drawing.Color.White;
+            this.ErrorColorBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ErrorColorBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ErrorColorBtn.Location = new System.Drawing.Point(340, 131);
+            this.ErrorColorBtn.Margin = new System.Windows.Forms.Padding(0);
+            this.ErrorColorBtn.Name = "ErrorColorBtn";
+            this.ErrorColorBtn.Size = new System.Drawing.Size(75, 23);
+            this.ErrorColorBtn.TabIndex = 2;
+            this.ErrorColorBtn.UseVisualStyleBackColor = false;
+            this.ErrorColorBtn.Click += new System.EventHandler(this.ChangeColor);
+            // 
             // DefaultCellColorLabel
             // 
             this.DefaultCellColorLabel.AutoSize = true;
             this.DefaultCellColorLabel.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DefaultCellColorLabel.Location = new System.Drawing.Point(174, 41);
+            this.DefaultCellColorLabel.Location = new System.Drawing.Point(156, 41);
             this.DefaultCellColorLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.DefaultCellColorLabel.Name = "DefaultCellColorLabel";
             this.DefaultCellColorLabel.Size = new System.Drawing.Size(138, 22);
@@ -552,18 +485,110 @@
             this.DefaultCellColorLabel.Text = "默认单元格颜色：";
             this.DefaultCellColorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // DefaultCellColorBtn
+            // CalculatedColorLabel
             // 
-            this.DefaultCellColorBtn.BackColor = System.Drawing.Color.White;
-            this.DefaultCellColorBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.DefaultCellColorBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.DefaultCellColorBtn.Location = new System.Drawing.Point(336, 41);
-            this.DefaultCellColorBtn.Margin = new System.Windows.Forms.Padding(0);
-            this.DefaultCellColorBtn.Name = "DefaultCellColorBtn";
-            this.DefaultCellColorBtn.Size = new System.Drawing.Size(75, 23);
-            this.DefaultCellColorBtn.TabIndex = 0;
-            this.DefaultCellColorBtn.UseVisualStyleBackColor = false;
-            this.DefaultCellColorBtn.Click += new System.EventHandler(this.ChangeColor);
+            this.CalculatedColorLabel.AutoSize = true;
+            this.CalculatedColorLabel.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CalculatedColorLabel.Location = new System.Drawing.Point(156, 266);
+            this.CalculatedColorLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.CalculatedColorLabel.Name = "CalculatedColorLabel";
+            this.CalculatedColorLabel.Size = new System.Drawing.Size(138, 22);
+            this.CalculatedColorLabel.TabIndex = 5;
+            this.CalculatedColorLabel.Text = "已计算数据颜色：";
+            this.CalculatedColorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // DirtyColorLabel
+            // 
+            this.DirtyColorLabel.AutoSize = true;
+            this.DirtyColorLabel.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DirtyColorLabel.Location = new System.Drawing.Point(156, 221);
+            this.DirtyColorLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.DirtyColorLabel.Name = "DirtyColorLabel";
+            this.DirtyColorLabel.Size = new System.Drawing.Size(106, 22);
+            this.DirtyColorLabel.TabIndex = 4;
+            this.DirtyColorLabel.Text = "脏数据颜色：";
+            this.DirtyColorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // CorrectColorLabel
+            // 
+            this.CorrectColorLabel.AutoSize = true;
+            this.CorrectColorLabel.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CorrectColorLabel.Location = new System.Drawing.Point(156, 176);
+            this.CorrectColorLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.CorrectColorLabel.Name = "CorrectColorLabel";
+            this.CorrectColorLabel.Size = new System.Drawing.Size(122, 22);
+            this.CorrectColorLabel.TabIndex = 3;
+            this.CorrectColorLabel.Text = "正确记录颜色：";
+            this.CorrectColorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // ErrorColorLabel
+            // 
+            this.ErrorColorLabel.AutoSize = true;
+            this.ErrorColorLabel.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ErrorColorLabel.Location = new System.Drawing.Point(156, 131);
+            this.ErrorColorLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.ErrorColorLabel.Name = "ErrorColorLabel";
+            this.ErrorColorLabel.Size = new System.Drawing.Size(122, 22);
+            this.ErrorColorLabel.TabIndex = 2;
+            this.ErrorColorLabel.Text = "错误记录颜色：";
+            this.ErrorColorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // SelectedColorBtn
+            // 
+            this.SelectedColorBtn.BackColor = System.Drawing.Color.White;
+            this.SelectedColorBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.SelectedColorBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SelectedColorBtn.Location = new System.Drawing.Point(340, 86);
+            this.SelectedColorBtn.Margin = new System.Windows.Forms.Padding(0);
+            this.SelectedColorBtn.Name = "SelectedColorBtn";
+            this.SelectedColorBtn.Size = new System.Drawing.Size(75, 23);
+            this.SelectedColorBtn.TabIndex = 1;
+            this.SelectedColorBtn.UseVisualStyleBackColor = false;
+            this.SelectedColorBtn.Click += new System.EventHandler(this.ChangeColor);
+            // 
+            // SelectedColorLabel
+            // 
+            this.SelectedColorLabel.AutoSize = true;
+            this.SelectedColorLabel.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SelectedColorLabel.Location = new System.Drawing.Point(156, 86);
+            this.SelectedColorLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.SelectedColorLabel.Name = "SelectedColorLabel";
+            this.SelectedColorLabel.Size = new System.Drawing.Size(122, 22);
+            this.SelectedColorLabel.TabIndex = 1;
+            this.SelectedColorLabel.Text = "选中记录颜色：";
+            this.SelectedColorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // PicPictureBox
+            // 
+            this.PicPictureBox.BackgroundImage = global::GeodeticCoordinateConversion.Properties.Resources.Globe;
+            this.PicPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.PicPictureBox.Location = new System.Drawing.Point(28, 20);
+            this.PicPictureBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.PicPictureBox.Name = "PicPictureBox";
+            this.PicPictureBox.Size = new System.Drawing.Size(64, 64);
+            this.PicPictureBox.TabIndex = 0;
+            this.PicPictureBox.TabStop = false;
+            // 
+            // LanguageLabel
+            // 
+            this.LanguageLabel.AutoSize = true;
+            this.LanguageLabel.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LanguageLabel.Location = new System.Drawing.Point(39, 35);
+            this.LanguageLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.LanguageLabel.Name = "LanguageLabel";
+            this.LanguageLabel.Size = new System.Drawing.Size(58, 22);
+            this.LanguageLabel.TabIndex = 0;
+            this.LanguageLabel.Text = "语言：";
+            this.LanguageLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // LanguageComboBox
+            // 
+            this.LanguageComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.LanguageComboBox.FormattingEnabled = true;
+            this.LanguageComboBox.Location = new System.Drawing.Point(359, 33);
+            this.LanguageComboBox.Name = "LanguageComboBox";
+            this.LanguageComboBox.Size = new System.Drawing.Size(189, 27);
+            this.LanguageComboBox.TabIndex = 0;
             // 
             // SettingsForm
             // 
@@ -589,9 +614,9 @@
             this.GeneralTabPage.PerformLayout();
             this.DataTabPage.ResumeLayout(false);
             this.DataTabPage.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PicPictureBox)).EndInit();
             this.DataColorTabPage.ResumeLayout(false);
             this.DataColorTabPage.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PicPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -639,5 +664,7 @@
         private System.Windows.Forms.Label DirtyColorLabel;
         private System.Windows.Forms.Button DefaultCellColorBtn;
         private System.Windows.Forms.Label DefaultCellColorLabel;
+        private System.Windows.Forms.Label LanguageLabel;
+        private System.Windows.Forms.ComboBox LanguageComboBox;
     }
 }
