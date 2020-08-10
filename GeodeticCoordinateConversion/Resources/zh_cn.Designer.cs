@@ -178,6 +178,15 @@ namespace GeodeticCoordinateConversion.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} 完成，共有 {1} 条记录，计算了 {2} 条记录，成功 {3} 条，失败 {4} 条。.
+        /// </summary>
+        internal static string ConvertResult {
+            get {
+                return ResourceManager.GetString("ConvertResult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 坐标转换.
         /// </summary>
         internal static string CoordConvert {
@@ -241,6 +250,24 @@ namespace GeodeticCoordinateConversion.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 从{0}加载了 {1} 条{2}记录。.
+        /// </summary>
+        internal static string DataLoaded {
+            get {
+                return ResourceManager.GetString("DataLoaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 已将 {0} 条{1}记录保存到{2}。.
+        /// </summary>
+        internal static string DataSaved {
+            get {
+                return ResourceManager.GetString("DataSaved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 对象是否已计算。.
         /// </summary>
         internal static string DataStatusCalculated {
@@ -291,6 +318,15 @@ namespace GeodeticCoordinateConversion.Resources {
         internal static string DBName {
             get {
                 return ResourceManager.GetString("DBName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 成功将数据库 {0} 中 {1} 条坐标转换记录和 {2}  条换带记录导出到文件 {3}。.
+        /// </summary>
+        internal static string DBSavedToFile {
+            get {
+                return ResourceManager.GetString("DBSavedToFile", resourceCulture);
             }
         }
         
@@ -399,6 +435,15 @@ namespace GeodeticCoordinateConversion.Resources {
         internal static string ErrorColor {
             get {
                 return ResourceManager.GetString("ErrorColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 成功将文件 {0} 中 {1} 条坐标转换记录和 {2}  条换带记录导入到数据库 {3}。.
+        /// </summary>
+        internal static string FileSavedToDB {
+            get {
+                return ResourceManager.GetString("FileSavedToDB", resourceCulture);
             }
         }
         
@@ -718,6 +763,24 @@ namespace GeodeticCoordinateConversion.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 添加了1条新的记录。.
+        /// </summary>
+        internal static string RowAdded {
+            get {
+                return ResourceManager.GetString("RowAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 删除了 {0} 条记录。.
+        /// </summary>
+        internal static string RowDeleted {
+            get {
+                return ResourceManager.GetString("RowDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 保存.
         /// </summary>
         internal static string Save {
@@ -849,6 +912,33 @@ namespace GeodeticCoordinateConversion.Resources {
         internal static string SwitchAfterGaussTransfer {
             get {
                 return ResourceManager.GetString("SwitchAfterGaussTransfer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 在数据库 {0} 中找到 {1} 张表。.
+        /// </summary>
+        internal static string TableListLoaded {
+            get {
+                return ResourceManager.GetString("TableListLoaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} 表中有 {1} 条记录。.
+        /// </summary>
+        internal static string TableRecordCount {
+            get {
+                return ResourceManager.GetString("TableRecordCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 已从数据库 {0} 重载表 {1}。.
+        /// </summary>
+        internal static string TableReloaded {
+            get {
+                return ResourceManager.GetString("TableReloaded", resourceCulture);
             }
         }
         

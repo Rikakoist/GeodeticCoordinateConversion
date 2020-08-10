@@ -488,4 +488,44 @@
     <value>换带对象的GUID。</value>
     <comment>DBStr.ZoneConvert</comment>
   </data>
+  <data name="ConvertResult" xml:space="preserve">
+    <value>{0} 完成，共有 {1} 条记录，计算了 {2} 条记录，成功 {3} 条，失败 {4} 条。</value>
+    <comment>Hints.ConvertResult</comment>
+  </data>
+  <data name="DataLoaded" xml:space="preserve">
+    <value>从{0}加载了 {1} 条{2}记录。</value>
+    <comment>Hints.DataLoaded</comment>
+  </data>
+  <data name="DataSaved" xml:space="preserve">
+    <value>已将 {0} 条{1}记录保存到{2}。</value>
+    <comment>Hints.DataSaved</comment>
+  </data>
+  <data name="DBSavedToFile" xml:space="preserve">
+    <value>成功将数据库 {0} 中 {1} 条坐标转换记录和 {2}  条换带记录导出到文件 {3}。</value>
+    <comment>Hints.DBSavedToFile</comment>
+  </data>
+  <data name="FileSavedToDB" xml:space="preserve">
+    <value>成功将文件 {0} 中 {1} 条坐标转换记录和 {2}  条换带记录导入到数据库 {3}。</value>
+    <comment>Hints.FileSavedToDB</comment>
+  </data>
+  <data name="RowAdded" xml:space="preserve">
+    <value>添加了1条新的记录。</value>
+    <comment>Hints.RowAdded</comment>
+  </data>
+  <data name="RowDeleted" xml:space="preserve">
+    <value>删除了 {0} 条记录。</value>
+    <comment>Hints.RowDeleted</comment>
+  </data>
+  <data name="TableListLoaded" xml:space="preserve">
+    <value>在数据库 {0} 中找到 {1} 张表。</value>
+    <comment>Hints.TableListLoaded</comment>
+  </data>
+  <data name="TableRecordCount" xml:space="preserve">
+    <value>{0} 表中有 {1} 条记录。</value>
+    <comment>Hints.TableRecordCount</comment>
+  </data>
+  <data name="TableReloaded" xml:space="preserve">
+    <value>已从数据库 {0} 重载表 {1}。</value>
+    <comment>Hints.TableReloaded</comment>
+  </data>
 </root>

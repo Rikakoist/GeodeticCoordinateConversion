@@ -312,11 +312,11 @@
     <comment>Hints.Greet</comment>
   </data>
   <data name="DeleteRow" xml:space="preserve">
-    <value>Delete selected row (s)</value>
+    <value>Delete selected row(s)</value>
     <comment>CoordConvertLayout</comment>
   </data>
   <data name="DeleteSelectedRecord" xml:space="preserve">
-    <value>Delete selected record (s)</value>
+    <value>Delete selected record(s)</value>
     <comment>TableViewCtrl</comment>
   </data>
   <data name="English" xml:space="preserve">
@@ -426,7 +426,7 @@
     <comment>MainForm</comment>
   </data>
   <data name="OperationCanceledByUser" xml:space="preserve">
-    <value>Operation canceled by user</value>
+    <value>Operation canceled by user.</value>
     <comment>Hints</comment>
   </data>
   <data name="PeriodComma" xml:space="preserve">
@@ -487,5 +487,45 @@
   <data name="ZoneConvertUID" xml:space="preserve">
     <value>GUID of zone convert record.</value>
     <comment>DBStr.ZoneConvert</comment>
+  </data>
+  <data name="ConvertResult" xml:space="preserve">
+    <value>{0} finished,  {1} record (s) in total, {2} calculated, {3} success, {4} failed.</value>
+    <comment>Hints.ConvertResult</comment>
+  </data>
+  <data name="DataLoaded" xml:space="preserve">
+    <value>Successfully loaded {1} {2} record(s) from {0}.</value>
+    <comment>Hints.DataLoaded</comment>
+  </data>
+  <data name="DataSaved" xml:space="preserve">
+    <value>Successfully saved {0} {1} record(s) to {2}.</value>
+    <comment>Hints.DataSaved</comment>
+  </data>
+  <data name="DBSavedToFile" xml:space="preserve">
+    <value>Successfully exported {1} coord convert record(s) and {2} zone convert record(s) from database {0} to file {3}.</value>
+    <comment>Hints.DBSavedToFile</comment>
+  </data>
+  <data name="FileSavedToDB" xml:space="preserve">
+    <value>Successfully imported {1} coord convert record(s) and {2} zone convert record(s) from file {0} to database {3}.</value>
+    <comment>Hints.FileSavedToDB</comment>
+  </data>
+  <data name="RowAdded" xml:space="preserve">
+    <value>Added 1 new record.</value>
+    <comment>Hints.RowAdded</comment>
+  </data>
+  <data name="RowDeleted" xml:space="preserve">
+    <value>Deleted {0} record(s).</value>
+    <comment>Hints.RowDeleted</comment>
+  </data>
+  <data name="TableListLoaded" xml:space="preserve">
+    <value>Found {1} table(s) in database {0}.</value>
+    <comment>Hints.TableListLoaded</comment>
+  </data>
+  <data name="TableRecordCount" xml:space="preserve">
+    <value>Found {1} record(s) in table {0}.</value>
+    <comment>Hints.TableRecordCount</comment>
+  </data>
+  <data name="TableReloaded" xml:space="preserve">
+    <value>Reloaded {1} from {0}.</value>
+    <comment>Hints.TableReloaded</comment>
   </data>
 </root>

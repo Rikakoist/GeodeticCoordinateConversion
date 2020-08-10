@@ -178,6 +178,15 @@ namespace GeodeticCoordinateConversion.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} finished,  {1} record (s) in total, {2} calculated, {3} success, {4} failed..
+        /// </summary>
+        internal static string ConvertResult {
+            get {
+                return ResourceManager.GetString("ConvertResult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Coord convert.
         /// </summary>
         internal static string CoordConvert {
@@ -241,6 +250,24 @@ namespace GeodeticCoordinateConversion.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Successfully loaded {1} {2} record(s) from {0}..
+        /// </summary>
+        internal static string DataLoaded {
+            get {
+                return ResourceManager.GetString("DataLoaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Successfully saved {0} {1} record(s) to {2}..
+        /// </summary>
+        internal static string DataSaved {
+            get {
+                return ResourceManager.GetString("DataSaved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Record calculated..
         /// </summary>
         internal static string DataStatusCalculated {
@@ -291,6 +318,15 @@ namespace GeodeticCoordinateConversion.Resources {
         internal static string DBName {
             get {
                 return ResourceManager.GetString("DBName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Successfully exported {1} coord convert record(s) and {2} zone convert record(s) from database {0} to file {3}..
+        /// </summary>
+        internal static string DBSavedToFile {
+            get {
+                return ResourceManager.GetString("DBSavedToFile", resourceCulture);
             }
         }
         
@@ -358,7 +394,7 @@ namespace GeodeticCoordinateConversion.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete selected row (s).
+        ///   Looks up a localized string similar to Delete selected row(s).
         /// </summary>
         internal static string DeleteRow {
             get {
@@ -367,7 +403,7 @@ namespace GeodeticCoordinateConversion.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete selected record (s).
+        ///   Looks up a localized string similar to Delete selected record(s).
         /// </summary>
         internal static string DeleteSelectedRecord {
             get {
@@ -399,6 +435,15 @@ namespace GeodeticCoordinateConversion.Resources {
         internal static string ErrorColor {
             get {
                 return ResourceManager.GetString("ErrorColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Successfully imported {1} coord convert record(s) and {2} zone convert record(s) from file {0} to database {3}..
+        /// </summary>
+        internal static string FileSavedToDB {
+            get {
+                return ResourceManager.GetString("FileSavedToDB", resourceCulture);
             }
         }
         
@@ -664,7 +709,7 @@ namespace GeodeticCoordinateConversion.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Operation canceled by user.
+        ///   Looks up a localized string similar to Operation canceled by user..
         /// </summary>
         internal static string OperationCanceledByUser {
             get {
@@ -714,6 +759,24 @@ namespace GeodeticCoordinateConversion.Resources {
         internal static string ResetDefaultRequireStart {
             get {
                 return ResourceManager.GetString("ResetDefaultRequireStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Added 1 new record..
+        /// </summary>
+        internal static string RowAdded {
+            get {
+                return ResourceManager.GetString("RowAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deleted {0} record(s)..
+        /// </summary>
+        internal static string RowDeleted {
+            get {
+                return ResourceManager.GetString("RowDeleted", resourceCulture);
             }
         }
         
@@ -849,6 +912,33 @@ namespace GeodeticCoordinateConversion.Resources {
         internal static string SwitchAfterGaussTransfer {
             get {
                 return ResourceManager.GetString("SwitchAfterGaussTransfer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Found {1} table(s) in database {0}..
+        /// </summary>
+        internal static string TableListLoaded {
+            get {
+                return ResourceManager.GetString("TableListLoaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Found {1} record(s) in table {0}..
+        /// </summary>
+        internal static string TableRecordCount {
+            get {
+                return ResourceManager.GetString("TableRecordCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reloaded {1} from {0}..
+        /// </summary>
+        internal static string TableReloaded {
+            get {
+                return ResourceManager.GetString("TableReloaded", resourceCulture);
             }
         }
         

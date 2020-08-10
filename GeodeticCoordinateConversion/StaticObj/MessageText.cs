@@ -337,7 +337,7 @@ namespace GeodeticCoordinateConversion
         public static string Greet()
         {
             int h = DateTime.Now.Hour;
-            string pref = rm.GetString("Hello")+ rm.GetString("Comma");
+            string pref = rm.GetString("Hello");
             string suff = rm.GetString("PeriodComma");
             switch (h)
             {
@@ -345,36 +345,36 @@ namespace GeodeticCoordinateConversion
                 case 0:
                 case 1:
                     {
-                        pref = rm.GetString("DeepNight")+ rm.GetString("Comma");
+                        pref = rm.GetString("DeepNight");
                         break;
                     }
                 case 2:
                 case 3:
                 case 4:
                     {
-                        pref = rm.GetString("NightOwl")+ rm.GetString("Comma");
-                        suff = rm.GetString("Comma")+ rm.GetString("Hello");
+                        pref = rm.GetString("NightOwl");
+                        suff = rm.GetString("Comma") + rm.GetString("Hello");
                         break;
                     }
                 case 5:
                 case 6:
                 case 7:
                     {
-                        pref = rm.GetString("NewDay") + rm.GetString("Comma");
+                        pref = rm.GetString("NewDay");
                         break;
                     }
                 case 8:
                 case 9:
                 case 10:
                     {
-                        pref = rm.GetString("GoodMorning") + rm.GetString("Comma");
+                        pref = rm.GetString("GoodMorning");
                         break;
                     }
                 case 11:
                 case 12:
                 case 13:
                     {
-                        pref = rm.GetString("GoodNoon") + rm.GetString("Comma");
+                        pref = rm.GetString("GoodNoon");
                         break;
                     }
                 case 14:
@@ -382,7 +382,7 @@ namespace GeodeticCoordinateConversion
                 case 16:
                 case 17:
                     {
-                        pref = rm.GetString("GoodAfternoon") + rm.GetString("Comma");
+                        pref = rm.GetString("GoodAfternoon");
                         break;
                     }
                 case 18:
@@ -391,21 +391,21 @@ namespace GeodeticCoordinateConversion
                 case 21:
                 case 22:
                     {
-                        pref = rm.GetString("GoodEvening") + rm.GetString("Comma");
+                        pref = rm.GetString("GoodEvening");
                         break;
                     }
                 default:
                     {
-                        pref = rm.GetString("Halo") + rm.GetString("Comma");
+                        pref = rm.GetString("Halo");
                         break;
                     }
             }
-            return pref + Environment.UserName + suff;
+            return pref + rm.GetString("Comma") + Environment.UserName + suff;
         }
         /// <summary>
         /// 用户取消了操作。
         /// </summary>
-        public static string OperationCanceled = "用户取消了操作。";
+        public static string OperationCanceled = rm.GetString("OperationCanceledByUser");
         /// <summary>
         /// 计算结果。
         /// </summary>
@@ -417,7 +417,7 @@ namespace GeodeticCoordinateConversion
         /// <returns></returns>
         public static string ConvertResult(GEOConvertType convertType, int all, int calculated, int success, int failed)
         {
-            return GEODataTables.GetDescription(new GEOConvertType(), (int)convertType) + "完成，共有 " + all + " 条记录，计算了 " + calculated + " 条记录，成功 " + success + " 条，失败 " + failed + " 条。";
+            return string.Format(rm.GetString("ConvertResult"), GEODataTables.GetDescription(new GEOConvertType(), (int)convertType), all,calculated,success,failed);
         }
         /// <summary>
         /// 已加载数据。
@@ -428,7 +428,7 @@ namespace GeodeticCoordinateConversion
         /// <returns></returns>
         public static string DataLoaded(GEODataSourceType dataSourceType, int Count, GEODataType dataType)
         {
-            return "从" + GEODataTables.GetDescription(new GEODataSourceType(), (int)dataSourceType) + "加载了 " + Count + " 条" + GEODataTables.GetDescription(new GEODataType(), (int)dataType) + "记录。";
+            return string.Format(rm.GetString("DataLoaded"), GEODataTables.GetDescription(new GEODataSourceType(), (int)dataSourceType),Count, GEODataTables.GetDescription(new GEODataType(), (int)dataType));
         }
         /// <summary>
         /// 已保存数据。
@@ -439,7 +439,7 @@ namespace GeodeticCoordinateConversion
         /// <returns></returns>
         public static string DataSaved(GEODataSourceType dataSourceType, int Count, GEODataType dataType)
         {
-            return "已将 " + Count + " 条" + GEODataTables.GetDescription(new GEODataType(), (int)dataType) + "记录保存到" + GEODataTables.GetDescription(new GEODataSourceType(), (int)dataSourceType) + "。";
+            return string.Format(rm.GetString("DataSaved"), Count, GEODataTables.GetDescription(new GEODataType(), (int)dataType), GEODataTables.GetDescription(new GEODataSourceType(), (int)dataSourceType));
         }
         /// <summary>
         /// 已加载表列表。
@@ -448,7 +448,7 @@ namespace GeodeticCoordinateConversion
         /// <returns></returns>
         public static string TableListLoaded(int TableCount)
         {
-            return "在数据库 " + new Settings().DBName + " 中找到 " + TableCount + " 张表。";
+            return string.Format(rm.GetString("TableListLoaded"), new Settings().DBName, TableCount);
         }
         /// <summary>
         /// 表记录数。
@@ -458,7 +458,7 @@ namespace GeodeticCoordinateConversion
         /// <returns></returns>
         public static string TableRecordCount(string TableName, int? RecordCount)
         {
-            return TableName + " 表中有 " + RecordCount + " 条记录。";
+            return string.Format(rm.GetString("TableRecordCount"), TableName.Replace(" ","_"),RecordCount);
         }
         /// <summary>
         /// 已重载表。
@@ -467,7 +467,7 @@ namespace GeodeticCoordinateConversion
         /// <returns></returns>
         public static string TableReloaded(string TableName)
         {
-            return "已从数据库 " + new Settings().DBName + " 重载表 " + TableName;
+            return string.Format(rm.GetString("TableReloaded"), new Settings().DBName, TableName.Replace(" ", "_"));
         }
         /// <summary>
         /// 已添加行。
@@ -475,7 +475,7 @@ namespace GeodeticCoordinateConversion
         /// <returns></returns>
         public static string RowAdded()
         {
-            return "添加了1条新的记录。";
+            return rm.GetString("RowAdded");
         }
         /// <summary>
         /// 已删除行。
@@ -484,7 +484,7 @@ namespace GeodeticCoordinateConversion
         /// <returns></returns>
         public static string RowDeleted(int row)
         {
-            return "删除了" + row + "条记录。";
+            return string.Format(rm.GetString("RowDeleted"), row);
         }
         /// <summary>
         /// 数据库转换到文件。
@@ -494,7 +494,7 @@ namespace GeodeticCoordinateConversion
         /// <returns></returns>
         public static string DBSavedToFile(int? CoordCount, int? ZoneCount)
         {
-            return "成功将数据库 " + new Settings().DBName + " 中 " + CoordCount + " 条坐标转换记录和 " + ZoneCount + " 条换带记录导出到文件 " + new Settings().DataFileName + "。";
+            return string.Format(rm.GetString("DBSavedToFile"), new Settings().DBName,CoordCount,ZoneCount, new Settings().DataFileName);
         }
         /// <summary>
         /// 文件转换到数据库。
@@ -504,7 +504,7 @@ namespace GeodeticCoordinateConversion
         /// <returns></returns>
         public static string FileSavedToDB(int? CoordCount, int? ZoneCount)
         {
-            return "成功将文件 " + new Settings().DataFileName + " 中 " + CoordCount + " 条坐标转换记录和 " + ZoneCount + " 条换带记录导入到数据库" + new Settings().DBName + "。";
+            return string.Format(rm.GetString("FileSavedToDB"), new Settings().DataFileName, CoordCount, ZoneCount, new Settings().DBName);
         }
     }
 
@@ -532,7 +532,7 @@ namespace GeodeticCoordinateConversion
         /// </summary>
         public static class DataStatus
         {
-            public static string Selected =rm.GetString("DataStatusSelected");
+            public static string Selected = rm.GetString("DataStatusSelected");
             public static string Dirty = rm.GetString("DataStatusDirty");
             public static string Calculated = rm.GetString("DataStatusCalculated");
             public static string Error = rm.GetString("DataStatusError");
