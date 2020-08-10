@@ -39,7 +39,7 @@
             this.CtrlToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.BottomStatusStrip = new System.Windows.Forms.StatusStrip();
             this.HintLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.TimeStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.TimeLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.TopToolStrip = new System.Windows.Forms.ToolStrip();
             this.SettingsBtn = new System.Windows.Forms.ToolStripButton();
             this.AboutBtn = new System.Windows.Forms.ToolStripButton();
@@ -122,7 +122,7 @@
             this.BottomStatusStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.BottomStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.HintLabel,
-            this.TimeStripStatusLabel});
+            this.TimeLabel});
             this.BottomStatusStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.BottomStatusStrip.Location = new System.Drawing.Point(0, 436);
             this.BottomStatusStrip.Name = "BottomStatusStrip";
@@ -136,13 +136,13 @@
             this.HintLabel.Size = new System.Drawing.Size(101, 20);
             this.HintLabel.Text = "少女祈祷中...";
             // 
-            // TimeStripStatusLabel
+            // TimeLabel
             // 
-            this.TimeStripStatusLabel.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.TimeStripStatusLabel.Image = global::GeodeticCoordinateConversion.Properties.Resources.Clock;
-            this.TimeStripStatusLabel.Name = "TimeStripStatusLabel";
-            this.TimeStripStatusLabel.Size = new System.Drawing.Size(101, 20);
-            this.TimeStripStatusLabel.Text = "少女祈祷中...";
+            this.TimeLabel.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.TimeLabel.Image = global::GeodeticCoordinateConversion.Properties.Resources.Clock;
+            this.TimeLabel.Name = "TimeLabel";
+            this.TimeLabel.Size = new System.Drawing.Size(101, 20);
+            this.TimeLabel.Text = "少女祈祷中...";
             // 
             // TopToolStrip
             // 
@@ -220,7 +220,7 @@
         private System.Windows.Forms.ToolStrip TopToolStrip;
         private System.Windows.Forms.ToolStripButton SettingsBtn;
         private System.Windows.Forms.ToolStripButton AboutBtn;
-        private System.Windows.Forms.ToolStripStatusLabel TimeStripStatusLabel;
+        private System.Windows.Forms.ToolStripStatusLabel TimeLabel;
         private System.Windows.Forms.Timer ClockTimer;
     }
 }

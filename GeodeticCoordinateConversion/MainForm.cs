@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
+using System.Resources;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,7 +16,9 @@ namespace GeodeticCoordinateConversion
 {
     public partial class MainForm : Form
     {
-        private Settings AppSettings = new Settings();
+        private static Settings AppSettings = new Settings();
+        public static ResourceManager rm = new ResourceManager("GeodeticCoordinateConversion.Resources." + AppSettings.Language, Assembly.GetExecutingAssembly());
+
         private FileIO DataFile = new FileIO();
         public string Hint { get => HintLabel.Text; set => HintLabel.Text = value; }
 
@@ -27,6 +30,20 @@ namespace GeodeticCoordinateConversion
         public MainForm()
         {
             InitializeComponent();
+
+            #region Multi-language
+            this.Text = rm.GetString("AppTitle");
+            SettingsBtn.Text = rm.GetString("Settings");
+            AboutBtn.Text = rm.GetString("About");
+
+            CoordTabPage.Text = rm.GetString("CoordConvert");
+            ZoneTabPage.Text = rm.GetString("ZoneConvert");
+            DBTabPage.Text = rm.GetString("DBTab");
+
+            HintLabel.Text = rm.GetString("NowLoading");
+            TimeLabel.Text = rm.GetString("NowLoading");
+            #endregion
+
             CheckForIllegalCrossThreadCalls = false;    //Better to use delegate.
             Hint = Hints.Greet();
 
@@ -232,7 +249,7 @@ namespace GeodeticCoordinateConversion
         //时钟
         private void Clock(object sender, EventArgs e)
         {
-            TimeStripStatusLabel.Text = DateTime.Now.ToLongTimeString();
+            TimeLabel.Text = DateTime.Now.ToLongTimeString();
         }
 
         //打开设置窗口

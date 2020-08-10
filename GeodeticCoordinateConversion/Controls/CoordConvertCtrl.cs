@@ -12,12 +12,15 @@ using System.Diagnostics;
 using System.Threading;
 using System.Xml.Serialization;
 using System.IO;
+using System.Resources;
 
 namespace GeodeticCoordinateConversion
 {
     public partial class CoordConvertLayout : UserControl
     {
         public string Hint { get; private set; }
+        static Properties.Settings S = new Properties.Settings();
+        public static ResourceManager rm = new ResourceManager("GeodeticCoordinateConversion.Resources." + S.Language, Assembly.GetExecutingAssembly());
 
         public delegate void ConvertSelectionChangeEventHander(object sender,string tag, EventArgs e);
         public event ConvertSelectionChangeEventHander ConvertSelectionChange;
@@ -25,6 +28,20 @@ namespace GeodeticCoordinateConversion
         public CoordConvertLayout()
         {
             InitializeComponent();
+
+            #region Multi-language
+            SelectAllBtn.Text = rm.GetString("SelectAll");
+            SelectNoneBtn.Text = rm.GetString("SelectNone");
+            InvertSelectBtn.Text = rm.GetString("InvertSelect");
+            BtnToolTip.SetToolTip(AddRowBtn, rm.GetString("AddNewRow"));
+            BtnToolTip.SetToolTip(DeleteBtn, rm.GetString("DeleteRow"));
+            BtnToolTip.SetToolTip(LoadFileBtn, rm.GetString("LoadFile"));
+            BtnToolTip.SetToolTip(SaveFileBtn, rm.GetString("SaveFile"));
+            BtnToolTip.SetToolTip(LoadDBBtn, rm.GetString("LoadDB"));
+            BtnToolTip.SetToolTip(SaveDBBtn, rm.GetString("SaveDB"));
+            BtnToolTip.SetToolTip(TransferBtn, rm.GetString("TransferToZoneConvert"));
+            #endregion
+
         }
 
         private void CoordConvertLayout_Load(object sender, EventArgs e)

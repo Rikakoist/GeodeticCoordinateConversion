@@ -35,7 +35,7 @@
             this.TransferBtn = new System.Windows.Forms.Button();
             this.SelectAllBtn = new System.Windows.Forms.Button();
             this.SelectNoneBtn = new System.Windows.Forms.Button();
-            this.ReverseSelectBtn = new System.Windows.Forms.Button();
+            this.InvertSelectBtn = new System.Windows.Forms.Button();
             this.DataFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.AddRowBtn = new System.Windows.Forms.Button();
             this.DeleteBtn = new System.Windows.Forms.Button();
@@ -108,6 +108,7 @@
             // 
             // SelectAllBtn
             // 
+            this.SelectAllBtn.AutoSize = true;
             this.SelectAllBtn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.SelectAllBtn.Location = new System.Drawing.Point(67, 0);
             this.SelectAllBtn.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
@@ -121,6 +122,7 @@
             // 
             // SelectNoneBtn
             // 
+            this.SelectNoneBtn.AutoSize = true;
             this.SelectNoneBtn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.SelectNoneBtn.Location = new System.Drawing.Point(0, 0);
             this.SelectNoneBtn.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
@@ -132,18 +134,19 @@
             this.SelectNoneBtn.UseVisualStyleBackColor = true;
             this.SelectNoneBtn.Click += new System.EventHandler(this.ChangeSelection);
             // 
-            // ReverseSelectBtn
+            // InvertSelectBtn
             // 
-            this.ReverseSelectBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.ReverseSelectBtn.Location = new System.Drawing.Point(134, 0);
-            this.ReverseSelectBtn.Margin = new System.Windows.Forms.Padding(0);
-            this.ReverseSelectBtn.Name = "ReverseSelectBtn";
-            this.ReverseSelectBtn.Size = new System.Drawing.Size(57, 23);
-            this.ReverseSelectBtn.TabIndex = 2;
-            this.ReverseSelectBtn.Tag = "ReverseSelect";
-            this.ReverseSelectBtn.Text = "反选";
-            this.ReverseSelectBtn.UseVisualStyleBackColor = true;
-            this.ReverseSelectBtn.Click += new System.EventHandler(this.ChangeSelection);
+            this.InvertSelectBtn.AutoSize = true;
+            this.InvertSelectBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.InvertSelectBtn.Location = new System.Drawing.Point(134, 0);
+            this.InvertSelectBtn.Margin = new System.Windows.Forms.Padding(0);
+            this.InvertSelectBtn.Name = "InvertSelectBtn";
+            this.InvertSelectBtn.Size = new System.Drawing.Size(57, 23);
+            this.InvertSelectBtn.TabIndex = 2;
+            this.InvertSelectBtn.Tag = "ReverseSelect";
+            this.InvertSelectBtn.Text = "反选";
+            this.InvertSelectBtn.UseVisualStyleBackColor = true;
+            this.InvertSelectBtn.Click += new System.EventHandler(this.ChangeSelection);
             // 
             // DataFlowLayoutPanel
             // 
@@ -247,7 +250,7 @@
             this.SelectionFlowLayoutPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.SelectionFlowLayoutPanel.Controls.Add(this.SelectNoneBtn);
             this.SelectionFlowLayoutPanel.Controls.Add(this.SelectAllBtn);
-            this.SelectionFlowLayoutPanel.Controls.Add(this.ReverseSelectBtn);
+            this.SelectionFlowLayoutPanel.Controls.Add(this.InvertSelectBtn);
             this.SelectionFlowLayoutPanel.Location = new System.Drawing.Point(48, 5);
             this.SelectionFlowLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
             this.SelectionFlowLayoutPanel.Name = "SelectionFlowLayoutPanel";
@@ -282,6 +285,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.DGV)).EndInit();
             this.DataFlowLayoutPanel.ResumeLayout(false);
             this.SelectionFlowLayoutPanel.ResumeLayout(false);
+            this.SelectionFlowLayoutPanel.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -298,7 +302,7 @@
         internal System.Windows.Forms.Button TransferBtn;
         internal System.Windows.Forms.Button SelectAllBtn;
         internal System.Windows.Forms.Button SelectNoneBtn;
-        internal System.Windows.Forms.Button ReverseSelectBtn;
+        internal System.Windows.Forms.Button InvertSelectBtn;
         internal System.Windows.Forms.Button AddRowBtn;
         internal System.Windows.Forms.Button DeleteBtn;
         internal System.Windows.Forms.Button LoadFileBtn;

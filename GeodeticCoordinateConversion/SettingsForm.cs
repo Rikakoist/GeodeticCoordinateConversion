@@ -21,6 +21,7 @@ namespace GeodeticCoordinateConversion
         {
             InitializeComponent();
 
+            #region Multi-language
             this.Text = rm.GetString("Settings");
             TitleLabel.Text = rm.GetString("SettingTitle");
 
@@ -31,6 +32,8 @@ namespace GeodeticCoordinateConversion
             LanguageLabel.Text = rm.GetString("Language");
             BtnToolTip.SetToolTip(LanguageComboBox, rm.GetString("SetAppLanguage"));
             WorkFolderLabel.Text = rm.GetString("WorkFolder");
+            BtnToolTip.SetToolTip(WorkFolderBtn, rm.GetString("SelectWorkFolder"));
+            BtnToolTip.SetToolTip(OpenWorkFolder, rm.GetString("OpenWorkFolder"));
             DataFileNameLabel.Text = rm.GetString("DataFileName");
             DBNameLabel.Text = rm.GetString("DBName");
             DefaultEllipseTypeLabel.Text = rm.GetString("DefaultEllipse");
@@ -51,9 +54,13 @@ namespace GeodeticCoordinateConversion
             DirtyColorLabel.Text = rm.GetString("DirtyColor");
             CalculatedColorLabel.Text = rm.GetString("CalculatedColor");
 
+            ConfirmBtn.Text = rm.GetString("Save");
+            CancelBtn.Text = rm.GetString("Cancel");
+            ResetBtn.Text = rm.GetString("ResetDefault");
             BtnToolTip.SetToolTip(ConfirmBtn, rm.GetString("SaveBtnRequireRestart"));
             BtnToolTip.SetToolTip(CancelBtn, rm.GetString("AbortChange"));
             BtnToolTip.SetToolTip(ResetBtn, rm.GetString("ResetDefaultRequireStart"));
+            #endregion
 
             //通用
             LanguageComboBox.DataSource = GEODataTables.GetLangType();

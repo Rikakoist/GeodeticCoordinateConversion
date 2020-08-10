@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Reflection;
+using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,6 +15,9 @@ namespace GeodeticCoordinateConversion
     /// </summary>
     public static class ErrMessage
     {
+        private static Settings S = new Settings();
+        private static ResourceManager rm = new ResourceManager("GeodeticCoordinateConversion.Resources." + S.Language, Assembly.GetExecutingAssembly());
+
         /// <summary>
         /// 坐标转换错误。
         /// </summary>
@@ -322,6 +327,9 @@ namespace GeodeticCoordinateConversion
     /// </summary>
     public static class Hints
     {
+        private static Settings S = new Settings();
+        private static ResourceManager rm = new ResourceManager("GeodeticCoordinateConversion.Resources." + S.Language, Assembly.GetExecutingAssembly());
+
         /// <summary>
         /// 获取问候语。
         /// </summary>
@@ -329,44 +337,44 @@ namespace GeodeticCoordinateConversion
         public static string Greet()
         {
             int h = DateTime.Now.Hour;
-            string pref = "你好，";
-            string suff = "。";
+            string pref = rm.GetString("Hello")+ rm.GetString("Comma");
+            string suff = rm.GetString("PeriodComma");
             switch (h)
             {
                 case 23:
                 case 0:
                 case 1:
                     {
-                        pref = "夜深了，";
+                        pref = rm.GetString("DeepNight")+ rm.GetString("Comma");
                         break;
                     }
                 case 2:
                 case 3:
                 case 4:
                     {
-                        pref = "夜猫子";
-                        suff = "，你好。";
+                        pref = rm.GetString("NightOwl")+ rm.GetString("Comma");
+                        suff = rm.GetString("Comma")+ rm.GetString("Hello");
                         break;
                     }
                 case 5:
                 case 6:
                 case 7:
                     {
-                        pref = "早上好，";
+                        pref = rm.GetString("NewDay") + rm.GetString("Comma");
                         break;
                     }
                 case 8:
                 case 9:
                 case 10:
                     {
-                        pref = "上午好，";
+                        pref = rm.GetString("GoodMorning") + rm.GetString("Comma");
                         break;
                     }
                 case 11:
                 case 12:
                 case 13:
                     {
-                        pref = "中午好，";
+                        pref = rm.GetString("GoodNoon") + rm.GetString("Comma");
                         break;
                     }
                 case 14:
@@ -374,7 +382,7 @@ namespace GeodeticCoordinateConversion
                 case 16:
                 case 17:
                     {
-                        pref = "下午好，";
+                        pref = rm.GetString("GoodAfternoon") + rm.GetString("Comma");
                         break;
                     }
                 case 18:
@@ -383,12 +391,12 @@ namespace GeodeticCoordinateConversion
                 case 21:
                 case 22:
                     {
-                        pref = "晚上好，";
+                        pref = rm.GetString("GoodEvening") + rm.GetString("Comma");
                         break;
                     }
                 default:
                     {
-                        pref = "哈喽，";
+                        pref = rm.GetString("Halo") + rm.GetString("Comma");
                         break;
                     }
             }
@@ -509,10 +517,6 @@ namespace GeodeticCoordinateConversion
         /// 当前时间。
         /// </summary>
         public static string Now = DateTime.Now.ToString("yyyyMMddHHmmss");
-        /// <summary>
-        /// 最后编辑于。
-        /// </summary>
-        public static string LastModified = "最后编辑于";
     }
 
     /// <summary>
@@ -520,15 +524,18 @@ namespace GeodeticCoordinateConversion
     /// </summary>
     public static class DBStr
     {
+        private static Settings S = new Settings();
+        private static ResourceManager rm = new ResourceManager("GeodeticCoordinateConversion.Resources." + S.Language, Assembly.GetExecutingAssembly());
+
         /// <summary>
         /// 数据状态。
         /// </summary>
         public static class DataStatus
         {
-            public static string Selected = "对象是否选中。";
-            public static string Dirty = "对象是否为脏数据。";
-            public static string Calculated = "对象是否已计算。";
-            public static string Error = "对象是否有计算错误。";
+            public static string Selected =rm.GetString("DataStatusSelected");
+            public static string Dirty = rm.GetString("DataStatusDirty");
+            public static string Calculated = rm.GetString("DataStatusCalculated");
+            public static string Error = rm.GetString("DataStatusError");
         }
 
         /// <summary>
@@ -536,10 +543,10 @@ namespace GeodeticCoordinateConversion
         /// </summary>
         public static class CoordConvert
         {
-            public static string Description = "坐标转换";
-            public static string UID = "坐标转换对象的GUID。";
-            public static string BL = "坐标转换对象包含的地理经纬度对象的GUID。";
-            public static string Gauss = "坐标转换对象包含的高斯坐标对象的GUID。";
+            public static string Description = rm.GetString("CoordConvert");
+            public static string UID = rm.GetString("CoordConvertUID");
+            public static string BL = rm.GetString("CoordConvertBL");
+            public static string Gauss = rm.GetString("CoordConvertGauss");
         }
 
         /// <summary>
@@ -547,10 +554,10 @@ namespace GeodeticCoordinateConversion
         /// </summary>
         public static class ZoneConvert
         {
-            public static string Description = "换带计算";
-            public static string UID = "换带对象的GUID。";
-            public static string Gauss6 = "换带对象包含的高斯6°带坐标对象的GUID。";
-            public static string Gauss3 = "换带对象包含的高斯3°带坐标对象的GUID。";
+            public static string Description = rm.GetString("ZoneConvert");
+            public static string UID = rm.GetString("ZoneConvertUID");
+            public static string Gauss6 = rm.GetString("ZoneConvertGauss6");
+            public static string Gauss3 = rm.GetString("ZoneConvertGauss3");
         }
 
         /// <summary>
@@ -558,13 +565,13 @@ namespace GeodeticCoordinateConversion
         /// </summary>
         public static class GaussCoord
         {
-            public static string Description = "高斯坐标";
-            public static string UID = "高斯坐标对象的GUID。";
-            public static string X = "带内X坐标。";
-            public static string Y = "带内Y坐标。";
-            public static string EllipseType = "高斯坐标的椭球类型。";
-            public static string ZoneType = "高斯坐标的分带类型。";
-            public static string Zone = "高斯坐标带号。";
+            public static string Description = rm.GetString("GaussCoord");
+            public static string UID = rm.GetString("GaussCoordUID");
+            public static string X = rm.GetString("GaussCoordX");
+            public static string Y = rm.GetString("GaussCoordY");
+            public static string EllipseType = rm.GetString("GaussCoordEllipseType");
+            public static string ZoneType = rm.GetString("GaussCoordZoneType");
+            public static string Zone = rm.GetString("GaussCoordZone");
         }
 
         /// <summary>
@@ -572,12 +579,12 @@ namespace GeodeticCoordinateConversion
         /// </summary>
         public static class GEOBL
         {
-            public static string Description = "地理经纬度";
-            public static string UID = "地理经纬度对象的GUID。";
-            public static string B = "表示纬度的字符串。";
-            public static string L = "表示经度的字符串。";
-            public static string EllipseType = "地理经纬度的椭球类型。";
-            public static string ZoneType = "地理经纬度的分带类型。";
+            public static string Description = rm.GetString("GEOBL");
+            public static string UID = rm.GetString("GEOBLUID");
+            public static string B = rm.GetString("GEOBLB");
+            public static string L = rm.GetString("GEOBLL");
+            public static string EllipseType = rm.GetString("GEOBLEllipseType");
+            public static string ZoneType = rm.GetString("GEOBLZoneType");
         }
     }
 }

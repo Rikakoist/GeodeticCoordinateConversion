@@ -61,11 +61,38 @@ namespace GeodeticCoordinateConversion.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Abort changed.
+        ///   Looks up a localized string similar to Abort changed settings.
         /// </summary>
         internal static string AbortChange {
             get {
                 return ResourceManager.GetString("AbortChange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        internal static string About {
+            get {
+                return ResourceManager.GetString("About", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add new record to current table.
+        /// </summary>
+        internal static string AddNewRecordToTable {
+            get {
+                return ResourceManager.GetString("AddNewRecordToTable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add new row.
+        /// </summary>
+        internal static string AddNewRow {
+            get {
+                return ResourceManager.GetString("AddNewRow", resourceCulture);
             }
         }
         
@@ -75,6 +102,15 @@ namespace GeodeticCoordinateConversion.Resources {
         internal static string Appearance {
             get {
                 return ResourceManager.GetString("Appearance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geodetic coordinate conversion applet.
+        /// </summary>
+        internal static string AppTitle {
+            get {
+                return ResourceManager.GetString("AppTitle", resourceCulture);
             }
         }
         
@@ -133,6 +169,51 @@ namespace GeodeticCoordinateConversion.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to , .
+        /// </summary>
+        internal static string Comma {
+            get {
+                return ResourceManager.GetString("Comma", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Coord convert.
+        /// </summary>
+        internal static string CoordConvert {
+            get {
+                return ResourceManager.GetString("CoordConvert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GUID of GEOBL in current record..
+        /// </summary>
+        internal static string CoordConvertBL {
+            get {
+                return ResourceManager.GetString("CoordConvertBL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GUID of Gauss coord in current record..
+        /// </summary>
+        internal static string CoordConvertGauss {
+            get {
+                return ResourceManager.GetString("CoordConvertGauss", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GUID of coord convert record..
+        /// </summary>
+        internal static string CoordConvertUID {
+            get {
+                return ResourceManager.GetString("CoordConvertUID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Correct record color.
         /// </summary>
         internal static string CorrectColor {
@@ -151,11 +232,56 @@ namespace GeodeticCoordinateConversion.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Data filen ame.
+        ///   Looks up a localized string similar to Data file name.
         /// </summary>
         internal static string DataFileName {
             get {
                 return ResourceManager.GetString("DataFileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Record calculated..
+        /// </summary>
+        internal static string DataStatusCalculated {
+            get {
+                return ResourceManager.GetString("DataStatusCalculated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Record dirty..
+        /// </summary>
+        internal static string DataStatusDirty {
+            get {
+                return ResourceManager.GetString("DataStatusDirty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Record has calculation error..
+        /// </summary>
+        internal static string DataStatusError {
+            get {
+                return ResourceManager.GetString("DataStatusError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Record selected..
+        /// </summary>
+        internal static string DataStatusSelected {
+            get {
+                return ResourceManager.GetString("DataStatusSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Table.
+        /// </summary>
+        internal static string DataTable {
+            get {
+                return ResourceManager.GetString("DataTable", resourceCulture);
             }
         }
         
@@ -165,6 +291,24 @@ namespace GeodeticCoordinateConversion.Resources {
         internal static string DBName {
             get {
                 return ResourceManager.GetString("DBName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View data.
+        /// </summary>
+        internal static string DBTab {
+            get {
+                return ResourceManager.GetString("DBTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It&apos;s Deep♂Dark♂Fantasy.
+        /// </summary>
+        internal static string DeepNight {
+            get {
+                return ResourceManager.GetString("DeepNight", resourceCulture);
             }
         }
         
@@ -214,11 +358,38 @@ namespace GeodeticCoordinateConversion.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete selected row (s).
+        /// </summary>
+        internal static string DeleteRow {
+            get {
+                return ResourceManager.GetString("DeleteRow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete selected record (s).
+        /// </summary>
+        internal static string DeleteSelectedRecord {
+            get {
+                return ResourceManager.GetString("DeleteSelectedRecord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dirty record color.
         /// </summary>
         internal static string DirtyColor {
             get {
                 return ResourceManager.GetString("DirtyColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to English.
+        /// </summary>
+        internal static string English {
+            get {
+                return ResourceManager.GetString("English", resourceCulture);
             }
         }
         
@@ -232,11 +403,191 @@ namespace GeodeticCoordinateConversion.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Gauss coord.
+        /// </summary>
+        internal static string GaussCoord {
+            get {
+                return ResourceManager.GetString("GaussCoord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ellipse type of current Gauss coord record..
+        /// </summary>
+        internal static string GaussCoordEllipseType {
+            get {
+                return ResourceManager.GetString("GaussCoordEllipseType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GUID of Gauss coord record..
+        /// </summary>
+        internal static string GaussCoordUID {
+            get {
+                return ResourceManager.GetString("GaussCoordUID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to X coordinate in zone..
+        /// </summary>
+        internal static string GaussCoordX {
+            get {
+                return ResourceManager.GetString("GaussCoordX", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Y coordinate in zone..
+        /// </summary>
+        internal static string GaussCoordY {
+            get {
+                return ResourceManager.GetString("GaussCoordY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zone num of current Gauss coord record..
+        /// </summary>
+        internal static string GaussCoordZone {
+            get {
+                return ResourceManager.GetString("GaussCoordZone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zone type of current Gauss coord record..
+        /// </summary>
+        internal static string GaussCoordZoneType {
+            get {
+                return ResourceManager.GetString("GaussCoordZoneType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to General.
         /// </summary>
         internal static string General {
             get {
                 return ResourceManager.GetString("General", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geodetic BL.
+        /// </summary>
+        internal static string GEOBL {
+            get {
+                return ResourceManager.GetString("GEOBL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to String that representing latitude..
+        /// </summary>
+        internal static string GEOBLB {
+            get {
+                return ResourceManager.GetString("GEOBLB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ellipse type of current GEOBL record..
+        /// </summary>
+        internal static string GEOBLEllipseType {
+            get {
+                return ResourceManager.GetString("GEOBLEllipseType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to String that representing longitude..
+        /// </summary>
+        internal static string GEOBLL {
+            get {
+                return ResourceManager.GetString("GEOBLL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GUID of GEOBL record..
+        /// </summary>
+        internal static string GEOBLUID {
+            get {
+                return ResourceManager.GetString("GEOBLUID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zone type of current GEOBL record..
+        /// </summary>
+        internal static string GEOBLZoneType {
+            get {
+                return ResourceManager.GetString("GEOBLZoneType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Good afternoon.
+        /// </summary>
+        internal static string GoodAfternoon {
+            get {
+                return ResourceManager.GetString("GoodAfternoon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Good evening.
+        /// </summary>
+        internal static string GoodEvening {
+            get {
+                return ResourceManager.GetString("GoodEvening", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Good morning.
+        /// </summary>
+        internal static string GoodMorning {
+            get {
+                return ResourceManager.GetString("GoodMorning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Good noon.
+        /// </summary>
+        internal static string GoodNoon {
+            get {
+                return ResourceManager.GetString("GoodNoon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Halo.
+        /// </summary>
+        internal static string Halo {
+            get {
+                return ResourceManager.GetString("Halo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hello.
+        /// </summary>
+        internal static string Hello {
+            get {
+                return ResourceManager.GetString("Hello", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invert selection.
+        /// </summary>
+        internal static string InvertSelect {
+            get {
+                return ResourceManager.GetString("InvertSelect", resourceCulture);
             }
         }
         
@@ -250,11 +601,101 @@ namespace GeodeticCoordinateConversion.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Load records from database.
+        /// </summary>
+        internal static string LoadDB {
+            get {
+                return ResourceManager.GetString("LoadDB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import data from file.
+        /// </summary>
+        internal static string LoadDBFromFile {
+            get {
+                return ResourceManager.GetString("LoadDBFromFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load records from file.
+        /// </summary>
+        internal static string LoadFile {
+            get {
+                return ResourceManager.GetString("LoadFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It&apos;s a new day.
+        /// </summary>
+        internal static string NewDay {
+            get {
+                return ResourceManager.GetString("NewDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Night owl.
+        /// </summary>
+        internal static string NightOwl {
+            get {
+                return ResourceManager.GetString("NightOwl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Now loading....
+        /// </summary>
+        internal static string NowLoading {
+            get {
+                return ResourceManager.GetString("NowLoading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open work folder.
         /// </summary>
         internal static string OpenWorkFolder {
             get {
                 return ResourceManager.GetString("OpenWorkFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Operation canceled by user.
+        /// </summary>
+        internal static string OperationCanceledByUser {
+            get {
+                return ResourceManager.GetString("OperationCanceledByUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ..
+        /// </summary>
+        internal static string PeriodComma {
+            get {
+                return ResourceManager.GetString("PeriodComma", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Project address on Github.
+        /// </summary>
+        internal static string ProjectAddressOnGithub {
+            get {
+                return ResourceManager.GetString("ProjectAddressOnGithub", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reload current table from database.
+        /// </summary>
+        internal static string ReloadTable {
+            get {
+                return ResourceManager.GetString("ReloadTable", resourceCulture);
             }
         }
         
@@ -295,11 +736,65 @@ namespace GeodeticCoordinateConversion.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save records to database.
+        /// </summary>
+        internal static string SaveDB {
+            get {
+                return ResourceManager.GetString("SaveDB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export database to file.
+        /// </summary>
+        internal static string SaveDBToFile {
+            get {
+                return ResourceManager.GetString("SaveDBToFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save records to file.
+        /// </summary>
+        internal static string SaveFile {
+            get {
+                return ResourceManager.GetString("SaveFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save changes made to selected table.
+        /// </summary>
+        internal static string SaveTableChanges {
+            get {
+                return ResourceManager.GetString("SaveTableChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select all.
+        /// </summary>
+        internal static string SelectAll {
+            get {
+                return ResourceManager.GetString("SelectAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Selected record color.
         /// </summary>
         internal static string SelectedColor {
             get {
                 return ResourceManager.GetString("SelectedColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select none.
+        /// </summary>
+        internal static string SelectNone {
+            get {
+                return ResourceManager.GetString("SelectNone", resourceCulture);
             }
         }
         
@@ -340,6 +835,15 @@ namespace GeodeticCoordinateConversion.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Simplified Chinese.
+        /// </summary>
+        internal static string SimplifiedChinese {
+            get {
+                return ResourceManager.GetString("SimplifiedChinese", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Switch tabpage after transferring coord convert to zone convert.
         /// </summary>
         internal static string SwitchAfterGaussTransfer {
@@ -349,11 +853,56 @@ namespace GeodeticCoordinateConversion.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Transfer Gauss coord to zone convert.
+        /// </summary>
+        internal static string TransferToZoneConvert {
+            get {
+                return ResourceManager.GetString("TransferToZoneConvert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Work folder.
         /// </summary>
         internal static string WorkFolder {
             get {
                 return ResourceManager.GetString("WorkFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zone convert.
+        /// </summary>
+        internal static string ZoneConvert {
+            get {
+                return ResourceManager.GetString("ZoneConvert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GUID of Gauss 3° coord in current record..
+        /// </summary>
+        internal static string ZoneConvertGauss3 {
+            get {
+                return ResourceManager.GetString("ZoneConvertGauss3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GUID of Gauss 6° coord in current record..
+        /// </summary>
+        internal static string ZoneConvertGauss6 {
+            get {
+                return ResourceManager.GetString("ZoneConvertGauss6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GUID of zone convert record..
+        /// </summary>
+        internal static string ZoneConvertUID {
+            get {
+                return ResourceManager.GetString("ZoneConvertUID", resourceCulture);
             }
         }
     }

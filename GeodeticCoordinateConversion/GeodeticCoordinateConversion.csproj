@@ -190,9 +190,6 @@
     <None Include="Resources\Floppydisk.png" />
     <None Include="Resources\Load.png" />
     <None Include="Resources\Multiply.png" />
-    <EmbeddedResource Include="GeoConvertDB.mdb">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">

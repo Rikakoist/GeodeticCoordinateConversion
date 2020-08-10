@@ -157,10 +157,8 @@
             this.WebLinkLabel.AutoSize = true;
             this.WebLinkLabel.Location = new System.Drawing.Point(140, 210);
             this.WebLinkLabel.Name = "WebLinkLabel";
-            this.WebLinkLabel.Size = new System.Drawing.Size(86, 13);
+            this.WebLinkLabel.Size = new System.Drawing.Size(0, 13);
             this.WebLinkLabel.TabIndex = 25;
-            this.WebLinkLabel.TabStop = true;
-            this.WebLinkLabel.Text = "项目Github地址";
             this.WebLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.OpenBrowser);
             // 
             // AboutApp

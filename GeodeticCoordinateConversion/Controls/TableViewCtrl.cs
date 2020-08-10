@@ -10,12 +10,17 @@ using System.Windows.Forms;
 using System.Data.OleDb;
 using System.IO;
 using GeodeticCoordinateConversion.Properties;
+using System.Resources;
+using System.Reflection;
 
 namespace GeodeticCoordinateConversion
 {
     public partial class TableViewCtrl : UserControl
     {
         DataSet ds = new DataSet();
+        static Properties.Settings S = new Properties.Settings();
+        public static ResourceManager rm = new ResourceManager("GeodeticCoordinateConversion.Resources." + S.Language, Assembly.GetExecutingAssembly());
+
         string tn;
         private string hint;
         public string Hint
@@ -32,6 +37,17 @@ namespace GeodeticCoordinateConversion
         public TableViewCtrl()
         {
             InitializeComponent();
+
+            #region Multi-language
+            TableLabel.Text = rm.GetString("DataTable");
+            CtrlToolTip.SetToolTip(ReloadTableBtn, rm.GetString("ReloadTable"));
+            CtrlToolTip.SetToolTip(SaveDBToFileBtn, rm.GetString("SaveDBToFile"));
+            CtrlToolTip.SetToolTip(LoadDBFromFileBtn, rm.GetString("LoadDBFromFile"));
+            CtrlToolTip.SetToolTip(SaveDBChangesBtn, rm.GetString("SaveTableChanges"));
+            CtrlToolTip.SetToolTip(AddRowBtn, rm.GetString("AddNewRecordToTable"));
+            CtrlToolTip.SetToolTip(DeleteBtn, rm.GetString("DeleteSelectedRecord"));
+            #endregion
+
             CheckForIllegalCrossThreadCalls = false;
         }
 

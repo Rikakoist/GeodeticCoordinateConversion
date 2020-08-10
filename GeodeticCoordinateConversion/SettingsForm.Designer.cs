@@ -50,6 +50,8 @@
             this.OpenWorkFolder = new System.Windows.Forms.Button();
             this.SettingsTabControl = new System.Windows.Forms.TabControl();
             this.GeneralTabPage = new System.Windows.Forms.TabPage();
+            this.LanguageLabel = new System.Windows.Forms.Label();
+            this.LanguageComboBox = new System.Windows.Forms.ComboBox();
             this.DataTabPage = new System.Windows.Forms.TabPage();
             this.ClearExistingRecordFile2DBCheckBox = new System.Windows.Forms.CheckBox();
             this.ClearExistingRecordDB2FileCheckBox = new System.Windows.Forms.CheckBox();
@@ -70,8 +72,6 @@
             this.SelectedColorBtn = new System.Windows.Forms.Button();
             this.SelectedColorLabel = new System.Windows.Forms.Label();
             this.PicPictureBox = new System.Windows.Forms.PictureBox();
-            this.LanguageLabel = new System.Windows.Forms.Label();
-            this.LanguageComboBox = new System.Windows.Forms.ComboBox();
             this.BtnFlowLayoutPanel.SuspendLayout();
             this.SettingsTabControl.SuspendLayout();
             this.GeneralTabPage.SuspendLayout();
@@ -122,7 +122,6 @@
             this.WorkFolderBtn.Size = new System.Drawing.Size(40, 25);
             this.WorkFolderBtn.TabIndex = 1;
             this.WorkFolderBtn.Text = "...";
-            this.BtnToolTip.SetToolTip(this.WorkFolderBtn, "选择工作文件夹");
             this.WorkFolderBtn.UseVisualStyleBackColor = true;
             this.WorkFolderBtn.Click += new System.EventHandler(this.BrowseWorkFolder);
             // 
@@ -186,7 +185,6 @@
             this.DefaultEllipseTypeComboBox.Name = "DefaultEllipseTypeComboBox";
             this.DefaultEllipseTypeComboBox.Size = new System.Drawing.Size(189, 27);
             this.DefaultEllipseTypeComboBox.TabIndex = 5;
-            this.BtnToolTip.SetToolTip(this.DefaultEllipseTypeComboBox, "添加新记录时的默认椭球");
             // 
             // DefaultZoneTypeLabel
             // 
@@ -208,7 +206,6 @@
             this.DefaultZoneTypeComboBox.Name = "DefaultZoneTypeComboBox";
             this.DefaultZoneTypeComboBox.Size = new System.Drawing.Size(189, 27);
             this.DefaultZoneTypeComboBox.TabIndex = 6;
-            this.BtnToolTip.SetToolTip(this.DefaultZoneTypeComboBox, "添加新记录时的默认分带");
             // 
             // BtnFlowLayoutPanel
             // 
@@ -232,7 +229,6 @@
             this.ConfirmBtn.Size = new System.Drawing.Size(80, 30);
             this.ConfirmBtn.TabIndex = 0;
             this.ConfirmBtn.Text = "保存";
-            this.BtnToolTip.SetToolTip(this.ConfirmBtn, "保存更改（需要重启）");
             this.ConfirmBtn.UseVisualStyleBackColor = true;
             this.ConfirmBtn.Click += new System.EventHandler(this.SaveChanges);
             // 
@@ -245,7 +241,6 @@
             this.CancelBtn.Size = new System.Drawing.Size(80, 30);
             this.CancelBtn.TabIndex = 1;
             this.CancelBtn.Text = "取消";
-            this.BtnToolTip.SetToolTip(this.CancelBtn, "放弃更改");
             this.CancelBtn.UseVisualStyleBackColor = true;
             // 
             // ResetBtn
@@ -257,7 +252,6 @@
             this.ResetBtn.Size = new System.Drawing.Size(99, 30);
             this.ResetBtn.TabIndex = 2;
             this.ResetBtn.Text = "恢复默认值";
-            this.BtnToolTip.SetToolTip(this.ResetBtn, "将所有设置恢复到默认值（需要重启）");
             this.ResetBtn.UseVisualStyleBackColor = true;
             this.ResetBtn.Click += new System.EventHandler(this.ResetDefault);
             // 
@@ -270,7 +264,6 @@
             this.OpenWorkFolder.Name = "OpenWorkFolder";
             this.OpenWorkFolder.Size = new System.Drawing.Size(25, 25);
             this.OpenWorkFolder.TabIndex = 2;
-            this.BtnToolTip.SetToolTip(this.OpenWorkFolder, "打开工作文件夹");
             this.OpenWorkFolder.UseVisualStyleBackColor = true;
             this.OpenWorkFolder.Click += new System.EventHandler(this.OpenFolder);
             // 
@@ -311,6 +304,27 @@
             this.GeneralTabPage.TabIndex = 0;
             this.GeneralTabPage.Text = "通用";
             this.GeneralTabPage.UseVisualStyleBackColor = true;
+            // 
+            // LanguageLabel
+            // 
+            this.LanguageLabel.AutoSize = true;
+            this.LanguageLabel.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LanguageLabel.Location = new System.Drawing.Point(39, 35);
+            this.LanguageLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.LanguageLabel.Name = "LanguageLabel";
+            this.LanguageLabel.Size = new System.Drawing.Size(58, 22);
+            this.LanguageLabel.TabIndex = 0;
+            this.LanguageLabel.Text = "语言：";
+            this.LanguageLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // LanguageComboBox
+            // 
+            this.LanguageComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.LanguageComboBox.FormattingEnabled = true;
+            this.LanguageComboBox.Location = new System.Drawing.Point(359, 33);
+            this.LanguageComboBox.Name = "LanguageComboBox";
+            this.LanguageComboBox.Size = new System.Drawing.Size(189, 27);
+            this.LanguageComboBox.TabIndex = 0;
             // 
             // DataTabPage
             // 
@@ -568,27 +582,6 @@
             this.PicPictureBox.Size = new System.Drawing.Size(64, 64);
             this.PicPictureBox.TabIndex = 0;
             this.PicPictureBox.TabStop = false;
-            // 
-            // LanguageLabel
-            // 
-            this.LanguageLabel.AutoSize = true;
-            this.LanguageLabel.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LanguageLabel.Location = new System.Drawing.Point(39, 35);
-            this.LanguageLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.LanguageLabel.Name = "LanguageLabel";
-            this.LanguageLabel.Size = new System.Drawing.Size(58, 22);
-            this.LanguageLabel.TabIndex = 0;
-            this.LanguageLabel.Text = "语言：";
-            this.LanguageLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // LanguageComboBox
-            // 
-            this.LanguageComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.LanguageComboBox.FormattingEnabled = true;
-            this.LanguageComboBox.Location = new System.Drawing.Point(359, 33);
-            this.LanguageComboBox.Name = "LanguageComboBox";
-            this.LanguageComboBox.Size = new System.Drawing.Size(189, 27);
-            this.LanguageComboBox.TabIndex = 0;
             // 
             // SettingsForm
             // 

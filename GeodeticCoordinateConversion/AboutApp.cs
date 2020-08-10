@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
+using System.Resources;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -11,6 +12,9 @@ namespace GeodeticCoordinateConversion
 {
     partial class AboutApp : Form
     {
+        static Properties.Settings S = new Properties.Settings();
+        public static ResourceManager rm = new ResourceManager("GeodeticCoordinateConversion.Resources." + S.Language, Assembly.GetExecutingAssembly());
+
         public AboutApp()
         {
             InitializeComponent();
@@ -20,6 +24,8 @@ namespace GeodeticCoordinateConversion
             this.labelCopyright.Text = AssemblyCopyright;
             this.labelCompanyName.Text = AssemblyCompany;
             this.textBoxDescription.Text = AssemblyDescription;
+
+            WebLinkLabel.Text = rm.GetString("ProjectAddressOnGithub");
         }
 
         private void OpenBrowser(object sender, LinkLabelLinkClickedEventArgs e)

@@ -119,107 +119,373 @@
   </resheader>
   <data name="Appearance" xml:space="preserve">
     <value>外观</value>
+    <comment>SettingsForm</comment>
   </data>
   <data name="CalculatedColor" xml:space="preserve">
     <value>已计算数据颜色</value>
+    <comment>SettingsForm</comment>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>取消</value>
+    <comment>SettingsForm</comment>
   </data>
   <data name="ClearExistingRecordData2DB" xml:space="preserve">
     <value>将应用数据保存到数据库时，清空目标数据库记录</value>
+    <comment>SettingsForm</comment>
   </data>
   <data name="ClearExistingRecordData2File" xml:space="preserve">
     <value>将应用数据保存到文件时，清空目标文件记录</value>
+    <comment>SettingsForm</comment>
   </data>
   <data name="ClearExistingRecordDB2File" xml:space="preserve">
     <value>将数据库导出到文件时，清空目标文件记录</value>
+    <comment>SettingsForm</comment>
   </data>
   <data name="ClearExistingRecordFile2DB" xml:space="preserve">
     <value>将文件数据导入到数据库时，清空目标数据库记录</value>
+    <comment>SettingsForm</comment>
   </data>
   <data name="CorrectColor" xml:space="preserve">
     <value>正确记录颜色</value>
+    <comment>SettingsForm</comment>
   </data>
   <data name="Data" xml:space="preserve">
     <value>数据</value>
+    <comment>SettingsForm</comment>
   </data>
   <data name="DataFileName" xml:space="preserve">
     <value>数据文件名</value>
+    <comment>SettingsForm</comment>
   </data>
   <data name="DBName" xml:space="preserve">
     <value>数据库文件名</value>
+    <comment>SettingsForm</comment>
   </data>
   <data name="DefaultCellColor" xml:space="preserve">
     <value>默认单元格颜色</value>
+    <comment>SettingsForm</comment>
   </data>
   <data name="DefaultEllipse" xml:space="preserve">
     <value>默认椭球</value>
+    <comment>SettingsForm</comment>
   </data>
   <data name="DefaultEllipseAddingRow" xml:space="preserve">
     <value>添加新记录时的默认椭球</value>
+    <comment>SettingsForm</comment>
   </data>
   <data name="DefaultZoneType" xml:space="preserve">
     <value>默认分带</value>
+    <comment>SettingsForm</comment>
   </data>
   <data name="DefaultZoneTypeAddingRow" xml:space="preserve">
     <value>添加新记录时的默认分带</value>
+    <comment>SettingsForm</comment>
   </data>
   <data name="DirtyColor" xml:space="preserve">
     <value>脏数据颜色</value>
+    <comment>SettingsForm</comment>
   </data>
   <data name="ErrorColor" xml:space="preserve">
     <value>错误记录颜色</value>
+    <comment>SettingsForm</comment>
   </data>
   <data name="General" xml:space="preserve">
     <value>通用</value>
+    <comment>SettingsForm</comment>
   </data>
   <data name="OpenWorkFolder" xml:space="preserve">
     <value>打开工作文件夹</value>
+    <comment>SettingsForm</comment>
   </data>
   <data name="ResetDefault" xml:space="preserve">
     <value>恢复默认值</value>
+    <comment>SettingsForm</comment>
   </data>
   <data name="Save" xml:space="preserve">
     <value>保存</value>
+    <comment>SettingsForm</comment>
   </data>
   <data name="SelectedColor" xml:space="preserve">
     <value>选中记录颜色</value>
+    <comment>SettingsForm</comment>
   </data>
   <data name="SelectWorkFolder" xml:space="preserve">
     <value>选择工作文件夹</value>
+    <comment>SettingsForm</comment>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>设置</value>
   </data>
   <data name="SettingTitle" xml:space="preserve">
     <value>大地坐标转换设置</value>
+    <comment>SettingsForm</comment>
   </data>
   <data name="SwitchAfterGaussTransfer" xml:space="preserve">
     <value>坐标转换转移至换带后，自动切换标签页</value>
+    <comment>SettingsForm</comment>
   </data>
   <data name="WorkFolder" xml:space="preserve">
     <value>工作文件夹</value>
+    <comment>SettingsForm</comment>
   </data>
   <data name="Language" xml:space="preserve">
     <value>语言</value>
+    <comment>SettingsForm</comment>
   </data>
   <data name="SetAppLanguage" xml:space="preserve">
     <value>设置应用的语言</value>
+    <comment>SettingsForm</comment>
   </data>
   <data name="AbortChange" xml:space="preserve">
     <value>放弃更改</value>
+    <comment>SettingsForm</comment>
   </data>
   <data name="English" xml:space="preserve">
     <value>英语</value>
+    <comment>SettingsForm</comment>
   </data>
   <data name="ResetDefaultRequireStart" xml:space="preserve">
     <value>将所有设置恢复到默认值（需要重启）</value>
+    <comment>SettingsForm</comment>
   </data>
   <data name="SaveBtnRequireRestart" xml:space="preserve">
     <value>保存更改（需要重启）</value>
+    <comment>SettingsForm</comment>
   </data>
   <data name="SimplifiedChinese" xml:space="preserve">
     <value>简体中文</value>
+    <comment>SettingsForm</comment>
+  </data>
+  <data name="About" xml:space="preserve">
+    <value>关于</value>
+    <comment>SettingsForm</comment>
+  </data>
+  <data name="AddNewRecordToTable" xml:space="preserve">
+    <value>向当前表添加一条记录</value>
+    <comment>TableViewCtrl</comment>
+  </data>
+  <data name="AddNewRow" xml:space="preserve">
+    <value>添加新行</value>
+    <comment>CoordConvertLayout</comment>
+  </data>
+  <data name="AppTitle" xml:space="preserve">
+    <value>大地坐标转换实习程序</value>
+    <comment>MainForm</comment>
+  </data>
+  <data name="Comma" xml:space="preserve">
+    <value>，</value>
+    <comment>Hints.Greet</comment>
+  </data>
+  <data name="CoordConvert" xml:space="preserve">
+    <value>坐标转换</value>
+  </data>
+  <data name="CoordConvertBL" xml:space="preserve">
+    <value>坐标转换对象包含的地理经纬度对象的GUID。</value>
+    <comment>DBStr.CoordConvert</comment>
+  </data>
+  <data name="CoordConvertGauss" xml:space="preserve">
+    <value>坐标转换对象包含的高斯坐标对象的GUID。</value>
+    <comment>DBStr.CoordConvert</comment>
+  </data>
+  <data name="CoordConvertUID" xml:space="preserve">
+    <value>坐标转换对象的GUID。</value>
+    <comment>DBStr.CoordConvert</comment>
+  </data>
+  <data name="DataStatusCalculated" xml:space="preserve">
+    <value>对象是否已计算。</value>
+    <comment>DBStr.DataStatus</comment>
+  </data>
+  <data name="DataStatusDirty" xml:space="preserve">
+    <value>对象是否为脏数据。</value>
+    <comment>DBStr.DataStatus</comment>
+  </data>
+  <data name="DataStatusError" xml:space="preserve">
+    <value>对象是否有计算错误。</value>
+    <comment>DBStr.DataStatus</comment>
+  </data>
+  <data name="DataStatusSelected" xml:space="preserve">
+    <value>对象是否选中。</value>
+    <comment>DBStr.DataStatus</comment>
+  </data>
+  <data name="DataTable" xml:space="preserve">
+    <value>数据表</value>
+    <comment>TableViewCtrl</comment>
+  </data>
+  <data name="DBTab" xml:space="preserve">
+    <value>数据查看</value>
+    <comment>MainForm</comment>
+  </data>
+  <data name="DeepNight" xml:space="preserve">
+    <value>夜深了</value>
+    <comment>Hints.Greet</comment>
+  </data>
+  <data name="DeleteRow" xml:space="preserve">
+    <value>删除选中行</value>
+    <comment>CoordConvertLayout</comment>
+  </data>
+  <data name="DeleteSelectedRecord" xml:space="preserve">
+    <value>删除选中的记录</value>
+    <comment>TableViewCtrl</comment>
+  </data>
+  <data name="GaussCoord" xml:space="preserve">
+    <value>高斯坐标</value>
+  </data>
+  <data name="GaussCoordEllipseType" xml:space="preserve">
+    <value>高斯坐标的椭球类型。</value>
+    <comment>DBStr.GaussCoord</comment>
+  </data>
+  <data name="GaussCoordUID" xml:space="preserve">
+    <value>高斯坐标对象的GUID。</value>
+    <comment>DBStr.GaussCoord</comment>
+  </data>
+  <data name="GaussCoordX" xml:space="preserve">
+    <value>带内X坐标。</value>
+    <comment>DBStr.GaussCoord</comment>
+  </data>
+  <data name="GaussCoordY" xml:space="preserve">
+    <value>带内Y坐标。</value>
+    <comment>DBStr.GaussCoord</comment>
+  </data>
+  <data name="GaussCoordZone" xml:space="preserve">
+    <value>高斯坐标带号。</value>
+    <comment>DBStr.GaussCoord</comment>
+  </data>
+  <data name="GaussCoordZoneType" xml:space="preserve">
+    <value>高斯坐标的分带类型。</value>
+    <comment>DBStr.GaussCoord</comment>
+  </data>
+  <data name="GEOBL" xml:space="preserve">
+    <value>地理经纬度</value>
+  </data>
+  <data name="GEOBLB" xml:space="preserve">
+    <value>表示纬度的字符串。</value>
+    <comment>DBStr.GEOBL</comment>
+  </data>
+  <data name="GEOBLEllipseType" xml:space="preserve">
+    <value>地理经纬度的椭球类型。</value>
+    <comment>DBStr.GEOBL</comment>
+  </data>
+  <data name="GEOBLL" xml:space="preserve">
+    <value>表示经度的字符串。</value>
+    <comment>DBStr.GEOBL</comment>
+  </data>
+  <data name="GEOBLUID" xml:space="preserve">
+    <value>地理经纬度对象的GUID。</value>
+    <comment>DBStr.GEOBL</comment>
+  </data>
+  <data name="GEOBLZoneType" xml:space="preserve">
+    <value>地理经纬度的分带类型。</value>
+    <comment>DBStr.GEOBL</comment>
+  </data>
+  <data name="GoodAfternoon" xml:space="preserve">
+    <value>下午好</value>
+    <comment>Hints.Greet</comment>
+  </data>
+  <data name="GoodEvening" xml:space="preserve">
+    <value>晚上好</value>
+    <comment>Hints.Greet</comment>
+  </data>
+  <data name="GoodMorning" xml:space="preserve">
+    <value>上午好</value>
+    <comment>Hints.Greet</comment>
+  </data>
+  <data name="GoodNoon" xml:space="preserve">
+    <value>中午好</value>
+    <comment>Hints.Greet</comment>
+  </data>
+  <data name="Halo" xml:space="preserve">
+    <value>哈喽</value>
+    <comment>Hints.Greet</comment>
+  </data>
+  <data name="Hello" xml:space="preserve">
+    <value>你好</value>
+    <comment>Hints.Greet</comment>
+  </data>
+  <data name="InvertSelect" xml:space="preserve">
+    <value>反选</value>
+    <comment>MainForm</comment>
+  </data>
+  <data name="LoadDB" xml:space="preserve">
+    <value>从数据库加载记录</value>
+    <comment>CoordConvertLayout</comment>
+  </data>
+  <data name="LoadDBFromFile" xml:space="preserve">
+    <value>从文件导入数据库</value>
+    <comment>TableViewCtrl</comment>
+  </data>
+  <data name="LoadFile" xml:space="preserve">
+    <value>从文件加载记录</value>
+    <comment>CoordConvertLayout</comment>
+  </data>
+  <data name="NewDay" xml:space="preserve">
+    <value>新的一天开始了</value>
+    <comment>Hints.Greet</comment>
+  </data>
+  <data name="NightOwl" xml:space="preserve">
+    <value>夜猫子</value>
+    <comment>Hints.Greet</comment>
+  </data>
+  <data name="NowLoading" xml:space="preserve">
+    <value>少女祈祷中...</value>
+    <comment>MainForm</comment>
+  </data>
+  <data name="OperationCanceledByUser" xml:space="preserve">
+    <value>用户取消了操作。</value>
+    <comment>Hints</comment>
+  </data>
+  <data name="PeriodComma" xml:space="preserve">
+    <value>。</value>
+    <comment>Hints.Greet</comment>
+  </data>
+  <data name="ProjectAddressOnGithub" xml:space="preserve">
+    <value>项目Github地址</value>
+    <comment>AboutApp</comment>
+  </data>
+  <data name="ReloadTable" xml:space="preserve">
+    <value>从数据库重新加载当前表</value>
+    <comment>TableViewCtrl</comment>
+  </data>
+  <data name="SaveDB" xml:space="preserve">
+    <value>将记录保存到数据库</value>
+    <comment>CoordConvertLayout</comment>
+  </data>
+  <data name="SaveDBToFile" xml:space="preserve">
+    <value>将数据库导出到文件</value>
+    <comment>TableViewCtrl</comment>
+  </data>
+  <data name="SaveFile" xml:space="preserve">
+    <value>将记录保存到文件</value>
+    <comment>CoordConvertLayout</comment>
+  </data>
+  <data name="SaveTableChanges" xml:space="preserve">
+    <value>保存对选中表的更改</value>
+    <comment>TableViewCtrl</comment>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>全选</value>
+    <comment>MainForm</comment>
+  </data>
+  <data name="SelectNone" xml:space="preserve">
+    <value>全不选</value>
+    <comment>MainForm</comment>
+  </data>
+  <data name="TransferToZoneConvert" xml:space="preserve">
+    <value>高斯坐标转移到换带</value>
+    <comment>CoordConvertLayout</comment>
+  </data>
+  <data name="ZoneConvert" xml:space="preserve">
+    <value>换带计算</value>
+  </data>
+  <data name="ZoneConvertGauss3" xml:space="preserve">
+    <value>换带对象包含的高斯3°带坐标对象的GUID。</value>
+    <comment>DBStr.ZoneConvert</comment>
+  </data>
+  <data name="ZoneConvertGauss6" xml:space="preserve">
+    <value>换带对象包含的高斯6°带坐标对象的GUID。</value>
+    <comment>DBStr.ZoneConvert</comment>
+  </data>
+  <data name="ZoneConvertUID" xml:space="preserve">
+    <value>换带对象的GUID。</value>
+    <comment>DBStr.ZoneConvert</comment>
   </data>
 </root>

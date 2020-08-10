@@ -10,6 +10,8 @@ using System.IO;
 using ADOX;
 using System.Runtime.InteropServices;
 using GeodeticCoordinateConversion.Properties;
+using System.Resources;
+using System.Reflection;
 
 namespace GeodeticCoordinateConversion
 {
