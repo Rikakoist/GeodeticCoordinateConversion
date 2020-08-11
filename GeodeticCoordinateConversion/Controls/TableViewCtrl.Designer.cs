@@ -111,7 +111,7 @@
             this.DataTableFlowLayoutPanel.Location = new System.Drawing.Point(46, 9);
             this.DataTableFlowLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
             this.DataTableFlowLayoutPanel.Name = "DataTableFlowLayoutPanel";
-            this.DataTableFlowLayoutPanel.Size = new System.Drawing.Size(267, 27);
+            this.DataTableFlowLayoutPanel.Size = new System.Drawing.Size(251, 27);
             this.DataTableFlowLayoutPanel.TabIndex = 2;
             // 
             // TableLabel
@@ -121,16 +121,16 @@
             this.TableLabel.Location = new System.Drawing.Point(3, 5);
             this.TableLabel.Margin = new System.Windows.Forms.Padding(3, 5, 3, 0);
             this.TableLabel.Name = "TableLabel";
-            this.TableLabel.Size = new System.Drawing.Size(61, 16);
+            this.TableLabel.Size = new System.Drawing.Size(45, 16);
             this.TableLabel.TabIndex = 2;
-            this.TableLabel.Text = "数据表：";
+            this.TableLabel.Text = "FA♂Q";
             this.TableLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // TableListComboBox
             // 
             this.TableListComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.TableListComboBox.FormattingEnabled = true;
-            this.TableListComboBox.Location = new System.Drawing.Point(67, 3);
+            this.TableListComboBox.Location = new System.Drawing.Point(51, 3);
             this.TableListComboBox.Margin = new System.Windows.Forms.Padding(0, 3, 10, 0);
             this.TableListComboBox.Name = "TableListComboBox";
             this.TableListComboBox.Size = new System.Drawing.Size(163, 21);
@@ -142,7 +142,7 @@
             this.ReloadTableBtn.BackgroundImage = global::GeodeticCoordinateConversion.Properties.Resources.Recycle;
             this.ReloadTableBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ReloadTableBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.ReloadTableBtn.Location = new System.Drawing.Point(240, 0);
+            this.ReloadTableBtn.Location = new System.Drawing.Point(224, 0);
             this.ReloadTableBtn.Margin = new System.Windows.Forms.Padding(0);
             this.ReloadTableBtn.Name = "ReloadTableBtn";
             this.ReloadTableBtn.Size = new System.Drawing.Size(27, 27);

@@ -26,19 +26,19 @@ namespace GeodeticCoordinateConversion
             /// <summary>
             /// 坐标转换对象初始化失败。
             /// </summary>
-            public static string InitializeError = "坐标转换对象初始化失败。";
+            public static string InitializeError = rm.GetString("CoordConvertInitializeError");
             /// <summary>
             /// 高斯坐标转换到地理经纬度失败。
             /// </summary>
-            public static string GaussToGEOBLFailed = "高斯坐标转换到地理经纬度失败。";
+            public static string GaussToGEOBLFailed = rm.GetString("GaussToGEOBLFailed");
             /// <summary>
             /// 地理经纬度转换到高斯坐标失败。
             /// </summary>
-            public static string GEOBLToGaussFailed = "地理经纬度转换到高斯坐标失败。";
+            public static string GEOBLToGaussFailed = rm.GetString("GEOBLToGaussFailed");
             /// <summary>
             /// 将坐标转换对象保存到XML结构失败。
             /// </summary>
-            public static string SaveToXmlFailed = "将坐标转换对象保存到XML结构失败。";
+            public static string SaveToXmlFailed = rm.GetString("CoordConvertSaveToXmlFailed");
         }
 
         /// <summary>
@@ -49,48 +49,83 @@ namespace GeodeticCoordinateConversion
             /// <summary>
             /// 指定数据文件出错。
             /// </summary>
-            public static string ErrSpecifyingDataFile = "指定数据文件出错。";
+            public static string ErrSpecifyingDataFile = rm.GetString("ErrSpecifyingDataFile");
             /// <summary>
             /// 当前选定的选项卡不包含计算用数据框。
             /// </summary>
-            public static string DataGridViewNotExist = "当前选定的选项卡不包含计算用数据框。";
+            public static string DataGridViewNotExist = rm.GetString("DataGridViewNotExist");
             /// <summary>
             /// 数据框为空。
             /// </summary>
-            public static string EmptyDataGridView = "数据框为空。";
+            public static string EmptyDataGridView = rm.GetString("EmptyDataGridView");
             /// <summary>
             /// 字符串小数点位置错误。
             /// </summary>
-            public static string WrongDigitPosition = "字符串小数点位置错误。";
+            public static string WrongDigitPosition = rm.GetString("WrongDigitPosition");
 
             /// <summary>
             /// 度超限。
             /// </summary>
-            public static string DegreeOutOfRange = "度应介于 " + Restraints.DegreeMin.ToString() + " - " + Restraints.DegreeMax.ToString() + " 间。";
+            /// <param name="val">当前值。</param>
+            /// <returns></returns>
+            public static string DegreeOutOfRange(double val)
+            {
+                return string.Format(rm.GetString("DegreeOutOfRange"), Restraints.DegreeMin.ToString(), Restraints.DegreeMax.ToString(),val);
+            }
             /// <summary>
             /// 分超限。
             /// </summary>
-            public static string MinuteOutOfRange = "分应介于 " + Restraints.MinuteMin.ToString() + " - " + Restraints.MinuteMax.ToString() + " 间。";
+            /// <param name="val">当前值。</param>
+            /// <returns></returns>
+            public static string MinuteOutOfRange(double val)
+            {
+                return string.Format(rm.GetString("MinuteOutOfRange"), Restraints.MinuteMin.ToString(), Restraints.MinuteMax.ToString(), val);
+            }
             /// <summary>
             /// 秒超限。
             /// </summary>
-            public static string SecondOutOfRange = "秒应介于 " + Restraints.SecondMin.ToString() + " - " + Restraints.SecondMax.ToString() + " 间。";
+            /// <param name="val">当前值。</param>
+            /// <returns></returns>
+            public static string SecondOutOfRange(double val)
+            {
+                return string.Format(rm.GetString("SecondOutOfRange"), Restraints.SecondMin.ToString(), Restraints.SecondMax.ToString(), val);
+            }
             /// <summary>
             /// 纬度超限。
             /// </summary>
-            public static string BiotitudeOutOfRange = "纬度应介于 " + Restraints.BiotitudeMin.ToString() + " - " + Restraints.BiotitudeMax.ToString() + " 间。";
+            /// <param name="val">当前值。</param>
+            /// <returns></returns>
+            public static string BiotitudeOutOfRange(double val)
+            {
+                return string.Format(rm.GetString("BiotitudeOutOfRange"), Restraints.BiotitudeMin.ToString(), Restraints.BiotitudeMax.ToString(), val);
+            }
             /// <summary>
             /// 经度超限。
             /// </summary>
-            public static string LongitudeOutOfRange = "经度应介于 " + Restraints.LongitudeMin.ToString() + " - " + Restraints.LongitudeMax.ToString() + " 间。";
+            /// <param name="val">当前值。</param>
+            /// <returns></returns>
+            public static string LongitudeOutOfRange(double val)
+            {
+                return string.Format(rm.GetString("LongitudeOutOfRange"), Restraints.LongitudeMin.ToString(), Restraints.LongitudeMax.ToString(), val);
+            }
             /// <summary>
             /// 3度带带号超限。
             /// </summary>
-            public static string Zone3OutOfRange = "3度分带带号应介于" + Restraints.Zone3Min.ToString() + " - " + Restraints.Zone3Max.ToString() + " 间。";
+            /// <param name="val">当前值。</param>
+            /// <returns></returns>
+            public static string Zone3OutOfRange(int val)
+            {
+                return string.Format(rm.GetString("Zone3OutOfRange"), Restraints.Zone3Min.ToString(), Restraints.Zone3Max.ToString(), val);
+            }
             /// <summary>
             /// 6度带带号超限。
             /// </summary>
-            public static string Zone6OutOfRange = "6度分带带号应介于" + Restraints.Zone6Min.ToString() + " - " + Restraints.Zone6Max.ToString() + " 间。";
+            /// <param name="val">当前值。</param>
+            /// <returns></returns>
+            public static string Zone6OutOfRange(int val)
+            {
+                return string.Format(rm.GetString("Zone6OutOfRange"), Restraints.Zone6Min.ToString(), Restraints.Zone6Max.ToString(), val);
+            }
         }
 
         /// <summary>
@@ -101,11 +136,11 @@ namespace GeodeticCoordinateConversion
             /// <summary>
             /// 数据文件管理对象初始化失败。
             /// </summary>
-            public static string InitializeError = "数据文件管理对象初始化失败。";
+            public static string InitializeError = rm.GetString("DataFileInitializeError");
             /// <summary>
             /// 设置数据文件存放目录失败。
             /// </summary>
-            public static string SetDocPathFailed = "设置数据文件存放目录失败。";
+            public static string SetDocPathFailed = rm.GetString("SetDocPathFailed");
         }
 
         /// <summary>
@@ -116,11 +151,11 @@ namespace GeodeticCoordinateConversion
             /// <summary>
             /// 数据库管理对象初始化失败。
             /// </summary>
-            public static string InitializeError = "数据库管理对象初始化失败。";
+            public static string InitializeError = rm.GetString("DBInitializeError");
             /// <summary>
             /// 设置数据库存放目录失败。
             /// </summary>
-            public static string SetDBPathFailed = "设置数据库存放目录失败。";
+            public static string SetDBPathFailed = rm.GetString("SetDBPathFailed");
         }
 
         /// <summary>
@@ -131,23 +166,23 @@ namespace GeodeticCoordinateConversion
             /// <summary>
             /// 度分秒对象初始化失败。
             /// </summary>
-            public static string InitializeError = "度分秒对象初始化失败。";
+            public static string InitializeError = rm.GetString("DMSInitializeError");
             /// <summary>
             /// 未初始化度分秒对象。
             /// </summary>
-            public static string DMSNull = "未初始化度分秒对象。";
+            public static string DMSNull = rm.GetString("DMSNull");
             /// <summary>
             /// 从字符串读取度分秒信息失败。
             /// </summary>
-            public static string ConvertFromStringFailed = "从字符串读取度分秒信息失败。";
+            public static string ConvertFromStringFailed = rm.GetString("ConvertFromStringFailed");
             /// <summary>
             /// 将度分秒信息转换为字符串失败。
             /// </summary>
-            public static string ConvertToStringFailed = "将度分秒信息转换为字符串失败。";
+            public static string ConvertToStringFailed = rm.GetString("ConvertToStringFailed");
             /// <summary>
             /// 将度分秒对象保存到XML结构失败。
             /// </summary>
-            public static string SaveToXmlFailed = "将度分秒对象保存到XML结构失败。";
+            public static string SaveToXmlFailed = rm.GetString("DMSSaveToXmlFailed");
         }
 
         /// <summary>
@@ -158,19 +193,19 @@ namespace GeodeticCoordinateConversion
             /// <summary>
             /// 地理经纬度对象初始化失败。
             /// </summary>
-            public static string InitializeError = "地理经纬度对象初始化失败。";
+            public static string InitializeError = rm.GetString("GEOBLInitializeError");
             /// <summary>
             /// 未初始化地理经纬度对象。
             /// </summary>
-            public static string GEOBLNull = "未初始化地理经纬度对象。";
+            public static string GEOBLNull = rm.GetString("GEOBLNull");
             /// <summary>
             /// 高斯正算失败。
             /// </summary>
-            public static string GaussDirectFailed = "高斯正算失败。";
+            public static string GaussDirectFailed = rm.GetString("GaussDirectFailed");
             /// <summary>
             /// 将地理经纬度保存到XML结构失败。
             /// </summary>
-            public static string SaveToXmlFailed = "将地理经纬度对象保存到XML结构失败。";
+            public static string SaveToXmlFailed = rm.GetString("GEOBLSaveToXmlFailed");
         }
 
         /// <summary>
@@ -181,27 +216,27 @@ namespace GeodeticCoordinateConversion
             /// <summary>
             /// 椭球初始化失败。
             /// </summary>
-            public static string InitializeError = "椭球对象初始化失败。";
+            public static string InitializeError = rm.GetString("GEOEllipseInitializeError");
             /// <summary>
             /// 未初始化椭球对象。
             /// </summary>
-            public static string EllipseNull = "未初始化椭球对象。";
+            public static string EllipseNull = rm.GetString("EllipseNull");
             /// <summary>
             /// 未设置椭球类型。
             /// </summary>
-            public static string EllipseNotSet = "未设置椭球类型。";
+            public static string EllipseNotSet = rm.GetString("EllipseNotSet");
             /// <summary>
             /// 未知的椭球类型。
             /// </summary>
-            public static string EllipseUnknown = "未知的椭球类型。";
+            public static string EllipseUnknown = rm.GetString("EllipseUnknown");
             /// <summary>
             /// 设置椭球类型失败。
             /// </summary>
-            public static string SetEllipseTypeFailed = "设置椭球类型失败。";
+            public static string SetEllipseTypeFailed = rm.GetString("SetEllipseTypeFailed");
             /// <summary>
             /// 将椭球保存到XML结构失败。
             /// </summary>
-            public static string SaveToXmlFailed = "将椭球对象保存到XML结构失败。";
+            public static string SaveToXmlFailed = rm.GetString("GEOEllipseSaveToXmlFailed");
         }
 
         /// <summary>
@@ -212,35 +247,35 @@ namespace GeodeticCoordinateConversion
             /// <summary>
             /// 高斯坐标初始化失败。
             /// </summary>
-            public static string InitializeError = "高斯坐标对象初始化失败。";
+            public static string InitializeError = rm.GetString("GaussCoordInitializeError");
             /// <summary>
             /// 未初始化高斯坐标。
             /// </summary>
-            public static string GaussNull = "未初始化高斯坐标对象。";
+            public static string GaussNull = rm.GetString("GaussNull");
             /// <summary>
             /// 计算中央经线失败。
             /// </summary>
-            public static string GetCenterFailed = "计算中央经线失败。";
+            public static string GetCenterFailed = rm.GetString("GetCenterFailed");
             /// <summary>
             /// 设置中央经线失败。
             /// </summary>
-            public static string SetCenterFailed = "设置中央经线失败。";
+            public static string SetCenterFailed = rm.GetString("SetCenterFailed");
             /// <summary>
             /// 用于初始化的两个高斯坐标拥有同样的分带类型。
             /// </summary>
-            public static string SameZoneType = "用于初始化对象的两个高斯坐标拥有同样的分带类型。";
+            public static string SameZoneType = rm.GetString("SameZoneType");
             /// <summary>
             /// 设置高斯坐标带号失败。
             /// </summary>
-            public static string SetZoneFailed = "设置高斯坐标带号失败。";
+            public static string SetZoneFailed = rm.GetString("SetZoneFailed");
             /// <summary>
             /// 高斯反算失败。
             /// </summary>
-            public static string GaussReverseFailed = "高斯反算失败。";
+            public static string GaussReverseFailed = rm.GetString("GaussReverseFailed");
             /// <summary>
             /// 将高斯坐标保存到XML结构失败。
             /// </summary>
-            public static string SaveToXmlFailed = "将高斯坐标对象保存到XML结构失败。";
+            public static string SaveToXmlFailed = rm.GetString("GaussCoordSaveToXmlFailed");
         }
 
         /// <summary>
@@ -251,32 +286,32 @@ namespace GeodeticCoordinateConversion
             /// <summary>
             /// 传入了未知的参数。
             /// </summary>
-            public static string ArgumentUnknown = "传入了未知的参数。";
+            public static string ArgumentUnknown = rm.GetString("ArgumentUnknown");
             /// <summary>
             /// 转换操作失败。
             /// </summary>
-            public static string ConvertOperationFailed = "上一次坐标转换操作出现问题，请检查后重试。";
+            public static string ConvertOperationFailed = rm.GetString("ConvertOperationFailed");
             /// <summary>
             /// 操作被用户取消。
             /// </summary>
-            public static string OpertionCanceledByUser = "操作被用户取消。";
+            public static string OpertionCanceledByUser = rm.GetString("OperationCanceledByUser");
             /// <summary>
             /// 该功能暂未实现。
             /// </summary>
-            public static string FunctionNotImplemented = "该功能暂未实现。";
+            public static string FunctionNotImplemented = rm.GetString("FunctionNotImplemented");
             /// <summary>
             /// 指定的文件夹不存在。
             /// </summary>
-            public static string DirectoryNotFound = "指定的文件夹不存在。";
+            public static string DirectoryNotFound = rm.GetString("DirectoryNotFound");
             /// <summary>
             /// 指定的文件不存在。
             /// </summary>
-            public static string FileNotFound = "指定的文件不存在。";
+            public static string FileNotFound = rm.GetString("FileNotFound");
 
             /// <summary>
             /// 绑定事件失败。
             /// </summary>
-            public static string BindEventFailed = "绑定事件失败。";
+            public static string BindEventFailed = rm.GetString("BindEventFailed");
         }
 
         /// <summary>
@@ -287,11 +322,11 @@ namespace GeodeticCoordinateConversion
             /// <summary>
             /// 未设置分带类型。
             /// </summary>
-            public static string ZoneTypeNotSet = "未设置分带类型。";
+            public static string ZoneTypeNotSet = rm.GetString("ZoneTypeNotSet");
             /// <summary>
             /// 未知的分带类型。
             /// </summary>
-            public static string ZoneTypeUnknown = "未知的分带类型。";
+            public static string ZoneTypeUnknown = rm.GetString("ZoneTypeUnknown");
         }
 
         /// <summary>
@@ -302,23 +337,23 @@ namespace GeodeticCoordinateConversion
             /// <summary>
             /// 换带初始化失败。
             /// </summary>
-            public static string InitializeError = "换带初始化失败。";
+            public static string InitializeError = rm.GetString("ZoneConvertInitializeError");
             /// <summary>
             /// 换带操作失败。
             /// </summary>
-            public static string ZoneConvertFailed = "换带操作失败。";
+            public static string ZoneConvertFailed = rm.GetString("ZoneConvertFailed");
             /// <summary>
             /// 从3度带转换到6度带失败。
             /// </summary>
-            public static string Convert3To6Failed = "从3度带转换到6度带失败。";
+            public static string Convert3To6Failed = rm.GetString("Convert3To6Failed");
             /// <summary>
             /// 从6度带转换到3度带失败。
             /// </summary>
-            public static string Convert6To3Failed = "从6度带转换到3度带失败。";
+            public static string Convert6To3Failed = rm.GetString("Convert6To3Failed");
             /// <summary>
             /// 将换带对象保存到XML结构失败。
             /// </summary>
-            public static string SaveToXmlFailed = "将换带对象保存到XML结构失败。";
+            public static string SaveToXmlFailed = rm.GetString("ZoneConvertSaveToXmlFailed");
         }
     }
 

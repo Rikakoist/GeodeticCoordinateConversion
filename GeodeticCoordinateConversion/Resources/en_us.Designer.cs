@@ -115,6 +115,33 @@ namespace GeodeticCoordinateConversion.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unknown argument..
+        /// </summary>
+        internal static string ArgumentUnknown {
+            get {
+                return ResourceManager.GetString("ArgumentUnknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to bind event..
+        /// </summary>
+        internal static string BindEventFailed {
+            get {
+                return ResourceManager.GetString("BindEventFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Biotitude should between {0} and {1}, current value: {2}..
+        /// </summary>
+        internal static string BiotitudeOutOfRange {
+            get {
+                return ResourceManager.GetString("BiotitudeOutOfRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Calculated color.
         /// </summary>
         internal static string CalculatedColor {
@@ -178,11 +205,56 @@ namespace GeodeticCoordinateConversion.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to convert zone 3 to zone 6..
+        /// </summary>
+        internal static string Convert3To6Failed {
+            get {
+                return ResourceManager.GetString("Convert3To6Failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to convert zone 6 to zone 3..
+        /// </summary>
+        internal static string Convert6To3Failed {
+            get {
+                return ResourceManager.GetString("Convert6To3Failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to read DMS info from string..
+        /// </summary>
+        internal static string ConvertFromStringFailed {
+            get {
+                return ResourceManager.GetString("ConvertFromStringFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to perform conversion operation, please check and try again later..
+        /// </summary>
+        internal static string ConvertOperationFailed {
+            get {
+                return ResourceManager.GetString("ConvertOperationFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} finished,  {1} record (s) in total, {2} calculated, {3} success, {4} failed..
         /// </summary>
         internal static string ConvertResult {
             get {
                 return ResourceManager.GetString("ConvertResult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to convert DMS info to string..
+        /// </summary>
+        internal static string ConvertToStringFailed {
+            get {
+                return ResourceManager.GetString("ConvertToStringFailed", resourceCulture);
             }
         }
         
@@ -214,6 +286,24 @@ namespace GeodeticCoordinateConversion.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error initializing coord convert object..
+        /// </summary>
+        internal static string CoordConvertInitializeError {
+            get {
+                return ResourceManager.GetString("CoordConvertInitializeError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to save coord convert object to XML structure..
+        /// </summary>
+        internal static string CoordConvertSaveToXmlFailed {
+            get {
+                return ResourceManager.GetString("CoordConvertSaveToXmlFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to GUID of coord convert record..
         /// </summary>
         internal static string CoordConvertUID {
@@ -241,11 +331,29 @@ namespace GeodeticCoordinateConversion.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error initializing data file..
+        /// </summary>
+        internal static string DataFileInitializeError {
+            get {
+                return ResourceManager.GetString("DataFileInitializeError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Data file name.
         /// </summary>
         internal static string DataFileName {
             get {
                 return ResourceManager.GetString("DataFileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current tab doesn&apos;t contain DataGridView for calculation..
+        /// </summary>
+        internal static string DataGridViewNotExist {
+            get {
+                return ResourceManager.GetString("DataGridViewNotExist", resourceCulture);
             }
         }
         
@@ -309,6 +417,15 @@ namespace GeodeticCoordinateConversion.Resources {
         internal static string DataTable {
             get {
                 return ResourceManager.GetString("DataTable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error initializing database..
+        /// </summary>
+        internal static string DBInitializeError {
+            get {
+                return ResourceManager.GetString("DBInitializeError", resourceCulture);
             }
         }
         
@@ -394,6 +511,15 @@ namespace GeodeticCoordinateConversion.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Degree should between {0} and {1}, current value: {2}..
+        /// </summary>
+        internal static string DegreeOutOfRange {
+            get {
+                return ResourceManager.GetString("DegreeOutOfRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete selected row(s).
         /// </summary>
         internal static string DeleteRow {
@@ -412,11 +538,83 @@ namespace GeodeticCoordinateConversion.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Spicified directory not found..
+        /// </summary>
+        internal static string DirectoryNotFound {
+            get {
+                return ResourceManager.GetString("DirectoryNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dirty record color.
         /// </summary>
         internal static string DirtyColor {
             get {
                 return ResourceManager.GetString("DirtyColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error initializing DMS object..
+        /// </summary>
+        internal static string DMSInitializeError {
+            get {
+                return ResourceManager.GetString("DMSInitializeError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DMS object not initialized..
+        /// </summary>
+        internal static string DMSNull {
+            get {
+                return ResourceManager.GetString("DMSNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to save DMS object to XML structure..
+        /// </summary>
+        internal static string DMSSaveToXmlFailed {
+            get {
+                return ResourceManager.GetString("DMSSaveToXmlFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ellipse type not set..
+        /// </summary>
+        internal static string EllipseNotSet {
+            get {
+                return ResourceManager.GetString("EllipseNotSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ellipse object not initialized..
+        /// </summary>
+        internal static string EllipseNull {
+            get {
+                return ResourceManager.GetString("EllipseNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown ellipse type..
+        /// </summary>
+        internal static string EllipseUnknown {
+            get {
+                return ResourceManager.GetString("EllipseUnknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Target DataGridView is empty..
+        /// </summary>
+        internal static string EmptyDataGridView {
+            get {
+                return ResourceManager.GetString("EmptyDataGridView", resourceCulture);
             }
         }
         
@@ -439,11 +637,38 @@ namespace GeodeticCoordinateConversion.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to specify data file..
+        /// </summary>
+        internal static string ErrSpecifyingDataFile {
+            get {
+                return ResourceManager.GetString("ErrSpecifyingDataFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Spicified file not found..
+        /// </summary>
+        internal static string FileNotFound {
+            get {
+                return ResourceManager.GetString("FileNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Successfully imported {1} coord convert record(s) and {2} zone convert record(s) from file {0} to database {3}..
         /// </summary>
         internal static string FileSavedToDB {
             get {
                 return ResourceManager.GetString("FileSavedToDB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This function hasn&apos;t been implemented..
+        /// </summary>
+        internal static string FunctionNotImplemented {
+            get {
+                return ResourceManager.GetString("FunctionNotImplemented", resourceCulture);
             }
         }
         
@@ -462,6 +687,24 @@ namespace GeodeticCoordinateConversion.Resources {
         internal static string GaussCoordEllipseType {
             get {
                 return ResourceManager.GetString("GaussCoordEllipseType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error initializing Gauss coord object..
+        /// </summary>
+        internal static string GaussCoordInitializeError {
+            get {
+                return ResourceManager.GetString("GaussCoordInitializeError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to save Gauss coord object to XML structure..
+        /// </summary>
+        internal static string GaussCoordSaveToXmlFailed {
+            get {
+                return ResourceManager.GetString("GaussCoordSaveToXmlFailed", resourceCulture);
             }
         }
         
@@ -511,6 +754,42 @@ namespace GeodeticCoordinateConversion.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to execute Gauss direct..
+        /// </summary>
+        internal static string GaussDirectFailed {
+            get {
+                return ResourceManager.GetString("GaussDirectFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gauss coord object not initialized..
+        /// </summary>
+        internal static string GaussNull {
+            get {
+                return ResourceManager.GetString("GaussNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to execute Gauss reverse..
+        /// </summary>
+        internal static string GaussReverseFailed {
+            get {
+                return ResourceManager.GetString("GaussReverseFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to convert Gauss coord to GEOBL..
+        /// </summary>
+        internal static string GaussToGEOBLFailed {
+            get {
+                return ResourceManager.GetString("GaussToGEOBLFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to General.
         /// </summary>
         internal static string General {
@@ -547,11 +826,47 @@ namespace GeodeticCoordinateConversion.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error initializing GEOBL object..
+        /// </summary>
+        internal static string GEOBLInitializeError {
+            get {
+                return ResourceManager.GetString("GEOBLInitializeError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to String that representing longitude..
         /// </summary>
         internal static string GEOBLL {
             get {
                 return ResourceManager.GetString("GEOBLL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GEOBL object not initialized..
+        /// </summary>
+        internal static string GEOBLNull {
+            get {
+                return ResourceManager.GetString("GEOBLNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to save GEOBL object to XML structure..
+        /// </summary>
+        internal static string GEOBLSaveToXmlFailed {
+            get {
+                return ResourceManager.GetString("GEOBLSaveToXmlFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to convert GEOBL to Gauss coord..
+        /// </summary>
+        internal static string GEOBLToGaussFailed {
+            get {
+                return ResourceManager.GetString("GEOBLToGaussFailed", resourceCulture);
             }
         }
         
@@ -570,6 +885,33 @@ namespace GeodeticCoordinateConversion.Resources {
         internal static string GEOBLZoneType {
             get {
                 return ResourceManager.GetString("GEOBLZoneType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error initializing ellipse object..
+        /// </summary>
+        internal static string GEOEllipseInitializeError {
+            get {
+                return ResourceManager.GetString("GEOEllipseInitializeError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to save ellipse object to XML structure..
+        /// </summary>
+        internal static string GEOEllipseSaveToXmlFailed {
+            get {
+                return ResourceManager.GetString("GEOEllipseSaveToXmlFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to calculate central meridian..
+        /// </summary>
+        internal static string GetCenterFailed {
+            get {
+                return ResourceManager.GetString("GetCenterFailed", resourceCulture);
             }
         }
         
@@ -669,6 +1011,24 @@ namespace GeodeticCoordinateConversion.Resources {
         internal static string LoadFile {
             get {
                 return ResourceManager.GetString("LoadFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Longitude should between {0} and {1}, current value: {2}..
+        /// </summary>
+        internal static string LongitudeOutOfRange {
+            get {
+                return ResourceManager.GetString("LongitudeOutOfRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minute should between {0} and {1}, current value: {2}..
+        /// </summary>
+        internal static string MinuteOutOfRange {
+            get {
+                return ResourceManager.GetString("MinuteOutOfRange", resourceCulture);
             }
         }
         
@@ -781,6 +1141,15 @@ namespace GeodeticCoordinateConversion.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Two Gauss coord objects that used to initialize have save zone type..
+        /// </summary>
+        internal static string SameZoneType {
+            get {
+                return ResourceManager.GetString("SameZoneType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         internal static string Save {
@@ -835,6 +1204,15 @@ namespace GeodeticCoordinateConversion.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Second should between {0} and {1}, current value: {2}..
+        /// </summary>
+        internal static string SecondOutOfRange {
+            get {
+                return ResourceManager.GetString("SecondOutOfRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select all.
         /// </summary>
         internal static string SelectAll {
@@ -880,6 +1258,42 @@ namespace GeodeticCoordinateConversion.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to set central meridian..
+        /// </summary>
+        internal static string SetCenterFailed {
+            get {
+                return ResourceManager.GetString("SetCenterFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to set database directory..
+        /// </summary>
+        internal static string SetDBPathFailed {
+            get {
+                return ResourceManager.GetString("SetDBPathFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to set data file directory..
+        /// </summary>
+        internal static string SetDocPathFailed {
+            get {
+                return ResourceManager.GetString("SetDocPathFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to set ellipse type..
+        /// </summary>
+        internal static string SetEllipseTypeFailed {
+            get {
+                return ResourceManager.GetString("SetEllipseTypeFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Settings.
         /// </summary>
         internal static string Settings {
@@ -894,6 +1308,15 @@ namespace GeodeticCoordinateConversion.Resources {
         internal static string SettingTitle {
             get {
                 return ResourceManager.GetString("SettingTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to set zone num of Gauss coord..
+        /// </summary>
+        internal static string SetZoneFailed {
+            get {
+                return ResourceManager.GetString("SetZoneFailed", resourceCulture);
             }
         }
         
@@ -961,11 +1384,47 @@ namespace GeodeticCoordinateConversion.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wrong digit position in string..
+        /// </summary>
+        internal static string WrongDigitPosition {
+            get {
+                return ResourceManager.GetString("WrongDigitPosition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zone num (3) should between {0} and {1}, current value: {2}..
+        /// </summary>
+        internal static string Zone3OutOfRange {
+            get {
+                return ResourceManager.GetString("Zone3OutOfRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zone num (6) should between {0} and {1}, current value: {2}..
+        /// </summary>
+        internal static string Zone6OutOfRange {
+            get {
+                return ResourceManager.GetString("Zone6OutOfRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Zone convert.
         /// </summary>
         internal static string ZoneConvert {
             get {
                 return ResourceManager.GetString("ZoneConvert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zone convert operation failed..
+        /// </summary>
+        internal static string ZoneConvertFailed {
+            get {
+                return ResourceManager.GetString("ZoneConvertFailed", resourceCulture);
             }
         }
         
@@ -988,11 +1447,47 @@ namespace GeodeticCoordinateConversion.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error initializing zone convert object..
+        /// </summary>
+        internal static string ZoneConvertInitializeError {
+            get {
+                return ResourceManager.GetString("ZoneConvertInitializeError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to save zone convert object to XML structure..
+        /// </summary>
+        internal static string ZoneConvertSaveToXmlFailed {
+            get {
+                return ResourceManager.GetString("ZoneConvertSaveToXmlFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to GUID of zone convert record..
         /// </summary>
         internal static string ZoneConvertUID {
             get {
                 return ResourceManager.GetString("ZoneConvertUID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zone type not set..
+        /// </summary>
+        internal static string ZoneTypeNotSet {
+            get {
+                return ResourceManager.GetString("ZoneTypeNotSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown zone type..
+        /// </summary>
+        internal static string ZoneTypeUnknown {
+            get {
+                return ResourceManager.GetString("ZoneTypeUnknown", resourceCulture);
             }
         }
     }

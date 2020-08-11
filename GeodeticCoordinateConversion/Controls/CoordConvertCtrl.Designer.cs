@@ -103,7 +103,6 @@
             this.TransferBtn.Size = new System.Drawing.Size(75, 23);
             this.TransferBtn.TabIndex = 4;
             this.TransferBtn.Text = ">>";
-            this.BtnToolTip.SetToolTip(this.TransferBtn, "高斯坐标转移到换带");
             this.TransferBtn.UseVisualStyleBackColor = true;
             // 
             // SelectAllBtn
@@ -175,7 +174,6 @@
             this.AddRowBtn.Name = "AddRowBtn";
             this.AddRowBtn.Size = new System.Drawing.Size(32, 32);
             this.AddRowBtn.TabIndex = 0;
-            this.BtnToolTip.SetToolTip(this.AddRowBtn, "添加新行");
             this.AddRowBtn.UseVisualStyleBackColor = true;
             // 
             // DeleteBtn
@@ -188,7 +186,6 @@
             this.DeleteBtn.Name = "DeleteBtn";
             this.DeleteBtn.Size = new System.Drawing.Size(32, 32);
             this.DeleteBtn.TabIndex = 1;
-            this.BtnToolTip.SetToolTip(this.DeleteBtn, "删除选中行");
             this.DeleteBtn.UseVisualStyleBackColor = true;
             this.DeleteBtn.Click += new System.EventHandler(this.DeleteRow);
             // 
@@ -202,7 +199,6 @@
             this.LoadFileBtn.Name = "LoadFileBtn";
             this.LoadFileBtn.Size = new System.Drawing.Size(32, 32);
             this.LoadFileBtn.TabIndex = 2;
-            this.BtnToolTip.SetToolTip(this.LoadFileBtn, "从文件加载记录");
             this.LoadFileBtn.UseVisualStyleBackColor = true;
             // 
             // SaveFileBtn
@@ -215,7 +211,6 @@
             this.SaveFileBtn.Name = "SaveFileBtn";
             this.SaveFileBtn.Size = new System.Drawing.Size(32, 32);
             this.SaveFileBtn.TabIndex = 3;
-            this.BtnToolTip.SetToolTip(this.SaveFileBtn, "将记录保存到文件");
             this.SaveFileBtn.UseVisualStyleBackColor = true;
             // 
             // LoadDBBtn
@@ -228,7 +223,6 @@
             this.LoadDBBtn.Name = "LoadDBBtn";
             this.LoadDBBtn.Size = new System.Drawing.Size(32, 32);
             this.LoadDBBtn.TabIndex = 4;
-            this.BtnToolTip.SetToolTip(this.LoadDBBtn, "从数据库加载记录");
             this.LoadDBBtn.UseVisualStyleBackColor = true;
             // 
             // SaveDBBtn
@@ -241,7 +235,6 @@
             this.SaveDBBtn.Name = "SaveDBBtn";
             this.SaveDBBtn.Size = new System.Drawing.Size(32, 32);
             this.SaveDBBtn.TabIndex = 5;
-            this.BtnToolTip.SetToolTip(this.SaveDBBtn, "将记录保存到数据库");
             this.SaveDBBtn.UseVisualStyleBackColor = true;
             // 
             // SelectionFlowLayoutPanel

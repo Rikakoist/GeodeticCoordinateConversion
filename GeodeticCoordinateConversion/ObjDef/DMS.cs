@@ -37,7 +37,7 @@ namespace GeodeticCoordinateConversion
             set
             {
                 if ((value < Restraints.DegreeMin) || (value > Restraints.DegreeMax))
-                    throw new ArgumentOutOfRangeException(ErrMessage.Data.DegreeOutOfRange);
+                    throw new ArgumentOutOfRangeException(ErrMessage.Data.DegreeOutOfRange(value));
                 if (d == value)
                     return;
                 DMSValueChangedEventArgs e = new DMSValueChangedEventArgs(DMSValueChangedType.D, d, value);
@@ -54,7 +54,7 @@ namespace GeodeticCoordinateConversion
             set
             {
                 if ((value < Restraints.MinuteMin) || (value > Restraints.MinuteMax))
-                    throw new ArgumentOutOfRangeException(ErrMessage.Data.MinuteOutOfRange);
+                    throw new ArgumentOutOfRangeException(ErrMessage.Data.MinuteOutOfRange(value));
                 if (m == value)
                     return;
                 DMSValueChangedEventArgs e = new DMSValueChangedEventArgs(DMSValueChangedType.M, m, value);
@@ -71,7 +71,7 @@ namespace GeodeticCoordinateConversion
             set
             {
                 if ((value < Restraints.SecondMin) || (value > Restraints.SecondMax))
-                    throw new ArgumentOutOfRangeException(ErrMessage.Data.SecondOutOfRange);
+                    throw new ArgumentOutOfRangeException(ErrMessage.Data.SecondOutOfRange(value));
                 if (s == value)
                     return;
                 DMSValueChangedEventArgs e = new DMSValueChangedEventArgs(DMSValueChangedType.S, s, value);

@@ -113,7 +113,7 @@ namespace GeodeticCoordinateConversion
                             {
                                 if ((value < Restraints.Zone3Min) || (value > Restraints.Zone3Max))
                                 {
-                                    throw new ArgumentOutOfRangeException(ErrMessage.Data.Zone3OutOfRange);
+                                    throw new ArgumentOutOfRangeException(ErrMessage.Data.Zone3OutOfRange(value));
                                 }
                                 zone = value;
                                 break;
@@ -122,7 +122,7 @@ namespace GeodeticCoordinateConversion
                             {
                                 if ((value < Restraints.Zone6Min) || (value > Restraints.Zone6Max))
                                 {
-                                    throw new ArgumentOutOfRangeException(ErrMessage.Data.Zone6OutOfRange);
+                                    throw new ArgumentOutOfRangeException(ErrMessage.Data.Zone6OutOfRange(value));
                                 }
                                 zone = value;
                                 break;

@@ -431,7 +431,6 @@
   </data>
   <data name="OperationCanceledByUser" xml:space="preserve">
     <value>用户取消了操作。</value>
-    <comment>Hints</comment>
   </data>
   <data name="PeriodComma" xml:space="preserve">
     <value>。</value>
@@ -527,5 +526,225 @@
   <data name="TableReloaded" xml:space="preserve">
     <value>已从数据库 {0} 重载表 {1}。</value>
     <comment>Hints.TableReloaded</comment>
+  </data>
+  <data name="ArgumentUnknown" xml:space="preserve">
+    <value>传入了未知的参数。</value>
+    <comment>ErrMessage.Generic</comment>
+  </data>
+  <data name="BindEventFailed" xml:space="preserve">
+    <value>绑定事件失败。</value>
+    <comment>ErrMessage.Generic</comment>
+  </data>
+  <data name="BiotitudeOutOfRange" xml:space="preserve">
+    <value>纬度应介于 {0} - {1} 间，当前值为 {2}。</value>
+    <comment>ErrMessage.Data</comment>
+  </data>
+  <data name="Convert3To6Failed" xml:space="preserve">
+    <value>从3度带转换到6度带失败。</value>
+    <comment>ErrMessage.ZoneConvert</comment>
+  </data>
+  <data name="Convert6To3Failed" xml:space="preserve">
+    <value>从6度带转换到3度带失败。</value>
+    <comment>ErrMessage.ZoneConvert</comment>
+  </data>
+  <data name="ConvertFromStringFailed" xml:space="preserve">
+    <value>从字符串读取度分秒信息失败。</value>
+    <comment>ErrMessage.DMS</comment>
+  </data>
+  <data name="ConvertOperationFailed" xml:space="preserve">
+    <value>上一次转换操作出现问题，请检查后重试。</value>
+    <comment>ErrMessage.Generic</comment>
+  </data>
+  <data name="ConvertToStringFailed" xml:space="preserve">
+    <value>将度分秒信息转换为字符串失败。</value>
+    <comment>ErrMessage.DMS</comment>
+  </data>
+  <data name="CoordConvertInitializeError" xml:space="preserve">
+    <value>坐标转换对象初始化失败。</value>
+    <comment>ErrMessage.CoordConvert</comment>
+  </data>
+  <data name="CoordConvertSaveToXmlFailed" xml:space="preserve">
+    <value>将坐标转换对象保存到XML结构失败。</value>
+    <comment>ErrMessage.CoordConvert</comment>
+  </data>
+  <data name="DataFileInitializeError" xml:space="preserve">
+    <value>数据文件管理对象初始化失败。</value>
+    <comment>ErrMessage.DataFile</comment>
+  </data>
+  <data name="DataGridViewNotExist" xml:space="preserve">
+    <value>当前选定的选项卡不包含计算用数据框。</value>
+    <comment>ErrMessage.Data</comment>
+  </data>
+  <data name="DBInitializeError" xml:space="preserve">
+    <value>数据库管理对象初始化失败。</value>
+    <comment>ErrMessage.DB</comment>
+  </data>
+  <data name="DegreeOutOfRange" xml:space="preserve">
+    <value>度应介于 {0} - {1} 间，当前值为 {2}。</value>
+    <comment>ErrMessage.Data</comment>
+  </data>
+  <data name="DirectoryNotFound" xml:space="preserve">
+    <value>指定的文件夹不存在。</value>
+    <comment>ErrMessage.Generic</comment>
+  </data>
+  <data name="DMSInitializeError" xml:space="preserve">
+    <value>度分秒对象初始化失败。</value>
+    <comment>ErrMessage.DMS</comment>
+  </data>
+  <data name="DMSNull" xml:space="preserve">
+    <value>未初始化度分秒对象。</value>
+    <comment>ErrMessage.DMS</comment>
+  </data>
+  <data name="DMSSaveToXmlFailed" xml:space="preserve">
+    <value>将度分秒对象保存到XML结构失败。</value>
+    <comment>ErrMessage.DMS</comment>
+  </data>
+  <data name="EllipseNotSet" xml:space="preserve">
+    <value>未设置椭球类型。</value>
+    <comment>ErrMessage.GEOEllipse</comment>
+  </data>
+  <data name="EllipseNull" xml:space="preserve">
+    <value>未初始化椭球对象。</value>
+    <comment>ErrMessage.GEOEllipse</comment>
+  </data>
+  <data name="EllipseUnknown" xml:space="preserve">
+    <value>未知的椭球类型。</value>
+    <comment>ErrMessage.GEOEllipse</comment>
+  </data>
+  <data name="EmptyDataGridView" xml:space="preserve">
+    <value>数据框为空。</value>
+    <comment>ErrMessage.Data</comment>
+  </data>
+  <data name="ErrSpecifyingDataFile" xml:space="preserve">
+    <value>指定数据文件出错。</value>
+    <comment>ErrMessage.Data</comment>
+  </data>
+  <data name="FileNotFound" xml:space="preserve">
+    <value>指定的文件不存在。</value>
+    <comment>ErrMessage.Generic</comment>
+  </data>
+  <data name="FunctionNotImplemented" xml:space="preserve">
+    <value>该功能暂未实现。</value>
+    <comment>ErrMessage.Generic</comment>
+  </data>
+  <data name="GaussCoordInitializeError" xml:space="preserve">
+    <value>高斯坐标对象初始化失败。</value>
+    <comment>ErrMessage.GaussCoord</comment>
+  </data>
+  <data name="GaussCoordSaveToXmlFailed" xml:space="preserve">
+    <value>将高斯坐标对象保存到XML结构失败。</value>
+    <comment>ErrMessage.GaussCoord</comment>
+  </data>
+  <data name="GaussDirectFailed" xml:space="preserve">
+    <value>高斯正算失败。</value>
+    <comment>ErrMessage.GEOBL</comment>
+  </data>
+  <data name="GaussNull" xml:space="preserve">
+    <value>未初始化高斯坐标对象。</value>
+    <comment>ErrMessage.GaussCoord</comment>
+  </data>
+  <data name="GaussReverseFailed" xml:space="preserve">
+    <value>高斯反算失败。</value>
+    <comment>ErrMessage.GaussCoord</comment>
+  </data>
+  <data name="GaussToGEOBLFailed" xml:space="preserve">
+    <value>高斯坐标转换到地理经纬度失败。</value>
+    <comment>ErrMessage.CoordConvert</comment>
+  </data>
+  <data name="GEOBLInitializeError" xml:space="preserve">
+    <value>地理经纬度对象初始化失败。</value>
+    <comment>ErrMessage.GEOBL</comment>
+  </data>
+  <data name="GEOBLNull" xml:space="preserve">
+    <value>未初始化地理经纬度对象。</value>
+    <comment>ErrMessage.GEOBL</comment>
+  </data>
+  <data name="GEOBLSaveToXmlFailed" xml:space="preserve">
+    <value>将地理经纬度对象保存到XML结构失败。</value>
+    <comment>ErrMessage.GEOBL</comment>
+  </data>
+  <data name="GEOBLToGaussFailed" xml:space="preserve">
+    <value>地理经纬度转换到高斯坐标失败。</value>
+    <comment>ErrMessage.CoordConvert</comment>
+  </data>
+  <data name="GEOEllipseInitializeError" xml:space="preserve">
+    <value>椭球对象初始化失败。</value>
+    <comment>ErrMessage.GEOEllipse</comment>
+  </data>
+  <data name="GEOEllipseSaveToXmlFailed" xml:space="preserve">
+    <value>将椭球对象保存到XML结构失败。</value>
+    <comment>ErrMessage.GEOEllipse</comment>
+  </data>
+  <data name="GetCenterFailed" xml:space="preserve">
+    <value>计算中央经线失败。</value>
+    <comment>ErrMessage.GaussCoord</comment>
+  </data>
+  <data name="LongitudeOutOfRange" xml:space="preserve">
+    <value>经度应介于 {0} - {1} 间，当前值为 {2}。</value>
+    <comment>ErrMessage.Data</comment>
+  </data>
+  <data name="MinuteOutOfRange" xml:space="preserve">
+    <value>分应介于 {0} - {1} 间，当前值为 {2}。</value>
+    <comment>ErrMessage.Data</comment>
+  </data>
+  <data name="SameZoneType" xml:space="preserve">
+    <value>用于初始化对象的两个高斯坐标拥有同样的分带类型。</value>
+    <comment>ErrMessage.GaussCoord</comment>
+  </data>
+  <data name="SecondOutOfRange" xml:space="preserve">
+    <value>秒应介于 {0} - {1} 间，当前值为 {2}。</value>
+    <comment>ErrMessage.Data</comment>
+  </data>
+  <data name="SetCenterFailed" xml:space="preserve">
+    <value>设置中央经线失败。</value>
+    <comment>ErrMessage.GaussCoord</comment>
+  </data>
+  <data name="SetDBPathFailed" xml:space="preserve">
+    <value>设置数据库存放目录失败。</value>
+    <comment>ErrMessage.DB</comment>
+  </data>
+  <data name="SetDocPathFailed" xml:space="preserve">
+    <value>设置数据文件存放目录失败。</value>
+    <comment>ErrMessage.DataFile</comment>
+  </data>
+  <data name="SetEllipseTypeFailed" xml:space="preserve">
+    <value>设置椭球类型失败。</value>
+    <comment>ErrMessage.GEOEllipse</comment>
+  </data>
+  <data name="SetZoneFailed" xml:space="preserve">
+    <value>设置高斯坐标带号失败。</value>
+    <comment>ErrMessage.GaussCoord</comment>
+  </data>
+  <data name="WrongDigitPosition" xml:space="preserve">
+    <value>字符串小数点位置错误。</value>
+    <comment>ErrMessage.Data</comment>
+  </data>
+  <data name="Zone3OutOfRange" xml:space="preserve">
+    <value>3度分带带号应介于 {0} - {1} 间，当前值为 {2}。</value>
+    <comment>ErrMessage.Data</comment>
+  </data>
+  <data name="Zone6OutOfRange" xml:space="preserve">
+    <value>6度分带带号应介于 {0} - {1} 间，当前值为 {2}。</value>
+    <comment>ErrMessage.Data</comment>
+  </data>
+  <data name="ZoneConvertFailed" xml:space="preserve">
+    <value>换带操作失败。</value>
+    <comment>ErrMessage.ZoneConvert</comment>
+  </data>
+  <data name="ZoneConvertInitializeError" xml:space="preserve">
+    <value>换带初始化失败。</value>
+    <comment>ErrMessage.ZoneConvert</comment>
+  </data>
+  <data name="ZoneConvertSaveToXmlFailed" xml:space="preserve">
+    <value>将换带对象保存到XML结构失败。</value>
+    <comment>ErrMessage.ZoneConvert</comment>
+  </data>
+  <data name="ZoneTypeNotSet" xml:space="preserve">
+    <value>未设置分带类型。</value>
+    <comment>ErrMessage.GEOZone</comment>
+  </data>
+  <data name="ZoneTypeUnknown" xml:space="preserve">
+    <value>未知的分带类型。</value>
+    <comment>ErrMessage.GEOZone</comment>
   </data>
 </root>

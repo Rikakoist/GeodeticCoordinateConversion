@@ -115,6 +115,33 @@ namespace GeodeticCoordinateConversion.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 传入了未知的参数。.
+        /// </summary>
+        internal static string ArgumentUnknown {
+            get {
+                return ResourceManager.GetString("ArgumentUnknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 绑定事件失败。.
+        /// </summary>
+        internal static string BindEventFailed {
+            get {
+                return ResourceManager.GetString("BindEventFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 纬度应介于 {0} - {1} 间，当前值为 {2}。.
+        /// </summary>
+        internal static string BiotitudeOutOfRange {
+            get {
+                return ResourceManager.GetString("BiotitudeOutOfRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 已计算数据颜色.
         /// </summary>
         internal static string CalculatedColor {
@@ -178,11 +205,56 @@ namespace GeodeticCoordinateConversion.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 从3度带转换到6度带失败。.
+        /// </summary>
+        internal static string Convert3To6Failed {
+            get {
+                return ResourceManager.GetString("Convert3To6Failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 从6度带转换到3度带失败。.
+        /// </summary>
+        internal static string Convert6To3Failed {
+            get {
+                return ResourceManager.GetString("Convert6To3Failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 从字符串读取度分秒信息失败。.
+        /// </summary>
+        internal static string ConvertFromStringFailed {
+            get {
+                return ResourceManager.GetString("ConvertFromStringFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 上一次转换操作出现问题，请检查后重试。.
+        /// </summary>
+        internal static string ConvertOperationFailed {
+            get {
+                return ResourceManager.GetString("ConvertOperationFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} 完成，共有 {1} 条记录，计算了 {2} 条记录，成功 {3} 条，失败 {4} 条。.
         /// </summary>
         internal static string ConvertResult {
             get {
                 return ResourceManager.GetString("ConvertResult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 将度分秒信息转换为字符串失败。.
+        /// </summary>
+        internal static string ConvertToStringFailed {
+            get {
+                return ResourceManager.GetString("ConvertToStringFailed", resourceCulture);
             }
         }
         
@@ -214,6 +286,24 @@ namespace GeodeticCoordinateConversion.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 坐标转换对象初始化失败。.
+        /// </summary>
+        internal static string CoordConvertInitializeError {
+            get {
+                return ResourceManager.GetString("CoordConvertInitializeError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 将坐标转换对象保存到XML结构失败。.
+        /// </summary>
+        internal static string CoordConvertSaveToXmlFailed {
+            get {
+                return ResourceManager.GetString("CoordConvertSaveToXmlFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 坐标转换对象的GUID。.
         /// </summary>
         internal static string CoordConvertUID {
@@ -241,11 +331,29 @@ namespace GeodeticCoordinateConversion.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 数据文件管理对象初始化失败。.
+        /// </summary>
+        internal static string DataFileInitializeError {
+            get {
+                return ResourceManager.GetString("DataFileInitializeError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 数据文件名.
         /// </summary>
         internal static string DataFileName {
             get {
                 return ResourceManager.GetString("DataFileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 当前选定的选项卡不包含计算用数据框。.
+        /// </summary>
+        internal static string DataGridViewNotExist {
+            get {
+                return ResourceManager.GetString("DataGridViewNotExist", resourceCulture);
             }
         }
         
@@ -309,6 +417,15 @@ namespace GeodeticCoordinateConversion.Resources {
         internal static string DataTable {
             get {
                 return ResourceManager.GetString("DataTable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 数据库管理对象初始化失败。.
+        /// </summary>
+        internal static string DBInitializeError {
+            get {
+                return ResourceManager.GetString("DBInitializeError", resourceCulture);
             }
         }
         
@@ -394,6 +511,15 @@ namespace GeodeticCoordinateConversion.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 度应介于 {0} - {1} 间，当前值为 {2}。.
+        /// </summary>
+        internal static string DegreeOutOfRange {
+            get {
+                return ResourceManager.GetString("DegreeOutOfRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 删除选中行.
         /// </summary>
         internal static string DeleteRow {
@@ -412,11 +538,83 @@ namespace GeodeticCoordinateConversion.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 指定的文件夹不存在。.
+        /// </summary>
+        internal static string DirectoryNotFound {
+            get {
+                return ResourceManager.GetString("DirectoryNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 脏数据颜色.
         /// </summary>
         internal static string DirtyColor {
             get {
                 return ResourceManager.GetString("DirtyColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 度分秒对象初始化失败。.
+        /// </summary>
+        internal static string DMSInitializeError {
+            get {
+                return ResourceManager.GetString("DMSInitializeError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 未初始化度分秒对象。.
+        /// </summary>
+        internal static string DMSNull {
+            get {
+                return ResourceManager.GetString("DMSNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 将度分秒对象保存到XML结构失败。.
+        /// </summary>
+        internal static string DMSSaveToXmlFailed {
+            get {
+                return ResourceManager.GetString("DMSSaveToXmlFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 未设置椭球类型。.
+        /// </summary>
+        internal static string EllipseNotSet {
+            get {
+                return ResourceManager.GetString("EllipseNotSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 未初始化椭球对象。.
+        /// </summary>
+        internal static string EllipseNull {
+            get {
+                return ResourceManager.GetString("EllipseNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 未知的椭球类型。.
+        /// </summary>
+        internal static string EllipseUnknown {
+            get {
+                return ResourceManager.GetString("EllipseUnknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 数据框为空。.
+        /// </summary>
+        internal static string EmptyDataGridView {
+            get {
+                return ResourceManager.GetString("EmptyDataGridView", resourceCulture);
             }
         }
         
@@ -439,11 +637,38 @@ namespace GeodeticCoordinateConversion.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 指定数据文件出错。.
+        /// </summary>
+        internal static string ErrSpecifyingDataFile {
+            get {
+                return ResourceManager.GetString("ErrSpecifyingDataFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 指定的文件不存在。.
+        /// </summary>
+        internal static string FileNotFound {
+            get {
+                return ResourceManager.GetString("FileNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 成功将文件 {0} 中 {1} 条坐标转换记录和 {2}  条换带记录导入到数据库 {3}。.
         /// </summary>
         internal static string FileSavedToDB {
             get {
                 return ResourceManager.GetString("FileSavedToDB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 该功能暂未实现。.
+        /// </summary>
+        internal static string FunctionNotImplemented {
+            get {
+                return ResourceManager.GetString("FunctionNotImplemented", resourceCulture);
             }
         }
         
@@ -462,6 +687,24 @@ namespace GeodeticCoordinateConversion.Resources {
         internal static string GaussCoordEllipseType {
             get {
                 return ResourceManager.GetString("GaussCoordEllipseType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 高斯坐标对象初始化失败。.
+        /// </summary>
+        internal static string GaussCoordInitializeError {
+            get {
+                return ResourceManager.GetString("GaussCoordInitializeError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 将高斯坐标对象保存到XML结构失败。.
+        /// </summary>
+        internal static string GaussCoordSaveToXmlFailed {
+            get {
+                return ResourceManager.GetString("GaussCoordSaveToXmlFailed", resourceCulture);
             }
         }
         
@@ -511,6 +754,42 @@ namespace GeodeticCoordinateConversion.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 高斯正算失败。.
+        /// </summary>
+        internal static string GaussDirectFailed {
+            get {
+                return ResourceManager.GetString("GaussDirectFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 未初始化高斯坐标对象。.
+        /// </summary>
+        internal static string GaussNull {
+            get {
+                return ResourceManager.GetString("GaussNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 高斯反算失败。.
+        /// </summary>
+        internal static string GaussReverseFailed {
+            get {
+                return ResourceManager.GetString("GaussReverseFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 高斯坐标转换到地理经纬度失败。.
+        /// </summary>
+        internal static string GaussToGEOBLFailed {
+            get {
+                return ResourceManager.GetString("GaussToGEOBLFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 通用.
         /// </summary>
         internal static string General {
@@ -547,11 +826,47 @@ namespace GeodeticCoordinateConversion.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 地理经纬度对象初始化失败。.
+        /// </summary>
+        internal static string GEOBLInitializeError {
+            get {
+                return ResourceManager.GetString("GEOBLInitializeError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 表示经度的字符串。.
         /// </summary>
         internal static string GEOBLL {
             get {
                 return ResourceManager.GetString("GEOBLL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 未初始化地理经纬度对象。.
+        /// </summary>
+        internal static string GEOBLNull {
+            get {
+                return ResourceManager.GetString("GEOBLNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 将地理经纬度对象保存到XML结构失败。.
+        /// </summary>
+        internal static string GEOBLSaveToXmlFailed {
+            get {
+                return ResourceManager.GetString("GEOBLSaveToXmlFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 地理经纬度转换到高斯坐标失败。.
+        /// </summary>
+        internal static string GEOBLToGaussFailed {
+            get {
+                return ResourceManager.GetString("GEOBLToGaussFailed", resourceCulture);
             }
         }
         
@@ -570,6 +885,33 @@ namespace GeodeticCoordinateConversion.Resources {
         internal static string GEOBLZoneType {
             get {
                 return ResourceManager.GetString("GEOBLZoneType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 椭球对象初始化失败。.
+        /// </summary>
+        internal static string GEOEllipseInitializeError {
+            get {
+                return ResourceManager.GetString("GEOEllipseInitializeError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 将椭球对象保存到XML结构失败。.
+        /// </summary>
+        internal static string GEOEllipseSaveToXmlFailed {
+            get {
+                return ResourceManager.GetString("GEOEllipseSaveToXmlFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 计算中央经线失败。.
+        /// </summary>
+        internal static string GetCenterFailed {
+            get {
+                return ResourceManager.GetString("GetCenterFailed", resourceCulture);
             }
         }
         
@@ -669,6 +1011,24 @@ namespace GeodeticCoordinateConversion.Resources {
         internal static string LoadFile {
             get {
                 return ResourceManager.GetString("LoadFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 经度应介于 {0} - {1} 间，当前值为 {2}。.
+        /// </summary>
+        internal static string LongitudeOutOfRange {
+            get {
+                return ResourceManager.GetString("LongitudeOutOfRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 分应介于 {0} - {1} 间，当前值为 {2}。.
+        /// </summary>
+        internal static string MinuteOutOfRange {
+            get {
+                return ResourceManager.GetString("MinuteOutOfRange", resourceCulture);
             }
         }
         
@@ -781,6 +1141,15 @@ namespace GeodeticCoordinateConversion.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 用于初始化对象的两个高斯坐标拥有同样的分带类型。.
+        /// </summary>
+        internal static string SameZoneType {
+            get {
+                return ResourceManager.GetString("SameZoneType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 保存.
         /// </summary>
         internal static string Save {
@@ -835,6 +1204,15 @@ namespace GeodeticCoordinateConversion.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 秒应介于 {0} - {1} 间，当前值为 {2}。.
+        /// </summary>
+        internal static string SecondOutOfRange {
+            get {
+                return ResourceManager.GetString("SecondOutOfRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 全选.
         /// </summary>
         internal static string SelectAll {
@@ -880,6 +1258,42 @@ namespace GeodeticCoordinateConversion.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 设置中央经线失败。.
+        /// </summary>
+        internal static string SetCenterFailed {
+            get {
+                return ResourceManager.GetString("SetCenterFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 设置数据库存放目录失败。.
+        /// </summary>
+        internal static string SetDBPathFailed {
+            get {
+                return ResourceManager.GetString("SetDBPathFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 设置数据文件存放目录失败。.
+        /// </summary>
+        internal static string SetDocPathFailed {
+            get {
+                return ResourceManager.GetString("SetDocPathFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 设置椭球类型失败。.
+        /// </summary>
+        internal static string SetEllipseTypeFailed {
+            get {
+                return ResourceManager.GetString("SetEllipseTypeFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 设置.
         /// </summary>
         internal static string Settings {
@@ -894,6 +1308,15 @@ namespace GeodeticCoordinateConversion.Resources {
         internal static string SettingTitle {
             get {
                 return ResourceManager.GetString("SettingTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 设置高斯坐标带号失败。.
+        /// </summary>
+        internal static string SetZoneFailed {
+            get {
+                return ResourceManager.GetString("SetZoneFailed", resourceCulture);
             }
         }
         
@@ -961,11 +1384,47 @@ namespace GeodeticCoordinateConversion.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 字符串小数点位置错误。.
+        /// </summary>
+        internal static string WrongDigitPosition {
+            get {
+                return ResourceManager.GetString("WrongDigitPosition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 3度分带带号应介于 {0} - {1} 间，当前值为 {2}。.
+        /// </summary>
+        internal static string Zone3OutOfRange {
+            get {
+                return ResourceManager.GetString("Zone3OutOfRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 6度分带带号应介于 {0} - {1} 间，当前值为 {2}。.
+        /// </summary>
+        internal static string Zone6OutOfRange {
+            get {
+                return ResourceManager.GetString("Zone6OutOfRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 换带计算.
         /// </summary>
         internal static string ZoneConvert {
             get {
                 return ResourceManager.GetString("ZoneConvert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 换带操作失败。.
+        /// </summary>
+        internal static string ZoneConvertFailed {
+            get {
+                return ResourceManager.GetString("ZoneConvertFailed", resourceCulture);
             }
         }
         
@@ -988,11 +1447,47 @@ namespace GeodeticCoordinateConversion.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 换带初始化失败。.
+        /// </summary>
+        internal static string ZoneConvertInitializeError {
+            get {
+                return ResourceManager.GetString("ZoneConvertInitializeError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 将换带对象保存到XML结构失败。.
+        /// </summary>
+        internal static string ZoneConvertSaveToXmlFailed {
+            get {
+                return ResourceManager.GetString("ZoneConvertSaveToXmlFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 换带对象的GUID。.
         /// </summary>
         internal static string ZoneConvertUID {
             get {
                 return ResourceManager.GetString("ZoneConvertUID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 未设置分带类型。.
+        /// </summary>
+        internal static string ZoneTypeNotSet {
+            get {
+                return ResourceManager.GetString("ZoneTypeNotSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 未知的分带类型。.
+        /// </summary>
+        internal static string ZoneTypeUnknown {
+            get {
+                return ResourceManager.GetString("ZoneTypeUnknown", resourceCulture);
             }
         }
     }

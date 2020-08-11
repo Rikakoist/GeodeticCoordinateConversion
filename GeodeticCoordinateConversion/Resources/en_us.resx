@@ -528,4 +528,224 @@
     <value>Reloaded {1} from {0}.</value>
     <comment>Hints.TableReloaded</comment>
   </data>
+  <data name="ArgumentUnknown" xml:space="preserve">
+    <value>Unknown argument.</value>
+    <comment>ErrMessage.Generic</comment>
+  </data>
+  <data name="BindEventFailed" xml:space="preserve">
+    <value>Failed to bind event.</value>
+    <comment>ErrMessage.Generic</comment>
+  </data>
+  <data name="BiotitudeOutOfRange" xml:space="preserve">
+    <value>Biotitude should between {0} and {1}, current value: {2}.</value>
+    <comment>ErrMessage.Data</comment>
+  </data>
+  <data name="Convert3To6Failed" xml:space="preserve">
+    <value>Failed to convert zone 3 to zone 6.</value>
+    <comment>ErrMessage.ZoneConvert</comment>
+  </data>
+  <data name="Convert6To3Failed" xml:space="preserve">
+    <value>Failed to convert zone 6 to zone 3.</value>
+    <comment>ErrMessage.ZoneConvert</comment>
+  </data>
+  <data name="ConvertFromStringFailed" xml:space="preserve">
+    <value>Failed to read DMS info from string.</value>
+    <comment>ErrMessage.DMS</comment>
+  </data>
+  <data name="ConvertOperationFailed" xml:space="preserve">
+    <value>Failed to perform conversion operation, please check and try again later.</value>
+    <comment>ErrMessage.Generic</comment>
+  </data>
+  <data name="ConvertToStringFailed" xml:space="preserve">
+    <value>Failed to convert DMS info to string.</value>
+    <comment>ErrMessage.DMS</comment>
+  </data>
+  <data name="CoordConvertInitializeError" xml:space="preserve">
+    <value>Error initializing coord convert object.</value>
+    <comment>ErrMessage.CoordConvert</comment>
+  </data>
+  <data name="CoordConvertSaveToXmlFailed" xml:space="preserve">
+    <value>Failed to save coord convert object to XML structure.</value>
+    <comment>ErrMessage.CoordConvert</comment>
+  </data>
+  <data name="DataFileInitializeError" xml:space="preserve">
+    <value>Error initializing data file.</value>
+    <comment>ErrMessage.DataFile</comment>
+  </data>
+  <data name="DataGridViewNotExist" xml:space="preserve">
+    <value>Current tab doesn't contain DataGridView for calculation.</value>
+    <comment>ErrMessage.Data</comment>
+  </data>
+  <data name="DBInitializeError" xml:space="preserve">
+    <value>Error initializing database.</value>
+    <comment>ErrMessage.DB</comment>
+  </data>
+  <data name="DegreeOutOfRange" xml:space="preserve">
+    <value>Degree should between {0} and {1}, current value: {2}.</value>
+    <comment>ErrMessage.Data</comment>
+  </data>
+  <data name="DirectoryNotFound" xml:space="preserve">
+    <value>Spicified directory not found.</value>
+    <comment>ErrMessage.Generic</comment>
+  </data>
+  <data name="DMSInitializeError" xml:space="preserve">
+    <value>Error initializing DMS object.</value>
+    <comment>ErrMessage.DMS</comment>
+  </data>
+  <data name="DMSNull" xml:space="preserve">
+    <value>DMS object not initialized.</value>
+    <comment>ErrMessage.DMS</comment>
+  </data>
+  <data name="DMSSaveToXmlFailed" xml:space="preserve">
+    <value>Failed to save DMS object to XML structure.</value>
+    <comment>ErrMessage.DMS</comment>
+  </data>
+  <data name="EllipseNotSet" xml:space="preserve">
+    <value>Ellipse type not set.</value>
+    <comment>ErrMessage.GEOEllipse</comment>
+  </data>
+  <data name="EllipseNull" xml:space="preserve">
+    <value>Ellipse object not initialized.</value>
+    <comment>ErrMessage.GEOEllipse</comment>
+  </data>
+  <data name="EllipseUnknown" xml:space="preserve">
+    <value>Unknown ellipse type.</value>
+    <comment>ErrMessage.GEOEllipse</comment>
+  </data>
+  <data name="EmptyDataGridView" xml:space="preserve">
+    <value>Target DataGridView is empty.</value>
+    <comment>ErrMessage.Data</comment>
+  </data>
+  <data name="ErrSpecifyingDataFile" xml:space="preserve">
+    <value>Failed to specify data file.</value>
+    <comment>ErrMessage.Data</comment>
+  </data>
+  <data name="FileNotFound" xml:space="preserve">
+    <value>Spicified file not found.</value>
+    <comment>ErrMessage.Generic</comment>
+  </data>
+  <data name="FunctionNotImplemented" xml:space="preserve">
+    <value>This function hasn't been implemented.</value>
+    <comment>ErrMessage.Generic</comment>
+  </data>
+  <data name="GaussCoordInitializeError" xml:space="preserve">
+    <value>Error initializing Gauss coord object.</value>
+    <comment>ErrMessage.GaussCoord</comment>
+  </data>
+  <data name="GaussCoordSaveToXmlFailed" xml:space="preserve">
+    <value>Failed to save Gauss coord object to XML structure.</value>
+    <comment>ErrMessage.GaussCoord</comment>
+  </data>
+  <data name="GaussDirectFailed" xml:space="preserve">
+    <value>Failed to execute Gauss direct.</value>
+    <comment>ErrMessage.GEOBL</comment>
+  </data>
+  <data name="GaussNull" xml:space="preserve">
+    <value>Gauss coord object not initialized.</value>
+    <comment>ErrMessage.GaussCoord</comment>
+  </data>
+  <data name="GaussReverseFailed" xml:space="preserve">
+    <value>Failed to execute Gauss reverse.</value>
+    <comment>ErrMessage.GaussCoord</comment>
+  </data>
+  <data name="GaussToGEOBLFailed" xml:space="preserve">
+    <value>Failed to convert Gauss coord to GEOBL.</value>
+    <comment>ErrMessage.CoordConvert</comment>
+  </data>
+  <data name="GEOBLInitializeError" xml:space="preserve">
+    <value>Error initializing GEOBL object.</value>
+    <comment>ErrMessage.GEOBL</comment>
+  </data>
+  <data name="GEOBLNull" xml:space="preserve">
+    <value>GEOBL object not initialized.</value>
+    <comment>ErrMessage.GEOBL</comment>
+  </data>
+  <data name="GEOBLSaveToXmlFailed" xml:space="preserve">
+    <value>Failed to save GEOBL object to XML structure.</value>
+    <comment>ErrMessage.GEOBL</comment>
+  </data>
+  <data name="GEOBLToGaussFailed" xml:space="preserve">
+    <value>Failed to convert GEOBL to Gauss coord.</value>
+    <comment>ErrMessage.CoordConvert</comment>
+  </data>
+  <data name="GEOEllipseInitializeError" xml:space="preserve">
+    <value>Error initializing ellipse object.</value>
+    <comment>ErrMessage.GEOEllipse</comment>
+  </data>
+  <data name="GEOEllipseSaveToXmlFailed" xml:space="preserve">
+    <value>Failed to save ellipse object to XML structure.</value>
+    <comment>ErrMessage.GEOEllipse</comment>
+  </data>
+  <data name="GetCenterFailed" xml:space="preserve">
+    <value>Failed to calculate central meridian.</value>
+    <comment>ErrMessage.GaussCoord</comment>
+  </data>
+  <data name="LongitudeOutOfRange" xml:space="preserve">
+    <value>Longitude should between {0} and {1}, current value: {2}.</value>
+    <comment>ErrMessage.Data</comment>
+  </data>
+  <data name="MinuteOutOfRange" xml:space="preserve">
+    <value>Minute should between {0} and {1}, current value: {2}.</value>
+    <comment>ErrMessage.Data</comment>
+  </data>
+  <data name="SameZoneType" xml:space="preserve">
+    <value>Two Gauss coord objects that used to initialize have save zone type.</value>
+    <comment>ErrMessage.GaussCoord</comment>
+  </data>
+  <data name="SecondOutOfRange" xml:space="preserve">
+    <value>Second should between {0} and {1}, current value: {2}.</value>
+    <comment>ErrMessage.Data</comment>
+  </data>
+  <data name="SetCenterFailed" xml:space="preserve">
+    <value>Failed to set central meridian.</value>
+    <comment>ErrMessage.GaussCoord</comment>
+  </data>
+  <data name="SetDBPathFailed" xml:space="preserve">
+    <value>Failed to set database directory.</value>
+    <comment>ErrMessage.DB</comment>
+  </data>
+  <data name="SetDocPathFailed" xml:space="preserve">
+    <value>Failed to set data file directory.</value>
+    <comment>ErrMessage.DataFile</comment>
+  </data>
+  <data name="SetEllipseTypeFailed" xml:space="preserve">
+    <value>Failed to set ellipse type.</value>
+    <comment>ErrMessage.GEOEllipse</comment>
+  </data>
+  <data name="SetZoneFailed" xml:space="preserve">
+    <value>Failed to set zone num of Gauss coord.</value>
+    <comment>ErrMessage.GaussCoord</comment>
+  </data>
+  <data name="WrongDigitPosition" xml:space="preserve">
+    <value>Wrong digit position in string.</value>
+    <comment>ErrMessage.Data</comment>
+  </data>
+  <data name="Zone3OutOfRange" xml:space="preserve">
+    <value>Zone num (3) should between {0} and {1}, current value: {2}.</value>
+    <comment>ErrMessage.Data</comment>
+  </data>
+  <data name="Zone6OutOfRange" xml:space="preserve">
+    <value>Zone num (6) should between {0} and {1}, current value: {2}.</value>
+    <comment>ErrMessage.Data</comment>
+  </data>
+  <data name="ZoneConvertFailed" xml:space="preserve">
+    <value>Zone convert operation failed.</value>
+    <comment>ErrMessage.ZoneConvert</comment>
+  </data>
+  <data name="ZoneConvertInitializeError" xml:space="preserve">
+    <value>Error initializing zone convert object.</value>
+    <comment>ErrMessage.ZoneConvert</comment>
+  </data>
+  <data name="ZoneConvertSaveToXmlFailed" xml:space="preserve">
+    <value>Failed to save zone convert object to XML structure.</value>
+    <comment>ErrMessage.ZoneConvert</comment>
+  </data>
+  <data name="ZoneTypeNotSet" xml:space="preserve">
+    <value>Zone type not set.</value>
+    <comment>ErrMessage.GEOZone</comment>
+  </data>
+  <data name="ZoneTypeUnknown" xml:space="preserve">
+    <value>Unknown zone type.</value>
+    <comment>ErrMessage.GEOZone</comment>
+  </data>
 </root>

@@ -41,7 +41,7 @@ namespace GeodeticCoordinateConversion
             {
                 if ((value < Restraints.BiotitudeMin) || (value > Restraints.BiotitudeMax))
                 {
-                    throw new ArgumentOutOfRangeException(ErrMessage.Data.BiotitudeOutOfRange);
+                    throw new ArgumentOutOfRangeException(ErrMessage.Data.BiotitudeOutOfRange(value));
                 }
                 else
                 {
@@ -62,7 +62,7 @@ namespace GeodeticCoordinateConversion
             {
                 if ((value < Restraints.LongitudeMin) || (value > Restraints.LongitudeMax))
                 {
-                    throw new ArgumentOutOfRangeException(ErrMessage.Data.LongitudeOutOfRange);
+                    throw new ArgumentOutOfRangeException(ErrMessage.Data.LongitudeOutOfRange(value));
                 }
                 else
                 {
