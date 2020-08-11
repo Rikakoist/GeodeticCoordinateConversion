@@ -86,11 +86,11 @@
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ObjDef\BaseObjects.cs" />
-    <Compile Include="Controls\CoordConvertCtrl.cs">
+    <Compile Include="Controls\ConvertCtrl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\CoordConvertCtrl.Designer.cs">
-      <DependentUpon>CoordConvertCtrl.cs</DependentUpon>
+    <Compile Include="Controls\ConvertCtrl.Designer.cs">
+      <DependentUpon>ConvertCtrl.cs</DependentUpon>
     </Compile>
     <Compile Include="ObjDef\DMS.cs" />
     <Compile Include="MainForm.cs">
@@ -130,8 +130,8 @@
     <EmbeddedResource Include="AboutApp.resx">
       <DependentUpon>AboutApp.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\CoordConvertCtrl.resx">
-      <DependentUpon>CoordConvertCtrl.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\ConvertCtrl.resx">
+      <DependentUpon>ConvertCtrl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\TableViewCtrl.resx">
       <DependentUpon>TableViewCtrl.cs</DependentUpon>

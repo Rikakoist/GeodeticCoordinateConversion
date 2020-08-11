@@ -32,9 +32,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.ConvertTabControl = new System.Windows.Forms.TabControl();
             this.CoordTabPage = new System.Windows.Forms.TabPage();
-            this.Coord = new GeodeticCoordinateConversion.CoordConvertLayout();
+            this.Coord = new GeodeticCoordinateConversion.ConvertCtrl();
             this.ZoneTabPage = new System.Windows.Forms.TabPage();
-            this.Zone = new GeodeticCoordinateConversion.CoordConvertLayout();
+            this.Zone = new GeodeticCoordinateConversion.ConvertCtrl();
             this.DBTabPage = new System.Windows.Forms.TabPage();
             this.CtrlToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.BottomStatusStrip = new System.Windows.Forms.StatusStrip();
@@ -208,11 +208,11 @@
 
         #endregion
 
-        private CoordConvertLayout Coord;
+        private ConvertCtrl Coord;
         private System.Windows.Forms.TabControl ConvertTabControl;
         private System.Windows.Forms.TabPage CoordTabPage;
         private System.Windows.Forms.TabPage ZoneTabPage;
-        private CoordConvertLayout Zone;
+        private ConvertCtrl Zone;
         private System.Windows.Forms.TabPage DBTabPage;
         private System.Windows.Forms.ToolTip CtrlToolTip;
         private System.Windows.Forms.StatusStrip BottomStatusStrip;

@@ -60,9 +60,10 @@ namespace GeodeticCoordinateConversion
             Coord.DirectBtn.Click += new System.EventHandler(this.CoordConvertOperation);
             Coord.ReverseBtn.Click += new System.EventHandler(this.CoordConvertOperation);
 
-            Coord.ConvertSelectionChange += new CoordConvertLayout.ConvertSelectionChangeEventHander(this.ConvertSelection);
+            Coord.ConvertSelectionChange += new ConvertCtrl.ConvertSelectionChangeEventHander(this.ConvertSelection);
 
             Coord.TransferBtn.Click += new System.EventHandler(this.TransferCoord2Gauss);
+            Coord.HintChanged += new ConvertCtrl.HintChangedEventHandler(this.ChildHintChanged);
 
             //换带事件绑定
             this.ZoneDGV = Zone.DGV;
@@ -78,7 +79,8 @@ namespace GeodeticCoordinateConversion
             Zone.DirectBtn.Click += new System.EventHandler(this.ZoneConvertOperation);
             Zone.ReverseBtn.Click += new System.EventHandler(this.ZoneConvertOperation);
 
-            Zone.ConvertSelectionChange += new CoordConvertLayout.ConvertSelectionChangeEventHander(this.ConvertSelection);
+            Zone.ConvertSelectionChange += new ConvertCtrl.ConvertSelectionChangeEventHander(this.ConvertSelection);
+            Zone.HintChanged += new ConvertCtrl.HintChangedEventHandler(this.ChildHintChanged);
 
             //数据库表编辑控件
             TableViewCtrl TVC = new TableViewCtrl()
@@ -243,7 +245,7 @@ namespace GeodeticCoordinateConversion
         //子控件的提示信息改变
         public void ChildHintChanged(object sender, HintChangedEventArgs e)
         {
-            this.Hint = e.NewValue.ToString();
+            this.Hint = e.NewValue?.ToString();
         }
 
         //时钟

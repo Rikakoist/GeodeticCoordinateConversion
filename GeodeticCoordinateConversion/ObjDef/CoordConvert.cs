@@ -35,7 +35,6 @@ namespace GeodeticCoordinateConversion
         /// 是否选中。
         /// </summary>
         [DisplayName("选中")]
-        [DispId(0)]
         public bool Selected { get => base.Selected; set => base.Selected = value; }
         /// <summary>
         /// 地理纬度。

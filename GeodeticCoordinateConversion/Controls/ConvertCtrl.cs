@@ -16,15 +16,25 @@ using System.Resources;
 
 namespace GeodeticCoordinateConversion
 {
-    public partial class CoordConvertLayout : UserControl
+    public partial class ConvertCtrl : UserControl
     {
-        public string Hint { get; private set; }
+        private string hint;
+        public string Hint
+        {
+            get => hint;
+            set
+            {
+                HintChangedEventArgs e = new HintChangedEventArgs(hint, value);
+                hint = value;
+                HintChanged?.Invoke(this, e);
+            }
+        }
         public static ResourceManager rm = new ResourceManager(Constants.ResourceSpace, Assembly.GetExecutingAssembly());
 
-        public delegate void ConvertSelectionChangeEventHander(object sender,string tag, EventArgs e);
+        public delegate void ConvertSelectionChangeEventHander(object sender, string tag, EventArgs e);
         public event ConvertSelectionChangeEventHander ConvertSelectionChange;
 
-        public CoordConvertLayout()
+        public ConvertCtrl()
         {
             InitializeComponent();
 
@@ -42,6 +52,11 @@ namespace GeodeticCoordinateConversion
             #endregion
 
         }
+
+        #region Events
+        public delegate void HintChangedEventHandler(object sender, HintChangedEventArgs e);
+        public event HintChangedEventHandler HintChanged;
+        #endregion
 
         private void CoordConvertLayout_Load(object sender, EventArgs e)
         {
@@ -104,7 +119,12 @@ namespace GeodeticCoordinateConversion
 
         private void ChangeSelection(object sender, EventArgs e)
         {
-            ConvertSelectionChange?.Invoke(this,(sender as Button).Tag.ToString(), e);
+            ConvertSelectionChange?.Invoke(this, (sender as Button).Tag.ToString(), e);
+        }
+
+        private void DGV_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            Hint = e.Exception?.InnerException?.Message.Replace("\r\n", " ")??e.Exception.Message.Replace("\r\n", " ");
         }
     }
 }

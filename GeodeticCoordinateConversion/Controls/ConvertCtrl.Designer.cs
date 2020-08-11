@@ -1,6 +1,6 @@
 ﻿namespace GeodeticCoordinateConversion
 {
-    partial class CoordConvertLayout
+    partial class ConvertCtrl
     {
         /// <summary> 
         /// Required designer variable.
@@ -70,6 +70,7 @@
             this.DGV.TabIndex = 0;
             this.DGV.DataSourceChanged += new System.EventHandler(this.DGV_DataSourceChanged);
             this.DGV.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGV_CellEndEdit);
+            this.DGV.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.DGV_DataError);
             this.DGV.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.DGV_RowsAdded);
             // 
             // DirectBtn
