@@ -18,8 +18,7 @@ namespace GeodeticCoordinateConversion
     public partial class TableViewCtrl : UserControl
     {
         DataSet ds = new DataSet();
-        static Properties.Settings S = new Properties.Settings();
-        public static ResourceManager rm = new ResourceManager("GeodeticCoordinateConversion.Resources." + S.Language, Assembly.GetExecutingAssembly());
+        public static ResourceManager rm = new ResourceManager(Constants.ResourceSpace, Assembly.GetExecutingAssembly());
 
         string tn;
         private string hint;

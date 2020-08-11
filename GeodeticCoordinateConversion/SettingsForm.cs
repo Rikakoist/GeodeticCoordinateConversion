@@ -15,7 +15,7 @@ namespace GeodeticCoordinateConversion
     public partial class SettingsForm : Form
     {
         static Properties.Settings S = new Properties.Settings();
-        public static ResourceManager rm = new ResourceManager("GeodeticCoordinateConversion.Resources." + S.Language, Assembly.GetExecutingAssembly());
+        public static ResourceManager rm = new ResourceManager(Constants.ResourceSpace, Assembly.GetExecutingAssembly());
 
         public SettingsForm()
         {

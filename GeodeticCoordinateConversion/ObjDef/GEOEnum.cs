@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Linq;
 using System.Reflection;
@@ -10,16 +11,15 @@ using System.Threading.Tasks;
 
 namespace GeodeticCoordinateConversion
 {
-
     /// <summary>
     /// 应用语言。
     /// </summary>
     public enum GEOLang
     {
-        [Description("简体中文")]
-        zh_cn = 0,
-        [Description("English")]
-        en_us = 1,
+        [Display(Name = nameof(Resources.Lang.SimplifiedChinese), ResourceType = typeof(Resources.Lang))]
+        zh_CN = 0,
+        [Display(Name = nameof(Resources.Lang.English), ResourceType = typeof(Resources.Lang))]
+        en_US = 1,
     }
 
     /// <summary>
@@ -30,17 +30,17 @@ namespace GeodeticCoordinateConversion
         /// <summary>
         /// 未设置分带。
         /// </summary>
-        [Description("未设置分带")]
+        [Display(Name = nameof(Resources.Lang.GEOZoneTypeNone), ResourceType = typeof(Resources.Lang))]
         None = 0,
         /// <summary>
         /// 3度带。
         /// </summary>
-        [Description("3度带")]
+        [Display(Name = nameof(Resources.Lang.GEOZoneType3), ResourceType = typeof(Resources.Lang))]
         Zone3 = 3,
         /// <summary>
         /// 6度带。
         /// </summary>
-        [Description("6度带")]
+        [Display(Name = nameof(Resources.Lang.GEOZoneType6), ResourceType = typeof(Resources.Lang))]
         Zone6 = 6
     }
 
@@ -52,27 +52,27 @@ namespace GeodeticCoordinateConversion
         /// <summary>
         /// 未设置椭球。
         /// </summary>
-        [Description("未设置椭球")]
+        [Display(Name = nameof(Resources.Lang.GEOEllipseTypenoEllipse), ResourceType = typeof(Resources.Lang))]
         noEllipse = 0,
         /// <summary>
         /// 克拉索夫斯基椭球体。
         /// </summary>
-        [Description("克拉索夫斯基椭球体")]
+        [Display(Name = nameof(Resources.Lang.GEOEllipseTypeKrassovsky_ellipsoid), ResourceType = typeof(Resources.Lang))]
         Krassovsky_ellipsoid = 1,
         /// <summary>
         /// 1975年国际椭球体。
         /// </summary>
-        [Description("1975年国际椭球体")]
+        [Display(Name = nameof(Resources.Lang.GEOEllipseTypeInt_1975), ResourceType = typeof(Resources.Lang))]
         Int_1975 = 2,
         /// <summary>
         /// WGS-84椭球体。
         /// </summary>
-        [Description("WGS-84椭球体")]
+        [Display(Name = nameof(Resources.Lang.GEOEllipseTypeWGS_84), ResourceType = typeof(Resources.Lang))]
         WGS_84 = 3,
         /// <summary>
         /// CGCS-2000。
         /// </summary>
-        [Description("CGCS-2000")]
+        [Display(Name = nameof(Resources.Lang.GEOEllipseTypeCGCS_2000), ResourceType = typeof(Resources.Lang))]
         CGCS_2000 = 4
     }
 
@@ -84,17 +84,17 @@ namespace GeodeticCoordinateConversion
         /// <summary>
         /// a改变。
         /// </summary>
-        [Description("a改变")]
+        [Display(Name = nameof(Resources.Lang.EllipseChangedTypea), ResourceType = typeof(Resources.Lang))]
         a = 0,
         /// <summary>
         /// b改变。
         /// </summary>
-        [Description("b改变")]
+        [Display(Name = nameof(Resources.Lang.EllipseChangedTypeb), ResourceType = typeof(Resources.Lang))]
         b = 1,
         /// <summary>
         /// 椭球类型改变。
         /// </summary>
-        [Description("椭球类型改变")]
+        [Display(Name = nameof(Resources.Lang.EllipseChangedTypeEllipseType), ResourceType = typeof(Resources.Lang))]
         EllipseType = 2,
     }
 
@@ -106,17 +106,17 @@ namespace GeodeticCoordinateConversion
         /// <summary>
         /// 度改变。
         /// </summary>
-        [Description("度改变")]
+        [Display(Name = nameof(Resources.Lang.EllipseChangedTypea), ResourceType = typeof(Resources.Lang))]
         D = 0,
         /// <summary>
         /// 分改变。
         /// </summary>
-        [Description("分改变")]
+        [Display(Name = nameof(Resources.Lang.EllipseChangedTypea), ResourceType = typeof(Resources.Lang))]
         M = 1,
         /// <summary>
         /// 秒改变。
         /// </summary>
-        [Description("秒改变")]
+        [Display(Name = nameof(Resources.Lang.EllipseChangedTypea), ResourceType = typeof(Resources.Lang))]
         S = 2,
     }
 
@@ -128,22 +128,22 @@ namespace GeodeticCoordinateConversion
         /// <summary>
         /// B改变。
         /// </summary>
-        [Description("B改变")]
+        [Display(Name = nameof(Resources.Lang.GEOBLValueChangedTypeB), ResourceType = typeof(Resources.Lang))]
         B = 0,
         /// <summary>
         /// L改变。
         /// </summary>
-        [Description("L改变")]
+        [Display(Name = nameof(Resources.Lang.GEOBLValueChangedTypeL), ResourceType = typeof(Resources.Lang))]
         L = 1,
         /// <summary>
         /// 分带改变。
         /// </summary>
-        [Description("分带改变")]
+        [Display(Name = nameof(Resources.Lang.GEOBLValueChangedTypeZoneType), ResourceType = typeof(Resources.Lang))]
         ZoneType = 3,
         /// <summary>
         /// 椭球改变。
         /// </summary>
-        [Description("椭球改变")]
+        [Display(Name = nameof(Resources.Lang.GEOBLValueChangedTypeEllipse), ResourceType = typeof(Resources.Lang))]
         Ellipse = 4,
     }
 
@@ -155,27 +155,27 @@ namespace GeodeticCoordinateConversion
         /// <summary>
         /// X改变。
         /// </summary>
-        [Description("X改变")]
+        [Display(Name = nameof(Resources.Lang.GaussValueChangedTypeX), ResourceType = typeof(Resources.Lang))]
         X = 0,
         /// <summary>
         /// Y改变。
         /// </summary>
-        [Description("Y改变")]
+        [Display(Name = nameof(Resources.Lang.GaussValueChangedTypeY), ResourceType = typeof(Resources.Lang))]
         Y = 1,
         /// <summary>
         /// 带号改变。
         /// </summary>
-        [Description("带号改变")]
+        [Display(Name = nameof(Resources.Lang.GaussValueChangedTypeZone), ResourceType = typeof(Resources.Lang))]
         Zone = 2,
         /// <summary>
         /// 分带改变。
         /// </summary>
-        [Description("分带改变")]
+        [Display(Name = nameof(Resources.Lang.GaussValueChangedTypeZoneType), ResourceType = typeof(Resources.Lang))]
         ZoneType = 3,
         /// <summary>
         /// 椭球改变。
         /// </summary>
-        [Description("椭球改变")]
+        [Display(Name = nameof(Resources.Lang.GaussValueChangedTypeEllipse), ResourceType = typeof(Resources.Lang))]
         Ellipse = 4,
     }
 
@@ -184,9 +184,9 @@ namespace GeodeticCoordinateConversion
     /// </summary>
     public enum GEODataType
     {
-        [Description("坐标转换")]
+        [Display(Name = nameof(Resources.Lang.CoordConvert), ResourceType = typeof(Resources.Lang))]
         CoordConvert = 0,
-        [Description("换带")]
+        [Display(Name = nameof(Resources.Lang.ZoneConvert), ResourceType = typeof(Resources.Lang))]
         ZoneConvert = 1,
     }
 
@@ -195,21 +195,21 @@ namespace GeodeticCoordinateConversion
     /// </summary>
     public enum GEODataSourceType
     {
-        [Description("数据文件")]
+        [Display(Name = nameof(Resources.Lang.DataFile), ResourceType = typeof(Resources.Lang))]
         File = 0,
-        [Description("数据库")]
+        [Display(Name = nameof(Resources.Lang.DB), ResourceType = typeof(Resources.Lang))]
         DB = 1,
     }
 
     public enum GEOConvertType
     {
-        [Description("高斯正算")]
+        [Display(Name = nameof(Resources.Lang.GaussDirect), ResourceType = typeof(Resources.Lang))]
         GaussDirect = 0,
-        [Description("高斯反算")]
+        [Display(Name = nameof(Resources.Lang.GaussReverse), ResourceType = typeof(Resources.Lang))]
         GaussReverse = 1,
-        [Description("6°带转3°带")]
+        [Display(Name = nameof(Resources.Lang.Zone6To3), ResourceType = typeof(Resources.Lang))]
         Zone6To3 = 2,
-        [Description("3°带转6°带")]
+        [Display(Name = nameof(Resources.Lang.Zone3To6), ResourceType = typeof(Resources.Lang))]
         Zone3To6 = 3,
     }
 
@@ -223,15 +223,15 @@ namespace GeodeticCoordinateConversion
         {
             DataTable DT = new DataTable();
             DT.Columns.Add(nameof(GEOLang));
-            DT.Columns.Add("Name");
-            DT.Columns.Add("Value");
+            DT.Columns.Add(Constants.NameCol);
+            DT.Columns.Add(Constants.ValueCol);
 
             foreach (int i in Enum.GetValues(typeof(GEOLang)))
             {
                 DataRow DR = DT.NewRow();
-                DR[nameof(GEOLang)] = (typeof(GEOLang).GetField(((GEOLang)i).ToString()).GetCustomAttributes(false)[0] as DescriptionAttribute).Description;
-                DR["Name"] = Enum.GetName(typeof(GEOLang), i);
-                DR["Value"] = i;
+                DR[nameof(GEOLang)] = (typeof(GEOLang).GetField(((GEOLang)i).ToString()).GetCustomAttribute(typeof(DisplayAttribute)) as DisplayAttribute).GetName();
+                DR[Constants.NameCol] = Enum.GetName(typeof(GEOLang), i);
+                DR[Constants.ValueCol] = i;
                 DT.Rows.Add(DR);
             }
             return DT;
@@ -245,15 +245,15 @@ namespace GeodeticCoordinateConversion
         {
             DataTable DT = new DataTable();
             DT.Columns.Add(nameof(GEOZoneType));
-            DT.Columns.Add("Name");
-            DT.Columns.Add("Value");
+            DT.Columns.Add(Constants.NameCol);
+            DT.Columns.Add(Constants.ValueCol);
 
             foreach (int i in Enum.GetValues(typeof(GEOZoneType)))
             {
                 DataRow DR = DT.NewRow();
-                DR[nameof(GEOZoneType)] = (typeof(GEOZoneType).GetField(((GEOZoneType)i).ToString()).GetCustomAttributes(false)[0] as DescriptionAttribute).Description;
-                DR["Name"] = Enum.GetName(typeof(GEOZoneType), i);
-                DR["Value"] = i;
+                DR[nameof(GEOZoneType)] = (typeof(GEOZoneType).GetField(((GEOZoneType)i).ToString()).GetCustomAttribute(typeof(DisplayAttribute)) as DisplayAttribute).GetName();
+                DR[Constants.NameCol] = Enum.GetName(typeof(GEOZoneType), i);
+                DR[Constants.ValueCol] = i;
                 DT.Rows.Add(DR);
             }
             return DT;
@@ -267,14 +267,14 @@ namespace GeodeticCoordinateConversion
         {
             DataTable DT = new DataTable();
             DT.Columns.Add(nameof(GEOEllipseType));
-            DT.Columns.Add("Name");
-            DT.Columns.Add("Value");
+            DT.Columns.Add(Constants.NameCol);
+            DT.Columns.Add(Constants.ValueCol);
             foreach (int i in Enum.GetValues(typeof(GEOEllipseType)))
             {
                 DataRow DR = DT.NewRow();
-                DR[nameof(GEOEllipseType)] = (typeof(GEOEllipseType).GetField(((GEOEllipseType)i).ToString()).GetCustomAttributes(false)[0] as DescriptionAttribute).Description;
-                DR["Name"] = Enum.GetName(typeof(GEOEllipseType), i);
-                DR["Value"] = i;
+                DR[nameof(GEOEllipseType)] = (typeof(GEOEllipseType).GetField(((GEOEllipseType)i).ToString()).GetCustomAttribute(typeof(DisplayAttribute)) as DisplayAttribute).GetName();
+                DR[Constants.NameCol] = Enum.GetName(typeof(GEOEllipseType), i);
+                DR[Constants.ValueCol] = i;
                 DT.Rows.Add(DR);
             }
             return DT;
@@ -289,14 +289,14 @@ namespace GeodeticCoordinateConversion
         {
             DataTable DT = new DataTable();
             DT.Columns.Add(nameof(e));
-            DT.Columns.Add("Name");
-            DT.Columns.Add("Value");
+            DT.Columns.Add(Constants.NameCol);
+            DT.Columns.Add(Constants.ValueCol);
             foreach (int i in Enum.GetValues(e.GetType()))
             {
                 DataRow DR = DT.NewRow();
-                DR[nameof(e)] = (e.GetType().GetField(Enum.GetName(e.GetType(), i)).GetCustomAttributes(false)[0] as DescriptionAttribute).Description;
-                DR["Name"] = Enum.GetName(e.GetType(), i);
-                DR["Value"] = i;
+                DR[nameof(e)] = (e.GetType().GetField(Enum.GetName(e.GetType(), i)).GetCustomAttribute(typeof(DisplayAttribute)) as DisplayAttribute).GetName();
+                DR[Constants.NameCol] = Enum.GetName(e.GetType(), i);
+                DR[Constants.ValueCol] = i;
                 DT.Rows.Add(DR);
             }
             return DT;
@@ -310,7 +310,7 @@ namespace GeodeticCoordinateConversion
         /// <returns>描述。</returns>
         public static string GetDescription(Enum e, int i)
         {
-            return (e.GetType().GetField(Enum.GetName(e.GetType(), i)).GetCustomAttributes(false)[0] as DescriptionAttribute).Description;
+            return (e.GetType().GetField(Enum.GetName(e.GetType(), i)).GetCustomAttribute(typeof(DisplayAttribute)) as DisplayAttribute).GetName();
         }
     }
 }

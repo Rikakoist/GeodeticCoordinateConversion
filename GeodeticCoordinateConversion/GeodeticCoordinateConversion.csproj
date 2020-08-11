@@ -55,6 +55,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -73,15 +74,10 @@
     <Compile Include="AboutApp.Designer.cs">
       <DependentUpon>AboutApp.cs</DependentUpon>
     </Compile>
-    <Compile Include="Resources\en_us.Designer.cs">
-      <DependentUpon>en_us.resx</DependentUpon>
+    <Compile Include="Resources\Lang.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Resources\zh_cn.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>zh_cn.resx</DependentUpon>
+      <DependentUpon>Lang.resx</DependentUpon>
     </Compile>
     <Compile Include="SettingsForm.cs">
       <SubType>Form</SubType>
@@ -89,7 +85,7 @@
     <Compile Include="SettingsForm.Designer.cs">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ObjDef\DataStatus.cs" />
+    <Compile Include="ObjDef\BaseObjects.cs" />
     <Compile Include="Controls\CoordConvertCtrl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -111,6 +107,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="StaticObj\CommonClass.cs" />
+    <Compile Include="StaticObj\Constants.cs" />
     <Compile Include="StaticObj\NodeInfo.cs" />
     <Compile Include="ObjDef\GEOEnum.cs" />
     <Compile Include="ObjDef\GEOBL.cs" />
@@ -147,18 +144,14 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\en_us.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>en_us.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\zh_cn.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>zh_cn.Designer.cs</LastGenOutput>
+    <EmbeddedResource Include="Resources\Lang.en-US.resx" />
+    <EmbeddedResource Include="Resources\Lang.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Lang.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -19,8 +19,7 @@ namespace GeodeticCoordinateConversion
     public partial class CoordConvertLayout : UserControl
     {
         public string Hint { get; private set; }
-        static Properties.Settings S = new Properties.Settings();
-        public static ResourceManager rm = new ResourceManager("GeodeticCoordinateConversion.Resources." + S.Language, Assembly.GetExecutingAssembly());
+        public static ResourceManager rm = new ResourceManager(Constants.ResourceSpace, Assembly.GetExecutingAssembly());
 
         public delegate void ConvertSelectionChangeEventHander(object sender,string tag, EventArgs e);
         public event ConvertSelectionChangeEventHander ConvertSelectionChange;

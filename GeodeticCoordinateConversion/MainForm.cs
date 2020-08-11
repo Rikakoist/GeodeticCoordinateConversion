@@ -17,7 +17,7 @@ namespace GeodeticCoordinateConversion
     public partial class MainForm : Form
     {
         private static Settings AppSettings = new Settings();
-        public static ResourceManager rm = new ResourceManager("GeodeticCoordinateConversion.Resources." + AppSettings.Language, Assembly.GetExecutingAssembly());
+        public static ResourceManager rm = new ResourceManager(Constants.ResourceSpace, Assembly.GetExecutingAssembly());
 
         private FileIO DataFile = new FileIO();
         public string Hint { get => HintLabel.Text; set => HintLabel.Text = value; }
@@ -290,7 +290,7 @@ namespace GeodeticCoordinateConversion
                 //DataSource = GEODataTables.GetEnumType(GEOEllipseType),
                 DisplayMember = nameof(GEOEllipseType),
                 DataPropertyName = nameof(Ellipse.EllipseType),
-                ValueMember = "Value"
+                ValueMember = Constants.ValueCol
             };
             CoordDGV.Columns.Remove(CoordDGV.Columns[nameof(Ellipse.EllipseType)]);
             CoordDGV.Columns.Insert(CoordDGV.Columns[nameof(CoordConvert.L)].Index + 1, EllCol);
@@ -304,10 +304,15 @@ namespace GeodeticCoordinateConversion
                 DataSource = GEODataTables.GetZoneType(),
                 DisplayMember = nameof(GEOZoneType),
                 DataPropertyName = nameof(CoordConvert.ZoneType),
-                ValueMember = "Value"
+                ValueMember = Constants.ValueCol
             };
             CoordDGV.Columns.Remove(CoordDGV.Columns[nameof(CoordConvert.ZoneType)]);
             CoordDGV.Columns.Insert(CoordDGV.Columns[nameof(CoordConvert.Y)].Index + 1, ZoneCol);
+
+            foreach(DataGridViewColumn DC in CoordDGV.Columns)
+            {
+                DC.HeaderText = rm.GetString(DC.Name);
+            }
         }
 
         //坐标转换正反算操作
@@ -385,10 +390,15 @@ namespace GeodeticCoordinateConversion
                 DataSource = GEODataTables.GetEllipseType(),
                 DisplayMember = nameof(GEOEllipseType),
                 DataPropertyName = nameof(Ellipse.EllipseType),
-                ValueMember = "Value"
+                ValueMember = Constants.ValueCol
             };
             ZoneDGV.Columns.Remove(ZoneDGV.Columns[nameof(Ellipse.EllipseType)]);
             ZoneDGV.Columns.Insert(ZoneDGV.Columns[nameof(ZoneConvert.Y6)].Index + 1, Ell);
+
+            foreach (DataGridViewColumn DC in ZoneDGV.Columns)
+            {
+                DC.HeaderText = rm.GetString(DC.Name);
+            }
         }
 
         //换带操作

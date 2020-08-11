@@ -15,8 +15,7 @@ namespace GeodeticCoordinateConversion
     /// </summary>
     public static class ErrMessage
     {
-        private static Settings S = new Settings();
-        private static ResourceManager rm = new ResourceManager("GeodeticCoordinateConversion.Resources." + S.Language, Assembly.GetExecutingAssembly());
+        public static ResourceManager rm = new ResourceManager(Constants.ResourceSpace, Assembly.GetExecutingAssembly());
 
         /// <summary>
         /// 坐标转换错误。
@@ -362,8 +361,7 @@ namespace GeodeticCoordinateConversion
     /// </summary>
     public static class Hints
     {
-        private static Settings S = new Settings();
-        private static ResourceManager rm = new ResourceManager("GeodeticCoordinateConversion.Resources." + S.Language, Assembly.GetExecutingAssembly());
+        public static ResourceManager rm = new ResourceManager(Constants.ResourceSpace, Assembly.GetExecutingAssembly());
 
         /// <summary>
         /// 获取问候语。
@@ -559,8 +557,7 @@ namespace GeodeticCoordinateConversion
     /// </summary>
     public static class DBStr
     {
-        private static Settings S = new Settings();
-        private static ResourceManager rm = new ResourceManager("GeodeticCoordinateConversion.Resources." + S.Language, Assembly.GetExecutingAssembly());
+        public static ResourceManager rm = new ResourceManager(Constants.ResourceSpace, Assembly.GetExecutingAssembly());
 
         /// <summary>
         /// 数据状态。

@@ -1,7 +1,9 @@
 ﻿using GeodeticCoordinateConversion.Properties;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -39,6 +41,11 @@ namespace GeodeticCoordinateConversion
             }
 
             AppSettings.Save();
+
+            CultureInfo info = new CultureInfo(AppSettings.Language.Replace("_","-"));
+            Thread.CurrentThread.CurrentCulture = info;
+            Thread.CurrentThread.CurrentUICulture = info;
+
             DBIO.CheckDBExists();
             DBIO.OpenConnection();
             Application.Run(new MainForm());

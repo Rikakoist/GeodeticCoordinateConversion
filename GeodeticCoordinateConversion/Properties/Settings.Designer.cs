@@ -217,7 +217,7 @@ namespace GeodeticCoordinateConversion.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("zh_cn")]
+        [global::System.Configuration.DefaultSettingValueAttribute("zh_CN")]
         public string Language {
             get {
                 return ((string)(this["Language"]));

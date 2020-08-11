@@ -1,0 +1,937 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AbortChange" xml:space="preserve">
+    <value>Abort changed settings</value>
+    <comment>SettingsForm</comment>
+  </data>
+  <data name="About" xml:space="preserve">
+    <value>About</value>
+    <comment>SettingsForm</comment>
+  </data>
+  <data name="AddNewRecordToTable" xml:space="preserve">
+    <value>Add new record to current table</value>
+    <comment>TableViewCtrl</comment>
+  </data>
+  <data name="AddNewRow" xml:space="preserve">
+    <value>Add new row</value>
+    <comment>CoordConvertLayout</comment>
+  </data>
+  <data name="Appearance" xml:space="preserve">
+    <value>Appearance</value>
+    <comment>SettingsForm</comment>
+  </data>
+  <data name="AppTitle" xml:space="preserve">
+    <value>Geodetic coordinate conversion applet</value>
+    <comment>MainForm</comment>
+  </data>
+  <data name="ArgumentUnknown" xml:space="preserve">
+    <value>Unknown argument.</value>
+    <comment>ErrMessage.Generic</comment>
+  </data>
+  <data name="BindEventFailed" xml:space="preserve">
+    <value>Failed to bind event.</value>
+    <comment>ErrMessage.Generic</comment>
+  </data>
+  <data name="BiotitudeOutOfRange" xml:space="preserve">
+    <value>Biotitude should between {0} and {1}, current value: {2}.</value>
+    <comment>ErrMessage.Data</comment>
+  </data>
+  <data name="CalculatedColor" xml:space="preserve">
+    <value>Calculated color</value>
+    <comment>SettingsForm</comment>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+    <comment>SettingsForm</comment>
+  </data>
+  <data name="ClearExistingRecordData2DB" xml:space="preserve">
+    <value>Clear existing record before saving data to database</value>
+    <comment>SettingsForm</comment>
+  </data>
+  <data name="ClearExistingRecordData2File" xml:space="preserve">
+    <value>Clear existing record before saving data to file</value>
+    <comment>SettingsForm</comment>
+  </data>
+  <data name="ClearExistingRecordDB2File" xml:space="preserve">
+    <value>Clear existing record before exporting database to file</value>
+    <comment>SettingsForm</comment>
+  </data>
+  <data name="ClearExistingRecordFile2DB" xml:space="preserve">
+    <value>Clear existing record before importing file to database</value>
+    <comment>SettingsForm</comment>
+  </data>
+  <data name="Comma" xml:space="preserve">
+    <value>, </value>
+    <comment>Hints.Greet</comment>
+  </data>
+  <data name="Convert3To6Failed" xml:space="preserve">
+    <value>Failed to convert zone 3 to zone 6.</value>
+    <comment>ErrMessage.ZoneConvert</comment>
+  </data>
+  <data name="Convert6To3Failed" xml:space="preserve">
+    <value>Failed to convert zone 6 to zone 3.</value>
+    <comment>ErrMessage.ZoneConvert</comment>
+  </data>
+  <data name="ConvertFromStringFailed" xml:space="preserve">
+    <value>Failed to read DMS info from string.</value>
+    <comment>ErrMessage.DMS</comment>
+  </data>
+  <data name="ConvertOperationFailed" xml:space="preserve">
+    <value>Failed to perform conversion operation, please check and try again later.</value>
+    <comment>ErrMessage.Generic</comment>
+  </data>
+  <data name="ConvertResult" xml:space="preserve">
+    <value>{0} finished,  {1} record (s) in total, {2} calculated, {3} success, {4} failed.</value>
+    <comment>Hints.ConvertResult</comment>
+  </data>
+  <data name="ConvertToStringFailed" xml:space="preserve">
+    <value>Failed to convert DMS info to string.</value>
+    <comment>ErrMessage.DMS</comment>
+  </data>
+  <data name="CoordConvert" xml:space="preserve">
+    <value>Coord convert</value>
+  </data>
+  <data name="CoordConvertBL" xml:space="preserve">
+    <value>GUID of GEOBL in current record.</value>
+    <comment>DBStr.CoordConvert</comment>
+  </data>
+  <data name="CoordConvertGauss" xml:space="preserve">
+    <value>GUID of Gauss coord in current record.</value>
+    <comment>DBStr.CoordConvert</comment>
+  </data>
+  <data name="CoordConvertInitializeError" xml:space="preserve">
+    <value>Error initializing coord convert object.</value>
+    <comment>ErrMessage.CoordConvert</comment>
+  </data>
+  <data name="CoordConvertSaveToXmlFailed" xml:space="preserve">
+    <value>Failed to save coord convert object to XML structure.</value>
+    <comment>ErrMessage.CoordConvert</comment>
+  </data>
+  <data name="CoordConvertUID" xml:space="preserve">
+    <value>GUID of coord convert record.</value>
+    <comment>DBStr.CoordConvert</comment>
+  </data>
+  <data name="CorrectColor" xml:space="preserve">
+    <value>Correct record color</value>
+    <comment>SettingsForm</comment>
+  </data>
+  <data name="Data" xml:space="preserve">
+    <value>Data</value>
+    <comment>SettingsForm</comment>
+  </data>
+  <data name="DataFileInitializeError" xml:space="preserve">
+    <value>Error initializing data file.</value>
+    <comment>ErrMessage.DataFile</comment>
+  </data>
+  <data name="DataFileName" xml:space="preserve">
+    <value>Data file name</value>
+    <comment>SettingsForm</comment>
+  </data>
+  <data name="DataGridViewNotExist" xml:space="preserve">
+    <value>Current tab doesn't contain DataGridView for calculation.</value>
+    <comment>ErrMessage.Data</comment>
+  </data>
+  <data name="DataLoaded" xml:space="preserve">
+    <value>Successfully loaded {1} {2} record(s) from {0}.</value>
+    <comment>Hints.DataLoaded</comment>
+  </data>
+  <data name="DataSaved" xml:space="preserve">
+    <value>Successfully saved {0} {1} record(s) to {2}.</value>
+    <comment>Hints.DataSaved</comment>
+  </data>
+  <data name="DataStatusCalculated" xml:space="preserve">
+    <value>Record calculated.</value>
+    <comment>DBStr.DataStatus</comment>
+  </data>
+  <data name="DataStatusDirty" xml:space="preserve">
+    <value>Record dirty.</value>
+    <comment>DBStr.DataStatus</comment>
+  </data>
+  <data name="DataStatusError" xml:space="preserve">
+    <value>Record has calculation error.</value>
+    <comment>DBStr.DataStatus</comment>
+  </data>
+  <data name="DataStatusSelected" xml:space="preserve">
+    <value>Record selected.</value>
+    <comment>DBStr.DataStatus</comment>
+  </data>
+  <data name="DataTable" xml:space="preserve">
+    <value>Table</value>
+    <comment>TableViewCtrl</comment>
+  </data>
+  <data name="DBInitializeError" xml:space="preserve">
+    <value>Error initializing database.</value>
+    <comment>ErrMessage.DB</comment>
+  </data>
+  <data name="DBName" xml:space="preserve">
+    <value>Database name</value>
+    <comment>SettingsForm</comment>
+  </data>
+  <data name="DBSavedToFile" xml:space="preserve">
+    <value>Successfully exported {1} coord convert record(s) and {2} zone convert record(s) from database {0} to file {3}.</value>
+    <comment>Hints.DBSavedToFile</comment>
+  </data>
+  <data name="DBTab" xml:space="preserve">
+    <value>View data</value>
+    <comment>MainForm</comment>
+  </data>
+  <data name="DeepNight" xml:space="preserve">
+    <value>It's Deep♂Dark♂Fantasy</value>
+    <comment>Hints.Greet</comment>
+  </data>
+  <data name="DefaultCellColor" xml:space="preserve">
+    <value>Default cell color</value>
+    <comment>SettingsForm</comment>
+  </data>
+  <data name="DefaultEllipse" xml:space="preserve">
+    <value>Default ellipse</value>
+    <comment>SettingsForm</comment>
+  </data>
+  <data name="DefaultEllipseAddingRow" xml:space="preserve">
+    <value>Default ellipse for new record</value>
+    <comment>SettingsForm</comment>
+  </data>
+  <data name="DefaultZoneType" xml:space="preserve">
+    <value>Default zone type</value>
+    <comment>SettingsForm</comment>
+  </data>
+  <data name="DefaultZoneTypeAddingRow" xml:space="preserve">
+    <value>Default zone type for new record</value>
+    <comment>SettingsForm</comment>
+  </data>
+  <data name="DegreeOutOfRange" xml:space="preserve">
+    <value>Degree should between {0} and {1}, current value: {2}.</value>
+    <comment>ErrMessage.Data</comment>
+  </data>
+  <data name="DeleteRow" xml:space="preserve">
+    <value>Delete selected row(s)</value>
+    <comment>CoordConvertLayout</comment>
+  </data>
+  <data name="DeleteSelectedRecord" xml:space="preserve">
+    <value>Delete selected record(s)</value>
+    <comment>TableViewCtrl</comment>
+  </data>
+  <data name="DirectoryNotFound" xml:space="preserve">
+    <value>Spicified directory not found.</value>
+    <comment>ErrMessage.Generic</comment>
+  </data>
+  <data name="Dirty" xml:space="preserve">
+    <value>Dirty</value>
+  </data>
+  <data name="DirtyColor" xml:space="preserve">
+    <value>Dirty record color</value>
+    <comment>SettingsForm</comment>
+  </data>
+  <data name="DMSInitializeError" xml:space="preserve">
+    <value>Error initializing DMS object.</value>
+    <comment>ErrMessage.DMS</comment>
+  </data>
+  <data name="DMSNull" xml:space="preserve">
+    <value>DMS object not initialized.</value>
+    <comment>ErrMessage.DMS</comment>
+  </data>
+  <data name="DMSSaveToXmlFailed" xml:space="preserve">
+    <value>Failed to save DMS object to XML structure.</value>
+    <comment>ErrMessage.DMS</comment>
+  </data>
+  <data name="EllipseNotSet" xml:space="preserve">
+    <value>Ellipse type not set.</value>
+    <comment>ErrMessage.GEOEllipse</comment>
+  </data>
+  <data name="EllipseNull" xml:space="preserve">
+    <value>Ellipse object not initialized.</value>
+    <comment>ErrMessage.GEOEllipse</comment>
+  </data>
+  <data name="EllipseUnknown" xml:space="preserve">
+    <value>Unknown ellipse type.</value>
+    <comment>ErrMessage.GEOEllipse</comment>
+  </data>
+  <data name="EmptyDataGridView" xml:space="preserve">
+    <value>Target DataGridView is empty.</value>
+    <comment>ErrMessage.Data</comment>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>English</value>
+    <comment>SettingsForm</comment>
+  </data>
+  <data name="ErrorColor" xml:space="preserve">
+    <value>Error record color</value>
+    <comment>SettingsForm</comment>
+  </data>
+  <data name="ErrSpecifyingDataFile" xml:space="preserve">
+    <value>Failed to specify data file.</value>
+    <comment>ErrMessage.Data</comment>
+  </data>
+  <data name="FileNotFound" xml:space="preserve">
+    <value>Spicified file not found.</value>
+    <comment>ErrMessage.Generic</comment>
+  </data>
+  <data name="FileSavedToDB" xml:space="preserve">
+    <value>Successfully imported {1} coord convert record(s) and {2} zone convert record(s) from file {0} to database {3}.</value>
+    <comment>Hints.FileSavedToDB</comment>
+  </data>
+  <data name="FunctionNotImplemented" xml:space="preserve">
+    <value>This function hasn't been implemented.</value>
+    <comment>ErrMessage.Generic</comment>
+  </data>
+  <data name="GaussCoord" xml:space="preserve">
+    <value>Gauss coord</value>
+  </data>
+  <data name="GaussCoordEllipseType" xml:space="preserve">
+    <value>Ellipse type of current Gauss coord record.</value>
+    <comment>DBStr.GaussCoord</comment>
+  </data>
+  <data name="GaussCoordInitializeError" xml:space="preserve">
+    <value>Error initializing Gauss coord object.</value>
+    <comment>ErrMessage.GaussCoord</comment>
+  </data>
+  <data name="GaussCoordSaveToXmlFailed" xml:space="preserve">
+    <value>Failed to save Gauss coord object to XML structure.</value>
+    <comment>ErrMessage.GaussCoord</comment>
+  </data>
+  <data name="GaussCoordUID" xml:space="preserve">
+    <value>GUID of Gauss coord record.</value>
+    <comment>DBStr.GaussCoord</comment>
+  </data>
+  <data name="GaussCoordX" xml:space="preserve">
+    <value>X coordinate in zone.</value>
+    <comment>DBStr.GaussCoord</comment>
+  </data>
+  <data name="GaussCoordY" xml:space="preserve">
+    <value>Y coordinate in zone.</value>
+    <comment>DBStr.GaussCoord</comment>
+  </data>
+  <data name="GaussCoordZone" xml:space="preserve">
+    <value>Zone num of current Gauss coord record.</value>
+    <comment>DBStr.GaussCoord</comment>
+  </data>
+  <data name="GaussCoordZoneType" xml:space="preserve">
+    <value>Zone type of current Gauss coord record.</value>
+    <comment>DBStr.GaussCoord</comment>
+  </data>
+  <data name="GaussDirectFailed" xml:space="preserve">
+    <value>Failed to execute Gauss direct.</value>
+    <comment>ErrMessage.GEOBL</comment>
+  </data>
+  <data name="GaussNull" xml:space="preserve">
+    <value>Gauss coord object not initialized.</value>
+    <comment>ErrMessage.GaussCoord</comment>
+  </data>
+  <data name="GaussReverseFailed" xml:space="preserve">
+    <value>Failed to execute Gauss reverse.</value>
+    <comment>ErrMessage.GaussCoord</comment>
+  </data>
+  <data name="GaussToGEOBLFailed" xml:space="preserve">
+    <value>Failed to convert Gauss coord to GEOBL.</value>
+    <comment>ErrMessage.CoordConvert</comment>
+  </data>
+  <data name="General" xml:space="preserve">
+    <value>General</value>
+    <comment>SettingsForm</comment>
+  </data>
+  <data name="GEOBL" xml:space="preserve">
+    <value>Geodetic BL</value>
+  </data>
+  <data name="GEOBLB" xml:space="preserve">
+    <value>String that representing latitude.</value>
+    <comment>DBStr.GEOBL</comment>
+  </data>
+  <data name="GEOBLEllipseType" xml:space="preserve">
+    <value>Ellipse type of current GEOBL record.</value>
+    <comment>DBStr.GEOBL</comment>
+  </data>
+  <data name="GEOBLInitializeError" xml:space="preserve">
+    <value>Error initializing GEOBL object.</value>
+    <comment>ErrMessage.GEOBL</comment>
+  </data>
+  <data name="GEOBLL" xml:space="preserve">
+    <value>String that representing longitude.</value>
+    <comment>DBStr.GEOBL</comment>
+  </data>
+  <data name="GEOBLNull" xml:space="preserve">
+    <value>GEOBL object not initialized.</value>
+    <comment>ErrMessage.GEOBL</comment>
+  </data>
+  <data name="GEOBLSaveToXmlFailed" xml:space="preserve">
+    <value>Failed to save GEOBL object to XML structure.</value>
+    <comment>ErrMessage.GEOBL</comment>
+  </data>
+  <data name="GEOBLToGaussFailed" xml:space="preserve">
+    <value>Failed to convert GEOBL to Gauss coord.</value>
+    <comment>ErrMessage.CoordConvert</comment>
+  </data>
+  <data name="GEOBLUID" xml:space="preserve">
+    <value>GUID of GEOBL record.</value>
+    <comment>DBStr.GEOBL</comment>
+  </data>
+  <data name="GEOBLZoneType" xml:space="preserve">
+    <value>Zone type of current GEOBL record.</value>
+    <comment>DBStr.GEOBL</comment>
+  </data>
+  <data name="GEOEllipseInitializeError" xml:space="preserve">
+    <value>Error initializing ellipse object.</value>
+    <comment>ErrMessage.GEOEllipse</comment>
+  </data>
+  <data name="GEOEllipseSaveToXmlFailed" xml:space="preserve">
+    <value>Failed to save ellipse object to XML structure.</value>
+    <comment>ErrMessage.GEOEllipse</comment>
+  </data>
+  <data name="GetCenterFailed" xml:space="preserve">
+    <value>Failed to calculate central meridian.</value>
+    <comment>ErrMessage.GaussCoord</comment>
+  </data>
+  <data name="GoodAfternoon" xml:space="preserve">
+    <value>Good afternoon</value>
+    <comment>Hints.Greet</comment>
+  </data>
+  <data name="GoodEvening" xml:space="preserve">
+    <value>Good evening</value>
+    <comment>Hints.Greet</comment>
+  </data>
+  <data name="GoodMorning" xml:space="preserve">
+    <value>Good morning</value>
+    <comment>Hints.Greet</comment>
+  </data>
+  <data name="GoodNoon" xml:space="preserve">
+    <value>Good noon</value>
+    <comment>Hints.Greet</comment>
+  </data>
+  <data name="Halo" xml:space="preserve">
+    <value>Halo</value>
+    <comment>Hints.Greet</comment>
+  </data>
+  <data name="Hello" xml:space="preserve">
+    <value>Hello</value>
+    <comment>Hints.Greet</comment>
+  </data>
+  <data name="InvertSelect" xml:space="preserve">
+    <value>Invert selection</value>
+    <comment>MainForm</comment>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Language</value>
+    <comment>SettingsForm</comment>
+  </data>
+  <data name="LoadDB" xml:space="preserve">
+    <value>Load records from database</value>
+    <comment>CoordConvertLayout</comment>
+  </data>
+  <data name="LoadDBFromFile" xml:space="preserve">
+    <value>Import data from file</value>
+    <comment>TableViewCtrl</comment>
+  </data>
+  <data name="LoadFile" xml:space="preserve">
+    <value>Load records from file</value>
+    <comment>CoordConvertLayout</comment>
+  </data>
+  <data name="LongitudeOutOfRange" xml:space="preserve">
+    <value>Longitude should between {0} and {1}, current value: {2}.</value>
+    <comment>ErrMessage.Data</comment>
+  </data>
+  <data name="MinuteOutOfRange" xml:space="preserve">
+    <value>Minute should between {0} and {1}, current value: {2}.</value>
+    <comment>ErrMessage.Data</comment>
+  </data>
+  <data name="NewDay" xml:space="preserve">
+    <value>It's a new day</value>
+    <comment>Hints.Greet</comment>
+  </data>
+  <data name="NightOwl" xml:space="preserve">
+    <value>Night owl</value>
+    <comment>Hints.Greet</comment>
+  </data>
+  <data name="NowLoading" xml:space="preserve">
+    <value>Now loading...</value>
+    <comment>MainForm</comment>
+  </data>
+  <data name="OpenWorkFolder" xml:space="preserve">
+    <value>Open work folder</value>
+    <comment>SettingsForm</comment>
+  </data>
+  <data name="OperationCanceledByUser" xml:space="preserve">
+    <value>Operation canceled by user.</value>
+    <comment>Hints</comment>
+  </data>
+  <data name="PeriodComma" xml:space="preserve">
+    <value>.</value>
+    <comment>Hints.Greet</comment>
+  </data>
+  <data name="ProjectAddressOnGithub" xml:space="preserve">
+    <value>Project address on Github</value>
+    <comment>AboutApp</comment>
+  </data>
+  <data name="ReloadTable" xml:space="preserve">
+    <value>Reload current table from database</value>
+    <comment>TableViewCtrl</comment>
+  </data>
+  <data name="ResetDefault" xml:space="preserve">
+    <value>Reset</value>
+    <comment>SettingsForm</comment>
+  </data>
+  <data name="ResetDefaultRequireStart" xml:space="preserve">
+    <value>Reset settings (restart required)</value>
+    <comment>SettingsForm</comment>
+  </data>
+  <data name="RowAdded" xml:space="preserve">
+    <value>Added 1 new record.</value>
+    <comment>Hints.RowAdded</comment>
+  </data>
+  <data name="RowDeleted" xml:space="preserve">
+    <value>Deleted {0} record(s).</value>
+    <comment>Hints.RowDeleted</comment>
+  </data>
+  <data name="SameZoneType" xml:space="preserve">
+    <value>Two Gauss coord objects that used to initialize have save zone type.</value>
+    <comment>ErrMessage.GaussCoord</comment>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+    <comment>SettingsForm</comment>
+  </data>
+  <data name="SaveBtnRequireRestart" xml:space="preserve">
+    <value>Save changes (restart required)</value>
+    <comment>SettingsForm</comment>
+  </data>
+  <data name="SaveDB" xml:space="preserve">
+    <value>Save records to database</value>
+    <comment>CoordConvertLayout</comment>
+  </data>
+  <data name="SaveDBToFile" xml:space="preserve">
+    <value>Export database to file</value>
+    <comment>TableViewCtrl</comment>
+  </data>
+  <data name="SaveFile" xml:space="preserve">
+    <value>Save records to file</value>
+    <comment>CoordConvertLayout</comment>
+  </data>
+  <data name="SaveTableChanges" xml:space="preserve">
+    <value>Save changes made to selected table</value>
+    <comment>TableViewCtrl</comment>
+  </data>
+  <data name="SecondOutOfRange" xml:space="preserve">
+    <value>Second should between {0} and {1}, current value: {2}.</value>
+    <comment>ErrMessage.Data</comment>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Select all</value>
+    <comment>MainForm</comment>
+  </data>
+  <data name="SelectedColor" xml:space="preserve">
+    <value>Selected record color</value>
+    <comment>SettingsForm</comment>
+  </data>
+  <data name="SelectNone" xml:space="preserve">
+    <value>Select none</value>
+    <comment>MainForm</comment>
+  </data>
+  <data name="SelectWorkFolder" xml:space="preserve">
+    <value>Select work folder</value>
+    <comment>SettingsForm</comment>
+  </data>
+  <data name="SetAppLanguage" xml:space="preserve">
+    <value>Set UI language</value>
+    <comment>SettingsForm</comment>
+  </data>
+  <data name="SetCenterFailed" xml:space="preserve">
+    <value>Failed to set central meridian.</value>
+    <comment>ErrMessage.GaussCoord</comment>
+  </data>
+  <data name="SetDBPathFailed" xml:space="preserve">
+    <value>Failed to set database directory.</value>
+    <comment>ErrMessage.DB</comment>
+  </data>
+  <data name="SetDocPathFailed" xml:space="preserve">
+    <value>Failed to set data file directory.</value>
+    <comment>ErrMessage.DataFile</comment>
+  </data>
+  <data name="SetEllipseTypeFailed" xml:space="preserve">
+    <value>Failed to set ellipse type.</value>
+    <comment>ErrMessage.GEOEllipse</comment>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="SettingTitle" xml:space="preserve">
+    <value>Application settings</value>
+    <comment>SettingsForm</comment>
+  </data>
+  <data name="SetZoneFailed" xml:space="preserve">
+    <value>Failed to set zone num of Gauss coord.</value>
+    <comment>ErrMessage.GaussCoord</comment>
+  </data>
+  <data name="SimplifiedChinese" xml:space="preserve">
+    <value>Simplified Chinese</value>
+    <comment>SettingsForm</comment>
+  </data>
+  <data name="SwitchAfterGaussTransfer" xml:space="preserve">
+    <value>Switch tabpage after transferring coord convert to zone convert</value>
+    <comment>SettingsForm</comment>
+  </data>
+  <data name="TableListLoaded" xml:space="preserve">
+    <value>Found {1} table(s) in database {0}.</value>
+    <comment>Hints.TableListLoaded</comment>
+  </data>
+  <data name="TableRecordCount" xml:space="preserve">
+    <value>Found {1} record(s) in table {0}.</value>
+    <comment>Hints.TableRecordCount</comment>
+  </data>
+  <data name="TableReloaded" xml:space="preserve">
+    <value>Reloaded {1} from {0}.</value>
+    <comment>Hints.TableReloaded</comment>
+  </data>
+  <data name="TransferToZoneConvert" xml:space="preserve">
+    <value>Transfer Gauss coord to zone convert</value>
+    <comment>CoordConvertLayout</comment>
+  </data>
+  <data name="WorkFolder" xml:space="preserve">
+    <value>Work folder</value>
+    <comment>SettingsForm</comment>
+  </data>
+  <data name="WrongDigitPosition" xml:space="preserve">
+    <value>Wrong digit position in string.</value>
+    <comment>ErrMessage.Data</comment>
+  </data>
+  <data name="Zone3OutOfRange" xml:space="preserve">
+    <value>Zone num (3) should between {0} and {1}, current value: {2}.</value>
+    <comment>ErrMessage.Data</comment>
+  </data>
+  <data name="Zone6OutOfRange" xml:space="preserve">
+    <value>Zone num (6) should between {0} and {1}, current value: {2}.</value>
+    <comment>ErrMessage.Data</comment>
+  </data>
+  <data name="ZoneConvert" xml:space="preserve">
+    <value>Zone convert</value>
+  </data>
+  <data name="ZoneConvertFailed" xml:space="preserve">
+    <value>Zone convert operation failed.</value>
+    <comment>ErrMessage.ZoneConvert</comment>
+  </data>
+  <data name="ZoneConvertGauss3" xml:space="preserve">
+    <value>GUID of Gauss 3° coord in current record.</value>
+    <comment>DBStr.ZoneConvert</comment>
+  </data>
+  <data name="ZoneConvertGauss6" xml:space="preserve">
+    <value>GUID of Gauss 6° coord in current record.</value>
+    <comment>DBStr.ZoneConvert</comment>
+  </data>
+  <data name="ZoneConvertInitializeError" xml:space="preserve">
+    <value>Error initializing zone convert object.</value>
+    <comment>ErrMessage.ZoneConvert</comment>
+  </data>
+  <data name="ZoneConvertSaveToXmlFailed" xml:space="preserve">
+    <value>Failed to save zone convert object to XML structure.</value>
+    <comment>ErrMessage.ZoneConvert</comment>
+  </data>
+  <data name="ZoneConvertUID" xml:space="preserve">
+    <value>GUID of zone convert record.</value>
+    <comment>DBStr.ZoneConvert</comment>
+  </data>
+  <data name="ZoneTypeNotSet" xml:space="preserve">
+    <value>Zone type not set.</value>
+    <comment>ErrMessage.GEOZone</comment>
+  </data>
+  <data name="ZoneTypeUnknown" xml:space="preserve">
+    <value>Unknown zone type.</value>
+    <comment>ErrMessage.GEOZone</comment>
+  </data>
+  <data name="B" xml:space="preserve">
+    <value>B</value>
+    <comment>CoordConvert</comment>
+  </data>
+  <data name="Calculated" xml:space="preserve">
+    <value>Calculated</value>
+    <comment>DataStatus</comment>
+  </data>
+  <data name="DataFile" xml:space="preserve">
+    <value>Data file</value>
+    <comment>GEODataSourceType</comment>
+  </data>
+  <data name="DB" xml:space="preserve">
+    <value>Database</value>
+    <comment>GEODataSourceType</comment>
+  </data>
+  <data name="DMSValueChangedTypeD" xml:space="preserve">
+    <value>Degree changed</value>
+    <comment>DMSValueChangedType</comment>
+  </data>
+  <data name="DMSValueChangedTypeM" xml:space="preserve">
+    <value>Minute changed</value>
+    <comment>DMSValueChangedType</comment>
+  </data>
+  <data name="DMSValueChangedTypeS" xml:space="preserve">
+    <value>Second changed</value>
+    <comment>DMSValueChangedType</comment>
+  </data>
+  <data name="EllipseChangedTypea" xml:space="preserve">
+    <value>a changed</value>
+    <comment>EllipseChangedType</comment>
+  </data>
+  <data name="EllipseChangedTypeb" xml:space="preserve">
+    <value>b changed</value>
+    <comment>EllipseChangedType</comment>
+  </data>
+  <data name="EllipseChangedTypeEllipseType" xml:space="preserve">
+    <value>Ellipse type changed</value>
+    <comment>EllipseChangedType</comment>
+  </data>
+  <data name="EllipseType" xml:space="preserve">
+    <value>Ellipse</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+    <comment>DataStatus</comment>
+  </data>
+  <data name="GaussDirect" xml:space="preserve">
+    <value>Gauss direct</value>
+    <comment>GEOConvertType</comment>
+  </data>
+  <data name="GaussReverse" xml:space="preserve">
+    <value>Gauss reverse</value>
+    <comment>GEOConvertType</comment>
+  </data>
+  <data name="GaussValueChangedTypeEllipse" xml:space="preserve">
+    <value>Ellipse changed</value>
+    <comment>GaussValueChangedType</comment>
+  </data>
+  <data name="GaussValueChangedTypeX" xml:space="preserve">
+    <value>X changed</value>
+    <comment>GaussValueChangedType</comment>
+  </data>
+  <data name="GaussValueChangedTypeY" xml:space="preserve">
+    <value>Y changed</value>
+    <comment>GaussValueChangedType</comment>
+  </data>
+  <data name="GaussValueChangedTypeZone" xml:space="preserve">
+    <value>Zone num changed</value>
+    <comment>GaussValueChangedType</comment>
+  </data>
+  <data name="GaussValueChangedTypeZoneType" xml:space="preserve">
+    <value>Zone type changed</value>
+    <comment>GaussValueChangedType</comment>
+  </data>
+  <data name="GEOBLValueChangedTypeB" xml:space="preserve">
+    <value>B changed</value>
+    <comment>GEOBLValueChangedType</comment>
+  </data>
+  <data name="GEOBLValueChangedTypeEllipse" xml:space="preserve">
+    <value>Ellipse changed</value>
+    <comment>GEOBLValueChangedType</comment>
+  </data>
+  <data name="GEOBLValueChangedTypeL" xml:space="preserve">
+    <value>L changed</value>
+    <comment>GEOBLValueChangedType</comment>
+  </data>
+  <data name="GEOBLValueChangedTypeZoneType" xml:space="preserve">
+    <value>Zone type changed</value>
+    <comment>GEOBLValueChangedType</comment>
+  </data>
+  <data name="GEOEllipseTypeCGCS_2000" xml:space="preserve">
+    <value>CGCS-2000</value>
+    <comment>GEOEllipseType</comment>
+  </data>
+  <data name="GEOEllipseTypeInt_1975" xml:space="preserve">
+    <value>International 1975</value>
+    <comment>GEOEllipseType</comment>
+  </data>
+  <data name="GEOEllipseTypeKrassovsky_ellipsoid" xml:space="preserve">
+    <value>Krassovsky</value>
+    <comment>GEOEllipseType</comment>
+  </data>
+  <data name="GEOEllipseTypenoEllipse" xml:space="preserve">
+    <value>Not set</value>
+    <comment>GEOEllipseType</comment>
+  </data>
+  <data name="GEOEllipseTypeWGS_84" xml:space="preserve">
+    <value>WGS-84</value>
+    <comment>GEOEllipseType</comment>
+  </data>
+  <data name="GEOZoneType3" xml:space="preserve">
+    <value>Zone 3</value>
+    <comment>GEOZoneType</comment>
+  </data>
+  <data name="GEOZoneType6" xml:space="preserve">
+    <value>Zone 6</value>
+    <comment>GEOZoneType</comment>
+  </data>
+  <data name="GEOZoneTypeNone" xml:space="preserve">
+    <value>None</value>
+    <comment>GEOZoneType</comment>
+  </data>
+  <data name="L" xml:space="preserve">
+    <value>L</value>
+    <comment>CoordConvert</comment>
+  </data>
+  <data name="Selected" xml:space="preserve">
+    <value>Selected</value>
+    <comment>DataStatus</comment>
+  </data>
+  <data name="UID" xml:space="preserve">
+    <value>UID</value>
+    <comment>UIDClass</comment>
+  </data>
+  <data name="X" xml:space="preserve">
+    <value>X</value>
+    <comment>CoordConvert</comment>
+  </data>
+  <data name="X3" xml:space="preserve">
+    <value>3° X</value>
+    <comment>ZoneConvert</comment>
+  </data>
+  <data name="X6" xml:space="preserve">
+    <value>6° X</value>
+    <comment>ZoneConvert</comment>
+  </data>
+  <data name="Y" xml:space="preserve">
+    <value>Y</value>
+    <comment>CoordConvert</comment>
+  </data>
+  <data name="Y3" xml:space="preserve">
+    <value>3° Y</value>
+    <comment>ZoneConvert</comment>
+  </data>
+  <data name="Y6" xml:space="preserve">
+    <value>6° Y</value>
+    <comment>ZoneConvert</comment>
+  </data>
+  <data name="Zone" xml:space="preserve">
+    <value>Zone</value>
+    <comment>CoordConvert</comment>
+  </data>
+  <data name="Zone3" xml:space="preserve">
+    <value>3° zone</value>
+    <comment>ZoneConvert</comment>
+  </data>
+  <data name="Zone3To6" xml:space="preserve">
+    <value>Zone 3° to 6°</value>
+    <comment>GEOConvertType</comment>
+  </data>
+  <data name="Zone6" xml:space="preserve">
+    <value>6° zone</value>
+    <comment>ZoneConvert</comment>
+  </data>
+  <data name="Zone6To3" xml:space="preserve">
+    <value>Zone 6° to 3°</value>
+    <comment>GEOConvertType</comment>
+  </data>
+  <data name="ZoneType" xml:space="preserve">
+    <value>Zone type</value>
+    <comment>CoordConvert</comment>
+  </data>
+</root>
