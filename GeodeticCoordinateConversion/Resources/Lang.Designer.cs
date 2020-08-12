@@ -1519,6 +1519,15 @@ namespace GeodeticCoordinateConversion.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 选择数据文件....
+        /// </summary>
+        public static string SelectDataFile {
+            get {
+                return ResourceManager.GetString("SelectDataFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 选中.
         /// </summary>
         public static string Selected {
@@ -1542,6 +1551,15 @@ namespace GeodeticCoordinateConversion.Resources {
         public static string SelectNone {
             get {
                 return ResourceManager.GetString("SelectNone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 选择保存位置....
+        /// </summary>
+        public static string SelectSavePos {
+            get {
+                return ResourceManager.GetString("SelectSavePos", resourceCulture);
             }
         }
         

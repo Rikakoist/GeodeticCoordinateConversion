@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Resources;
@@ -98,7 +99,56 @@ namespace GeodeticCoordinateConversion
         }
 
         #region Public
-
+        /// <summary>
+        /// 选择路径。
+        /// </summary>
+        /// <param name="fileMode">文件模式。</param>
+        /// <returns>选择的路径。</returns>
+        private string SelectPath(FileMode fileMode)
+        {
+            switch(fileMode)
+            {
+                case FileMode.Open:
+                    {
+                        OpenFileDialog OFD = new OpenFileDialog()
+                        {
+                            AddExtension = true,
+                            CheckPathExists = true,
+                            CheckFileExists=true,
+                            DefaultExt = "xml",
+                            Filter = "XML files (*.xml)|*.xml",
+                            Title = rm.GetString("SelectDataFile"),
+                        };
+                        if (OFD.ShowDialog() == DialogResult.OK)
+                        {
+                            return OFD.FileName;
+                        }
+                        break;
+                    }
+                case FileMode.Create:
+                    {
+                        SaveFileDialog SFD = new SaveFileDialog()
+                        {
+                            AddExtension = true,
+                            CheckPathExists = true,
+                            DefaultExt = "xml",
+                            FileName = new Settings().DataFileName,
+                            Filter = "XML files (*.xml)|*.xml",
+                            Title = rm.GetString("SelectSavePos"),
+                        };
+                        if (SFD.ShowDialog() == DialogResult.OK)
+                        {
+                            return SFD.FileName;
+                        }
+                        break;
+                    }
+                default:
+                    {
+                        break;
+                    }
+            }
+            return string.Empty;
+        }
         //添加行
         private void AddRow(object sender, EventArgs e)
         {
@@ -119,14 +169,46 @@ namespace GeodeticCoordinateConversion
             {
                 if (sender == Coord.LoadFileBtn)
                 {
-                    CoordData = new BindingList<CoordConvert>(await Task.Run(() => DataFile.LoadCoordConvertData()));
+                    if ((ModifierKeys & Keys.Shift) == Keys.Shift)
+                    {
+                        string tmpP = SelectPath(FileMode.Open);
+                        if (File.Exists(tmpP))
+                        {
+                            FileIO FI = new FileIO(Path.GetDirectoryName(tmpP), Path.GetFileName(tmpP));
+                            CoordData = new BindingList<CoordConvert>(await Task.Run(() => FI.LoadCoordConvertData()));
+                        }
+                        else
+                        {
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        CoordData = new BindingList<CoordConvert>(await Task.Run(() => DataFile.LoadCoordConvertData()));
+                    }
                     CoordDGV.DataSource = CoordData;
                     CoordDGV.ClearSelection();
                     Hint = Hints.DataLoaded(GEODataSourceType.File, CoordData.Count(), GEODataType.CoordConvert);
                 }
                 if (sender == Zone.LoadFileBtn)
                 {
-                    ZoneData = new BindingList<ZoneConvert>(await Task.Run(() => DataFile.LoadZoneConvertData()));
+                    if ((ModifierKeys & Keys.Shift) == Keys.Shift)
+                    {
+                        string tmpP = SelectPath(FileMode.Open);
+                        if (File.Exists(tmpP))
+                        {
+                            FileIO FI = new FileIO(Path.GetDirectoryName(tmpP), Path.GetFileName(tmpP));
+                            ZoneData = new BindingList<ZoneConvert>(await Task.Run(() => FI.LoadZoneConvertData()));
+                        }
+                        else
+                        {
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        ZoneData = new BindingList<ZoneConvert>(await Task.Run(() => DataFile.LoadZoneConvertData()));
+                    }
                     ZoneDGV.DataSource = ZoneData;
                     ZoneDGV.ClearSelection();
                     Hint = Hints.DataLoaded(GEODataSourceType.File, ZoneData.Count(), GEODataType.ZoneConvert);
@@ -159,12 +241,44 @@ namespace GeodeticCoordinateConversion
             {
                 if (sender == Coord.SaveFileBtn)
                 {
-                    await Task.Run(() => DataFile.SaveCoordConvertData(CoordData.ToList(), AppSettings.ClearExistingRecordData2File));
+                    if ((ModifierKeys & Keys.Shift) == Keys.Shift)
+                    {
+                        string tmpP = SelectPath(FileMode.Create);
+                        if (File.Exists(tmpP))
+                        {
+                            FileIO FI = new FileIO(Path.GetDirectoryName(tmpP), Path.GetFileName(tmpP));
+                            await Task.Run(() => FI.SaveCoordConvertData(CoordData.ToList(), AppSettings.ClearExistingRecordData2File));
+                        }
+                        else
+                        {
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        await Task.Run(() => DataFile.SaveCoordConvertData(CoordData.ToList(), AppSettings.ClearExistingRecordData2File));
+                    }
                     Hint = Hints.DataSaved(GEODataSourceType.File, CoordData.Count(), GEODataType.CoordConvert);
                 }
                 if (sender == Zone.SaveFileBtn)
                 {
-                    await Task.Run(() => DataFile.SaveZoneConvertData(ZoneData.ToList(), AppSettings.ClearExistingRecordData2File));
+                    if ((ModifierKeys & Keys.Shift) == Keys.Shift)
+                    {
+                        string tmpP = SelectPath(FileMode.Create);
+                        if (File.Exists(tmpP))
+                        {
+                            FileIO FI = new FileIO(Path.GetDirectoryName(tmpP), Path.GetFileName(tmpP));
+                            await Task.Run(() => FI.SaveZoneConvertData(ZoneData.ToList(), AppSettings.ClearExistingRecordData2File));
+                        }
+                        else
+                        {
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        await Task.Run(() => DataFile.SaveZoneConvertData(ZoneData.ToList(), AppSettings.ClearExistingRecordData2File));
+                    }
                     Hint = Hints.DataSaved(GEODataSourceType.File, ZoneData.Count(), GEODataType.ZoneConvert);
                 }
                 if (sender == Coord.SaveDBBtn)

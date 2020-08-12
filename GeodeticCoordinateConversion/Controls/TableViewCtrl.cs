@@ -145,7 +145,7 @@ namespace GeodeticCoordinateConversion
                 DefaultExt = "xml",
                 FileName = new Settings().DataFileName,
                 Filter = "XML files (*.xml)|*.xml",
-                Title = "选择保存位置...",
+                Title = rm.GetString("SelectSavePos"),
             };
             if (SFD.ShowDialog() == DialogResult.OK)
             {
@@ -172,7 +172,7 @@ namespace GeodeticCoordinateConversion
                 DefaultExt = "xml",
                 FileName = new Settings().DataFileName,
                 Filter = "XML files (*.xml)|*.xml",
-                Title = "选择数据文件...",
+                Title = rm.GetString("SelectDataFile"),
             };
             if (OFD.ShowDialog() == DialogResult.OK)
             {

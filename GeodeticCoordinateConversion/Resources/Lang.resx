@@ -933,4 +933,12 @@
     <value>分带</value>
     <comment>CoordConvert</comment>
   </data>
+  <data name="SelectDataFile" xml:space="preserve">
+    <value>选择数据文件...</value>
+    <comment>OpenFileDialog</comment>
+  </data>
+  <data name="SelectSavePos" xml:space="preserve">
+    <value>选择保存位置...</value>
+    <comment>SaveFileDialog</comment>
+  </data>
 </root>

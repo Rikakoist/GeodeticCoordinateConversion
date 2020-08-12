@@ -934,4 +934,12 @@
     <value>Zone type</value>
     <comment>CoordConvert</comment>
   </data>
+  <data name="SelectDataFile" xml:space="preserve">
+    <value>Select data file...</value>
+    <comment>OpenFileDialog</comment>
+  </data>
+  <data name="SelectSavePos" xml:space="preserve">
+    <value>Save as...</value>
+    <comment>SaveFileDialog</comment>
+  </data>
 </root>
