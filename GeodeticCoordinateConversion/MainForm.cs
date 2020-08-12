@@ -106,7 +106,7 @@ namespace GeodeticCoordinateConversion
         /// <returns>选择的路径。</returns>
         private string SelectPath(FileMode fileMode)
         {
-            switch(fileMode)
+            switch (fileMode)
             {
                 case FileMode.Open:
                     {
@@ -114,7 +114,7 @@ namespace GeodeticCoordinateConversion
                         {
                             AddExtension = true,
                             CheckPathExists = true,
-                            CheckFileExists=true,
+                            CheckFileExists = true,
                             DefaultExt = "xml",
                             Filter = "XML files (*.xml)|*.xml",
                             Title = rm.GetString("SelectDataFile"),
@@ -244,15 +244,8 @@ namespace GeodeticCoordinateConversion
                     if ((ModifierKeys & Keys.Shift) == Keys.Shift)
                     {
                         string tmpP = SelectPath(FileMode.Create);
-                        if (File.Exists(tmpP))
-                        {
-                            FileIO FI = new FileIO(Path.GetDirectoryName(tmpP), Path.GetFileName(tmpP));
-                            await Task.Run(() => FI.SaveCoordConvertData(CoordData.ToList(), AppSettings.ClearExistingRecordData2File));
-                        }
-                        else
-                        {
-                            return;
-                        }
+                        FileIO FI = new FileIO(Path.GetDirectoryName(tmpP), Path.GetFileName(tmpP));
+                        await Task.Run(() => FI.SaveCoordConvertData(CoordData.ToList(), AppSettings.ClearExistingRecordData2File));
                     }
                     else
                     {
@@ -265,15 +258,8 @@ namespace GeodeticCoordinateConversion
                     if ((ModifierKeys & Keys.Shift) == Keys.Shift)
                     {
                         string tmpP = SelectPath(FileMode.Create);
-                        if (File.Exists(tmpP))
-                        {
-                            FileIO FI = new FileIO(Path.GetDirectoryName(tmpP), Path.GetFileName(tmpP));
-                            await Task.Run(() => FI.SaveZoneConvertData(ZoneData.ToList(), AppSettings.ClearExistingRecordData2File));
-                        }
-                        else
-                        {
-                            return;
-                        }
+                        FileIO FI = new FileIO(Path.GetDirectoryName(tmpP), Path.GetFileName(tmpP));
+                        await Task.Run(() => FI.SaveZoneConvertData(ZoneData.ToList(), AppSettings.ClearExistingRecordData2File));
                     }
                     else
                     {
@@ -425,7 +411,7 @@ namespace GeodeticCoordinateConversion
             CoordDGV.Columns.Remove(CoordDGV.Columns[nameof(CoordConvert.ZoneType)]);
             CoordDGV.Columns.Insert(CoordDGV.Columns[nameof(CoordConvert.Y)].Index + 1, ZoneCol);
 
-            foreach(DataGridViewColumn DC in CoordDGV.Columns)
+            foreach (DataGridViewColumn DC in CoordDGV.Columns)
             {
                 DC.HeaderText = rm.GetString(DC.Name);
             }
