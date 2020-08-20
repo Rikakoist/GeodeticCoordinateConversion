@@ -230,7 +230,7 @@ namespace GeodeticCoordinateConversion
             }
             catch (Exception err)
             {
-                MessageBoxes.Error(err.ToString());
+                MessageBox.Show(err.ToString());
             }
         }
 
@@ -280,7 +280,7 @@ namespace GeodeticCoordinateConversion
             }
             catch (Exception err)
             {
-                MessageBoxes.Error(err.ToString());
+                MessageBox.Show(err.ToString());
             }
         }
 
@@ -338,7 +338,7 @@ namespace GeodeticCoordinateConversion
             }
             catch (Exception err)
             {
-                MessageBoxes.Error(err.ToString());
+                MessageBox.Show(err.ToString());
             }
         }
 

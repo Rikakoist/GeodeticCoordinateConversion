@@ -25,6 +25,31 @@ namespace GeodeticCoordinateConversion
         /// 秒（私有）。
         /// </summary>
         private double s;
+
+        /// <summary>
+        /// 度最小值。
+        /// </summary>
+        public const double DegreeMin = -360.0;
+        /// <summary>
+        /// 度最大值。
+        /// </summary>
+        public const double DegreeMax = 360.0;
+        /// <summary>
+        /// 分最小值。
+        /// </summary>
+        public const double MinuteMin = 0.0;
+        /// <summary>
+        /// 分最大值。
+        /// </summary>
+        public const double MinuteMax = 3600000.0;
+        /// <summary>
+        /// 秒最小值。
+        /// </summary>
+        public const double SecondMin = 0.0;
+        /// <summary>
+        /// 秒最大值。
+        /// </summary>
+        public const double SecondMax = 1000000000000000;
         #endregion
 
         #region Properties
@@ -36,7 +61,7 @@ namespace GeodeticCoordinateConversion
             get => d;
             set
             {
-                if ((value < Restraints.DegreeMin) || (value > Restraints.DegreeMax))
+                if ((value < DegreeMin) || (value > DegreeMax))
                     throw new ArgumentOutOfRangeException(ErrMessage.Data.DegreeOutOfRange(value));
                 if (d == value)
                     return;
@@ -53,7 +78,7 @@ namespace GeodeticCoordinateConversion
             get => m;
             set
             {
-                if ((value < Restraints.MinuteMin) || (value > Restraints.MinuteMax))
+                if ((value < MinuteMin) || (value > MinuteMax))
                     throw new ArgumentOutOfRangeException(ErrMessage.Data.MinuteOutOfRange(value));
                 if (m == value)
                     return;
@@ -70,7 +95,7 @@ namespace GeodeticCoordinateConversion
             get => s;
             set
             {
-                if ((value < Restraints.SecondMin) || (value > Restraints.SecondMax))
+                if ((value < SecondMin) || (value > SecondMax))
                     throw new ArgumentOutOfRangeException(ErrMessage.Data.SecondOutOfRange(value));
                 if (s == value)
                     return;

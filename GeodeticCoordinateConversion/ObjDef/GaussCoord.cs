@@ -36,6 +36,22 @@ namespace GeodeticCoordinateConversion
         /// 椭球。
         /// </summary>
         public Ellipse GEOEllipse;
+        /// <summary>
+        /// 3度带带号最小值。
+        /// </summary>
+        public static int Zone3Min = 0;
+        /// <summary>
+        /// 3度带带号最大值。
+        /// </summary>
+        public static int Zone3Max = 120;
+        /// <summary>
+        /// 6度带带号最小值。
+        /// </summary>
+        public static int Zone6Min = 0;
+        /// <summary>
+        /// 6度带带号最大值。
+        /// </summary>
+        public static int Zone6Max = 60;
         #endregion
 
         #region Properties
@@ -111,7 +127,7 @@ namespace GeodeticCoordinateConversion
                             }
                         case GEOZoneType.Zone3:
                             {
-                                if ((value < Restraints.Zone3Min) || (value > Restraints.Zone3Max))
+                                if ((value < Zone3Min) || (value > Zone3Max))
                                 {
                                     throw new ArgumentOutOfRangeException(ErrMessage.Data.Zone3OutOfRange(value));
                                 }
@@ -120,7 +136,7 @@ namespace GeodeticCoordinateConversion
                             }
                         case GEOZoneType.Zone6:
                             {
-                                if ((value < Restraints.Zone6Min) || (value > Restraints.Zone6Max))
+                                if ((value < Zone6Min) || (value > Zone6Max))
                                 {
                                     throw new ArgumentOutOfRangeException(ErrMessage.Data.Zone6OutOfRange(value));
                                 }

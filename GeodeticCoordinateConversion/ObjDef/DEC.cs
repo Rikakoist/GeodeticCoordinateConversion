@@ -27,6 +27,22 @@ namespace GeodeticCoordinateConversion
         /// 分带类型（私有）。
         /// </summary>
         private GEOZoneType zoneType;
+        /// <summary>
+        /// 纬度最小值。
+        /// </summary>
+        public static double BiotitudeMin = -90.0;
+        /// <summary>
+        /// 纬度最大值。
+        /// </summary>
+        public static double BiotitudeMax = 90.0;
+        /// <summary>
+        /// 经度最小值。
+        /// </summary>
+        public static double LongitudeMin = -180;
+        /// <summary>
+        /// 经度最大值。
+        /// </summary>
+        public static double LongitudeMax = 360.0;
 
         /// <summary>
         /// 纬度。
@@ -39,7 +55,7 @@ namespace GeodeticCoordinateConversion
             }
             set
             {
-                if ((value < Restraints.BiotitudeMin) || (value > Restraints.BiotitudeMax))
+                if ((value < BiotitudeMin) || (value > BiotitudeMax))
                 {
                     throw new ArgumentOutOfRangeException(ErrMessage.Data.BiotitudeOutOfRange(value));
                 }
@@ -60,7 +76,7 @@ namespace GeodeticCoordinateConversion
             }
             set
             {
-                if ((value < Restraints.LongitudeMin) || (value > Restraints.LongitudeMax))
+                if ((value < LongitudeMin) || (value > LongitudeMax))
                 {
                     throw new ArgumentOutOfRangeException(ErrMessage.Data.LongitudeOutOfRange(value));
                 }

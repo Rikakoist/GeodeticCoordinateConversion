@@ -69,7 +69,7 @@ namespace GeodeticCoordinateConversion
             /// <returns></returns>
             public static string DegreeOutOfRange(double val)
             {
-                return string.Format(rm.GetString("DegreeOutOfRange"), Restraints.DegreeMin.ToString(), Restraints.DegreeMax.ToString(),val);
+                return string.Format(rm.GetString("DegreeOutOfRange"), GeodeticCoordinateConversion.DMS.DegreeMin.ToString(), GeodeticCoordinateConversion.DMS.DegreeMax.ToString(),val);
             }
             /// <summary>
             /// 分超限。
@@ -78,7 +78,7 @@ namespace GeodeticCoordinateConversion
             /// <returns></returns>
             public static string MinuteOutOfRange(double val)
             {
-                return string.Format(rm.GetString("MinuteOutOfRange"), Restraints.MinuteMin.ToString(), Restraints.MinuteMax.ToString(), val);
+                return string.Format(rm.GetString("MinuteOutOfRange"), GeodeticCoordinateConversion.DMS.MinuteMin.ToString(), GeodeticCoordinateConversion.DMS.MinuteMax.ToString(), val);
             }
             /// <summary>
             /// 秒超限。
@@ -87,7 +87,7 @@ namespace GeodeticCoordinateConversion
             /// <returns></returns>
             public static string SecondOutOfRange(double val)
             {
-                return string.Format(rm.GetString("SecondOutOfRange"), Restraints.SecondMin.ToString(), Restraints.SecondMax.ToString(), val);
+                return string.Format(rm.GetString("SecondOutOfRange"), GeodeticCoordinateConversion.DMS.SecondMin.ToString(), GeodeticCoordinateConversion.DMS.SecondMax.ToString(), val);
             }
             /// <summary>
             /// 纬度超限。
@@ -96,7 +96,7 @@ namespace GeodeticCoordinateConversion
             /// <returns></returns>
             public static string BiotitudeOutOfRange(double val)
             {
-                return string.Format(rm.GetString("BiotitudeOutOfRange"), Restraints.BiotitudeMin.ToString(), Restraints.BiotitudeMax.ToString(), val);
+                return string.Format(rm.GetString("BiotitudeOutOfRange"), DEC.BiotitudeMin.ToString(), DEC.BiotitudeMax.ToString(), val);
             }
             /// <summary>
             /// 经度超限。
@@ -105,7 +105,7 @@ namespace GeodeticCoordinateConversion
             /// <returns></returns>
             public static string LongitudeOutOfRange(double val)
             {
-                return string.Format(rm.GetString("LongitudeOutOfRange"), Restraints.LongitudeMin.ToString(), Restraints.LongitudeMax.ToString(), val);
+                return string.Format(rm.GetString("LongitudeOutOfRange"), DEC.LongitudeMin.ToString(), DEC.LongitudeMax.ToString(), val);
             }
             /// <summary>
             /// 3度带带号超限。
@@ -114,7 +114,7 @@ namespace GeodeticCoordinateConversion
             /// <returns></returns>
             public static string Zone3OutOfRange(int val)
             {
-                return string.Format(rm.GetString("Zone3OutOfRange"), Restraints.Zone3Min.ToString(), Restraints.Zone3Max.ToString(), val);
+                return string.Format(rm.GetString("Zone3OutOfRange"), GeodeticCoordinateConversion.GaussCoord.Zone3Min.ToString(), GeodeticCoordinateConversion.GaussCoord.Zone3Max.ToString(), val);
             }
             /// <summary>
             /// 6度带带号超限。
@@ -123,7 +123,7 @@ namespace GeodeticCoordinateConversion
             /// <returns></returns>
             public static string Zone6OutOfRange(int val)
             {
-                return string.Format(rm.GetString("Zone6OutOfRange"), Restraints.Zone6Min.ToString(), Restraints.Zone6Max.ToString(), val);
+                return string.Format(rm.GetString("Zone6OutOfRange"), GeodeticCoordinateConversion.GaussCoord.Zone6Min.ToString(), GeodeticCoordinateConversion.GaussCoord.Zone6Max.ToString(), val);
             }
         }
 
