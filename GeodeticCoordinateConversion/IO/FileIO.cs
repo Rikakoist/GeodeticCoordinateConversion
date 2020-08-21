@@ -186,7 +186,14 @@ namespace GeodeticCoordinateConversion
             }
             foreach (CoordConvert c in Data)
             {
-                rootNode.AppendChild(c.ToXmlElement(document));
+                try
+                {
+                    rootNode.AppendChild(c.ToXmlElement(document));
+                }
+                catch (Exception)
+                {
+                    continue;
+                }
             }
             document.Save(DocPath);
             ModifyTime();
@@ -204,10 +211,16 @@ namespace GeodeticCoordinateConversion
             XmlNodeList XNL = rootNode.SelectNodes(NodeInfo.CoordConvertNodePath);
             if (XNL.Count >= 1)
             {
-
                 foreach (XmlNode x in XNL)
                 {
-                    Data.Add(new CoordConvert(x));
+                    try
+                    {
+                        Data.Add(new CoordConvert(x));
+                    }
+                    catch (Exception)
+                    {
+                        continue;
+                    }
                 }
             }
             return Data;
@@ -232,7 +245,14 @@ namespace GeodeticCoordinateConversion
             }
             foreach (ZoneConvert c in Data)
             {
-                rootNode.AppendChild(c.ToXmlElement(document));
+                try
+                {
+                    rootNode.AppendChild(c.ToXmlElement(document));
+                }
+                catch (Exception)
+                {
+                    continue;
+                }
             }
             document.Save(DocPath);
             ModifyTime();
@@ -250,10 +270,16 @@ namespace GeodeticCoordinateConversion
             XmlNodeList XNL = rootNode.SelectNodes(NodeInfo.ZoneConvertNodePath);
             if (XNL.Count >= 1)
             {
-
                 foreach (XmlNode x in XNL)
                 {
-                    Data.Add(new ZoneConvert(x));
+                    try
+                    {
+                        Data.Add(new ZoneConvert(x));
+                    }
+                    catch (Exception)
+                    {
+                        continue;
+                    }
                 }
             }
             return Data;

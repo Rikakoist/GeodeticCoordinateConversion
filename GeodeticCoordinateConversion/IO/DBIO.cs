@@ -24,11 +24,11 @@ namespace GeodeticCoordinateConversion
         /// <summary>
         /// 数据库文件存放的目录（私有）。
         /// </summary>
-        private static string dbPath = new Settings().WorkFolder;
+        public static string dbPath = new Settings().WorkFolder;
         /// <summary>
         /// 数据库文件名称（私有）。
         /// </summary>
-        private static string dbName = new Settings().DBName;
+        public static string dbName = new Settings().DBName;
         /// <summary>
         /// 数据库文件存放的完整路径。
         /// </summary>
@@ -295,7 +295,14 @@ namespace GeodeticCoordinateConversion
 
             foreach (DataRow r in dt.Rows)
             {
-                Data.Add(new CoordConvert(Guid.Parse(r["UID"].ToString())));
+                try
+                {
+                    Data.Add(new CoordConvert(Guid.Parse(r["UID"].ToString())));
+                }
+                catch (Exception)
+                {
+                    continue;
+                }
             }
             return Data;
         }
@@ -344,7 +351,14 @@ namespace GeodeticCoordinateConversion
 
             foreach (DataRow r in dt.Rows)
             {
-                Data.Add(new ZoneConvert(Guid.Parse(r["UID"].ToString())));
+                try
+                {
+                    Data.Add(new ZoneConvert(Guid.Parse(r["UID"].ToString())));
+                }
+                catch (Exception)
+                {
+                    continue;
+                }
             }
             return Data;
         }
